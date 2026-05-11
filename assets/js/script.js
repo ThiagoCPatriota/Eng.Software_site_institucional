@@ -38,8 +38,29 @@ if (menuToggle && mainNav) {
 
 const sections = [...document.querySelectorAll('main section[id]')];
 
+function getCurrentFileName() {
+  const fileName = window.location.pathname.split('/').pop();
+  return fileName || 'index.html';
+}
+
+function isSamePageHashLink(link) {
+  const href = link.getAttribute('href') || '';
+  const currentFile = getCurrentFileName();
+
+  if (!link.hash) return false;
+  if (href.startsWith('#')) return true;
+  if (href.startsWith(`${currentFile}#`)) return true;
+  if (currentFile === 'index.html' && href.startsWith('index.html#')) return true;
+
+  return false;
+}
+
 function updateActiveLink() {
-  const scrollPosition = window.scrollY + 120;
+  const samePageLinks = [...navLinks].filter(isSamePageHashLink);
+
+  if (!sections.length || !samePageLinks.length) return;
+
+  const scrollPosition = window.scrollY + 130;
   let currentSection = sections[0]?.id;
 
   sections.forEach((section) => {
@@ -48,8 +69,8 @@ function updateActiveLink() {
     }
   });
 
-  navLinks.forEach((link) => {
-    const isActive = link.getAttribute('href') === `#${currentSection}`;
+  samePageLinks.forEach((link) => {
+    const isActive = link.hash === `#${currentSection}`;
     link.classList.toggle('active', isActive);
   });
 }
@@ -106,3 +127,18 @@ if ('IntersectionObserver' in window) {
 } else {
   revealItems.forEach((item) => item.classList.add('visible'));
 }
+
+const faqItems = document.querySelectorAll('.faq-item');
+
+faqItems.forEach((item) => {
+  const button = item.querySelector('button');
+  const icon = button?.querySelector('span');
+
+  if (!button) return;
+
+  button.addEventListener('click', () => {
+    const isOpen = item.classList.toggle('is-open');
+    button.setAttribute('aria-expanded', String(isOpen));
+    if (icon) icon.textContent = isOpen ? '−' : '+';
+  });
+});

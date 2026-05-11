@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Site institucional do curso de Engenharia de Software, com informações sobre o curso, formas de ingresso, diferenciais, mercado de trabalho e contato." />
+  <meta name="description" content="Site institucional do curso de Engenharia de Software do IFPE Campus Belo Jardim, com informações sobre o curso, formas de ingresso, diferenciais, mercado de trabalho e contato." />
   <meta name="author" content="Projeto final da disciplina de Web" />
-  <title>Engenharia de Software | Curso</title>
+  <title>Engenharia de Software | IFPE Campus Belo Jardim</title>
   <link rel="icon" href="assets/img/logo-es.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
@@ -14,8 +14,8 @@
 
   <header class="site-header" id="topo">
     <div class="container header-wrapper">
-      <a class="brand" href="#inicio" aria-label="Página inicial do curso de Engenharia de Software">
-        <img src="assets/img/logo-es.svg" alt="Engenharia de Software" />
+      <a class="brand" href="index.html#inicio" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+        <img src="assets/img/logo-es.svg" alt="IFPE Campus Belo Jardim - Engenharia de Software" />
       </a>
 
       <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
@@ -25,12 +25,12 @@
       </button>
 
       <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
-        <a href="#inicio">Início</a>
-        <a href="#sobre">Sobre</a>
-        <a href="#ingresso">Ingresso</a>
-        <a href="#diferenciais">Diferenciais</a>
-        <a href="#mercado">Mercado</a>
-        <a href="#contato">Contato</a>
+        <a href="index.html#inicio">Início</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="ingresso.html">Ingresso</a>
+        <a href="index.html#diferenciais">Diferenciais</a>
+        <a href="index.html#mercado">Mercado</a>
+        <a href="index.html#contato">Contato</a>
       </nav>
     </div>
   </header>
@@ -39,14 +39,17 @@
     <section class="hero section" id="inicio" aria-labelledby="titulo-hero">
       <div class="container hero-grid">
         <div class="hero-content reveal">
-          <span class="eyebrow">Curso de graduação</span>
-          <h1 id="titulo-hero">Engenharia de Software para criar soluções digitais com propósito.</h1>
+          <div class="hero-kickers" aria-label="Identificação do curso">
+            <span class="eyebrow">Curso de graduação</span>
+            <span class="campus-pill">IFPE Campus Belo Jardim</span>
+          </div>
+          <h1 id="titulo-hero">Engenharia de Software no IFPE Campus Belo Jardim.</h1>
           <p>
-            Uma formação moderna e prática para quem deseja projetar sistemas, resolver problemas reais e construir tecnologia com qualidade, ética e visão de futuro.
+            Uma formação pública, moderna e prática para quem deseja projetar sistemas, resolver problemas reais e construir tecnologia com qualidade, ética e impacto regional.
           </p>
           <div class="hero-actions" aria-label="Ações principais">
-            <a class="btn btn-primary" href="#sobre">Conheça o curso</a>
-            <a class="btn btn-secondary" href="#ingresso">Veja formas de ingresso</a>
+            <a class="btn btn-primary" href="sobre.html">Conheça o curso</a>
+            <a class="btn btn-secondary" href="ingresso.html">Veja formas de ingresso</a>
           </div>
         </div>
 
@@ -55,20 +58,43 @@
             <span></span><span></span><span></span>
           </div>
           <div class="course-panel">
-            <div>
-              <small>Status do curso</small>
-              <strong>Em formação ativa</strong>
+            <div class="course-panel-header">
+              <div>
+                <small>Unidade ofertante</small>
+                <strong>IFPE Campus Belo Jardim</strong>
+              </div>
+              <span class="status-badge">Institucional</span>
             </div>
-            <div class="progress-card">
-              <span>Projetos práticos</span>
-              <strong>Software, inovação e impacto</strong>
+
+            <div class="course-summary-card">
+              <span>Engenharia de Software</span>
+              <strong>Formação para criar, testar, manter e evoluir soluções digitais.</strong>
               <div class="progress-line"><span></span></div>
             </div>
+
+            <div class="panel-mini-grid" aria-label="Destaques da formação">
+              <article>
+                <span>01</span>
+                <strong>Base técnica</strong>
+              </article>
+              <article>
+                <span>02</span>
+                <strong>Projetos reais</strong>
+              </article>
+              <article>
+                <span>03</span>
+                <strong>Qualidade</strong>
+              </article>
+              <article>
+                <span>04</span>
+                <strong>Impacto local</strong>
+              </article>
+            </div>
+
             <ul class="panel-list">
-              <li><span>01</span> Fundamentos da Computação</li>
-              <li><span>02</span> Desenvolvimento Web</li>
-              <li><span>03</span> Engenharia de Requisitos</li>
-              <li><span>04</span> Qualidade e Projetos Reais</li>
+              <li><span>✓</span> Desenvolvimento de sistemas e aplicações</li>
+              <li><span>✓</span> Requisitos, arquitetura, testes e gestão</li>
+              <li><span>✓</span> Tecnologia conectada ao Agreste pernambucano</li>
             </ul>
           </div>
         </div>
@@ -78,20 +104,24 @@
     <section class="quick-info section-sm" aria-label="Informações rápidas do curso">
       <div class="container quick-grid reveal">
         <article class="info-card">
-          <span>Duração</span>
-          <strong>8 períodos</strong>
+          <span>Instituição</span>
+          <strong>IFPE</strong>
+        </article>
+        <article class="info-card">
+          <span>Campus</span>
+          <strong>Belo Jardim</strong>
         </article>
         <article class="info-card">
           <span>Modalidade</span>
           <strong>Presencial</strong>
         </article>
         <article class="info-card">
-          <span>Turno</span>
-          <strong>A definir</strong>
-        </article>
-        <article class="info-card">
           <span>Formação</span>
           <strong>Bacharelado</strong>
+        </article>
+        <article class="info-card">
+          <span>Duração</span>
+          <strong>A confirmar</strong>
         </article>
       </div>
     </section>
@@ -104,11 +134,12 @@
         </div>
         <div class="section-text reveal">
           <p>
-            O curso de Engenharia de Software prepara estudantes para analisar necessidades, projetar soluções, desenvolver sistemas, testar aplicações e gerenciar projetos tecnológicos. A proposta é unir base teórica, prática de laboratório e contato com desafios próximos da realidade do mercado.
+            O curso de Engenharia de Software do IFPE Campus Belo Jardim prepara estudantes para analisar necessidades, projetar soluções, desenvolver sistemas, testar aplicações e gerenciar projetos tecnológicos com responsabilidade social e compromisso com a qualidade.
           </p>
           <p>
-            A página inicial apresenta uma visão clara do curso sem excesso de informação, funcionando como porta de entrada para futuros estudantes, familiares, comunidade acadêmica e parceiros institucionais.
+            A página inicial foi pensada para apresentar o curso de forma clara e objetiva, valorizando a identidade institucional do IFPE sem excesso de informação visual.
           </p>
+          <a class="text-link" href="sobre.html">Ler a apresentação completa do curso</a>
         </div>
       </div>
     </section>
@@ -118,24 +149,24 @@
         <div class="section-heading centered reveal">
           <span class="eyebrow">Diferenciais</span>
           <h2 id="titulo-diferenciais">Um curso pensado para formar quem constrói o digital com método.</h2>
-          <p>Menos promessa vazia. Mais prática, clareza e desenvolvimento orientado a problemas reais.</p>
+          <p>Prática, clareza e desenvolvimento orientado a problemas reais, com identidade pública, tecnológica e regional.</p>
         </div>
 
         <div class="feature-grid">
           <article class="feature-card reveal">
-            <div class="icon-box" aria-hidden="true">⌘</div>
+            <div class="icon-box" aria-hidden="true">01</div>
             <h3>Projetos desde o início</h3>
             <p>Atividades práticas ajudam o estudante a transformar conceitos em entregas visíveis e aplicáveis.</p>
           </article>
           <article class="feature-card reveal">
-            <div class="icon-box" aria-hidden="true">▣</div>
+            <div class="icon-box" aria-hidden="true">02</div>
             <h3>Base sólida de engenharia</h3>
             <p>Planejamento, requisitos, arquitetura, qualidade, testes e manutenção fazem parte da formação.</p>
           </article>
           <article class="feature-card reveal">
-            <div class="icon-box" aria-hidden="true">◇</div>
-            <h3>Visão de mercado</h3>
-            <p>O curso aproxima tecnologia, produto, inovação, trabalho em equipe e comunicação profissional.</p>
+            <div class="icon-box" aria-hidden="true">03</div>
+            <h3>Identidade IFPE</h3>
+            <p>Ensino público, formação cidadã e tecnologia aplicada às necessidades da comunidade e do mercado.</p>
           </article>
         </div>
       </div>
@@ -166,7 +197,7 @@
           </article>
         </div>
 
-        <a class="btn btn-primary" href="#contato">Tirar dúvidas sobre ingresso</a>
+        <a class="btn btn-light" href="ingresso.html">Ver página de ingresso</a>
       </div>
     </section>
 
@@ -223,7 +254,7 @@
           <span class="eyebrow">Contato</span>
           <h2 id="titulo-contato">Quer saber mais sobre o curso?</h2>
           <p>
-            Entre em contato com a coordenação ou acompanhe os canais oficiais para informações sobre ingresso, matrícula, calendário e atividades acadêmicas.
+            Entre em contato com a coordenação ou acompanhe os canais oficiais do IFPE Campus Belo Jardim para informações sobre ingresso, matrícula, calendário e atividades acadêmicas.
           </p>
         </div>
         <form class="interest-form" aria-label="Formulário de interesse no curso" novalidate>
@@ -243,15 +274,15 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <img src="assets/img/logo-es.svg" alt="Engenharia de Software" class="footer-logo" />
+        <img src="assets/img/logo-es.svg" alt="IFPE Campus Belo Jardim - Engenharia de Software" class="footer-logo" />
         <p>Site institucional desenvolvido como projeto final da disciplina de Web.</p>
       </div>
       <div>
         <h2>Navegação</h2>
-        <a href="#inicio">Início</a>
-        <a href="#sobre">Sobre</a>
-        <a href="#ingresso">Ingresso</a>
-        <a href="#contato">Contato</a>
+        <a href="index.html#inicio">Início</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="ingresso.html">Ingresso</a>
+        <a href="index.html#contato">Contato</a>
       </div>
       <div>
         <h2>Próximas páginas</h2>
@@ -262,7 +293,7 @@
       </div>
     </div>
     <div class="container footer-bottom">
-      <small>© <span id="ano-atual"></span> Engenharia de Software. Todos os direitos reservados.</small>
+      <small>© <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim. Todos os direitos reservados.</small>
       <button class="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
     </div>
   </footer>
