@@ -1,0 +1,134 @@
+@media (max-width: 1180px) {
+  .page-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-hero-card {
+    max-width: 760px;
+  }
+}
+
+@media (max-width: 980px) {
+  .brand {
+    width: 280px;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: calc(var(--header-height) - 8px);
+    left: 16px;
+    right: 16px;
+    display: grid;
+    gap: 4px;
+    padding: 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 24px 60px rgba(11, 42, 74, 0.14);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity var(--transition), visibility var(--transition), transform var(--transition);
+  }
+
+  .main-nav.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .main-nav a {
+    padding: 13px 14px;
+  }
+
+  .two-columns,
+  .market-grid,
+  .next-step {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-grid,
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .container {
+    width: min(100% - 24px, var(--container));
+  }
+
+  .section {
+    padding: 72px 0;
+  }
+
+  .brand {
+    width: 230px;
+  }
+
+  h1 {
+    font-size: clamp(2.55rem, 15vw, 4rem);
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .feature-grid,
+  .news-grid,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .next-step,
+  .page-hero-card {
+    padding: 26px;
+    border-radius: 24px;
+  }
+
+  .page-hero {
+    padding: 52px 0 64px;
+  }
+
+  .next-actions,
+  .next-actions .btn,
+  .admission-actions,
+  .admission-actions .btn {
+    width: 100%;
+  }
+
+  .footer-logo {
+    width: 240px;
+  }
+
+  .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand {
+    width: 206px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

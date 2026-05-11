@@ -1,0 +1,71 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 850;
+  padding: 0 22px;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-2));
+  color: #fff;
+  box-shadow: 0 14px 30px var(--color-shadow);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: linear-gradient(135deg, var(--color-primary-2), var(--color-ifpe-dark));
+}
+
+.btn-secondary {
+  background: #fff;
+  color: var(--color-primary);
+  border-color: var(--color-border);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  border-color: rgba(25, 135, 84, 0.34);
+}
+
+.btn-light {
+  background: #fff;
+  color: var(--color-primary);
+  box-shadow: none;
+  white-space: nowrap;
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.66);
+  color: var(--color-primary);
+  border-color: rgba(25, 135, 84, 0.2);
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  background: #fff;
+  border-color: rgba(45, 156, 219, 0.32);
+}
+
+.btn-light-outline {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.36);
+  box-shadow: none;
+  white-space: nowrap;
+}
+
+.btn-light-outline:hover,
+.btn-light-outline:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.62);
+}

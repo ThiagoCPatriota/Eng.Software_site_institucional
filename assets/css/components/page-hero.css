@@ -1,0 +1,98 @@
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 82px 0 86px;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(45, 156, 219, 0.19), transparent 30%),
+    radial-gradient(circle at 92% 18%, rgba(25, 135, 84, 0.15), transparent 28%),
+    linear-gradient(135deg, #f7fbff 0%, #eff7fb 52%, #f7faf8 100%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(11, 42, 74, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 42, 74, 0.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.03));
+  pointer-events: none;
+}
+
+.page-hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(390px, 0.68fr);
+  gap: 64px;
+  align-items: center;
+}
+
+.page-hero-content h1 {
+  font-size: clamp(2.8rem, 5.2vw, 5.35rem);
+  max-width: 1020px;
+  margin-top: 18px;
+}
+
+.page-hero-content p {
+  color: var(--color-muted);
+  font-size: 1.12rem;
+  max-width: 840px;
+  margin-top: 22px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--color-muted);
+  font-weight: 750;
+  font-size: 0.92rem;
+  margin-bottom: 24px;
+}
+
+.breadcrumb a {
+  color: var(--color-ifpe-dark);
+}
+
+.breadcrumb a:hover,
+.breadcrumb a:focus-visible {
+  color: var(--color-primary);
+}
+
+.page-hero-card {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-radius: var(--radius-lg);
+  padding: 34px;
+  box-shadow: 0 30px 90px rgba(11, 42, 74, 0.14);
+  backdrop-filter: blur(24px);
+}
+
+.page-hero-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -50px -52px auto;
+  width: 160px;
+  height: 160px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(45, 156, 219, 0.18), rgba(25, 135, 84, 0.18));
+}
+
+.page-hero-card h2 {
+  font-size: 1.55rem;
+  letter-spacing: -0.025em;
+  margin-top: 20px;
+}
+
+.page-hero-card p {
+  position: relative;
+  z-index: 1;
+  color: var(--color-muted);
+  margin-top: 12px;
+}

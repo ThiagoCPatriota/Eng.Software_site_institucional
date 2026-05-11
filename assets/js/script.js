@@ -142,3 +142,24 @@ faqItems.forEach((item) => {
     if (icon) icon.textContent = isOpen ? '−' : '+';
   });
 });
+
+const periodTabs = document.querySelectorAll('.period-tab');
+const periodPanels = document.querySelectorAll('.period-panel');
+
+periodTabs.forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const targetId = tab.dataset.period;
+
+    periodTabs.forEach((item) => {
+      const isActive = item === tab;
+      item.classList.toggle('active', isActive);
+      item.setAttribute('aria-selected', String(isActive));
+    });
+
+    periodPanels.forEach((panel) => {
+      const isActive = panel.id === targetId;
+      panel.classList.toggle('active', isActive);
+      panel.hidden = !isActive;
+    });
+  });
+});

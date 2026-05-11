@@ -1797,3 +1797,346 @@ h3 {
     left: 23px;
   }
 }
+
+/* Fase 4 - Página de Grade Curricular */
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.66);
+  color: var(--color-primary);
+  border-color: rgba(25, 135, 84, 0.2);
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  background: #fff;
+  border-color: rgba(45, 156, 219, 0.32);
+}
+
+.btn-light-outline {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.36);
+  box-shadow: none;
+  white-space: nowrap;
+}
+
+.btn-light-outline:hover,
+.btn-light-outline:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.62);
+}
+
+.admission-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.curriculum-page-hero {
+  background:
+    radial-gradient(circle at 7% 12%, rgba(45, 156, 219, 0.18), transparent 30%),
+    radial-gradient(circle at 92% 18%, rgba(25, 135, 84, 0.18), transparent 28%),
+    linear-gradient(135deg, #f8fcff 0%, #eef7fb 48%, #f6fbf8 100%);
+}
+
+.curriculum-guide-card .metric-stack article:nth-child(2) strong {
+  color: var(--color-ifpe-dark);
+}
+
+.curriculum-alert-section {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.curriculum-alert {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 28px;
+  padding: 24px 28px;
+  background: linear-gradient(135deg, var(--color-accent-soft), var(--color-ifpe-soft));
+  border: 1px solid rgba(25, 135, 84, 0.16);
+  border-radius: var(--radius-md);
+}
+
+.curriculum-alert strong {
+  display: block;
+  color: var(--color-primary);
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.curriculum-alert p {
+  color: var(--color-muted);
+}
+
+.curriculum-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 44px;
+}
+
+.curriculum-overview-card,
+.axis-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: 0 18px 42px rgba(11, 42, 74, 0.065);
+}
+
+.curriculum-overview-card::before,
+.axis-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--color-accent), var(--color-ifpe));
+}
+
+.curriculum-overview-card span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  color: var(--color-ifpe-dark);
+  background: var(--color-ifpe-soft);
+  font-weight: 950;
+}
+
+.curriculum-overview-card p,
+.axis-card p {
+  color: var(--color-muted);
+  margin-top: 12px;
+}
+
+.curriculum-periods-section {
+  background:
+    radial-gradient(circle at 10% 8%, rgba(45, 156, 219, 0.1), transparent 25%),
+    radial-gradient(circle at 92% 20%, rgba(25, 135, 84, 0.1), transparent 25%),
+    var(--color-bg);
+}
+
+.curriculum-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 34px 0 22px;
+}
+
+.period-tab {
+  min-width: 62px;
+  min-height: 48px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-muted);
+  background: #fff;
+  font-weight: 900;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.period-tab:hover,
+.period-tab:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(25, 135, 84, 0.32);
+  color: var(--color-primary);
+}
+
+.period-tab.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-ifpe-dark));
+  border-color: transparent;
+}
+
+.period-panels {
+  margin-top: 20px;
+}
+
+.period-panel {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 34px;
+  box-shadow: 0 22px 58px rgba(11, 42, 74, 0.08);
+}
+
+.period-layout {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 44px;
+  align-items: start;
+}
+
+.period-label {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: var(--color-ifpe-dark);
+  background: var(--color-ifpe-soft);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.period-layout h3 {
+  font-size: clamp(1.55rem, 2.6vw, 2.5rem);
+}
+
+.period-layout p {
+  color: var(--color-muted);
+  margin-top: 14px;
+}
+
+.discipline-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  list-style: none;
+}
+
+.discipline-list li {
+  position: relative;
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  color: var(--color-text);
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px 16px 48px;
+  font-weight: 750;
+}
+
+.discipline-list li::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-ifpe));
+}
+
+.formation-axis-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 44px;
+}
+
+.axis-card span {
+  display: block;
+  color: var(--color-primary);
+  font-size: 1.12rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.integrator-section {
+  background: var(--color-surface);
+}
+
+.integrator-layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 72px;
+  align-items: start;
+}
+
+.integrator-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.integrator-list article {
+  position: relative;
+  overflow: hidden;
+  min-height: 210px;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(25, 135, 84, 0.09), transparent 30%),
+    #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 26px;
+  box-shadow: 0 18px 42px rgba(11, 42, 74, 0.065);
+}
+
+.integrator-list article::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-ifpe));
+  opacity: 0.7;
+}
+
+.integrator-list strong {
+  display: block;
+  color: var(--color-primary);
+  font-size: 1.12rem;
+  line-height: 1.2;
+}
+
+.integrator-list p {
+  color: var(--color-muted);
+  margin-top: 12px;
+}
+
+@media (max-width: 1180px) {
+  .curriculum-overview-grid,
+  .formation-axis-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .period-layout,
+  .integrator-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .curriculum-alert {
+    grid-template-columns: 1fr;
+    padding: 26px;
+    border-radius: 24px;
+  }
+
+  .curriculum-alert .btn,
+  .admission-actions .btn {
+    width: 100%;
+  }
+
+  .period-panel {
+    padding: 24px;
+    border-radius: 24px;
+  }
+
+  .discipline-list,
+  .integrator-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .curriculum-overview-grid,
+  .formation-axis-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .period-tab {
+    min-width: 54px;
+    flex: 1 1 54px;
+  }
+}
