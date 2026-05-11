@@ -1,0 +1,13 @@
+<svg width="220" height="56" viewBox="0 0 220 56" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Logo Engenharia de Software</title>
+  <desc id="desc">Marca institucional com símbolo geométrico e texto Engenharia de Software.</desc>
+  <rect width="56" height="56" rx="16" fill="#0B2A4A"/>
+  <path d="M18 35.5L28 20.5L38 35.5" stroke="#8DD6F9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M22.5 35.5H33.5" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <path d="M70 18H84.6C89.4 18 92.6 20.8 92.6 25.1C92.6 28.1 91.1 30.2 88.5 31.3L93.8 39H88.3L83.8 32.2H75V39H70V18ZM84.1 27.9C86.2 27.9 87.5 26.8 87.5 25.1C87.5 23.3 86.2 22.3 84.1 22.3H75V27.9H84.1Z" fill="#0B2A4A"/>
+  <path d="M98 18H115V22.3H103V26.2H113.8V30.4H103V34.7H115.3V39H98V18Z" fill="#0B2A4A"/>
+  <path d="M120 18H125V34.6H136V39H120V18Z" fill="#0B2A4A"/>
+  <path d="M144.5 39.4C138.3 39.4 134 35 134 28.5C134 22 138.4 17.6 144.6 17.6C150.8 17.6 155.1 22 155.1 28.5C155.1 35 150.7 39.4 144.5 39.4ZM144.6 34.8C147.9 34.8 150 32.3 150 28.5C150 24.7 147.9 22.2 144.6 22.2C141.2 22.2 139.1 24.7 139.1 28.5C139.1 32.3 141.2 34.8 144.6 34.8Z" fill="#0B2A4A"/>
+  <text x="162" y="26" fill="#0B2A4A" font-family="Arial, sans-serif" font-size="12" font-weight="700">Engenharia</text>
+  <text x="162" y="40" fill="#4B647C" font-family="Arial, sans-serif" font-size="12">de Software</text>
+</svg>
