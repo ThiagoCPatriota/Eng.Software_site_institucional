@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Perguntas frequentes sobre o curso de Engenharia de Software do IFPE Campus Belo Jardim, ingresso, matrícula, grade, estágio, TCC, eventos e contato." />
+  <meta name="author" content="Projeto final da disciplina de Web" />
+  <title>FAQ | Engenharia de Software - IFPE Campus Belo Jardim</title>
+  <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/pages/faq.css" />
+</head>
+<body data-page="faq">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="site-header" id="topo">
+    <div class="container header-wrapper">
+      <a class="brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+        <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="brand-mark" />
+        <span class="brand-text">
+          <strong>IFPE</strong>
+          <span>Engenharia de Software</span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
+        <a href="index.html" data-nav="inicio">Início</a>
+
+        <details class="nav-group" data-nav-group="curso">
+          <summary>Curso</summary>
+          <div class="nav-dropdown">
+            <a href="sobre.html" data-nav="sobre">Sobre o curso</a>
+            <a href="ingresso.html" data-nav="ingresso">Formas de ingresso</a>
+            <a href="grade.html" data-nav="grade">Grade curricular</a>
+            <a href="mercado.html" data-nav="mercado">Mercado e estágio</a>
+          </div>
+        </details>
+
+        <a href="projetos.html" data-nav="projetos">Projetos</a>
+
+        <details class="nav-group" data-nav-group="estrutura">
+          <summary>Estrutura</summary>
+          <div class="nav-dropdown">
+            <a href="estrutura.html" data-nav="estrutura">Ambientes</a>
+            <a href="docentes.html" data-nav="docentes">Docentes</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="atendimento">
+          <summary>Contato</summary>
+          <div class="nav-dropdown">
+            <a href="contato.html" data-nav="contato">Coordenação e contato</a>
+            <a href="faq.html" data-nav="faq">FAQ</a>
+          </div>
+        </details>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="page-hero faq-page-hero" aria-labelledby="titulo-faq">
+      <div class="container page-hero-grid">
+        <div class="page-hero-content reveal">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Início</a>
+            <span aria-hidden="true">•</span>
+            <span>FAQ</span>
+          </nav>
+          <span class="eyebrow">Fase 8</span>
+          <h1 id="titulo-faq">Perguntas frequentes sem caça ao tesouro.</h1>
+          <p>
+            Uma página para reunir dúvidas comuns de candidatos, estudantes e comunidade sobre ingresso, curso, grade, estágio, projetos, documentos e contato institucional.
+          </p>
+          <div class="hero-actions" aria-label="Ações da página de FAQ">
+            <a class="btn btn-primary" href="#perguntas">Abrir perguntas</a>
+            <a class="btn btn-secondary" href="contato.html">Falar com a coordenação</a>
+          </div>
+        </div>
+
+        <aside class="page-hero-card faq-summary-card reveal" aria-label="Resumo da página de perguntas frequentes">
+          <span class="status-badge">FAQ interativo</span>
+          <h2>Accordion em JavaScript puro, com busca simples por palavra-chave.</h2>
+          <p>As respostas usam linguagem segura e deixam editais, datas e dados oficiais como pontos a confirmar.</p>
+          <div class="metric-stack">
+            <article>
+              <strong>01</strong>
+              <span>Dúvidas sobre ingresso e matrícula.</span>
+            </article>
+            <article>
+              <strong>02</strong>
+              <span>Informações sobre curso, estágio e projetos.</span>
+            </article>
+            <article>
+              <strong>03</strong>
+              <span>Busca e accordion acessíveis.</span>
+            </article>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section faq-section" id="perguntas" aria-labelledby="titulo-perguntas">
+      <div class="container faq-layout">
+        <aside class="faq-sidebar reveal" aria-label="Resumo das categorias do FAQ">
+          <span class="eyebrow">Categorias</span>
+          <h2 id="titulo-perguntas">Dúvidas organizadas por intenção.</h2>
+          <p>Use a busca ou abra cada pergunta. O conteúdo é demonstrativo e deve ser revisado com dados oficiais na etapa final.</p>
+          <div class="faq-category-list">
+            <span>Ingresso</span>
+            <span>Matrícula</span>
+            <span>Grade</span>
+            <span>Estágio</span>
+            <span>Projetos</span>
+            <span>Contato</span>
+          </div>
+        </aside>
+
+        <div class="faq-content reveal">
+          <label class="faq-search-label" for="busca-faq">Buscar no FAQ</label>
+          <input class="faq-search" id="busca-faq" type="search" placeholder="Digite: ingresso, estágio, documentos, ENEM..." data-faq-search />
+          <p class="faq-empty" data-faq-empty hidden>Nenhuma pergunta encontrada com esse termo.</p>
+
+          <div class="faq-list" aria-label="Lista de perguntas frequentes">
+            <article class="faq-item" data-faq-keywords="ingresso enem sisu entrada seleção">
+              <button type="button" aria-expanded="false">
+                <strong>Como posso ingressar no curso?</strong>
+                <span aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>O ingresso pode ocorrer por modalidades como SISU/ENEM, transferência, reingresso ou portador de diploma, conforme edital vigente e regras institucionais.</p>
+              </div>
+            </article>
+
+            <article class="faq-item" data-faq-keywords="documentos matrícula rg cpf histórico certificado comprovante">
+              <button type="button" aria-expanded="false">
+                <strong>Quais documentos são necessários para matrícula?</strong>
+                <span aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>A lista pode incluir RG, CPF, histórico escolar, certificado de conclusão, comprovante de residência e outros documentos exigidos pelo edital vigente.</p>
+              </div>
+            </article>
+
+            <article class="faq-item" data-faq-keywords="duração curso quatro anos oito períodos grade">
+              <button type="button" aria-expanded="false">
+                <strong>Qual é a duração do curso?</strong>
+                <span aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>A versão atual do projeto apresenta a formação organizada em 4 anos, distribuídos em 8 períodos. A matriz demonstrativa deve ser conferida com a matriz oficial.</p>
+              </div>
+            </article>
+
+            <article class="faq-item" data-faq-keywords="modalidade presencial turno campus belo jardim">
+              <button type="button" aria-expanded="false">
+                <strong>O curso é presencial?</strong>
+                <span aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>O site apresenta o curso como presencial no IFPE Campus Belo Jardim. Informações de turno e oferta devem ser confirmadas nos canais institucionais.</p>
+              </div>
+            </article>
+
+            <article class="faq-item" data-faq-keywords="estágio mercado trabalho carreira oportunidades">
+              <button type="button" aria-expanded="false">
+                <strong>O curso tem estágio?</strong>
+                <span aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>A página de mercado já reserva espaço para estágio, preparação profissional e oportunidades. Regras específicas devem seguir o projeto pedagógico e documentos oficiais do curso.</p>
+              </div>
+            </article>
+
+            <article class="faq-item" data-faq-keywords="tcc trabalho conclusão curso projeto final">
+              <button type="button" aria-expanded="false">
+                <strong>Existe TCC ou projeto final?</strong>
+                <span aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>A estrutura do site prevê componentes como TCC, projetos integradores e atividades complementares. O formato exato precisa ser validado com a matriz oficial do curso.</p>
+              </div>
+            </article>
+
+            <article class="faq-item" data-faq-keywords="projetos eventos pesquisa extensão hackathon notícias">
+              <button type="button" aria-expanded="false">
+                <strong>Onde vejo projetos, eventos e notícias?</strong>
+                <span aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>A página de Projetos reúne extensão, pesquisa, projetos integradores, eventos, notícias e depoimentos demonstrativos, preparada para receber dados reais futuramente.</p>
+              </div>
+            </article>
+
+            <article class="faq-item" data-faq-keywords="mensalidade gratuito público ifpe">
+              <button type="button" aria-expanded="false">
+                <strong>O curso possui mensalidade?</strong>
+                <span aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Como se trata de uma instituição pública federal, o site deve indicar gratuidade apenas se isso for mantido como informação institucional validada na revisão final.</p>
+              </div>
+            </article>
+
+            <article class="faq-item" data-faq-keywords="contato coordenação email telefone whatsapp secretaria">
+              <button type="button" aria-expanded="false">
+                <strong>Como falar com a coordenação?</strong>
+                <span aria-hidden="true">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>A página de Contato centraliza coordenação, e-mail, telefone/WhatsApp, localização e formulário demonstrativo. Os dados reais ainda devem ser preenchidos.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section next-step-section">
+      <div class="container next-step reveal">
+        <div>
+          <span class="eyebrow">Ainda ficou dúvida?</span>
+          <h2>Use o contato para simular o envio da sua pergunta.</h2>
+          <p>O formulário ainda não envia para um servidor real, mas já valida os campos e prepara o site para a futura etapa com backend/admin.</p>
+        </div>
+        <div class="next-actions">
+          <a class="btn btn-light" href="contato.html">Ir para contato</a>
+          <a class="btn btn-light-outline" href="ingresso.html">Ver ingresso</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="footer-brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+          <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="footer-brand-mark" />
+          <span class="footer-brand-text">
+            <strong>IFPE</strong>
+            <span>Engenharia de Software</span>
+          </span>
+        </a>
+        <p>Site institucional desenvolvido como projeto final da disciplina de Web, com foco em uma apresentação moderna, clara e acadêmica do curso.</p>
+      </div>
+      <nav aria-label="Links rápidos do rodapé">
+        <h2>Navegação</h2>
+        <a href="index.html">Início</a>
+        <a href="sobre.html">Sobre o curso</a>
+        <a href="ingresso.html">Ingresso</a>
+        <a href="grade.html">Grade curricular</a>
+        <a href="mercado.html">Mercado e estágio</a>
+        <a href="projetos.html">Projetos e eventos</a>
+        <a href="estrutura.html">Estrutura</a>
+        <a href="docentes.html">Docentes</a>
+        <a href="contato.html">Contato</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <div>
+        <h2>Atendimento</h2>
+        <span>Coordenação do curso: a confirmar</span>
+        <span>E-mail institucional: a confirmar</span>
+        <span>WhatsApp/telefone: a confirmar</span>
+        <span>FAQ com dúvidas frequentes</span>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <small>© <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim. Todos os direitos reservados.</small>
+      <button class="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -4,8 +4,7 @@ const navLinks = document.querySelectorAll('.main-nav a');
 const navGroups = document.querySelectorAll('.nav-group');
 const yearElement = document.querySelector('#ano-atual');
 const backToTop = document.querySelector('.back-to-top');
-const form = document.querySelector('.interest-form');
-const feedback = document.querySelector('.form-feedback');
+const forms = document.querySelectorAll('.interest-form, [data-contact-form]');
 const bodyPage = document.body.dataset.page;
 
 if (yearElement) {
@@ -61,9 +60,7 @@ function updateActiveLink() {
   navGroups.forEach((group) => group.classList.remove('active'));
 
   if (bodyPage === 'inicio') {
-    const currentHash = window.location.hash || '#inicio';
-    const target = currentHash === '#contato' ? 'contato' : 'inicio';
-    const activeLink = document.querySelector(`.main-nav a[data-nav="${target}"]`);
+    const activeLink = document.querySelector('.main-nav a[data-nav="inicio"]');
     if (activeLink) activeLink.classList.add('active');
     return;
   }
@@ -85,34 +82,52 @@ if (backToTop) {
   });
 }
 
-if (form && feedback) {
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
+function setupForms() {
+  forms.forEach((form) => {
+    const feedback = form.querySelector('.form-feedback');
+    if (!feedback) return;
 
-    const formData = new FormData(form);
-    const nome = String(formData.get('nome') || '').trim();
-    const email = String(formData.get('email') || '').trim();
-    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
 
-    feedback.classList.remove('success', 'error');
+      const formData = new FormData(form);
+      const nome = String(formData.get('nome') || '').trim();
+      const email = String(formData.get('email') || '').trim();
+      const assunto = String(formData.get('assunto') || '').trim();
+      const mensagem = String(formData.get('mensagem') || '').trim();
+      const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const isContactForm = form.matches('[data-contact-form]');
 
-    if (!nome || !email) {
-      feedback.textContent = 'Preencha nome e e-mail para continuar.';
-      feedback.classList.add('error');
-      return;
-    }
+      feedback.classList.remove('success', 'error');
 
-    if (!emailValido) {
-      feedback.textContent = 'Informe um e-mail válido.';
-      feedback.classList.add('error');
-      return;
-    }
+      if (!nome || !email) {
+        feedback.textContent = 'Preencha nome e e-mail para continuar.';
+        feedback.classList.add('error');
+        return;
+      }
 
-    feedback.textContent = 'Cadastro de interesse registrado visualmente. Na próxima fase podemos conectar esse formulário.';
-    feedback.classList.add('success');
-    form.reset();
+      if (!emailValido) {
+        feedback.textContent = 'Informe um e-mail válido.';
+        feedback.classList.add('error');
+        return;
+      }
+
+      if (isContactForm && (!assunto || !mensagem)) {
+        feedback.textContent = 'Selecione o assunto e escreva sua mensagem antes de simular o envio.';
+        feedback.classList.add('error');
+        return;
+      }
+
+      feedback.textContent = isContactForm
+        ? 'Mensagem validada visualmente. Quando houver backend, este envio poderá ser conectado ao canal oficial do curso.'
+        : 'Cadastro de interesse registrado visualmente. Depois podemos conectar esse formulário ao backend.';
+      feedback.classList.add('success');
+      form.reset();
+    });
   });
 }
+
+setupForms();
 
 const dadosSite = window.dadosSite || {};
 
@@ -213,6 +228,8 @@ function setupRevealAnimations() {
 setupRevealAnimations();
 
 const faqItems = document.querySelectorAll('.faq-item');
+const faqSearch = document.querySelector('[data-faq-search]');
+const faqEmpty = document.querySelector('[data-faq-empty]');
 
 faqItems.forEach((item) => {
   const button = item.querySelector('button');
@@ -226,6 +243,22 @@ faqItems.forEach((item) => {
     if (icon) icon.textContent = isOpen ? '−' : '+';
   });
 });
+
+if (faqSearch) {
+  faqSearch.addEventListener('input', () => {
+    const term = faqSearch.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    faqItems.forEach((item) => {
+      const searchable = `${item.textContent} ${item.dataset.faqKeywords || ''}`.toLowerCase();
+      const visible = !term || searchable.includes(term);
+      item.hidden = !visible;
+      if (visible) visibleCount += 1;
+    });
+
+    if (faqEmpty) faqEmpty.hidden = visibleCount !== 0;
+  });
+}
 
 const periodTabs = document.querySelectorAll('.period-tab');
 const periodPanels = document.querySelectorAll('.period-panel');
