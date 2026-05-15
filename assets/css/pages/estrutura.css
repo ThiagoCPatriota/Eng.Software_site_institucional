@@ -130,3 +130,195 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+.structure-gallery-section {
+  background:
+    radial-gradient(circle at 12% 12%, rgba(25, 135, 84, 0.1), transparent 25%),
+    radial-gradient(circle at 88% 10%, rgba(45, 156, 219, 0.1), transparent 28%),
+    #fff;
+}
+
+.campus-gallery-grid {
+  display: grid;
+  grid-template-columns: 1.14fr repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 44px;
+}
+
+.campus-photo-card,
+.photo-guidance-card {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 18px 42px rgba(11, 42, 74, 0.065);
+}
+
+.campus-photo-card {
+  padding: 14px 14px 24px;
+}
+
+.campus-photo-feature {
+  grid-row: span 2;
+}
+
+.photo-placeholder {
+  position: relative;
+  display: grid;
+  align-content: end;
+  gap: 8px;
+  min-height: 210px;
+  margin: 0;
+  padding: 22px;
+  overflow: hidden;
+  border-radius: calc(var(--radius-md) - 6px);
+  color: #fff;
+  background:
+    linear-gradient(145deg, rgba(11, 42, 74, 0.82), rgba(45, 156, 219, 0.62)),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.11) 0 1px, transparent 1px 14px);
+}
+
+.photo-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px dashed rgba(255, 255, 255, 0.42);
+  border-radius: 18px;
+}
+
+.photo-placeholder::after {
+  content: "FOTO REAL AQUI";
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.photo-placeholder > * {
+  position: relative;
+  z-index: 1;
+}
+
+.photo-placeholder span {
+  display: inline-flex;
+  width: fit-content;
+  padding: 8px 11px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.18);
+  font-weight: 950;
+}
+
+.photo-placeholder strong {
+  font-size: clamp(1.15rem, 2.3vw, 1.7rem);
+  line-height: 1.08;
+}
+
+.photo-placeholder small {
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 800;
+}
+
+.photo-placeholder img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-placeholder:has(img)::before,
+.photo-placeholder:has(img)::after {
+  display: none;
+}
+
+.photo-placeholder:has(img) > span,
+.photo-placeholder:has(img) > strong,
+.photo-placeholder:has(img) > small {
+  display: none;
+}
+
+.large-photo {
+  min-height: 480px;
+}
+
+.campus-photo-card h3 {
+  margin: 20px 8px 0;
+}
+
+.campus-photo-card p {
+  margin: 10px 8px 0;
+  color: var(--color-muted);
+}
+
+.photo-guidance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.photo-guidance-card {
+  padding: 24px;
+}
+
+.photo-guidance-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--color-primary), var(--color-accent), var(--color-ifpe));
+}
+
+.photo-guidance-card strong {
+  color: var(--color-primary);
+}
+
+.photo-guidance-card p {
+  margin-top: 10px;
+  color: var(--color-muted);
+}
+
+.photo-guidance-card code {
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font-weight: 800;
+}
+
+@media (max-width: 1100px) {
+  .campus-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .campus-photo-feature {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .large-photo {
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 780px) {
+  .campus-gallery-grid,
+  .photo-guidance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .large-photo,
+  .photo-placeholder {
+    min-height: 260px;
+  }
+}

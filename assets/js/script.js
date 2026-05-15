@@ -1,15 +1,21 @@
 const menuToggle = document.querySelector('.menu-toggle');
 const mainNav = document.querySelector('.main-nav');
 const navLinks = document.querySelectorAll('.main-nav a');
+const navGroups = document.querySelectorAll('.nav-group');
 const yearElement = document.querySelector('#ano-atual');
 const backToTop = document.querySelector('.back-to-top');
 const form = document.querySelector('.interest-form');
 const feedback = document.querySelector('.form-feedback');
-const revealItems = document.querySelectorAll('.reveal');
 const bodyPage = document.body.dataset.page;
 
 if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
+}
+
+function closeNavGroups(exceptGroup = null) {
+  navGroups.forEach((group) => {
+    if (group !== exceptGroup) group.removeAttribute('open');
+  });
 }
 
 function closeMenu() {
@@ -18,6 +24,7 @@ function closeMenu() {
   mainNav.classList.remove('is-open');
   menuToggle.setAttribute('aria-expanded', 'false');
   menuToggle.setAttribute('aria-label', 'Abrir menu');
+  closeNavGroups();
 }
 
 if (menuToggle && mainNav) {
@@ -32,6 +39,18 @@ if (menuToggle && mainNav) {
     link.addEventListener('click', closeMenu);
   });
 
+  navGroups.forEach((group) => {
+    group.addEventListener('toggle', () => {
+      if (group.open) closeNavGroups(group);
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!mainNav.contains(event.target) && !menuToggle.contains(event.target)) {
+      closeMenu();
+    }
+  });
+
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeMenu();
   });
@@ -39,6 +58,7 @@ if (menuToggle && mainNav) {
 
 function updateActiveLink() {
   navLinks.forEach((link) => link.classList.remove('active'));
+  navGroups.forEach((group) => group.classList.remove('active'));
 
   if (bodyPage === 'inicio') {
     const currentHash = window.location.hash || '#inicio';
@@ -49,7 +69,11 @@ function updateActiveLink() {
   }
 
   const activeLink = document.querySelector(`.main-nav a[data-nav="${bodyPage}"]`);
-  if (activeLink) activeLink.classList.add('active');
+  if (activeLink) {
+    activeLink.classList.add('active');
+    const group = activeLink.closest('.nav-group');
+    if (group) group.classList.add('active');
+  }
 }
 
 window.addEventListener('hashchange', updateActiveLink);
@@ -90,20 +114,103 @@ if (form && feedback) {
   });
 }
 
-if ('IntersectionObserver' in window) {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.16 });
+const dadosSite = window.dadosSite || {};
 
-  revealItems.forEach((item) => observer.observe(item));
-} else {
-  revealItems.forEach((item) => item.classList.add('visible'));
+function createTag(label) {
+  const span = document.createElement('span');
+  span.className = 'tag';
+  span.textContent = label;
+  return span;
 }
+
+function createUpdateCard(item) {
+  const article = document.createElement('article');
+  article.className = 'news-card dynamic-card';
+
+  article.appendChild(createTag(item.tipo || item.categoria || item.formato || 'Destaque'));
+
+  if (item.data) {
+    const date = document.createElement('small');
+    date.className = 'card-date';
+    date.textContent = item.data;
+    article.appendChild(date);
+  }
+
+  const title = document.createElement('h3');
+  title.textContent = item.titulo;
+  article.appendChild(title);
+
+  const summary = document.createElement('p');
+  summary.textContent = item.resumo;
+  article.appendChild(summary);
+
+  if (item.link) {
+    const link = document.createElement('a');
+    link.className = 'text-link compact-link';
+    link.href = item.link;
+    link.textContent = 'Ver detalhes';
+    article.appendChild(link);
+  }
+
+  return article;
+}
+
+function createTestimonialCard(item) {
+  const article = document.createElement('article');
+  article.className = 'testimonial-card';
+
+  const quote = document.createElement('p');
+  quote.textContent = `“${item.texto}”`;
+  article.appendChild(quote);
+
+  const footer = document.createElement('div');
+  footer.className = 'testimonial-author';
+
+  const name = document.createElement('strong');
+  name.textContent = item.nome;
+  footer.appendChild(name);
+
+  const profile = document.createElement('span');
+  profile.textContent = item.perfil;
+  footer.appendChild(profile);
+
+  article.appendChild(footer);
+  return article;
+}
+
+function renderCollection(selector, data, factory) {
+  const container = document.querySelector(selector);
+  if (!container || !Array.isArray(data)) return;
+
+  container.innerHTML = '';
+  data.forEach((item) => container.appendChild(factory(item)));
+}
+
+renderCollection('[data-render="home-destaques"]', dadosSite.destaquesHome, createUpdateCard);
+renderCollection('[data-render="noticias"]', dadosSite.noticias, createUpdateCard);
+renderCollection('[data-render="eventos"]', dadosSite.eventos, createUpdateCard);
+renderCollection('[data-render="depoimentos"]', dadosSite.depoimentos, createTestimonialCard);
+
+function setupRevealAnimations() {
+  const revealItems = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    revealItems.forEach((item) => observer.observe(item));
+  } else {
+    revealItems.forEach((item) => item.classList.add('visible'));
+  }
+}
+
+setupRevealAnimations();
 
 const faqItems = document.querySelectorAll('.faq-item');
 
@@ -140,3 +247,51 @@ periodTabs.forEach((tab) => {
     });
   });
 });
+
+function setupExperienceRails() {
+  const scrollButtons = document.querySelectorAll('[data-rail-prev], [data-rail-next]');
+
+  scrollButtons.forEach((button) => {
+    const selector = button.dataset.railPrev || button.dataset.railNext;
+    const direction = button.dataset.railPrev ? -1 : 1;
+    const rail = selector ? document.querySelector(selector) : null;
+
+    if (!rail) return;
+
+    button.addEventListener('click', () => {
+      const distance = Math.max(280, Math.round(rail.clientWidth * 0.78));
+      rail.scrollBy({ left: distance * direction, behavior: 'smooth' });
+    });
+  });
+}
+
+function setupChoicePanels() {
+  const groups = document.querySelectorAll('[data-choice-group]');
+
+  groups.forEach((group) => {
+    const tabs = group.querySelectorAll('[data-choice-target]');
+    const panelRoot = document.querySelector(group.dataset.choicePanels || '');
+    const panels = panelRoot ? panelRoot.querySelectorAll('.choice-panel') : [];
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.dataset.choiceTarget;
+
+        tabs.forEach((item) => {
+          const active = item === tab;
+          item.classList.toggle('active', active);
+          item.setAttribute('aria-selected', String(active));
+        });
+
+        panels.forEach((panel) => {
+          const active = panel.id === targetId;
+          panel.classList.toggle('active', active);
+          panel.hidden = !active;
+        });
+      });
+    });
+  });
+}
+
+setupExperienceRails();
+setupChoicePanels();

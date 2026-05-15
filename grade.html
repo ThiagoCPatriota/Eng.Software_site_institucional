@@ -31,12 +31,27 @@
 
       <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
         <a href="index.html" data-nav="inicio">Início</a>
-        <a href="sobre.html" data-nav="sobre">Sobre</a>
-        <a href="ingresso.html" data-nav="ingresso">Ingresso</a>
-        <a href="grade.html" data-nav="grade">Grade</a>
-        <a href="mercado.html" data-nav="mercado">Mercado</a>
-        <a href="estrutura.html" data-nav="estrutura">Estrutura</a>
-        <a href="docentes.html" data-nav="docentes">Docentes</a>
+
+        <details class="nav-group" data-nav-group="curso">
+          <summary>Curso</summary>
+          <div class="nav-dropdown">
+            <a href="sobre.html" data-nav="sobre">Sobre o curso</a>
+            <a href="ingresso.html" data-nav="ingresso">Formas de ingresso</a>
+            <a href="grade.html" data-nav="grade">Grade curricular</a>
+            <a href="mercado.html" data-nav="mercado">Mercado e estágio</a>
+          </div>
+        </details>
+
+        <a href="projetos.html" data-nav="projetos">Projetos</a>
+
+        <details class="nav-group" data-nav-group="estrutura">
+          <summary>Estrutura</summary>
+          <div class="nav-dropdown">
+            <a href="estrutura.html" data-nav="estrutura">Ambientes</a>
+            <a href="docentes.html" data-nav="docentes">Docentes</a>
+          </div>
+        </details>
+
         <a href="index.html#contato" data-nav="contato">Contato</a>
       </nav>
     </div>
@@ -98,6 +113,49 @@
           </p>
         </div>
         <a class="btn btn-light" href="#periodos">Explorar modelo</a>
+      </div>
+    </section>
+
+    <section class="section experience-section" id="jornada-grade" aria-labelledby="titulo-jornada-grade">
+      <div class="container experience-layout">
+        <div class="experience-copy reveal">
+          <span class="eyebrow">Fase 7.6 • Mapa narrativo</span>
+          <h2 id="titulo-jornada-grade">A grade pode ser lida como uma jornada, não como uma tabela infinita.</h2>
+          <p>
+            O visitante entende melhor o curso quando enxerga a evolução: base, construção, engenharia aplicada e síntese profissional.
+          </p>
+        </div>
+
+        <div class="chapter-rail-shell reveal">
+          <div class="rail-toolbar">
+            <div>
+              <strong>Jornada de 4 anos</strong>
+              <span class="rail-note">Uma leitura rápida antes dos períodos detalhados.</span>
+            </div>
+            <div class="rail-controls" aria-label="Controles da jornada curricular">
+              <button class="rail-btn" type="button" data-rail-prev="#grade-chapters" aria-label="Voltar jornada curricular">‹</button>
+              <button class="rail-btn" type="button" data-rail-next="#grade-chapters" aria-label="Avançar jornada curricular">›</button>
+            </div>
+          </div>
+          <div class="chapter-rail" id="grade-chapters" data-experience-rail aria-label="Jornada curricular resumida">
+            <article class="chapter-card">
+              <div><span class="chapter-number">1º ano</span><h3>Entrada e fundamentos</h3><p>Lógica, programação, computação, matemática e adaptação ao modo de pensar da área.</p></div>
+              <footer>Base para construir</footer>
+            </article>
+            <article class="chapter-card">
+              <div><span class="chapter-number">2º ano</span><h3>Modelagem e desenvolvimento</h3><p>Banco de dados, orientação a objetos, requisitos, web e primeiros projetos integradores.</p></div>
+              <footer>Do problema ao protótipo</footer>
+            </article>
+            <article class="chapter-card">
+              <div><span class="chapter-number">3º ano</span><h3>Qualidade e sistemas</h3><p>Testes, processos, arquitetura, segurança, integração e práticas de engenharia.</p></div>
+              <footer>Software mais robusto</footer>
+            </article>
+            <article class="chapter-card">
+              <div><span class="chapter-number">4º ano</span><h3>Síntese profissional</h3><p>Estágio, TCC, inovação, projetos avançados e preparação para atuação profissional.</p></div>
+              <footer>Entrega e maturidade</footer>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -389,20 +447,21 @@
       <nav aria-label="Links rápidos do rodapé">
         <h2>Navegação</h2>
         <a href="index.html">Início</a>
-        <a href="sobre.html">Sobre</a>
+        <a href="sobre.html">Sobre o curso</a>
         <a href="ingresso.html">Ingresso</a>
-        <a href="grade.html">Grade</a>
-        <a href="mercado.html">Mercado</a>
+        <a href="grade.html">Grade curricular</a>
+        <a href="mercado.html">Mercado e estágio</a>
+        <a href="projetos.html">Projetos e eventos</a>
         <a href="estrutura.html">Estrutura</a>
         <a href="docentes.html">Docentes</a>
         <a href="index.html#contato">Contato</a>
       </nav>
       <div>
         <h2>Destaques da fase atual</h2>
-        <span>Ambientes de aprendizagem</span>
-        <span>Laboratórios e recursos</span>
-        <span>Corpo docente demonstrativo</span>
-        <span>Coordenação e apoio acadêmico</span>
+        <span>Projetos de extensão e pesquisa</span>
+        <span>Eventos acadêmicos e minicursos</span>
+        <span>Notícias simuladas em JavaScript</span>
+        <span>Depoimentos curtos e institucionais</span>
       </div>
     </div>
     <div class="container footer-bottom">

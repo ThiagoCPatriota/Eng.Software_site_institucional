@@ -288,3 +288,28 @@
   gap: 14px;
   margin-top: 32px;
 }
+
+.tag {
+  display: inline-flex;
+  width: fit-content;
+  background: var(--color-ifpe-soft);
+  color: var(--color-ifpe-dark);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 850;
+  padding: 6px 10px;
+  margin-bottom: 20px;
+}
+
+.card-date {
+  display: block;
+  color: var(--color-muted);
+  font-size: 0.86rem;
+  font-weight: 800;
+  margin: -10px 0 14px;
+}
+
+.dynamic-card .compact-link {
+  margin-top: auto;
+  padding-top: 18px;
+}

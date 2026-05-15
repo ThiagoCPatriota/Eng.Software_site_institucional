@@ -50,23 +50,93 @@
 .main-nav {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-end;
   gap: 6px;
 }
 
-.main-nav a {
+.main-nav a,
+.nav-group summary {
   color: var(--color-muted);
   font-size: 0.88rem;
   font-weight: 750;
   padding: 10px 12px;
   border-radius: 999px;
-  transition: background var(--transition), color var(--transition);
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.main-nav > a,
+.nav-group summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 42px;
+}
+
+.nav-group {
+  position: relative;
+}
+
+.nav-group summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav-group summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-group summary::after {
+  content: "⌄";
+  color: var(--color-ifpe-dark);
+  font-size: 0.85rem;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 230px;
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 24px 58px rgba(11, 42, 74, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity var(--transition), visibility var(--transition), transform var(--transition);
+}
+
+.nav-dropdown a {
+  display: block;
+  border-radius: 14px;
+  padding: 10px 12px;
+  white-space: nowrap;
+}
+
+.nav-group[open] .nav-dropdown,
+.nav-group:hover .nav-dropdown,
+.nav-group:focus-within .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .main-nav a:hover,
 .main-nav a:focus-visible,
-.main-nav a.active {
+.main-nav a.active,
+.nav-group summary:hover,
+.nav-group summary:focus-visible,
+.nav-group.active summary,
+.nav-group[open] summary {
   background: linear-gradient(135deg, var(--color-accent-soft), var(--color-ifpe-soft));
   color: var(--color-primary);
 }

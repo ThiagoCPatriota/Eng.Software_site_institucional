@@ -31,12 +31,27 @@
 
       <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
         <a href="index.html" data-nav="inicio">Início</a>
-        <a href="sobre.html" data-nav="sobre">Sobre</a>
-        <a href="ingresso.html" data-nav="ingresso">Ingresso</a>
-        <a href="grade.html" data-nav="grade">Grade</a>
-        <a href="mercado.html" data-nav="mercado">Mercado</a>
-        <a href="estrutura.html" data-nav="estrutura">Estrutura</a>
-        <a href="docentes.html" data-nav="docentes">Docentes</a>
+
+        <details class="nav-group" data-nav-group="curso">
+          <summary>Curso</summary>
+          <div class="nav-dropdown">
+            <a href="sobre.html" data-nav="sobre">Sobre o curso</a>
+            <a href="ingresso.html" data-nav="ingresso">Formas de ingresso</a>
+            <a href="grade.html" data-nav="grade">Grade curricular</a>
+            <a href="mercado.html" data-nav="mercado">Mercado e estágio</a>
+          </div>
+        </details>
+
+        <a href="projetos.html" data-nav="projetos">Projetos</a>
+
+        <details class="nav-group" data-nav-group="estrutura">
+          <summary>Estrutura</summary>
+          <div class="nav-dropdown">
+            <a href="estrutura.html" data-nav="estrutura">Ambientes</a>
+            <a href="docentes.html" data-nav="docentes">Docentes</a>
+          </div>
+        </details>
+
         <a href="index.html#contato" data-nav="contato">Contato</a>
       </nav>
     </div>
@@ -90,6 +105,31 @@
       </div>
     </section>
 
+    <section class="section docente-photo-guide-section" id="fotos-docentes" aria-labelledby="titulo-fotos-docentes">
+      <div class="container docente-photo-guide-layout">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Fase 7.5 • Fotos docentes</span>
+          <h2 id="titulo-fotos-docentes">Cards preparados para fotos reais de docentes e coordenação.</h2>
+          <p>A página agora já possui molduras visuais para fotos institucionais. Quando vocês tiverem os registros oficiais, basta inserir as imagens na pasta de docentes e trocar cada placeholder pelo arquivo correspondente.</p>
+        </div>
+
+        <div class="docente-photo-tips reveal" aria-label="Orientações para fotos docentes">
+          <article>
+            <strong>Retrato padronizado</strong>
+            <p>Fotos verticais ou quadradas funcionam melhor nos cards. O ideal é manter fundo limpo, boa luz e enquadramento parecido.</p>
+          </article>
+          <article>
+            <strong>Nome de arquivo simples</strong>
+            <p>Exemplo: <code>docente-01.jpg</code>, <code>docente-02.jpg</code> ou <code>coordenacao.jpg</code> dentro de <code>assets/img/docentes/</code>.</p>
+          </article>
+          <article>
+            <strong>Sem inventar dados</strong>
+            <p>Enquanto nomes e fotos oficiais não forem confirmados, os cards continuam demonstrativos e visualmente organizados.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section" aria-labelledby="titulo-corpo-docente-grid">
       <div class="container">
         <div class="section-heading centered reveal">
@@ -100,7 +140,10 @@
 
         <div class="docent-grid">
           <article class="docent-card reveal">
-            <div class="docent-avatar" aria-hidden="true">D1</div>
+            <figure class="docent-photo-frame" aria-label="Espaço reservado para foto institucional do Docente 01">
+              <span>D1</span>
+              <figcaption>Foto institucional futura</figcaption>
+            </figure>
             <div class="docent-card-body">
               <span class="docent-tag">Cadastro demonstrativo</span>
               <h3>Docente 01</h3>
@@ -113,7 +156,10 @@
             </div>
           </article>
           <article class="docent-card reveal">
-            <div class="docent-avatar" aria-hidden="true">D2</div>
+            <figure class="docent-photo-frame" aria-label="Espaço reservado para foto institucional do Docente 02">
+              <span>D2</span>
+              <figcaption>Foto institucional futura</figcaption>
+            </figure>
             <div class="docent-card-body">
               <span class="docent-tag">Cadastro demonstrativo</span>
               <h3>Docente 02</h3>
@@ -126,7 +172,10 @@
             </div>
           </article>
           <article class="docent-card reveal">
-            <div class="docent-avatar" aria-hidden="true">D3</div>
+            <figure class="docent-photo-frame" aria-label="Espaço reservado para foto institucional do Docente 03">
+              <span>D3</span>
+              <figcaption>Foto institucional futura</figcaption>
+            </figure>
             <div class="docent-card-body">
               <span class="docent-tag">Cadastro demonstrativo</span>
               <h3>Docente 03</h3>
@@ -139,7 +188,10 @@
             </div>
           </article>
           <article class="docent-card reveal">
-            <div class="docent-avatar" aria-hidden="true">D4</div>
+            <figure class="docent-photo-frame" aria-label="Espaço reservado para foto institucional do Docente 04">
+              <span>D4</span>
+              <figcaption>Foto institucional futura</figcaption>
+            </figure>
             <div class="docent-card-body">
               <span class="docent-tag">Cadastro demonstrativo</span>
               <h3>Docente 04</h3>
@@ -152,7 +204,10 @@
             </div>
           </article>
           <article class="docent-card reveal">
-            <div class="docent-avatar" aria-hidden="true">D5</div>
+            <figure class="docent-photo-frame" aria-label="Espaço reservado para foto institucional do Docente 05">
+              <span>D5</span>
+              <figcaption>Foto institucional futura</figcaption>
+            </figure>
             <div class="docent-card-body">
               <span class="docent-tag">Cadastro demonstrativo</span>
               <h3>Docente 05</h3>
@@ -165,7 +220,10 @@
             </div>
           </article>
           <article class="docent-card reveal">
-            <div class="docent-avatar" aria-hidden="true">D6</div>
+            <figure class="docent-photo-frame" aria-label="Espaço reservado para foto institucional do Docente 06">
+              <span>D6</span>
+              <figcaption>Foto institucional futura</figcaption>
+            </figure>
             <div class="docent-card-body">
               <span class="docent-tag">Cadastro demonstrativo</span>
               <h3>Docente 06</h3>
@@ -230,13 +288,13 @@
     <section class="section next-step-section" aria-labelledby="titulo-proxima-etapa-docentes">
       <div class="container next-step reveal">
         <div>
-          <span class="eyebrow">Próxima fase</span>
-          <h2 id="titulo-proxima-etapa-docentes">Depois de estrutura e docentes, o site pode avançar para projetos, pesquisa e eventos.</h2>
-          <p>A próxima etapa natural é mostrar a vida acadêmica acontecendo: projetos de extensão, pesquisa, eventos, notícias e participação estudantil.</p>
+          <span class="eyebrow">Próximo módulo</span>
+          <h2 id="titulo-proxima-etapa-docentes">Depois do preparo visual, o site pode avançar para contato, coordenação e FAQ.</h2>
+          <p>Com estrutura, docentes, projetos e notícias já organizados, a próxima etapa natural é criar canais de contato, perguntas frequentes e uma apresentação mais completa da coordenação.</p>
         </div>
         <div class="next-actions">
-          <a class="btn btn-primary" href="estrutura.html">Voltar para estrutura</a>
-          <a class="btn btn-secondary" href="index.html#contato">Falar sobre o curso</a>
+          <a class="btn btn-primary" href="estrutura.html#fotos-estrutura">Ver preparo da estrutura</a>
+          <a class="btn btn-secondary" href="projetos.html">Ver projetos e notícias</a>
         </div>
       </div>
     </section>
@@ -257,20 +315,21 @@
       <nav aria-label="Links rápidos do rodapé">
         <h2>Navegação</h2>
         <a href="index.html">Início</a>
-        <a href="sobre.html">Sobre</a>
+        <a href="sobre.html">Sobre o curso</a>
         <a href="ingresso.html">Ingresso</a>
-        <a href="grade.html">Grade</a>
-        <a href="mercado.html">Mercado</a>
+        <a href="grade.html">Grade curricular</a>
+        <a href="mercado.html">Mercado e estágio</a>
+        <a href="projetos.html">Projetos e eventos</a>
         <a href="estrutura.html">Estrutura</a>
         <a href="docentes.html">Docentes</a>
         <a href="index.html#contato">Contato</a>
       </nav>
       <div>
         <h2>Destaques da fase atual</h2>
-        <span>Ambientes de aprendizagem</span>
-        <span>Laboratórios e recursos</span>
-        <span>Corpo docente demonstrativo</span>
-        <span>Coordenação e apoio acadêmico</span>
+        <span>Projetos de extensão e pesquisa</span>
+        <span>Eventos acadêmicos e minicursos</span>
+        <span>Notícias simuladas em JavaScript</span>
+        <span>Depoimentos curtos e institucionais</span>
       </div>
     </div>
     <div class="container footer-bottom">

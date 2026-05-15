@@ -400,3 +400,22 @@
     left: 23px;
   }
 }
+
+/* Fase 7.6: formas de ingresso em trilha horizontal para reduzir poluição visual */
+.admission-route-grid.interactive-card-rail {
+  display: flex;
+  grid-template-columns: none;
+  align-items: stretch;
+  margin-top: 18px;
+}
+
+.admission-route-grid.interactive-card-rail .route-card {
+  flex: 0 0 min(365px, 86vw);
+}
+
+@media (max-width: 680px) {
+  .admission-route-grid.interactive-card-rail {
+    display: flex;
+    grid-template-columns: none;
+  }
+}
