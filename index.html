@@ -88,7 +88,7 @@
 
       <div class="container hero-campus-content reveal">
         <div class="hero-badge-group" aria-label="Identificação do curso">
-          <span class="hero-badge">IFPE Campus Belo Jardim</span>
+          <span class="hero-badge">IFPE - Campus Belo Jardim</span>
         </div>
         <h1 id="titulo-hero">Engenharia de Software</h1>
         <p>
@@ -103,61 +103,70 @@
         <div class="hero-highlights" aria-label="Destaques rápidos do curso">
           <article>
             <strong>8 períodos</strong>
-            <span>Jornada acadêmica demonstrativa</span>
+            <span>Jornada acadêmica cheia de Desafios e Oportunidades</span>
           </article>
           <article>
             <strong>Presencial</strong>
-            <span>Vivência no campus e contato com docentes</span>
+            <span>Vivência no campus e contato com Professores preparados</span>
           </article>
           <article>
-            <strong>Projetos e extensão</strong>
-            <span>Prática, pesquisa e desafios reais</span>
+            <strong>Projetos, extensão e muito mais!</strong>
+            <span>Prática, pesquisa, hackathons e muito mais!</span>
           </article>
         </div>
       </div>
 
-      <a class="hero-explore-bar" href="#explorar-curso" aria-label="Rolar para explorar informações do curso">
+      <a class="hero-explore-bar" href="#explorar-curso" aria-label="Rolar para projetos, eventos e notícias do curso">
         <span>Explorar o curso</span>
         <strong aria-hidden="true">↓</strong>
       </a>
     </section>
 
-    <section class="quick-info section-sm home-gateway" id="explorar-curso"
-      aria-label="Acesso rápido às informações do curso">
-      <div class="container">
-        <div class="home-gateway-heading reveal">
-          <span class="eyebrow">Comece por aqui</span>
-          <h2>Escolha o caminho e mergulhe no curso.</h2>
-          <p>Depois da imagem principal, a página apresenta os caminhos essenciais para quem quer conhecer, ingressar e
-            acompanhar o curso.</p>
+    <section class="section magazine-section" id="explorar-curso" aria-labelledby="titulo-noticias">
+      <div class="container magazine-layout">
+        <div class="magazine-heading reveal">
+          <span class="eyebrow">Vida acadêmica</span>
+          <h2 id="titulo-noticias">Dia a Dia</h2>
+          <p>
+            A página inicial mostra só os destaques. Os detalhes ficam na aba de Projetos, onde a vida acadêmica aparece
+            com mais profundidade.
+          </p>
         </div>
 
-        <div class="quick-grid gateway-grid reveal">
-          <a class="info-card" href="sobre.html">
-            <span>01</span>
-            <strong>Sobre o curso</strong>
-            <small>Entenda a proposta da formação e o perfil do estudante.</small>
+        <div class="magazine-track reveal" aria-label="Destaques de projetos, eventos e notícias">
+          <a class="magazine-card magazine-card-large" href="projetos.html"
+            style="--visual-image: url('assets/img/home/estudante-desenvolvendo.avif')">
+            <span class="magazine-visual" aria-hidden="true"></span>
+            <span class="magazine-content">
+              <small>Projetos integradores</small>
+              <strong>Soluções reais desenvolvidas por estudantes</strong>
+              <em>Trabalhos práticos conectam disciplinas, tecnologia e desafios do cotidiano.</em>
+            </span>
           </a>
-          <a class="info-card" href="ingresso.html">
-            <span>02</span>
-            <strong>Formas de ingresso</strong>
-            <small>Veja caminhos de entrada, matrícula e orientações gerais.</small>
+
+          <a class="magazine-card" href="projetos.html"
+            style="--visual-image: url('assets/img/estrutura/Bloco-estrutura-eng-software-main.jpg')">
+            <span class="magazine-visual" aria-hidden="true"></span>
+            <span class="magazine-content">
+              <small>Eventos</small>
+              <strong>Semana acadêmica, palestras e minicursos</strong>
+              <em>Momentos de troca, apresentação de ideias e aproximação com a comunidade.</em>
+            </span>
           </a>
-          <a class="info-card" href="grade.html">
-            <span>03</span>
-            <strong>Grade curricular</strong>
-            <small>Conheça a jornada acadêmica organizada em 8 períodos.</small>
+
+          <a class="magazine-card" href="projetos.html"
+            style="--visual-image: url('assets/img/home/projeto-destaque-03.jpg')">
+            <span class="magazine-visual" aria-hidden="true"></span>
+            <span class="magazine-content">
+              <small>Extensão</small>
+              <strong>Tecnologia aplicada à comunidade</strong>
+              <em>Oficinas, ações formativas e iniciativas que aproximam o curso da região.</em>
+            </span>
           </a>
-          <a class="info-card" href="projetos.html">
-            <span>04</span>
-            <strong>Projetos e eventos</strong>
-            <small>Acompanhe pesquisa, extensão, notícias e vida acadêmica.</small>
-          </a>
-          <a class="info-card" href="contato.html">
-            <span>05</span>
-            <strong>Contato</strong>
-            <small>Encontre canais de atendimento e informações da coordenação.</small>
-          </a>
+        </div>
+
+        <div class="magazine-actions reveal">
+          <a class="text-link" href="projetos.html">Ver página completa de projetos e eventos</a>
         </div>
       </div>
     </section>
@@ -294,44 +303,6 @@
       </div>
     </section>
 
-    <section class="section news-section" aria-labelledby="titulo-noticias">
-      <div class="container">
-        <div class="home-news-heading reveal">
-          <div class="section-heading">
-            <span class="eyebrow">Vida acadêmica</span>
-            <h2 id="titulo-noticias">Projetos, eventos e notícias em movimento.</h2>
-            <p>Um resumo dinâmico da parte viva do curso, preparado para receber dados reais futuramente.</p>
-          </div>
-          <a class="btn btn-secondary" href="projetos.html">Ver projetos e eventos</a>
-        </div>
-
-        <div class="news-grid home-news-grid" data-render="home-destaques" aria-live="polite"></div>
-      </div>
-    </section>
-
-    <section class="section contact-cta" id="contato" aria-labelledby="titulo-contato">
-      <div class="container cta-box reveal">
-        <div>
-          <span class="eyebrow">Contato</span>
-          <h2 id="titulo-contato">Quer saber mais sobre o curso?</h2>
-          <p>
-            Conheça o curso, explore as oportunidades e descubra como a Engenharia de Software pode transformar ideias
-            em soluções digitais. Para dúvidas específicas, use os canais de contato e acompanhe as informações oficiais
-            do campus.
-          </p>
-        </div>
-        <form class="interest-form" aria-label="Formulário de interesse no curso" novalidate>
-          <label for="nome">Nome</label>
-          <input id="nome" name="nome" type="text" placeholder="Seu nome" required />
-
-          <label for="email">E-mail</label>
-          <input id="email" name="email" type="email" placeholder="seuemail@exemplo.com" required />
-
-          <button class="btn btn-primary" type="submit">Receber informações</button>
-          <p class="form-feedback" role="status" aria-live="polite"></p>
-        </form>
-      </div>
-    </section>
   </main>
 
   <footer class="site-footer">
