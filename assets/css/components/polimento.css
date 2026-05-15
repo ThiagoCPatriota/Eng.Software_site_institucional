@@ -1,0 +1,91 @@
+/* Fase 10: ajustes finais de usabilidade, acessibilidade e impressão. */
+main {
+  overflow-x: hidden;
+}
+
+:target {
+  scroll-margin-top: calc(var(--header-height) + 28px);
+}
+
+[aria-current="page"] {
+  box-shadow: inset 0 0 0 1px rgba(25, 135, 84, 0.18);
+}
+
+.form-feedback {
+  min-height: 1.5rem;
+}
+
+.form-feedback.success {
+  color: var(--color-ifpe-dark);
+  font-weight: 750;
+}
+
+.form-feedback.error {
+  color: #a13a2f;
+  font-weight: 750;
+}
+
+[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+main a:not(.btn):not(.brand):not(.footer-brand):focus-visible,
+footer a:focus-visible {
+  border-radius: 10px;
+}
+
+@media (max-width: 520px) {
+  .brand-text strong {
+    font-size: 1rem;
+  }
+
+  .brand-text span {
+    font-size: 0.86rem;
+  }
+
+  .brand-mark {
+    width: 48px;
+    height: 48px;
+  }
+
+  .hero-actions,
+  .next-actions {
+    display: grid;
+    width: 100%;
+  }
+}
+
+@media print {
+  .site-header,
+  .menu-toggle,
+  .back-to-top,
+  .hero-actions,
+  .next-actions,
+  .rail-controls,
+  .calendar-filter-list,
+  .faq-search-wrap,
+  form {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #111;
+  }
+
+  .section,
+  .page-hero {
+    padding: 24px 0;
+  }
+
+  a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.86em;
+  }
+
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+}

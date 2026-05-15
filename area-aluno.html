@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Área do aluno demonstrativa do curso de Engenharia de Software do IFPE Campus Belo Jardim, com links úteis, orientações acadêmicas e acesso ao calendário." />
+  <meta name="author" content="Projeto final da disciplina de Web" />
+  <meta name="theme-color" content="#0b2a4a" />
+  <meta name="robots" content="index, follow" />
+  <title>Área do aluno | Engenharia de Software IFPE</title>
+  <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/pages/area-aluno.css" />
+</head>
+<body data-page="area-aluno">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="site-header" id="topo">
+    <div class="container header-wrapper">
+      <a class="brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+        <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="brand-mark" />
+        <span class="brand-text">
+          <strong>IFPE</strong>
+          <span>Engenharia de Software</span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
+        <a href="index.html" data-nav="inicio">Início</a>
+
+        <details class="nav-group" data-nav-group="curso">
+          <summary>Curso</summary>
+          <div class="nav-dropdown">
+            <a href="sobre.html" data-nav="sobre">Sobre o curso</a>
+            <a href="ingresso.html" data-nav="ingresso">Formas de ingresso</a>
+            <a href="grade.html" data-nav="grade">Grade curricular</a>
+            <a href="mercado.html" data-nav="mercado">Mercado e estágio</a>
+          </div>
+        </details>
+
+        <a href="projetos.html" data-nav="projetos">Projetos</a>
+
+        <details class="nav-group" data-nav-group="estrutura">
+          <summary>Estrutura</summary>
+          <div class="nav-dropdown">
+            <a href="estrutura.html" data-nav="estrutura">Ambientes</a>
+            <a href="docentes.html" data-nav="docentes">Docentes</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="aluno">
+          <summary>Aluno</summary>
+          <div class="nav-dropdown">
+            <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
+            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="atendimento">
+          <summary>Contato</summary>
+          <div class="nav-dropdown">
+            <a href="contato.html" data-nav="contato">Coordenação e contato</a>
+            <a href="faq.html" data-nav="faq">FAQ</a>
+          </div>
+        </details>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="page-hero student-page-hero" aria-labelledby="titulo-area-aluno">
+      <div class="container page-hero-grid">
+        <div class="page-hero-content reveal">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Início</a>
+            <span aria-hidden="true">•</span>
+            <span>Área do aluno</span>
+          </nav>
+          <span class="eyebrow">Central acadêmica</span>
+          <h1 id="titulo-area-aluno">Um painel simples para reunir caminhos úteis da vida acadêmica.</h1>
+          <p>
+            Esta área organiza links, orientações e atalhos importantes para estudantes. Ela não substitui sistemas oficiais da instituição e não possui login real nesta versão estática.
+          </p>
+          <div class="hero-actions" aria-label="Ações principais da área do aluno">
+            <a class="btn btn-primary" href="#links-uteis">Ver links úteis</a>
+            <a class="btn btn-secondary" href="calendario.html">Abrir calendário</a>
+          </div>
+        </div>
+
+        <aside class="student-hub-card reveal" aria-label="Resumo da área do aluno">
+          <div class="panel-topbar">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="student-hub-body">
+            <div class="student-hub-status">
+              <span class="status-badge">Modo demonstrativo</span>
+              <strong>Acesso rápido sem fingir sistema acadêmico.</strong>
+              <p>Os atalhos funcionam como uma central informativa. Quando houver links oficiais, basta substituir os endereços em <code>dados.js</code>.</p>
+            </div>
+            <div class="metric-stack" aria-label="Organização dos atalhos">
+              <article><strong>01</strong><span>Sistemas institucionais</span></article>
+              <article><strong>02</strong><span>Materiais e biblioteca</span></article>
+              <article><strong>03</strong><span>Calendário e prazos</span></article>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="student-notice-section" aria-labelledby="titulo-aviso-aluno">
+      <div class="container student-notice reveal">
+        <div class="student-notice-icon" aria-hidden="true">!</div>
+        <div>
+          <h2 id="titulo-aviso-aluno">Área informativa, sem login falso.</h2>
+          <p>
+            O acesso a notas, frequência, documentos, sistemas acadêmicos e dados pessoais depende dos canais oficiais do IFPE. Esta página apenas organiza os caminhos e prepara a estrutura visual para futuras integrações.
+          </p>
+        </div>
+        <a class="btn btn-light" href="faq.html">Tirar dúvidas</a>
+      </div>
+    </section>
+
+    <section class="section student-links-section" id="links-uteis" aria-labelledby="titulo-links-uteis">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <span class="eyebrow">Links úteis</span>
+          <h2 id="titulo-links-uteis">Atalhos organizados por necessidade, não por labirinto.</h2>
+          <p>A ideia é que o estudante encontre rapidamente onde buscar sistemas, documentos, materiais, horários e apoio acadêmico.</p>
+        </div>
+
+        <div class="student-links-grid reveal" data-render="links-aluno" aria-live="polite">
+          <article class="student-link-card">
+            <span class="student-link-icon">...</span>
+            <h3>Carregando links</h3>
+            <p>Os atalhos serão carregados pelo JavaScript e podem receber links oficiais quando forem definidos.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section student-routine-section" aria-labelledby="titulo-rotina-academica">
+      <div class="container routine-layout">
+        <div class="routine-panel reveal">
+          <span class="eyebrow">Rotina acadêmica</span>
+          <h2 id="titulo-rotina-academica">Um mapa para o aluno não caçar informação no escuro.</h2>
+          <p>
+            Esta trilha resume os momentos mais comuns da vida acadêmica e ajuda a conectar links úteis, calendário e contato da coordenação.
+          </p>
+        </div>
+
+        <div class="routine-steps">
+          <article class="routine-step reveal">
+            <strong>01</strong>
+            <div>
+              <h3>Antes do semestre</h3>
+              <p>Conferir matrícula, horários, calendário, documentos e canais oficiais de comunicação.</p>
+            </div>
+          </article>
+          <article class="routine-step reveal">
+            <strong>02</strong>
+            <div>
+              <h3>Durante as aulas</h3>
+              <p>Acompanhar frequência, materiais, atividades, avisos dos docentes e datas importantes.</p>
+            </div>
+          </article>
+          <article class="routine-step reveal">
+            <strong>03</strong>
+            <div>
+              <h3>Em avaliações e projetos</h3>
+              <p>Observar prazos, entregas, apresentações, eventos acadêmicos e orientações por disciplina.</p>
+            </div>
+          </article>
+          <article class="routine-step reveal">
+            <strong>04</strong>
+            <div>
+              <h3>Quando surgir dúvida</h3>
+              <p>Consultar FAQ, contato da coordenação e canais institucionais antes de depender de informações espalhadas.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section next-step-section" aria-label="Próximos passos">
+      <div class="container next-step reveal">
+        <div>
+          <span class="eyebrow">Calendário</span>
+          <h2>Agora veja as datas importantes em uma linha do tempo.</h2>
+          <p>O calendário acadêmico também está em modo demonstrativo e pode receber datas oficiais quando forem confirmadas.</p>
+        </div>
+        <div class="next-actions">
+          <a class="btn btn-light" href="calendario.html">Abrir calendário</a>
+          <a class="btn btn-secondary" href="contato.html">Falar com a coordenação</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="footer-brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+          <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="footer-brand-mark" />
+          <span class="footer-brand-text">
+            <strong>IFPE</strong>
+            <span>Engenharia de Software</span>
+          </span>
+        </a>
+        <p>Curso de Engenharia de Software. Formação, tecnologia e inovação conectadas ao futuro.</p>
+      </div>
+      <nav aria-label="Links rápidos do rodapé">
+        <h2>Navegação</h2>
+        <a href="index.html">Início</a>
+        <a href="sobre.html">Sobre o curso</a>
+        <a href="ingresso.html">Ingresso</a>
+        <a href="grade.html">Grade curricular</a>
+        <a href="mercado.html">Mercado e estágio</a>
+        <a href="projetos.html">Projetos e eventos</a>
+        <a href="estrutura.html">Estrutura</a>
+        <a href="docentes.html">Docentes</a>
+        <a href="area-aluno.html">Área do aluno</a>
+        <a href="calendario.html">Calendário acadêmico</a>
+        <a href="contato.html">Contato</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <div>
+        <h2>Atendimento</h2>
+        <span>Coordenação do curso: a confirmar</span>
+        <span>E-mail institucional: a confirmar</span>
+        <span>WhatsApp/telefone: a confirmar</span>
+        <span>Área do aluno e calendário em modo demonstrativo</span>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <small>© <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim. Todos os direitos reservados.</small>
+      <button class="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
+    </div>
+  </footer>
+
+  <script src="assets/js/dados.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

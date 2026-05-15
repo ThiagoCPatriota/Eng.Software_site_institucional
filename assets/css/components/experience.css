@@ -1,0 +1,458 @@
+/* Fase 7.6: componentes de experiência visual e navegação dinâmica */
+.experience-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 10% 12%, rgba(45, 156, 219, 0.12), transparent 30%),
+    radial-gradient(circle at 86% 18%, rgba(25, 135, 84, 0.1), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, var(--color-bg) 100%);
+}
+
+.experience-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(11, 42, 74, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 42, 74, 0.035) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.16), transparent 74%);
+  pointer-events: none;
+}
+
+.experience-layout,
+.choice-lab,
+.radar-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  gap: 52px;
+  align-items: start;
+}
+
+.experience-copy {
+  position: sticky;
+  top: calc(var(--header-height) + 28px);
+}
+
+.experience-copy p,
+.chapter-card p,
+.choice-panel p,
+.radar-copy p,
+.rail-note {
+  color: var(--color-muted);
+}
+
+.experience-copy p,
+.radar-copy p {
+  margin-top: 18px;
+  font-size: 1.06rem;
+}
+
+.rail-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.rail-toolbar strong {
+  color: var(--color-primary);
+  font-size: 1.02rem;
+}
+
+.rail-note {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 750;
+}
+
+.rail-controls {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.rail-btn {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-primary);
+  font-size: 1.22rem;
+  font-weight: 900;
+  box-shadow: 0 12px 28px rgba(11, 42, 74, 0.08);
+  transition: transform var(--transition), border-color var(--transition), background var(--transition);
+}
+
+.rail-btn:hover,
+.rail-btn:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(45, 156, 219, 0.4);
+  background: var(--color-accent-soft);
+}
+
+.chapter-rail,
+.interactive-card-rail,
+.career-rail {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 6px;
+  padding: 6px 6px 22px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(45, 156, 219, 0.4) transparent;
+}
+
+.chapter-rail::-webkit-scrollbar,
+.interactive-card-rail::-webkit-scrollbar,
+.career-rail::-webkit-scrollbar {
+  height: 8px;
+}
+
+.chapter-rail::-webkit-scrollbar-thumb,
+.interactive-card-rail::-webkit-scrollbar-thumb,
+.career-rail::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(45, 156, 219, 0.38);
+}
+
+.chapter-card,
+.career-card {
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 min(380px, 86vw);
+  min-height: 330px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(246, 251, 255, 0.94));
+  border: 1px solid rgba(220, 230, 239, 0.92);
+  border-radius: 30px;
+  padding: 30px;
+  box-shadow: 0 24px 58px rgba(11, 42, 74, 0.1);
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.chapter-card::before,
+.career-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto auto;
+  width: 82px;
+  height: 82px;
+  background: linear-gradient(135deg, rgba(45, 156, 219, 0.12), rgba(25, 135, 84, 0.16));
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+.chapter-card::after,
+.career-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -50px -50px auto;
+  width: 160px;
+  height: 160px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(45, 156, 219, 0.12), transparent 68%);
+}
+
+.chapter-card:hover,
+.chapter-card:focus-within,
+.career-card:hover,
+.career-card:focus-within {
+  transform: translateY(-6px) rotate(-0.4deg);
+  border-color: rgba(25, 135, 84, 0.28);
+  box-shadow: 0 32px 78px rgba(11, 42, 74, 0.15);
+}
+
+.chapter-card .chapter-number,
+.career-card .chapter-number {
+  display: inline-grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-accent-soft), var(--color-ifpe-soft));
+  border: 1px solid rgba(25, 135, 84, 0.12);
+  font-weight: 950;
+  margin-bottom: 22px;
+}
+
+.chapter-card h3,
+.career-card h3 {
+  font-size: 1.38rem;
+}
+
+.chapter-card p,
+.career-card p {
+  margin-top: 14px;
+}
+
+.chapter-card footer,
+.career-card footer {
+  position: relative;
+  z-index: 1;
+  margin-top: 28px;
+  color: var(--color-ifpe-dark);
+  font-weight: 850;
+}
+
+.choice-lab {
+  align-items: stretch;
+}
+
+.choice-tabs {
+  display: grid;
+  gap: 12px;
+}
+
+.choice-tab {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: #fff;
+  color: var(--color-muted);
+  text-align: left;
+  padding: 18px;
+  box-shadow: 0 14px 34px rgba(11, 42, 74, 0.055);
+  transition: transform var(--transition), background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.choice-tab strong,
+.choice-tab span {
+  display: block;
+}
+
+.choice-tab strong {
+  color: var(--color-primary);
+  font-size: 1rem;
+}
+
+.choice-tab span {
+  margin-top: 4px;
+  font-size: 0.88rem;
+}
+
+.choice-tab:hover,
+.choice-tab:focus-visible,
+.choice-tab.active {
+  transform: translateX(4px);
+  color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-accent-soft), var(--color-ifpe-soft));
+  border-color: rgba(25, 135, 84, 0.24);
+}
+
+.choice-panels {
+  position: relative;
+  min-height: 360px;
+}
+
+.choice-panel {
+  display: none;
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(25, 135, 84, 0.16), transparent 28%),
+    linear-gradient(135deg, #ffffff 0%, #f6fbff 100%);
+  border: 1px solid rgba(220, 230, 239, 0.92);
+  border-radius: var(--radius-lg);
+  padding: 34px;
+  box-shadow: 0 28px 70px rgba(11, 42, 74, 0.1);
+  animation: panelIn 260ms ease both;
+}
+
+.choice-panel.active {
+  display: block;
+}
+
+.choice-panel h3 {
+  font-size: clamp(1.5rem, 2.7vw, 2.35rem);
+  max-width: 760px;
+}
+
+.choice-panel p {
+  margin-top: 16px;
+  max-width: 780px;
+}
+
+.choice-panel ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 26px;
+  padding: 0;
+  list-style: none;
+}
+
+.choice-panel li {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 16px;
+  color: var(--color-muted);
+  font-weight: 750;
+}
+
+.interactive-card-rail .route-card,
+.interactive-card-rail .document-card,
+.interactive-card-rail .news-card,
+.interactive-card-rail .project-type-card {
+  flex: 0 0 min(365px, 86vw);
+  scroll-snap-align: start;
+}
+
+.interactive-card-rail .route-card {
+  min-height: 390px;
+}
+
+.radar-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.radar-section::before {
+  content: "";
+  position: absolute;
+  inset: -40% -20%;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(45, 156, 219, 0.35), transparent 28%),
+    radial-gradient(circle at 80% 22%, rgba(25, 135, 84, 0.32), transparent 25%);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.radar-layout {
+  align-items: center;
+}
+
+.radar-section h2,
+.radar-section p,
+.radar-section .eyebrow {
+  color: #fff;
+}
+
+.radar-section .eyebrow {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.news-ticker {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.16);
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: tickerMove 24s linear infinite;
+}
+
+.ticker-item {
+  display: grid;
+  gap: 8px;
+  width: min(360px, 86vw);
+  padding: 26px;
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.ticker-item span {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ticker-item strong {
+  color: #fff;
+  font-size: 1.12rem;
+  line-height: 1.24;
+}
+
+.ticker-item small {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+@keyframes tickerMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 980px) {
+  .experience-layout,
+  .choice-lab,
+  .radar-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-copy {
+    position: static;
+  }
+
+  .choice-panel ul {
+    grid-template-columns: 1fr;
+  }
+
+  .rail-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 680px) {
+  .chapter-card,
+  .career-card,
+  .choice-panel {
+    padding: 24px;
+    border-radius: 24px;
+  }
+
+  .rail-controls {
+    width: 100%;
+  }
+
+  .rail-btn {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
+
+  .chapter-card:hover,
+  .chapter-card:focus-within,
+  .career-card:hover,
+  .career-card:focus-within,
+  .choice-tab:hover,
+  .choice-tab:focus-visible,
+  .choice-tab.active {
+    transform: none;
+  }
+}

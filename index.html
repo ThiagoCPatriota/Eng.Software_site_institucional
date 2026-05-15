@@ -5,18 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Site institucional do curso de Engenharia de Software do IFPE Campus Belo Jardim, com informações sobre o curso, formas de ingresso, diferenciais, mercado de trabalho e contato." />
   <meta name="author" content="Projeto final da disciplina de Web" />
+  <meta name="theme-color" content="#0b2a4a" />
+  <meta name="robots" content="index, follow" />
   <title>Engenharia de Software | IFPE Campus Belo Jardim</title>
-  <link rel="icon" href="assets/img/logo-es.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
   <link rel="stylesheet" href="assets/css/global.css" />
   <link rel="stylesheet" href="assets/css/pages/home.css" />
 </head>
-<body>
+<body data-page="inicio">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
 
   <header class="site-header" id="topo">
     <div class="container header-wrapper">
-      <a class="brand" href="index.html#inicio" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
-        <img src="assets/img/logo-es.svg" alt="IFPE Campus Belo Jardim - Engenharia de Software" />
+      <a class="brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+        <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="brand-mark" />
+        <span class="brand-text">
+          <strong>IFPE</strong>
+          <span>Engenharia de Software</span>
+        </span>
       </a>
 
       <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
@@ -26,17 +32,48 @@
       </button>
 
       <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
-        <a href="index.html#inicio">Início</a>
-        <a href="sobre.html">Sobre</a>
-        <a href="ingresso.html">Ingresso</a>
-        <a href="grade.html">Grade</a>
-        <a href="mercado.html">Mercado</a>
-        <a href="index.html#contato">Contato</a>
+        <a href="index.html" data-nav="inicio">Início</a>
+
+        <details class="nav-group" data-nav-group="curso">
+          <summary>Curso</summary>
+          <div class="nav-dropdown">
+            <a href="sobre.html" data-nav="sobre">Sobre o curso</a>
+            <a href="ingresso.html" data-nav="ingresso">Formas de ingresso</a>
+            <a href="grade.html" data-nav="grade">Grade curricular</a>
+            <a href="mercado.html" data-nav="mercado">Mercado e estágio</a>
+          </div>
+        </details>
+
+        <a href="projetos.html" data-nav="projetos">Projetos</a>
+
+        <details class="nav-group" data-nav-group="estrutura">
+          <summary>Estrutura</summary>
+          <div class="nav-dropdown">
+            <a href="estrutura.html" data-nav="estrutura">Ambientes</a>
+            <a href="docentes.html" data-nav="docentes">Docentes</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="aluno">
+          <summary>Aluno</summary>
+          <div class="nav-dropdown">
+            <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
+            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="atendimento">
+          <summary>Contato</summary>
+          <div class="nav-dropdown">
+            <a href="contato.html" data-nav="contato">Coordenação e contato</a>
+            <a href="faq.html" data-nav="faq">FAQ</a>
+          </div>
+        </details>
       </nav>
     </div>
   </header>
 
-  <main id="conteudo">
+<main id="conteudo">
     <section class="hero section" id="inicio" aria-labelledby="titulo-hero">
       <div class="container hero-grid">
         <div class="hero-content reveal">
@@ -229,28 +266,16 @@
 
     <section class="section news-section" aria-labelledby="titulo-noticias">
       <div class="container">
-        <div class="section-heading centered reveal">
-          <span class="eyebrow">Vida acadêmica</span>
-          <h2 id="titulo-noticias">Projetos, eventos e experiências que aproximam teoria e prática.</h2>
+        <div class="home-news-heading reveal">
+          <div class="section-heading">
+            <span class="eyebrow">Vida acadêmica</span>
+            <h2 id="titulo-noticias">Projetos, eventos e notícias em movimento.</h2>
+            <p>Um resumo dinâmico da parte viva do curso, preparado para receber dados reais futuramente.</p>
+          </div>
+          <a class="btn btn-secondary" href="projetos.html">Ver projetos e eventos</a>
         </div>
 
-        <div class="news-grid">
-          <article class="news-card reveal">
-            <span class="tag">Evento</span>
-            <h3>Semana Acadêmica</h3>
-            <p>Palestras, minicursos e encontros com profissionais da área de tecnologia.</p>
-          </article>
-          <article class="news-card reveal">
-            <span class="tag">Projeto</span>
-            <h3>Projetos Integradores</h3>
-            <p>Desenvolvimento de soluções digitais ligadas a problemas reais da comunidade.</p>
-          </article>
-          <article class="news-card reveal">
-            <span class="tag">Extensão</span>
-            <h3>Tecnologia e Impacto</h3>
-            <p>Ações que conectam conhecimento acadêmico, inclusão digital e inovação social.</p>
-          </article>
-        </div>
+        <div class="news-grid home-news-grid" data-render="home-destaques" aria-live="polite"></div>
       </div>
     </section>
 
@@ -260,7 +285,7 @@
           <span class="eyebrow">Contato</span>
           <h2 id="titulo-contato">Quer saber mais sobre o curso?</h2>
           <p>
-            Entre em contato com a coordenação ou acompanhe os canais oficiais do IFPE Campus Belo Jardim para informações sobre ingresso, matrícula, calendário e atividades acadêmicas.
+            Conheça o curso, explore as oportunidades e descubra como a Engenharia de Software pode transformar ideias em soluções digitais. Para dúvidas específicas, use os canais de contato e acompanhe as informações oficiais do campus.
           </p>
         </div>
         <form class="interest-form" aria-label="Formulário de interesse no curso" novalidate>
@@ -280,24 +305,36 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <img src="assets/img/logo-es.svg" alt="IFPE Campus Belo Jardim - Engenharia de Software" class="footer-logo" />
-        <p>Site institucional desenvolvido como projeto final da disciplina de Web.</p>
+        <a class="footer-brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+          <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="footer-brand-mark" />
+          <span class="footer-brand-text">
+            <strong>IFPE</strong>
+            <span>Engenharia de Software</span>
+          </span>
+        </a>
+        <p>Curso de Engenharia de Software. Formação, tecnologia e inovação conectadas ao futuro.</p>
       </div>
-      <div>
+      <nav aria-label="Links rápidos do rodapé">
         <h2>Navegação</h2>
-        <a href="index.html#inicio">Início</a>
-        <a href="sobre.html">Sobre</a>
+        <a href="index.html">Início</a>
+        <a href="sobre.html">Sobre o curso</a>
         <a href="ingresso.html">Ingresso</a>
-        <a href="grade.html">Grade</a>
-        <a href="mercado.html">Mercado</a>
-        <a href="index.html#contato">Contato</a>
-      </div>
+        <a href="grade.html">Grade curricular</a>
+        <a href="mercado.html">Mercado e estágio</a>
+        <a href="projetos.html">Projetos e eventos</a>
+        <a href="estrutura.html">Estrutura</a>
+        <a href="docentes.html">Docentes</a>
+        <a href="area-aluno.html">Área do aluno</a>
+        <a href="calendario.html">Calendário acadêmico</a>
+        <a href="contato.html">Contato</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
       <div>
-        <h2>Próximas páginas</h2>
-        <span>Estrutura do curso</span>
-        <span>Corpo docente</span>
-        <span>Projetos e eventos</span>
-        <span>FAQ</span>
+        <h2>Atendimento</h2>
+        <span>Coordenação do curso: a confirmar</span>
+        <span>E-mail institucional: a confirmar</span>
+        <span>WhatsApp/telefone: a confirmar</span>
+        <span>Área do aluno e calendário em modo demonstrativo</span>
       </div>
     </div>
     <div class="container footer-bottom">
@@ -306,6 +343,8 @@
     </div>
   </footer>
 
+
+<script src="assets/js/dados.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
 </html>

@@ -453,3 +453,26 @@
     grid-template-columns: 1fr;
   }
 }
+
+.home-news-heading {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: end;
+}
+
+.home-news-grid .news-card {
+  display: flex;
+  min-height: 260px;
+  flex-direction: column;
+}
+
+@media (max-width: 760px) {
+  .home-news-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .home-news-heading .btn {
+    width: 100%;
+  }
+}

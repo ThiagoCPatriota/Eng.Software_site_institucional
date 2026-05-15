@@ -5,18 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Conheça a organização curricular do curso de Engenharia de Software do IFPE Campus Belo Jardim, com períodos, eixos de formação, práticas, estágio, TCC e atividades complementares." />
   <meta name="author" content="Projeto final da disciplina de Web" />
+  <meta name="theme-color" content="#0b2a4a" />
+  <meta name="robots" content="index, follow" />
   <title>Grade Curricular | Engenharia de Software - IFPE Campus Belo Jardim</title>
-  <link rel="icon" href="assets/img/logo-es.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
   <link rel="stylesheet" href="assets/css/global.css" />
   <link rel="stylesheet" href="assets/css/pages/grade.css" />
 </head>
-<body>
+<body data-page="grade">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
 
   <header class="site-header" id="topo">
     <div class="container header-wrapper">
-      <a class="brand" href="index.html#inicio" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
-        <img src="assets/img/logo-es.svg" alt="IFPE Campus Belo Jardim - Engenharia de Software" />
+      <a class="brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+        <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="brand-mark" />
+        <span class="brand-text">
+          <strong>IFPE</strong>
+          <span>Engenharia de Software</span>
+        </span>
       </a>
 
       <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
@@ -26,17 +32,48 @@
       </button>
 
       <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
-        <a href="index.html#inicio">Início</a>
-        <a href="sobre.html">Sobre</a>
-        <a href="ingresso.html">Ingresso</a>
-        <a href="grade.html" class="active">Grade</a>
-        <a href="mercado.html">Mercado</a>
-        <a href="index.html#contato">Contato</a>
+        <a href="index.html" data-nav="inicio">Início</a>
+
+        <details class="nav-group" data-nav-group="curso">
+          <summary>Curso</summary>
+          <div class="nav-dropdown">
+            <a href="sobre.html" data-nav="sobre">Sobre o curso</a>
+            <a href="ingresso.html" data-nav="ingresso">Formas de ingresso</a>
+            <a href="grade.html" data-nav="grade">Grade curricular</a>
+            <a href="mercado.html" data-nav="mercado">Mercado e estágio</a>
+          </div>
+        </details>
+
+        <a href="projetos.html" data-nav="projetos">Projetos</a>
+
+        <details class="nav-group" data-nav-group="estrutura">
+          <summary>Estrutura</summary>
+          <div class="nav-dropdown">
+            <a href="estrutura.html" data-nav="estrutura">Ambientes</a>
+            <a href="docentes.html" data-nav="docentes">Docentes</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="aluno">
+          <summary>Aluno</summary>
+          <div class="nav-dropdown">
+            <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
+            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="atendimento">
+          <summary>Contato</summary>
+          <div class="nav-dropdown">
+            <a href="contato.html" data-nav="contato">Coordenação e contato</a>
+            <a href="faq.html" data-nav="faq">FAQ</a>
+          </div>
+        </details>
       </nav>
     </div>
   </header>
 
-  <main id="conteudo">
+<main id="conteudo">
     <section class="page-hero curriculum-page-hero" aria-labelledby="titulo-grade">
       <div class="container page-hero-grid">
         <div class="page-hero-content reveal">
@@ -45,7 +82,7 @@
             <span aria-hidden="true">/</span>
             <span>Grade curricular</span>
           </nav>
-          <span class="eyebrow">Fase 4</span>
+          <span class="eyebrow">Grade curricular</span>
           <h1 id="titulo-grade">Grade curricular organizada por períodos e eixos de formação.</h1>
           <p>
             Esta página apresenta uma proposta inicial de organização da matriz curricular do curso de Engenharia de Software, considerando 4 anos de duração e 8 períodos, com destaque para fundamentos, desenvolvimento, qualidade, gestão, prática profissional e componentes integradores.
@@ -91,6 +128,49 @@
           </p>
         </div>
         <a class="btn btn-light" href="#periodos">Explorar modelo</a>
+      </div>
+    </section>
+
+    <section class="section experience-section" id="jornada-grade" aria-labelledby="titulo-jornada-grade">
+      <div class="container experience-layout">
+        <div class="experience-copy reveal">
+          <span class="eyebrow">Mapa narrativo</span>
+          <h2 id="titulo-jornada-grade">A grade pode ser lida como uma jornada, não como uma tabela infinita.</h2>
+          <p>
+            O visitante entende melhor o curso quando enxerga a evolução: base, construção, engenharia aplicada e síntese profissional.
+          </p>
+        </div>
+
+        <div class="chapter-rail-shell reveal">
+          <div class="rail-toolbar">
+            <div>
+              <strong>Jornada de 4 anos</strong>
+              <span class="rail-note">Uma leitura rápida antes dos períodos detalhados.</span>
+            </div>
+            <div class="rail-controls" aria-label="Controles da jornada curricular">
+              <button class="rail-btn" type="button" data-rail-prev="#grade-chapters" aria-label="Voltar jornada curricular">‹</button>
+              <button class="rail-btn" type="button" data-rail-next="#grade-chapters" aria-label="Avançar jornada curricular">›</button>
+            </div>
+          </div>
+          <div class="chapter-rail" id="grade-chapters" data-experience-rail aria-label="Jornada curricular resumida">
+            <article class="chapter-card">
+              <div><span class="chapter-number">1º ano</span><h3>Entrada e fundamentos</h3><p>Lógica, programação, computação, matemática e adaptação ao modo de pensar da área.</p></div>
+              <footer>Base para construir</footer>
+            </article>
+            <article class="chapter-card">
+              <div><span class="chapter-number">2º ano</span><h3>Modelagem e desenvolvimento</h3><p>Banco de dados, orientação a objetos, requisitos, web e primeiros projetos integradores.</p></div>
+              <footer>Do problema ao protótipo</footer>
+            </article>
+            <article class="chapter-card">
+              <div><span class="chapter-number">3º ano</span><h3>Qualidade e sistemas</h3><p>Testes, processos, arquitetura, segurança, integração e práticas de engenharia.</p></div>
+              <footer>Software mais robusto</footer>
+            </article>
+            <article class="chapter-card">
+              <div><span class="chapter-number">4º ano</span><h3>Síntese profissional</h3><p>Estágio, TCC, inovação, projetos avançados e preparação para atuação profissional.</p></div>
+              <footer>Entrega e maturidade</footer>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -353,7 +433,7 @@
     <section class="next-step-section section" aria-labelledby="titulo-proxima-etapa-grade">
       <div class="container next-step reveal">
         <div>
-          <span class="eyebrow">Próxima fase</span>
+          <span class="eyebrow">Continue explorando</span>
           <h2 id="titulo-proxima-etapa-grade">Depois da grade, o estudante quer entender onde pode atuar.</h2>
           <p>
             A página de mercado de trabalho e estágio aprofunda áreas de atuação, cargos, possibilidades de empreendedorismo, oportunidades e caminhos profissionais.
@@ -370,29 +450,45 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <img src="assets/img/logo-es.svg" alt="IFPE Campus Belo Jardim - Engenharia de Software" class="footer-logo" />
-        <p>Site institucional desenvolvido como projeto final da disciplina de Web, utilizando HTML, CSS e JavaScript puros.</p>
+        <a class="footer-brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+          <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="footer-brand-mark" />
+          <span class="footer-brand-text">
+            <strong>IFPE</strong>
+            <span>Engenharia de Software</span>
+          </span>
+        </a>
+        <p>Curso de Engenharia de Software. Formação, tecnologia e inovação conectadas ao futuro.</p>
       </div>
       <nav aria-label="Links rápidos do rodapé">
-        <strong>Navegação</strong>
-        <a href="index.html#inicio">Início</a>
-        <a href="sobre.html">Sobre</a>
+        <h2>Navegação</h2>
+        <a href="index.html">Início</a>
+        <a href="sobre.html">Sobre o curso</a>
         <a href="ingresso.html">Ingresso</a>
-        <a href="grade.html">Grade</a>
-        <a href="mercado.html">Mercado</a>
-        <a href="index.html#contato">Contato</a>
+        <a href="grade.html">Grade curricular</a>
+        <a href="mercado.html">Mercado e estágio</a>
+        <a href="projetos.html">Projetos e eventos</a>
+        <a href="estrutura.html">Estrutura</a>
+        <a href="docentes.html">Docentes</a>
+        <a href="area-aluno.html">Área do aluno</a>
+        <a href="calendario.html">Calendário acadêmico</a>
+        <a href="contato.html">Contato</a>
+        <a href="faq.html">FAQ</a>
       </nav>
       <div>
-        <strong>IFPE Campus Belo Jardim</strong>
-        <p>Engenharia de Software com formação pública, prática, ética e conectada ao desenvolvimento regional.</p>
+        <h2>Atendimento</h2>
+        <span>Coordenação do curso: a confirmar</span>
+        <span>E-mail institucional: a confirmar</span>
+        <span>WhatsApp/telefone: a confirmar</span>
+        <span>Área do aluno e calendário em modo demonstrativo</span>
       </div>
     </div>
     <div class="container footer-bottom">
-      <span>&copy; <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim.</span>
-      <button class="back-to-top" type="button">Voltar ao topo</button>
+      <small>© <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim. Todos os direitos reservados.</small>
+      <button class="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
     </div>
   </footer>
 
-  <script src="assets/js/script.js"></script>
+
+<script src="assets/js/script.js"></script>
 </body>
 </html>

@@ -6,14 +6,40 @@
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.3fr 1fr 1fr;
   gap: 40px;
 }
 
-.footer-logo {
-  width: 318px;
-  filter: brightness(0) invert(1);
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
   margin-bottom: 18px;
+}
+
+.footer-brand-mark {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 4px;
+}
+
+.footer-brand-text {
+  display: grid;
+  line-height: 1.06;
+}
+
+.footer-brand-text strong {
+  color: #3ad07f;
+  font-size: 1.14rem;
+}
+
+.footer-brand-text span {
+  color: #fff;
+  font-weight: 800;
+  margin-top: 2px;
 }
 
 .site-footer h2,
