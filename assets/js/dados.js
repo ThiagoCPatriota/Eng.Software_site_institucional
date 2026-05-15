@@ -91,4 +91,118 @@ window.dadosSite = {
       texto: 'A aproximação entre curso, comunidade e tecnologia fortalece a inovação regional e a formação aplicada.'
     }
   ]
+  ,
+  linksAluno: [
+    {
+      icone: 'SA',
+      categoria: 'Sistema acadêmico',
+      titulo: 'Notas, frequência e histórico',
+      resumo: 'Atalho reservado para o sistema oficial onde o estudante acompanha notas, frequência e documentos acadêmicos.',
+      status: 'Link oficial a confirmar',
+      tipo: 'Sistema externo',
+      link: '#'
+    },
+    {
+      icone: 'HR',
+      categoria: 'Horários',
+      titulo: 'Horários de aula e turmas',
+      resumo: 'Espaço para centralizar horários do semestre, turmas, salas e avisos sobre possíveis alterações.',
+      status: 'Atualização futura',
+      tipo: 'Informativo',
+      link: '#'
+    },
+    {
+      icone: 'MT',
+      categoria: 'Materiais',
+      titulo: 'Materiais e conteúdos de apoio',
+      resumo: 'Atalho para ambientes onde docentes disponibilizam arquivos, referências, listas e materiais complementares.',
+      status: 'Link a confirmar',
+      tipo: 'Apoio acadêmico',
+      link: '#'
+    },
+    {
+      icone: 'BD',
+      categoria: 'Biblioteca',
+      titulo: 'Biblioteca física e digital',
+      resumo: 'Área preparada para indicar acervo, biblioteca digital, normas, pesquisa bibliográfica e serviços de apoio.',
+      status: 'Link institucional',
+      tipo: 'Pesquisa',
+      link: '#'
+    },
+    {
+      icone: 'CL',
+      categoria: 'Calendário',
+      titulo: 'Calendário acadêmico',
+      resumo: 'Linha do tempo com matrícula, aulas, avaliações, eventos, prazos e datas importantes do semestre.',
+      status: 'Página disponível',
+      tipo: 'Navegação interna',
+      link: 'calendario.html'
+    },
+    {
+      icone: 'AP',
+      categoria: 'Apoio',
+      titulo: 'Coordenação e atendimento',
+      resumo: 'Canal para dúvidas sobre curso, matrícula, orientação acadêmica, estágios, atividades e encaminhamentos.',
+      status: 'Contato a confirmar',
+      tipo: 'Atendimento',
+      link: 'contato.html'
+    }
+  ],
+  calendarioAcademico: [
+    {
+      categoria: 'matricula',
+      etiqueta: 'Matrícula',
+      marcador: 'M',
+      data: 'A confirmar',
+      titulo: 'Período de matrícula dos estudantes',
+      resumo: 'Janela demonstrativa para orientar estudantes sobre matrícula, documentação e confirmação de vínculo conforme calendário oficial.',
+      status: 'Conferir edital ou sistema oficial'
+    },
+    {
+      categoria: 'aulas',
+      etiqueta: 'Aulas',
+      marcador: 'A',
+      data: 'A confirmar',
+      titulo: 'Início das aulas do semestre',
+      resumo: 'Marco para indicar começo das atividades acadêmicas, acolhimento, apresentação de disciplinas e primeiras orientações.',
+      status: 'Data oficial pendente'
+    },
+    {
+      categoria: 'prazos',
+      etiqueta: 'Prazo',
+      marcador: 'P',
+      data: 'Demonstração',
+      titulo: 'Ajuste de matrícula e regularização',
+      resumo: 'Espaço para divulgar prazos de ajuste, solicitação de documentos, regularização acadêmica e demandas administrativas.',
+      status: 'Exemplo de prazo'
+    },
+    {
+      categoria: 'eventos',
+      etiqueta: 'Evento',
+      marcador: 'E',
+      data: 'Demonstração',
+      titulo: 'Semana Acadêmica de Engenharia de Software',
+      resumo: 'Evento demonstrativo com palestras, minicursos, oficinas e apresentações de projetos desenvolvidos por estudantes.',
+      status: 'Programação futura'
+    },
+    {
+      categoria: 'avaliacao',
+      etiqueta: 'Avaliação',
+      marcador: 'AV',
+      data: 'Demonstração',
+      titulo: 'Período de avaliações e entregas',
+      resumo: 'Janela indicativa para provas, apresentações, projetos integradores, atividades práticas e entregas orientadas por disciplina.',
+      status: 'Datas por disciplina'
+    },
+    {
+      categoria: 'prazos',
+      etiqueta: 'Prazo',
+      marcador: 'F',
+      data: 'A confirmar',
+      titulo: 'Fechamento do semestre letivo',
+      resumo: 'Marco final para consolidação de frequência, resultados, pendências e orientações para o período seguinte.',
+      status: 'Conferir calendário oficial'
+    }
+  ]
+
 };

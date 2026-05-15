@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Calendário acadêmico demonstrativo do curso de Engenharia de Software do IFPE Campus Belo Jardim, com prazos, eventos, matrícula, aulas e avaliações." />
+  <meta name="author" content="Projeto final da disciplina de Web" />
+  <meta name="theme-color" content="#0b2a4a" />
+  <meta name="robots" content="index, follow" />
+  <title>Calendário acadêmico | Engenharia de Software IFPE</title>
+  <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/pages/calendario.css" />
+</head>
+<body data-page="calendario">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="site-header" id="topo">
+    <div class="container header-wrapper">
+      <a class="brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+        <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="brand-mark" />
+        <span class="brand-text">
+          <strong>IFPE</strong>
+          <span>Engenharia de Software</span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
+        <a href="index.html" data-nav="inicio">Início</a>
+
+        <details class="nav-group" data-nav-group="curso">
+          <summary>Curso</summary>
+          <div class="nav-dropdown">
+            <a href="sobre.html" data-nav="sobre">Sobre o curso</a>
+            <a href="ingresso.html" data-nav="ingresso">Formas de ingresso</a>
+            <a href="grade.html" data-nav="grade">Grade curricular</a>
+            <a href="mercado.html" data-nav="mercado">Mercado e estágio</a>
+          </div>
+        </details>
+
+        <a href="projetos.html" data-nav="projetos">Projetos</a>
+
+        <details class="nav-group" data-nav-group="estrutura">
+          <summary>Estrutura</summary>
+          <div class="nav-dropdown">
+            <a href="estrutura.html" data-nav="estrutura">Ambientes</a>
+            <a href="docentes.html" data-nav="docentes">Docentes</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="aluno">
+          <summary>Aluno</summary>
+          <div class="nav-dropdown">
+            <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
+            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="atendimento">
+          <summary>Contato</summary>
+          <div class="nav-dropdown">
+            <a href="contato.html" data-nav="contato">Coordenação e contato</a>
+            <a href="faq.html" data-nav="faq">FAQ</a>
+          </div>
+        </details>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="page-hero calendar-page-hero" aria-labelledby="titulo-calendario">
+      <div class="container page-hero-grid">
+        <div class="page-hero-content reveal">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Início</a>
+            <span aria-hidden="true">•</span>
+            <span>Calendário acadêmico</span>
+          </nav>
+          <span class="eyebrow">Datas importantes</span>
+          <h1 id="titulo-calendario">Datas importantes em uma linha do tempo fácil de atualizar.</h1>
+          <p>
+            Acompanhe início das aulas, matrícula, rematrícula, avaliações, eventos e prazos em um calendário demonstrativo preparado para receber datas oficiais depois.
+          </p>
+          <div class="hero-actions" aria-label="Ações principais do calendário">
+            <a class="btn btn-primary" href="#linha-do-tempo">Ver linha do tempo</a>
+            <a class="btn btn-secondary" href="area-aluno.html">Área do aluno</a>
+          </div>
+        </div>
+
+        <aside class="calendar-overview-card reveal" aria-label="Resumo do calendário">
+          <div class="panel-topbar">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="calendar-overview-body">
+            <div class="calendar-orbit">
+              <span class="status-badge">Datas a confirmar</span>
+              <strong>Calendário preparado para virar fonte viva de prazos.</strong>
+              <p>Os itens ficam centralizados em <code>dados.js</code>, facilitando a troca futura por datas oficiais ou backend.</p>
+            </div>
+            <div class="metric-stack" aria-label="Tipos de datas">
+              <article><strong>M</strong><span>Matrícula e rematrícula</span></article>
+              <article><strong>A</strong><span>Aulas, provas e entregas</span></article>
+              <article><strong>E</strong><span>Eventos e atividades</span></article>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="calendar-filter-section" aria-label="Filtros do calendário">
+      <div class="container calendar-filter-bar reveal" data-calendar-filters>
+        <button class="calendar-filter-button active" type="button" data-calendar-filter="todos">Todos</button>
+        <button class="calendar-filter-button" type="button" data-calendar-filter="matricula">Matrícula</button>
+        <button class="calendar-filter-button" type="button" data-calendar-filter="aulas">Aulas</button>
+        <button class="calendar-filter-button" type="button" data-calendar-filter="avaliacao">Avaliações</button>
+        <button class="calendar-filter-button" type="button" data-calendar-filter="eventos">Eventos</button>
+        <button class="calendar-filter-button" type="button" data-calendar-filter="prazos">Prazos</button>
+      </div>
+    </section>
+
+    <section class="section calendar-section" id="linha-do-tempo" aria-labelledby="titulo-linha-do-tempo">
+      <div class="container calendar-layout">
+        <aside class="calendar-sidebar reveal">
+          <div class="calendar-note">
+            <span class="eyebrow">Importante</span>
+            <h2 id="titulo-linha-do-tempo">Linha do tempo acadêmica</h2>
+            <p>As datas abaixo são exemplos. Na versão final, substitua por informações do calendário oficial do campus ou do edital vigente.</p>
+          </div>
+          <div class="calendar-mini-card">
+            <h3>Como atualizar depois?</h3>
+            <p>Edite os itens em <code>assets/js/dados.js</code>. O HTML continua limpo e a timeline se reorganiza automaticamente.</p>
+          </div>
+        </aside>
+
+        <div>
+          <p class="calendar-empty" data-calendar-empty hidden>Nenhuma data encontrada para este filtro.</p>
+          <div class="calendar-timeline reveal" data-render="calendario" aria-live="polite">
+            <article class="calendar-item">
+              <div class="calendar-dot">...</div>
+              <div class="calendar-card">
+                <h3>Carregando calendário</h3>
+                <p>As datas serão carregadas pelo JavaScript e podem ser atualizadas em <code>dados.js</code>.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section calendar-groups-section" aria-labelledby="titulo-grupos-calendario">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <span class="eyebrow">Organização</span>
+          <h2 id="titulo-grupos-calendario">Datas agrupadas para facilitar a leitura.</h2>
+          <p>O calendário foi pensado para mostrar rapidamente o que é prazo, evento, aula, avaliação ou processo acadêmico.</p>
+        </div>
+
+        <div class="calendar-group-grid">
+          <article class="calendar-group-card reveal">
+            <strong>01</strong>
+            <h3>Matrícula</h3>
+            <p>Períodos de matrícula, rematrícula, ajustes e etapas administrativas.</p>
+          </article>
+          <article class="calendar-group-card reveal">
+            <strong>02</strong>
+            <h3>Aulas</h3>
+            <p>Início do semestre, retorno das atividades e marcos de acompanhamento.</p>
+          </article>
+          <article class="calendar-group-card reveal">
+            <strong>03</strong>
+            <h3>Avaliações</h3>
+            <p>Janelas de provas, entregas, apresentações e recuperação, quando houver.</p>
+          </article>
+          <article class="calendar-group-card reveal">
+            <strong>04</strong>
+            <h3>Eventos</h3>
+            <p>Semana acadêmica, oficinas, palestras, minicursos e apresentações públicas.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section next-step-section" aria-label="Próximos passos">
+      <div class="container next-step reveal">
+        <div>
+          <span class="eyebrow">Central do aluno</span>
+          <h2>Precisa de sistemas, materiais ou orientação?</h2>
+          <p>Volte para a área do aluno e encontre os atalhos organizados por categoria.</p>
+        </div>
+        <div class="next-actions">
+          <a class="btn btn-light" href="area-aluno.html">Ir para área do aluno</a>
+          <a class="btn btn-secondary" href="faq.html">Consultar FAQ</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="footer-brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+          <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="footer-brand-mark" />
+          <span class="footer-brand-text">
+            <strong>IFPE</strong>
+            <span>Engenharia de Software</span>
+          </span>
+        </a>
+        <p>Curso de Engenharia de Software. Formação, tecnologia e inovação conectadas ao futuro.</p>
+      </div>
+      <nav aria-label="Links rápidos do rodapé">
+        <h2>Navegação</h2>
+        <a href="index.html">Início</a>
+        <a href="sobre.html">Sobre o curso</a>
+        <a href="ingresso.html">Ingresso</a>
+        <a href="grade.html">Grade curricular</a>
+        <a href="mercado.html">Mercado e estágio</a>
+        <a href="projetos.html">Projetos e eventos</a>
+        <a href="estrutura.html">Estrutura</a>
+        <a href="docentes.html">Docentes</a>
+        <a href="area-aluno.html">Área do aluno</a>
+        <a href="calendario.html">Calendário acadêmico</a>
+        <a href="contato.html">Contato</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <div>
+        <h2>Atendimento</h2>
+        <span>Coordenação do curso: a confirmar</span>
+        <span>E-mail institucional: a confirmar</span>
+        <span>WhatsApp/telefone: a confirmar</span>
+        <span>Área do aluno e calendário em modo demonstrativo</span>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <small>© <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim. Todos os direitos reservados.</small>
+      <button class="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
+    </div>
+  </footer>
+
+  <script src="assets/js/dados.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

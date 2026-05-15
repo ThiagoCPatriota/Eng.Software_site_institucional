@@ -56,18 +56,25 @@ if (menuToggle && mainNav) {
 }
 
 function updateActiveLink() {
-  navLinks.forEach((link) => link.classList.remove('active'));
+  navLinks.forEach((link) => {
+    link.classList.remove('active');
+    link.removeAttribute('aria-current');
+  });
   navGroups.forEach((group) => group.classList.remove('active'));
 
   if (bodyPage === 'inicio') {
     const activeLink = document.querySelector('.main-nav a[data-nav="inicio"]');
-    if (activeLink) activeLink.classList.add('active');
+    if (activeLink) {
+      activeLink.classList.add('active');
+      activeLink.setAttribute('aria-current', 'page');
+    }
     return;
   }
 
   const activeLink = document.querySelector(`.main-nav a[data-nav="${bodyPage}"]`);
   if (activeLink) {
     activeLink.classList.add('active');
+    activeLink.setAttribute('aria-current', 'page');
     const group = activeLink.closest('.nav-group');
     if (group) group.classList.add('active');
   }
@@ -86,6 +93,9 @@ function setupForms() {
   forms.forEach((form) => {
     const feedback = form.querySelector('.form-feedback');
     if (!feedback) return;
+
+    feedback.setAttribute('role', 'status');
+    feedback.setAttribute('aria-live', 'polite');
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -193,6 +203,93 @@ function createTestimonialCard(item) {
   return article;
 }
 
+
+function createStudentLinkCard(item) {
+  const article = document.createElement('article');
+  article.className = 'student-link-card';
+
+  const icon = document.createElement('span');
+  icon.className = 'student-link-icon';
+  icon.textContent = item.icone || '↗';
+  article.appendChild(icon);
+
+  const title = document.createElement('h3');
+  title.textContent = item.titulo;
+  article.appendChild(title);
+
+  const summary = document.createElement('p');
+  summary.textContent = item.resumo;
+  article.appendChild(summary);
+
+  const meta = document.createElement('div');
+  meta.className = 'student-link-meta';
+  [item.categoria, item.tipo, item.status].filter(Boolean).forEach((label) => {
+    const tag = document.createElement('span');
+    tag.textContent = label;
+    meta.appendChild(tag);
+  });
+  article.appendChild(meta);
+
+  const link = document.createElement('a');
+  link.className = 'student-link-action';
+  link.href = item.link || '#';
+  link.textContent = item.link && item.link !== '#' ? 'Abrir acesso' : 'Link a confirmar';
+  if (!item.link || item.link === '#') {
+    link.setAttribute('aria-disabled', 'true');
+    link.addEventListener('click', (event) => event.preventDefault());
+  }
+  article.appendChild(link);
+
+  return article;
+}
+
+function createCalendarItem(item) {
+  const article = document.createElement('article');
+  article.className = 'calendar-item';
+  article.dataset.calendarCategory = item.categoria || 'todos';
+
+  const dot = document.createElement('div');
+  dot.className = 'calendar-dot';
+  dot.textContent = item.marcador || '•';
+  article.appendChild(dot);
+
+  const card = document.createElement('div');
+  card.className = 'calendar-card';
+
+  const header = document.createElement('div');
+  header.className = 'calendar-card-header';
+
+  const tag = document.createElement('small');
+  tag.textContent = item.etiqueta || item.categoria || 'Data';
+  header.appendChild(tag);
+
+  const date = document.createElement('span');
+  date.className = 'status-badge';
+  date.textContent = item.data || 'A confirmar';
+  header.appendChild(date);
+  card.appendChild(header);
+
+  const title = document.createElement('h3');
+  title.textContent = item.titulo;
+  card.appendChild(title);
+
+  const summary = document.createElement('p');
+  summary.textContent = item.resumo;
+  card.appendChild(summary);
+
+  if (item.status) {
+    const tags = document.createElement('div');
+    tags.className = 'calendar-tags';
+    const status = document.createElement('span');
+    status.textContent = item.status;
+    tags.appendChild(status);
+    card.appendChild(tags);
+  }
+
+  article.appendChild(card);
+  return article;
+}
+
 function renderCollection(selector, data, factory) {
   const container = document.querySelector(selector);
   if (!container || !Array.isArray(data)) return;
@@ -205,6 +302,8 @@ renderCollection('[data-render="home-destaques"]', dadosSite.destaquesHome, crea
 renderCollection('[data-render="noticias"]', dadosSite.noticias, createUpdateCard);
 renderCollection('[data-render="eventos"]', dadosSite.eventos, createUpdateCard);
 renderCollection('[data-render="depoimentos"]', dadosSite.depoimentos, createTestimonialCard);
+renderCollection('[data-render="links-aluno"]', dadosSite.linksAluno, createStudentLinkCard);
+renderCollection('[data-render="calendario"]', dadosSite.calendarioAcademico, createCalendarItem);
 
 function setupRevealAnimations() {
   const revealItems = document.querySelectorAll('.reveal');
@@ -328,3 +427,35 @@ function setupChoicePanels() {
 
 setupExperienceRails();
 setupChoicePanels();
+
+function setupCalendarFilters() {
+  const filterButtons = document.querySelectorAll('[data-calendar-filter]');
+  const calendarItems = document.querySelectorAll('.calendar-item');
+  const emptyMessage = document.querySelector('[data-calendar-empty]');
+
+  if (!filterButtons.length || !calendarItems.length) return;
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.calendarFilter || 'todos';
+      let visibleCount = 0;
+
+      filterButtons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+
+      calendarItems.forEach((item) => {
+        const category = item.dataset.calendarCategory;
+        const visible = filter === 'todos' || category === filter;
+        item.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+
+      if (emptyMessage) emptyMessage.hidden = visibleCount !== 0;
+    });
+  });
+}
+
+setupCalendarFilters();
