@@ -6,6 +6,7 @@ const backToTop = document.querySelector('.back-to-top');
 const form = document.querySelector('.interest-form');
 const feedback = document.querySelector('.form-feedback');
 const revealItems = document.querySelectorAll('.reveal');
+const bodyPage = document.body.dataset.page;
 
 if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
@@ -36,46 +37,22 @@ if (menuToggle && mainNav) {
   });
 }
 
-const sections = [...document.querySelectorAll('main section[id]')];
-
-function getCurrentFileName() {
-  const fileName = window.location.pathname.split('/').pop();
-  return fileName || 'index.html';
-}
-
-function isSamePageHashLink(link) {
-  const href = link.getAttribute('href') || '';
-  const currentFile = getCurrentFileName();
-
-  if (!link.hash) return false;
-  if (href.startsWith('#')) return true;
-  if (href.startsWith(`${currentFile}#`)) return true;
-  if (currentFile === 'index.html' && href.startsWith('index.html#')) return true;
-
-  return false;
-}
-
 function updateActiveLink() {
-  const samePageLinks = [...navLinks].filter(isSamePageHashLink);
+  navLinks.forEach((link) => link.classList.remove('active'));
 
-  if (!sections.length || !samePageLinks.length) return;
+  if (bodyPage === 'inicio') {
+    const currentHash = window.location.hash || '#inicio';
+    const target = currentHash === '#contato' ? 'contato' : 'inicio';
+    const activeLink = document.querySelector(`.main-nav a[data-nav="${target}"]`);
+    if (activeLink) activeLink.classList.add('active');
+    return;
+  }
 
-  const scrollPosition = window.scrollY + 130;
-  let currentSection = sections[0]?.id;
-
-  sections.forEach((section) => {
-    if (scrollPosition >= section.offsetTop) {
-      currentSection = section.id;
-    }
-  });
-
-  samePageLinks.forEach((link) => {
-    const isActive = link.hash === `#${currentSection}`;
-    link.classList.toggle('active', isActive);
-  });
+  const activeLink = document.querySelector(`.main-nav a[data-nav="${bodyPage}"]`);
+  if (activeLink) activeLink.classList.add('active');
 }
 
-window.addEventListener('scroll', updateActiveLink, { passive: true });
+window.addEventListener('hashchange', updateActiveLink);
 window.addEventListener('load', updateActiveLink);
 
 if (backToTop) {
