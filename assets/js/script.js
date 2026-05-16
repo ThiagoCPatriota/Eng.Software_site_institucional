@@ -7,6 +7,17 @@ const backToTop = document.querySelector('.back-to-top');
 const forms = document.querySelectorAll('.interest-form, [data-contact-form]');
 const bodyPage = document.body.dataset.page;
 
+const siteHeader = document.querySelector('.site-header');
+
+function updateHeaderScrollState() {
+  if (!siteHeader || !document.body.classList.contains('home-cinematic')) return;
+  siteHeader.classList.toggle('is-scrolled', window.scrollY > 24);
+}
+
+updateHeaderScrollState();
+window.addEventListener('scroll', updateHeaderScrollState, { passive: true });
+
+
 if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
 }

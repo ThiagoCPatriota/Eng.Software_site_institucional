@@ -1,0 +1,33 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Imagem simulada de evento acadêmico</title>
+  <desc id="desc">Ilustração abstrata de auditório, palco, palestra e estudantes.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#06182B"/>
+      <stop offset="0.55" stop-color="#0B2A4A"/>
+      <stop offset="1" stop-color="#2D9CDB"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="340" y1="190" x2="860" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAF6FF"/>
+      <stop offset="1" stop-color="#BFE8FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <circle cx="190" cy="160" r="150" fill="#8CE8B3" fill-opacity="0.13"/>
+  <circle cx="1010" cy="720" r="220" fill="#FFFFFF" fill-opacity="0.08"/>
+  <rect x="285" y="170" width="630" height="370" rx="38" fill="url(#screen)" stroke="white" stroke-opacity="0.28" stroke-width="4"/>
+  <rect x="345" y="235" width="510" height="40" rx="20" fill="#0B2A4A" fill-opacity="0.82"/>
+  <rect x="345" y="310" width="310" height="22" rx="11" fill="#198754" fill-opacity="0.88"/>
+  <rect x="345" y="354" width="420" height="20" rx="10" fill="#0B2A4A" fill-opacity="0.26"/>
+  <rect x="345" y="396" width="370" height="20" rx="10" fill="#0B2A4A" fill-opacity="0.20"/>
+  <circle cx="780" cy="355" r="62" fill="#2D9CDB" fill-opacity="0.72"/>
+  <path d="M757 354L776 373L812 329" stroke="white" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="220" y="640" width="760" height="80" rx="40" fill="#06182B" fill-opacity="0.54"/>
+  <circle cx="300" cy="620" r="52" fill="#EAF6FF"/>
+  <circle cx="450" cy="620" r="52" fill="#BFE8FF"/>
+  <circle cx="600" cy="620" r="52" fill="#EAF6FF"/>
+  <circle cx="750" cy="620" r="52" fill="#BFE8FF"/>
+  <circle cx="900" cy="620" r="52" fill="#EAF6FF"/>
+  <path d="M0 755C200 695 400 700 600 750C785 796 992 794 1200 724V900H0V755Z" fill="#06182B" fill-opacity="0.42"/>
+  <text x="600" y="805" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="50" font-weight="800">Semana Acadêmica</text>
+</svg>
