@@ -411,22 +411,28 @@
 .magazine-visual {
   position: absolute;
   inset: 0;
-  z-index: -2;
-  background-image:
-    linear-gradient(180deg, rgba(5, 19, 34, 0.04), rgba(5, 19, 34, 0.82)),
-    var(--visual-image, linear-gradient(135deg, var(--color-primary), var(--color-ifpe-dark)));
-  background-size: cover;
-  background-position: center;
+  z-index: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-ifpe-dark));
   transform: scale(1.02);
   transition: transform 600ms ease, filter 600ms ease;
+}
+
+.magazine-visual img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
 }
 
 .magazine-visual::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background:
-    linear-gradient(180deg, rgba(5, 19, 34, 0) 25%, rgba(5, 19, 34, 0.86) 100%),
+    linear-gradient(180deg, rgba(5, 19, 34, 0.08) 0%, rgba(5, 19, 34, 0.34) 40%, rgba(5, 19, 34, 0.90) 100%),
     radial-gradient(circle at 20% 12%, rgba(255, 255, 255, 0.22), transparent 28%);
 }
 
@@ -437,6 +443,8 @@
 }
 
 .magazine-content {
+  position: relative;
+  z-index: 2;
   display: grid;
   gap: 10px;
   padding: 24px;
@@ -462,6 +470,18 @@
   backdrop-filter: blur(14px);
 }
 
+.magazine-meta {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.76rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+}
+
 .magazine-content strong {
   max-width: 12ch;
   color: #fff;
@@ -470,7 +490,19 @@
   text-wrap: balance;
 }
 
-.magazine-card:not(.magazine-card-large) .magazine-content strong {
+.magazine-card:not(.magazine-card-large) .magazine-meta {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.76rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+}
+
+.magazine-content strong {
   max-width: 14ch;
   font-size: clamp(1.25rem, 1.8vw, 1.72rem);
 }
