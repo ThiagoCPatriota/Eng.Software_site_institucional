@@ -5,8 +5,12 @@
     linear-gradient(135deg, #f8fbff 0%, #eef7fb 48%, #f5fbf9 100%);
 }
 
-.projects-summary-card .metric-stack article:nth-child(2) strong {
-  color: var(--color-ifpe-dark);
+.projects-hero-single {
+  max-width: 1040px;
+}
+
+.projects-hero-single .page-hero-content {
+  max-width: 920px;
 }
 
 .projects-intro {
@@ -20,8 +24,7 @@
   margin-top: 44px;
 }
 
-.project-type-card,
-.testimonial-card {
+.project-type-card {
   position: relative;
   overflow: hidden;
   background: #fff;
@@ -31,8 +34,7 @@
   box-shadow: 0 18px 42px rgba(11, 42, 74, 0.065);
 }
 
-.project-type-card::before,
-.testimonial-card::before {
+.project-type-card::before {
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
@@ -59,9 +61,7 @@
 }
 
 .project-type-card p,
-.project-type-card li,
-.testimonial-card p,
-.testimonial-author span {
+.project-type-card li {
   color: var(--color-muted);
 }
 
@@ -76,109 +76,18 @@
   padding-left: 18px;
 }
 
-.events-section {
-  background:
-    radial-gradient(circle at 8% 14%, rgba(45, 156, 219, 0.1), transparent 26%),
-    radial-gradient(circle at 92% 20%, rgba(25, 135, 84, 0.1), transparent 26%),
-    var(--color-bg);
-}
-
-.events-layout,
-.testimonial-layout {
-  display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
-  gap: 72px;
-  align-items: start;
-}
-
-.events-grid,
-.projects-news-grid,
-.testimonial-grid {
-  display: grid;
-  gap: 18px;
-}
-
-.events-grid {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.projects-news-grid {
-  grid-template-columns: repeat(4, 1fr);
-  margin-top: 44px;
-}
-
-.news-card.dynamic-card {
-  display: flex;
-  min-height: 250px;
-  flex-direction: column;
-}
-
-.card-date {
-  display: block;
-  color: var(--color-muted);
-  font-size: 0.86rem;
-  font-weight: 800;
-  margin: -10px 0 14px;
-}
-
-.dynamic-card .compact-link {
-  margin-top: auto;
-  padding-top: 18px;
-}
-
-.updates-section {
-  background: var(--color-surface);
-}
-
-.testimonial-section {
-  background:
-    radial-gradient(circle at 10% 12%, rgba(45, 156, 219, 0.08), transparent 24%),
-    radial-gradient(circle at 90% 20%, rgba(25, 135, 84, 0.09), transparent 26%),
-    var(--color-bg);
-}
-
-.testimonial-grid {
-  grid-template-columns: 1fr;
-}
-
-.testimonial-card p {
-  font-size: 1.06rem;
-  line-height: 1.7;
-}
-
-.testimonial-author {
-  display: grid;
-  gap: 3px;
-  margin-top: 22px;
-  padding-top: 18px;
-  border-top: 1px solid var(--color-border);
-}
-
-.testimonial-author strong {
-  color: var(--color-primary);
-}
-
 @media (max-width: 1180px) {
-  .project-type-grid,
-  .projects-news-grid {
+  .project-type-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .events-layout,
-  .testimonial-layout {
-    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 760px) {
-  .project-type-grid,
-  .events-grid,
-  .projects-news-grid {
+  .project-type-grid {
     grid-template-columns: 1fr;
   }
 
-  .project-type-card,
-  .testimonial-card {
+  .project-type-card {
     padding: 24px;
     border-radius: 24px;
   }

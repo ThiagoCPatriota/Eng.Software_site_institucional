@@ -5,35 +5,55 @@
     linear-gradient(135deg, #f8fcff 0%, #eef7fb 48%, #f5faf7 100%);
 }
 
-.admission-guide-card .metric-stack article:nth-child(2) strong {
-  color: var(--color-ifpe-dark);
-}
-
-.admission-alert-section {
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.admission-alert {
+.admission-hero-shell {
   display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 28px;
-  padding: 24px 28px;
-  background: linear-gradient(135deg, var(--color-accent-soft), var(--color-ifpe-soft));
-  border: 1px solid rgba(25, 135, 84, 0.16);
-  border-radius: var(--radius-md);
+  justify-items: start;
+  gap: 18px;
+  max-width: 1040px;
 }
 
-.admission-alert strong {
-  display: block;
-  color: var(--color-primary);
-  font-size: 1.1rem;
-  margin-bottom: 5px;
+.admission-hero-shell h1 {
+  max-width: 980px;
 }
 
-.admission-alert p {
+.admission-hero-shell > p {
+  max-width: 820px;
   color: var(--color-muted);
+  font-size: clamp(1.04rem, 1.35vw, 1.2rem);
+}
+
+.admission-official-strip {
+  display: grid;
+  gap: 6px;
+  width: min(100%, 920px);
+  margin-top: 14px;
+  padding: 18px 22px;
+  border-radius: 22px;
+  border: 1px solid rgba(25, 135, 84, 0.18);
+  background:
+    linear-gradient(90deg, rgba(228, 247, 236, 0.95), rgba(223, 243, 255, 0.82));
+  box-shadow: 0 16px 38px rgba(11, 42, 74, 0.07);
+}
+
+.admission-official-strip strong {
+  color: var(--color-primary);
+  font-size: 0.98rem;
+}
+
+.admission-official-strip span {
+  color: var(--color-muted);
+  line-height: 1.65;
+}
+
+.choice-panel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.choice-panel-actions .text-link {
+  font-size: 0.95rem;
 }
 
 .admission-route-grid {
@@ -70,6 +90,17 @@
     radial-gradient(circle at 88% 8%, rgba(25, 135, 84, 0.12), transparent 32%),
     linear-gradient(135deg, #ffffff 0%, #f4fbf7 100%);
   border-color: rgba(25, 135, 84, 0.22);
+}
+
+.route-card-cta {
+  background:
+    radial-gradient(circle at 90% 8%, rgba(45, 156, 219, 0.12), transparent 32%),
+    linear-gradient(135deg, #ffffff 0%, #f5fbff 100%);
+  border-color: rgba(45, 156, 219, 0.24);
+}
+
+.route-card-cta .text-link {
+  margin-top: 18px;
 }
 
 .route-number {
@@ -113,62 +144,6 @@
   color: var(--color-muted);
 }
 
-.admission-steps-section {
-  background:
-    radial-gradient(circle at 12% 8%, rgba(45, 156, 219, 0.1), transparent 26%),
-    radial-gradient(circle at 88% 18%, rgba(25, 135, 84, 0.1), transparent 25%),
-    var(--color-bg);
-}
-
-.timeline-list {
-  display: grid;
-  gap: 16px;
-  position: relative;
-}
-
-.timeline-list::before {
-  content: "";
-  position: absolute;
-  left: 27px;
-  top: 22px;
-  bottom: 22px;
-  width: 2px;
-  background: linear-gradient(180deg, var(--color-accent), var(--color-ifpe));
-  opacity: 0.35;
-}
-
-.timeline-list article {
-  position: relative;
-  display: grid;
-  grid-template-columns: 56px 1fr;
-  gap: 18px;
-  align-items: start;
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 18px;
-  box-shadow: 0 16px 36px rgba(11, 42, 74, 0.055);
-}
-
-.timeline-list article > span {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
-  color: var(--color-primary);
-  background: linear-gradient(135deg, var(--color-accent-soft), var(--color-ifpe-soft));
-  border: 1px solid rgba(25, 135, 84, 0.12);
-  font-weight: 950;
-}
-
-.timeline-list p {
-  color: var(--color-muted);
-  margin-top: 6px;
-}
-
 .documents-layout {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -203,73 +178,6 @@
   margin-top: 18px;
   padding-left: 20px;
   color: var(--color-muted);
-}
-
-.calendar-section {
-  background: var(--color-surface);
-}
-
-.calendar-panel {
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 48px;
-  align-items: center;
-  color: #fff;
-  background:
-    radial-gradient(circle at 12% 10%, rgba(25, 135, 84, 0.32), transparent 26%),
-    linear-gradient(135deg, var(--color-primary), var(--color-primary-2));
-  border-radius: var(--radius-lg);
-  padding: 46px;
-  box-shadow: 0 28px 70px rgba(11, 42, 74, 0.14);
-}
-
-.calendar-panel .eyebrow {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.22);
-}
-
-.calendar-panel h2,
-.calendar-panel p {
-  color: #fff;
-}
-
-.calendar-panel p {
-  opacity: 0.78;
-}
-
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.calendar-grid article {
-  min-height: 150px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--radius-md);
-  padding: 22px;
-}
-
-.calendar-grid span,
-.calendar-grid small {
-  display: block;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.calendar-grid span {
-  font-size: 0.78rem;
-  font-weight: 850;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-}
-
-.calendar-grid strong {
-  display: block;
-  color: #fff;
-  font-size: 1.18rem;
-  margin: 14px 0 8px;
 }
 
 .faq-preview-section {
@@ -348,25 +256,14 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .calendar-panel {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 980px) {
-  .admission-alert {
-    grid-template-columns: 1fr;
-  }
-
-  .admission-alert .btn {
-    width: fit-content;
-  }
 }
 
 @media (max-width: 680px) {
   .admission-route-grid,
-  .documents-layout,
-  .calendar-grid {
+  .documents-layout {
     grid-template-columns: 1fr;
   }
 
@@ -375,30 +272,6 @@
     min-height: auto;
   }
 
-  .calendar-panel,
-  .admission-alert {
-    padding: 26px;
-    border-radius: 24px;
-  }
-
-  .admission-alert .btn {
-    width: 100%;
-  }
-
-  .timeline-list article {
-    grid-template-columns: 48px 1fr;
-    gap: 14px;
-  }
-
-  .timeline-list article > span {
-    width: 48px;
-    height: 48px;
-    border-radius: 16px;
-  }
-
-  .timeline-list::before {
-    left: 23px;
-  }
 }
 
 /* Fase 7.6: formas de ingresso em trilha horizontal para reduzir poluição visual */
@@ -417,5 +290,472 @@
   .admission-route-grid.interactive-card-rail {
     display: flex;
     grid-template-columns: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .admission-hero-shell {
+    gap: 14px;
+  }
+
+  .admission-official-strip {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .choice-panel-actions {
+    gap: 10px;
+  }
+}
+
+
+/* Fase 10.33: guia interativo mais visual e página de ingresso mais limpa */
+.choice-lab {
+  display: grid;
+  grid-template-columns: 0.78fr 1.22fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+.choice-system {
+  display: grid;
+  gap: 18px;
+}
+
+.choice-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.choice-tab {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 14px;
+  align-items: center;
+  min-height: 104px;
+  width: 100%;
+  border: 1px solid rgba(210, 224, 234, 0.95);
+  border-radius: 24px;
+  padding: 16px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(45, 156, 219, 0.08), transparent 34%),
+    #ffffff;
+  color: var(--color-primary);
+  text-align: left;
+  box-shadow: 0 16px 36px rgba(11, 42, 74, 0.055);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.choice-tab::after {
+  content: "";
+  position: absolute;
+  inset: auto 18px 0 18px;
+  height: 3px;
+  border-radius: 999px 999px 0 0;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-ifpe));
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.choice-tab:hover,
+.choice-tab:focus-visible,
+.choice-tab.active {
+  transform: translateY(-3px);
+  border-color: rgba(25, 135, 84, 0.30);
+  box-shadow: 0 22px 52px rgba(11, 42, 74, 0.10);
+  background:
+    radial-gradient(circle at 100% 0, rgba(25, 135, 84, 0.13), transparent 34%),
+    linear-gradient(180deg, #ffffff 0%, #f5fbf8 100%);
+}
+
+.choice-tab.active::after {
+  opacity: 1;
+}
+
+.choice-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--color-accent-soft), var(--color-ifpe-soft));
+  color: var(--color-primary);
+  font-size: 0.86rem;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+}
+
+.choice-tab.active .choice-icon {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-ifpe-dark));
+}
+
+.choice-tab-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.choice-tab-copy strong {
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.choice-tab-copy span {
+  color: var(--color-muted);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.choice-panels {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  border: 1px solid rgba(210, 224, 234, 0.95);
+  background:
+    radial-gradient(circle at 92% 10%, rgba(25, 135, 84, 0.14), transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, #f5fbff 100%);
+  box-shadow: 0 24px 60px rgba(11, 42, 74, 0.10);
+}
+
+.choice-panel {
+  padding: clamp(26px, 4vw, 42px);
+}
+
+.choice-panel h3 {
+  max-width: 720px;
+  font-size: clamp(1.55rem, 2.2vw, 2.25rem);
+}
+
+.choice-panel p {
+  max-width: 760px;
+  margin-top: 14px;
+  color: var(--color-muted);
+  line-height: 1.75;
+}
+
+.choice-panel ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.choice-panel li {
+  padding: 16px;
+  border: 1px solid rgba(214, 226, 236, 0.95);
+  border-radius: 18px;
+  color: #53687c;
+  font-weight: 750;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.routes-toolbar {
+  justify-content: end;
+  margin: 18px 0 0;
+}
+
+.routes-toolbar .rail-controls {
+  margin-left: auto;
+}
+
+@media (max-width: 980px) {
+  .choice-lab {
+    grid-template-columns: 1fr;
+  }
+
+  .choice-panel ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .choice-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .choice-tab {
+    grid-template-columns: 48px 1fr;
+    min-height: auto;
+    border-radius: 20px;
+  }
+
+  .choice-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+  }
+
+  .routes-toolbar {
+    justify-content: center;
+  }
+
+  .routes-toolbar .rail-controls {
+    margin-inline: auto;
+  }
+}
+
+/* Fase 10.35 — ícones profissionais e alinhamento do guia interativo */
+.choice-tab {
+  grid-template-columns: 64px 1fr;
+  gap: 16px;
+  min-height: 108px;
+  padding: 18px;
+}
+
+.choice-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  flex: 0 0 64px;
+  color: #12263a;
+}
+
+.choice-icon svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+.choice-tab.active .choice-icon,
+.choice-tab:hover .choice-icon,
+.choice-tab:focus-visible .choice-icon {
+  color: #ffffff;
+}
+
+.choice-tab-copy {
+  align-content: center;
+  min-width: 0;
+}
+
+.choice-tab-copy strong {
+  display: block;
+  font-size: 1.02rem;
+  line-height: 1.24;
+}
+
+.choice-tab-copy span {
+  display: block;
+  font-size: 0.98rem;
+  line-height: 1.42;
+  margin-top: 3px;
+}
+
+@media (max-width: 860px) {
+  .choice-tab {
+    grid-template-columns: 56px 1fr;
+    min-height: 100px;
+  }
+
+  .choice-icon {
+    width: 56px;
+    height: 56px;
+    flex-basis: 56px;
+    border-radius: 18px;
+  }
+
+  .choice-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 680px) {
+  .choice-tab {
+    grid-template-columns: 52px 1fr;
+    padding: 16px;
+  }
+
+  .choice-icon {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+    border-radius: 16px;
+  }
+}
+
+/* Fase 10.36 — centralização real dos ícones do guia */
+.choice-tab {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 108px;
+  padding: 18px 22px;
+}
+
+.choice-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
+  margin: 0;
+  border-radius: 20px;
+  line-height: 1;
+}
+
+.choice-icon svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+  flex: 0 0 auto;
+  margin: auto;
+  overflow: visible;
+}
+
+.choice-tab-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  gap: 4px;
+}
+
+.choice-tab-copy strong,
+.choice-tab-copy span {
+  margin: 0;
+}
+
+@media (max-width: 860px) {
+  .choice-tab {
+    min-height: 100px;
+    gap: 16px;
+  }
+
+  .choice-icon {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    min-height: 56px;
+    border-radius: 18px;
+  }
+
+  .choice-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 680px) {
+  .choice-tab {
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .choice-icon {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    min-height: 52px;
+    border-radius: 16px;
+  }
+}
+
+/* Fase 10.37 — alinhamento forçado e definitivo dos ícones do guia */
+.choice-tabs .choice-tab {
+  display: grid !important;
+  grid-template-columns: 76px minmax(0, 1fr) !important;
+  align-items: center !important;
+  min-height: 116px !important;
+  padding: 0 24px !important;
+  gap: 18px !important;
+}
+
+.choice-tabs .choice-icon {
+  position: relative !important;
+  display: block !important;
+  align-self: center !important;
+  justify-self: center !important;
+  width: 64px !important;
+  height: 64px !important;
+  min-width: 64px !important;
+  min-height: 64px !important;
+  margin: 0 !important;
+  border-radius: 20px !important;
+  line-height: 0 !important;
+}
+
+.choice-tabs .choice-icon svg {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 30px !important;
+  height: 30px !important;
+  margin: 0 !important;
+  transform: translate(-50%, -50%) !important;
+  display: block !important;
+}
+
+.choice-tabs .choice-tab-copy {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-self: center !important;
+  min-height: 64px !important;
+  gap: 4px !important;
+}
+
+.choice-tabs .choice-tab-copy strong,
+.choice-tabs .choice-tab-copy span {
+  margin: 0 !important;
+}
+
+@media (max-width: 860px) {
+  .choice-tabs .choice-tab {
+    grid-template-columns: 68px minmax(0, 1fr) !important;
+    min-height: 108px !important;
+    padding: 0 20px !important;
+  }
+
+  .choice-tabs .choice-icon {
+    width: 56px !important;
+    height: 56px !important;
+    min-width: 56px !important;
+    min-height: 56px !important;
+    border-radius: 18px !important;
+  }
+
+  .choice-tabs .choice-icon svg {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .choice-tabs .choice-tab-copy {
+    min-height: 56px !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .choice-tabs .choice-tab {
+    grid-template-columns: 62px minmax(0, 1fr) !important;
+    min-height: 100px !important;
+    padding: 0 18px !important;
+  }
+
+  .choice-tabs .choice-icon {
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    min-height: 52px !important;
+    border-radius: 16px !important;
+  }
+
+  .choice-tabs .choice-icon svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .choice-tabs .choice-tab-copy {
+    min-height: 52px !important;
   }
 }
