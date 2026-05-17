@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Painel administrativo do site institucional de Engenharia de Software do IFPE Campus Belo Jardim." />
+  <meta name="theme-color" content="#0b2a4a" />
+  <title>Painel Admin | Engenharia de Software IFPE</title>
+  <link rel="icon" href="../assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/pages/admin.css" />
+</head>
+
+<body class="admin-panel-page" data-page="admin">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="admin-topbar">
+    <div class="admin-topbar-brand">
+      <a href="../index.html" aria-label="Voltar para a página inicial">
+        <img src="../assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software" />
+        <span>
+          <strong>Admin ES</strong>
+          <small>IFPE Belo Jardim</small>
+        </span>
+      </a>
+    </div>
+
+    <nav class="admin-topbar-nav" aria-label="Menu do painel administrativo">
+      <a class="is-active" href="index.html">Painel</a>
+      <a href="publicacoes.html">Publicações</a>
+      <a href="horarios.html">Horários</a>
+      <a href="laboratorios.html">Laboratórios</a>
+      <a href="../index.html">Ver site</a>
+      <button type="button" data-admin-logout>Sair</button>
+    </nav>
+  </header>
+
+  <main id="conteudo" class="admin-main">
+    <section class="admin-hero-panel" aria-labelledby="titulo-painel">
+      <div>
+        <span class="admin-kicker">Painel administrativo</span>
+        <h1 id="titulo-painel">Central de gestão do site institucional.</h1>
+        <p>
+          Esta primeira versão abre o acesso seguro, prepara o cadastro único e inicia a gestão de publicações/projetos para alimentar o site público nas próximas fases.
+        </p>
+      </div>
+      <div class="admin-user-card" data-admin-user-card>
+        <span>Carregando usuário...</span>
+      </div>
+    </section>
+
+    <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
+
+    <section class="admin-grid" aria-label="Módulos administrativos">
+      <a class="admin-module-card" href="publicacoes.html">
+        <span class="admin-module-icon" aria-hidden="true">▦</span>
+        <small>Módulo 01</small>
+        <h2>Publicações e projetos</h2>
+        <p>Cadastre projetos, notícias, eventos, monitorias e oportunidades com status, visibilidade e destaque na home.</p>
+      </a>
+
+
+      <a class="admin-module-card" href="horarios.html">
+        <span class="admin-module-icon" aria-hidden="true">▤</span>
+        <small>Módulo 02</small>
+        <h2>Horários de aulas</h2>
+        <p>Cadastre aulas por período, turno, dia e horário para alimentar a página pública dos estudantes.</p>
+      </a>
+
+      <a class="admin-module-card" href="laboratorios.html">
+        <span class="admin-module-icon" aria-hidden="true">▥</span>
+        <small>Módulo 03</small>
+        <h2>Laboratórios</h2>
+        <p>Gerencie horários indisponíveis, reservas aprovadas e solicitações dos estudantes para uso dos laboratórios.</p>
+      </a>
+
+      <article class="admin-module-card is-locked">
+        <span class="admin-module-icon" aria-hidden="true">◌</span>
+        <small>Próxima fase</small>
+        <h2>Docentes e estrutura</h2>
+        <p>Área preparada para cadastro de docentes, laboratórios, fotos reais e informações institucionais editáveis.</p>
+      </article>
+
+      <article class="admin-module-card is-locked">
+        <span class="admin-module-icon" aria-hidden="true">◇</span>
+        <small>Próxima fase</small>
+        <h2>Editais e documentos</h2>
+        <p>Depois do primeiro módulo, entram PDFs, links oficiais, datas importantes, PPC e materiais de ingresso.</p>
+      </article>
+    </section>
+
+    <section class="admin-dashboard-cards" aria-label="Resumo das publicações">
+      <article>
+        <span data-stat-total>0</span>
+        <strong>publicações</strong>
+      </article>
+      <article>
+        <span data-stat-published>0</span>
+        <strong>publicadas</strong>
+      </article>
+      <article>
+        <span data-stat-home>0</span>
+        <strong>destaques na home</strong>
+      </article>
+    </section>
+  </main>
+
+  <script type="module" src="../assets/js/admin-dashboard.js"></script>
+</body>
+
+</html>

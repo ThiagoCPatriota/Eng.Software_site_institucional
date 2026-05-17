@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Projetos de extensão, pesquisa e inovação do curso de Engenharia de Software do IFPE Campus Belo Jardim." />
+  <meta name="description" content="Horários de aulas do curso de Engenharia de Software do IFPE Campus Belo Jardim, organizados por período, turno e dia da semana." />
   <meta name="author" content="Projeto final da disciplina de Web" />
   <meta name="theme-color" content="#0b2a4a" />
   <meta name="robots" content="index, follow" />
-  <title>Projetos | Engenharia de Software - IFPE Campus Belo Jardim</title>
+  <title>Horário de aulas | Engenharia de Software IFPE</title>
   <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
   <link rel="stylesheet" href="assets/css/global.css" />
-  <link rel="stylesheet" href="assets/css/pages/projetos.css" />
+  <link rel="stylesheet" href="assets/css/pages/horarios.css" />
 </head>
-<body data-page="projetos">
+<body data-page="horarios">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
 
   <header class="site-header" id="topo">
@@ -77,104 +77,78 @@
     </div>
   </header>
 
-<main id="conteudo">
-    <section class="page-hero projects-page-hero" aria-labelledby="titulo-projetos">
-      <div class="container projects-hero-single">
+  <main id="conteudo">
+    <section class="page-hero schedule-hero" aria-labelledby="titulo-horarios">
+      <div class="container page-hero-grid">
         <div class="page-hero-content reveal">
           <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="index.html">Início</a>
-            <span>•</span>
-            <span>Projetos</span>
+            <span aria-hidden="true">•</span>
+            <a href="area-aluno.html">Aluno</a>
+            <span aria-hidden="true">•</span>
+            <span>Horário de aulas</span>
           </nav>
-          <span class="eyebrow">Projetos e inovação</span>
-          <h1 id="titulo-projetos">Projetos, pesquisa, extensão e inovação.</h1>
+          <span class="eyebrow">Vida acadêmica</span>
+          <h1 id="titulo-horarios">Horários de aulas organizados por período.</h1>
           <p>
-            A formação em Engenharia de Software vai além da sala de aula, conectando estudantes a pesquisa, extensão, inovação e projetos construídos a partir de desafios reais.
+            Consulte as aulas do semestre por período, turno e dia da semana. A coordenação/administração atualiza os dados pelo painel administrativo.
           </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section radar-section" id="radar-projetos" aria-labelledby="titulo-radar-projetos">
-      <div class="container radar-layout">
-        <div class="radar-copy reveal">
-          <span class="eyebrow">Radar do curso</span>
-          <h2 id="titulo-radar-projetos">Um bloco vivo para acontecimentos recentes.</h2>
-          <p>
-            A ideia é simular o espaço que no futuro poderá ser alimentado pela administração: eventos, oficinas, notícias, projetos e chamadas rápidas.
-          </p>
-        </div>
-
-        <div class="news-ticker reveal" aria-label="Acontecimentos demonstrativos em movimento">
-          <div class="ticker-track">
-            <article class="ticker-item"><span>Evento</span><strong>Semana Acadêmica reúne palestras, minicursos e apresentações.</strong><small>Data demonstrativa</small></article>
-            <article class="ticker-item"><span>Projeto</span><strong>Estudantes apresentam protótipos de soluções digitais para problemas reais.</strong><small>Atualização futura por administração</small></article>
-            <article class="ticker-item"><span>Extensão</span><strong>Oficinas de tecnologia aproximam o curso da comunidade.</strong><small>Conteúdo a confirmar</small></article>
-            <article class="ticker-item"><span>Pesquisa</span><strong>Iniciação científica e estudos aplicados ganham espaço de divulgação.</strong><small>Modelo visual</small></article>
-            <article class="ticker-item"><span>Evento</span><strong>Semana Acadêmica reúne palestras, minicursos e apresentações.</strong><small>Data demonstrativa</small></article>
-            <article class="ticker-item"><span>Projeto</span><strong>Estudantes apresentam protótipos de soluções digitais para problemas reais.</strong><small>Atualização futura por administração</small></article>
-            <article class="ticker-item"><span>Extensão</span><strong>Oficinas de tecnologia aproximam o curso da comunidade.</strong><small>Conteúdo a confirmar</small></article>
-            <article class="ticker-item"><span>Pesquisa</span><strong>Iniciação científica e estudos aplicados ganham espaço de divulgação.</strong><small>Modelo visual</small></article>
+          <div class="hero-actions" aria-label="Ações principais de horários">
+            <a class="btn btn-primary" href="#consulta-horarios">Consultar horários</a>
+            <a class="btn btn-secondary" href="area-aluno.html">Voltar à área do aluno</a>
           </div>
         </div>
+
+        <aside class="schedule-hero-card reveal" aria-label="Resumo dos horários">
+          <span class="status-badge">Atualização pelo admin</span>
+          <strong>Turmas, turnos e disciplinas em um só lugar.</strong>
+          <p>O estudante seleciona o período e visualiza a semana em formato de tabela, sem depender de imagem solta ou PDF difícil de ler no celular.</p>
+          <div class="schedule-mini-grid" aria-hidden="true">
+            <span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span>
+          </div>
+        </aside>
       </div>
     </section>
 
-    <section class="section projects-intro" aria-labelledby="titulo-trilhas-projetos">
+    <section class="section schedule-section" id="consulta-horarios" aria-labelledby="titulo-consulta-horarios">
       <div class="container">
         <div class="section-heading centered reveal">
-          <span class="eyebrow">Projetos</span>
-          <h2 id="titulo-trilhas-projetos">Três caminhos para aprender fazendo.</h2>
-          <p>Os cards abaixo organizam a proposta da página em extensão, pesquisa e projetos integradores, mantendo linguagem institucional e conteúdo adaptável.</p>
+          <span class="eyebrow">Consulta</span>
+          <h2 id="titulo-consulta-horarios">Escolha o período e veja a semana de aulas.</h2>
+          <p>Os horários abaixo vêm do Supabase. Se nenhum dado aparecer, o módulo ainda precisa ser preenchido no painel administrativo.</p>
         </div>
 
-        <div class="project-type-grid">
-          <article class="project-type-card reveal" id="extensao">
-            <span>Extensão</span>
-            <h3>Comunidade, oficinas e inclusão digital</h3>
-            <p>Ações que aproximam estudantes da comunidade, com tecnologia social, cidadania digital, oficinas e soluções voltadas a necessidades reais.</p>
-            <ul>
-              <li>Oficinas introdutórias</li>
-              <li>Ações com escolas e comunidade</li>
-              <li>Projetos de impacto social</li>
-            </ul>
-          </article>
+        <section class="schedule-control-panel reveal" aria-label="Filtros de horário">
+          <label>
+            <span>Semestre</span>
+            <select data-schedule-semester aria-label="Filtrar por semestre"></select>
+          </label>
+          <label>
+            <span>Período</span>
+            <select data-schedule-period aria-label="Filtrar por período"></select>
+          </label>
+          <label>
+            <span>Turno</span>
+            <select data-schedule-shift aria-label="Filtrar por turno"></select>
+          </label>
+        </section>
 
-          <article class="project-type-card reveal" id="pesquisa">
-            <span>Pesquisa</span>
-            <h3>Investigação, iniciação científica e produção acadêmica</h3>
-            <p>Espaço para divulgar estudos, grupos, iniciação científica, resultados de trabalhos e temas relacionados à Engenharia de Software.</p>
-            <ul>
-              <li>Estudos orientados</li>
-              <li>Produção acadêmica</li>
-              <li>Problemas de software e inovação</li>
-            </ul>
-          </article>
+        <div class="schedule-status" data-schedule-status role="status" aria-live="polite">Carregando horários...</div>
 
-          <article class="project-type-card reveal" id="projetos-integradores">
-            <span>Integradores</span>
-            <h3>Soluções práticas construídas pelos estudantes</h3>
-            <p>Trabalhos que conectam disciplinas, requisitos, desenvolvimento, testes, documentação e apresentação de produtos digitais.</p>
-            <ul>
-              <li>Protótipos e sistemas</li>
-              <li>Trabalho em equipe</li>
-              <li>Validação e apresentação</li>
-            </ul>
-          </article>
-        </div>
+        <section class="schedule-board reveal" data-schedule-board aria-label="Tabela de horários por período"></section>
       </div>
     </section>
 
-    <section class="section next-step-section" aria-labelledby="titulo-proxima-etapa-projetos">
+    <section class="section next-step-section" aria-label="Próximos passos">
       <div class="container next-step reveal">
         <div>
-          <span class="eyebrow">Continue explorando</span>
-          <h2 id="titulo-proxima-etapa-projetos">Depois de conhecer as trilhas de projetos, o visitante pode falar com a coordenação ou acompanhar a vida acadêmica.</h2>
-          <p>Esta página fica preparada para, futuramente, receber projetos cadastrados e aprovados pela administração do site.</p>
+          <span class="eyebrow">Rotina acadêmica</span>
+          <h2>Depois do horário, confira calendário e canais de atendimento.</h2>
+          <p>Essa página centraliza as aulas; datas oficiais, prazos e avisos continuam no calendário acadêmico e nos canais institucionais.</p>
         </div>
         <div class="next-actions">
-          <a class="btn btn-primary" href="contato.html">Falar com a coordenação</a>
-          <a class="btn btn-secondary" href="calendario.html">Ver calendário</a>
+          <a class="btn btn-light" href="calendario.html">Abrir calendário</a>
+          <a class="btn btn-secondary" href="contato.html">Falar com a coordenação</a>
         </div>
       </div>
     </section>
@@ -252,7 +226,8 @@
     </div>
   </footer>
 
-
+  <script src="assets/js/dados.js"></script>
+  <script type="module" src="assets/js/horarios-publico.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
 </html>

@@ -470,3 +470,12 @@ function setupCalendarFilters() {
 }
 
 setupCalendarFilters();
+
+// Atualiza o botão "Acesso" para o perfil logado quando houver sessão Supabase.
+(() => {
+  const scriptUrl = document.currentScript?.src || new URL("assets/js/script.js", window.location.href).href;
+  const authModuleUrl = new URL("site-auth.js", scriptUrl);
+  import(authModuleUrl.href).catch((error) => {
+    console.warn("Não foi possível carregar o acesso público:", error);
+  });
+})();

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Acesso ao painel administrativo do site institucional de Engenharia de Software do IFPE Campus Belo Jardim." />
+  <meta name="theme-color" content="#0b2a4a" />
+  <title>Acesso | Engenharia de Software IFPE</title>
+  <link rel="icon" href="../assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/pages/admin.css" />
+</head>
+
+<body class="admin-auth-page" data-page="acesso">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <main id="conteudo" class="admin-auth-shell">
+    <section class="admin-auth-card admin-auth-card-compact" aria-labelledby="titulo-acesso">
+      <div class="admin-auth-brand-panel" aria-label="Identidade do curso">
+        <a class="admin-back-link" href="../index.html">← Voltar ao site</a>
+
+        <div class="admin-auth-brand-line">
+          <img src="../assets/img/Eng_soft.png" alt="Símbolo de Engenharia de Software" />
+          <div>
+            <span>IFPE</span>
+            <strong>Engenharia de Software</strong>
+            <small>Campus Belo Jardim</small>
+          </div>
+        </div>
+
+        <p>
+          Acesso único para estudantes e administração do curso.
+        </p>
+      </div>
+
+      <div class="admin-auth-content">
+        <span class="admin-kicker">Acesso institucional</span>
+        <h1 id="titulo-acesso">Entre ou crie sua conta.</h1>
+        <p>
+          Estudantes entram no site com perfil próprio; contas liberadas no Supabase também acessam o painel administrativo.
+        </p>
+
+        <div class="admin-auth-tabs" role="tablist" aria-label="Escolha entre entrar ou cadastrar">
+          <button class="admin-tab is-active" type="button" data-auth-tab="login" role="tab" aria-selected="true">Entrar</button>
+          <button class="admin-tab" type="button" data-auth-tab="signup" role="tab" aria-selected="false">Criar conta</button>
+        </div>
+
+        <div class="admin-auth-alert" data-auth-status role="status" aria-live="polite"></div>
+
+        <form class="admin-form is-active" data-auth-panel="login" data-login-form>
+          <label>
+            <span>E-mail</span>
+            <input type="email" name="email" autocomplete="email" placeholder="seu.email@ifpe.edu.br" required />
+          </label>
+
+          <label>
+            <span>Senha</span>
+            <input type="password" name="password" autocomplete="current-password" placeholder="Sua senha" minlength="6" required />
+          </label>
+
+          <button class="admin-submit" type="submit">Entrar no acesso</button>
+        </form>
+
+        <form class="admin-form" data-auth-panel="signup" data-signup-form>
+          <label>
+            <span>Nome completo</span>
+            <input type="text" name="nome" autocomplete="name" placeholder="Seu nome completo" required />
+          </label>
+
+          <label>
+            <span>Matrícula <small>(opcional)</small></span>
+            <input type="text" name="matricula" inputmode="numeric" placeholder="Ex.: 2025123456" />
+          </label>
+
+          <label>
+            <span>E-mail para login</span>
+            <input type="email" name="email" autocomplete="email" placeholder="institucional ou pessoal" required />
+          </label>
+
+          <label>
+            <span>E-mail alternativo <small>(opcional)</small></span>
+            <input type="email" name="email_alternativo" placeholder="Use se tiver outro e-mail de contato" />
+          </label>
+
+          <label>
+            <span>Senha</span>
+            <input type="password" name="password" autocomplete="new-password" placeholder="Mínimo de 6 caracteres" minlength="6" required />
+          </label>
+
+          <button class="admin-submit" type="submit">Criar cadastro</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="../assets/js/admin-auth.js"></script>
+</body>
+
+</html>

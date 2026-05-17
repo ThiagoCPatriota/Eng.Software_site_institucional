@@ -107,9 +107,18 @@ window.dadosSite = {
       categoria: 'Horários',
       titulo: 'Horários de aula e turmas',
       resumo: 'Espaço para centralizar horários do semestre, turmas, salas e avisos sobre possíveis alterações.',
-      status: 'Atualização futura',
-      tipo: 'Informativo',
-      link: '#'
+      status: 'Página disponível',
+      tipo: 'Navegação interna',
+      link: 'horarios.html'
+    },
+    {
+      icone: 'LB',
+      categoria: 'Laboratórios',
+      titulo: 'Reserva e horários de laboratórios',
+      resumo: 'Consulte horários indisponíveis e solicite reserva para estudo, apresentação, projeto ou atividade acadêmica.',
+      status: 'Página disponível',
+      tipo: 'Navegação interna',
+      link: 'laboratorios.html'
     },
     {
       icone: 'MT',
