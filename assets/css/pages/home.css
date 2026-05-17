@@ -797,6 +797,81 @@
   border-color: rgba(25, 135, 84, 0.22);
 }
 
+.career-cloud {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.career-cloud-shell {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  border-radius: 34px;
+  padding: 28px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(45, 156, 219, 0.09), transparent 26%),
+    radial-gradient(circle at 82% 16%, rgba(25, 135, 84, 0.10), transparent 28%),
+    linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(246, 251, 253, 0.96) 100%);
+  border: 1px solid rgba(211, 224, 235, 0.95);
+  box-shadow: 0 24px 64px rgba(11, 42, 74, 0.09);
+}
+
+.career-cloud-shell::before {
+  content: "";
+  position: absolute;
+  inset: 22px;
+  border-radius: 28px;
+  border: 1px dashed rgba(45, 156, 219, 0.14);
+  pointer-events: none;
+}
+
+.career-badge {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 58px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(210, 222, 233, 0.96);
+  color: var(--color-primary);
+  font-weight: 850;
+  line-height: 1.18;
+  text-align: center;
+  box-shadow: 0 14px 34px rgba(11, 42, 74, 0.07);
+}
+
+.career-badge-main {
+  grid-column: 1 / -1;
+  min-height: 72px;
+  max-width: 430px;
+  justify-self: center;
+  margin-bottom: 4px;
+  padding: 16px 26px;
+  border-radius: 999px;
+  font-size: 1.08rem;
+  font-weight: 950;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-2));
+  border-color: rgba(9, 48, 90, 0.20);
+  box-shadow: 0 22px 48px rgba(11, 42, 74, 0.16);
+}
+
+.career-cloud-note {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
 .news-section {
   background: var(--color-surface);
 }
@@ -1347,5 +1422,37 @@
 
   .differentials-dots {
     padding-inline: 48px;
+  }
+}
+
+
+@media (max-width: 1180px) {
+  .career-cloud-shell {
+    padding: 24px;
+  }
+
+  .career-badge {
+    min-height: 56px;
+    font-size: 0.92rem;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 980px) {
+  .career-cloud-shell {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-radius: 28px;
+  }
+
+  .career-badge-main {
+    grid-column: 1 / -1;
+    max-width: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .career-cloud-shell {
+    grid-template-columns: 1fr;
+    padding: 20px;
   }
 }
