@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gestão da equipe docente do curso de Engenharia de Software." />
+  <meta name="theme-color" content="#0b2a4a" />
+  <title>Docentes | Admin Engenharia de Software IFPE</title>
+  <link rel="icon" href="../assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/pages/admin.css" />
+</head>
+
+<body class="admin-panel-page" data-page="admin-docentes">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="admin-topbar">
+    <div class="admin-topbar-brand">
+      <a href="../index.html" aria-label="Voltar para a página inicial">
+        <img src="../assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software" />
+        <span>
+          <strong>Admin ES</strong>
+          <small>IFPE Belo Jardim</small>
+        </span>
+      </a>
+    </div>
+
+    <nav class="admin-topbar-nav" aria-label="Menu do painel administrativo">
+      <a href="index.html">Painel</a>
+      <a href="publicacoes.html">Publicações</a>
+      <a href="projetos.html">Projetos</a>
+      <a href="horarios.html">Horários</a>
+      <a href="laboratorios.html">Laboratórios</a>
+      <a class="is-active" href="docentes.html">Docentes</a>
+      <a href="../docentes.html">Ver docentes</a>
+      <button type="button" data-admin-logout>Sair</button>
+    </nav>
+  </header>
+
+  <main id="conteudo" class="admin-main admin-publications-main">
+    <section class="admin-page-heading" aria-labelledby="titulo-docentes-admin">
+      <div>
+        <span class="admin-kicker">Módulo 05</span>
+        <h1 id="titulo-docentes-admin">Equipe docente do curso.</h1>
+        <p>
+          Cadastre professores, coordenação, áreas de atuação, histórico e contatos para manter a página pública de docentes sempre atualizada.
+        </p>
+      </div>
+      <button class="admin-secondary-action" type="button" data-new-docente>Novo docente</button>
+    </section>
+
+    <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
+
+    <section class="admin-dashboard-cards admin-docente-summary" aria-label="Resumo da equipe docente">
+      <article>
+        <span data-stat-total>0</span>
+        <strong>cadastrados</strong>
+      </article>
+      <article>
+        <span data-stat-active>0</span>
+        <strong>ativos</strong>
+      </article>
+      <article>
+        <span data-stat-highlight>0</span>
+        <strong>destaques</strong>
+      </article>
+    </section>
+
+    <section class="admin-editor-layout admin-docente-layout">
+      <form class="admin-publication-form admin-docente-form" data-docente-form>
+        <input type="hidden" name="id" />
+
+        <div class="admin-form-heading">
+          <span>Editor</span>
+          <strong data-form-title>Novo docente</strong>
+        </div>
+
+        <div class="admin-form-row compact">
+          <label>
+            <span>Nome completo</span>
+            <input type="text" name="nome" placeholder="Ex.: Nome do professor" required />
+          </label>
+          <label>
+            <span>Função</span>
+            <select name="funcao" required>
+              <option value="docente">Docente</option>
+              <option value="coordenacao">Coordenação</option>
+              <option value="docente_coordenacao">Docente e coordenação</option>
+              <option value="apoio_academico">Apoio acadêmico</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="admin-form-row compact">
+          <label>
+            <span>Formação</span>
+            <input type="text" name="formacao" placeholder="Ex.: Doutorado em Ciência da Computação" />
+          </label>
+          <label>
+            <span>Área de atuação</span>
+            <input type="text" name="area_atuacao" placeholder="Ex.: Engenharia de Software, Banco de Dados..." />
+          </label>
+        </div>
+
+        <label>
+          <span>Histórico / apresentação</span>
+          <textarea name="historico" rows="4" placeholder="Resumo profissional, experiência acadêmica, atuação no curso ou trajetória."></textarea>
+        </label>
+
+        <label>
+          <span>Projetos, interesses e linhas de atuação</span>
+          <textarea name="projetos_interesses" rows="3" placeholder="Pesquisa, extensão, inovação, disciplinas, orientação ou temas de interesse."></textarea>
+        </label>
+
+        <div class="admin-form-row compact-three">
+          <label>
+            <span>E-mail</span>
+            <input type="email" name="email" placeholder="professor@ifpe.edu.br" />
+          </label>
+          <label>
+            <span>Telefone/WhatsApp</span>
+            <input type="text" name="telefone" placeholder="(00) 00000-0000" />
+          </label>
+          <label>
+            <span>Contato exibido</span>
+            <select name="contato_preferencial" required>
+              <option value="email">E-mail</option>
+              <option value="telefone">Telefone</option>
+              <option value="ambos">E-mail e telefone</option>
+              <option value="nenhum">Não exibir contato</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="admin-form-row compact">
+          <label>
+            <span>Currículo Lattes ou página pública</span>
+            <input type="url" name="lattes_url" placeholder="https://..." />
+          </label>
+          <label>
+            <span>Imagem/foto institucional</span>
+            <input type="url" name="imagem_url" placeholder="https://... ou caminho da imagem" />
+          </label>
+        </div>
+
+        <div class="admin-form-row compact">
+          <label>
+            <span>Status</span>
+            <select name="ativo" required>
+              <option value="true">Ativo e visível</option>
+              <option value="false">Inativo/oculto</option>
+            </select>
+          </label>
+          <label>
+            <span>Destaque</span>
+            <select name="destaque" required>
+              <option value="false">Card comum</option>
+              <option value="true">Destacar no topo</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="admin-form-actions">
+          <button class="admin-submit" type="submit">Salvar docente</button>
+          <button class="admin-secondary-action" type="button" data-clear-form>Limpar</button>
+        </div>
+      </form>
+
+      <section class="admin-publications-list admin-docente-list" aria-label="Lista de docentes cadastrados">
+        <div class="admin-list-toolbar">
+          <strong>Docentes cadastrados</strong>
+          <select data-docente-filter aria-label="Filtrar docentes">
+            <option value="todos">Todos</option>
+            <option value="ativos">Ativos</option>
+            <option value="inativos">Inativos</option>
+            <option value="destaques">Destaques</option>
+            <option value="coordenacao">Coordenação</option>
+          </select>
+        </div>
+
+        <div data-docente-list></div>
+        <p class="admin-empty-state" data-docente-empty>Nenhum docente encontrado nesse filtro.</p>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="../assets/js/admin-docentes.js"></script>
+</body>
+
+</html>

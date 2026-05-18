@@ -86,47 +86,102 @@
             <span aria-hidden="true">•</span>
             <span>Área do aluno</span>
           </nav>
-          <span class="eyebrow">Central acadêmica</span>
-          <h1 id="titulo-area-aluno">Um painel simples para reunir caminhos úteis da vida acadêmica.</h1>
+          <span class="eyebrow">Painel do aluno</span>
+          <h1 id="titulo-area-aluno">Acompanhe seus projetos, retornos e solicitações em um só lugar.</h1>
           <p>
-            Esta área organiza links, orientações e atalhos importantes para estudantes. Ela não substitui sistemas oficiais da instituição e não possui login real nesta versão estática.
+            O painel reúne informações vinculadas à sua conta, como propostas enviadas, feedbacks da administração e reservas de laboratório. Tudo associado ao seu nome, e-mail e matrícula.
           </p>
           <div class="hero-actions" aria-label="Ações principais da área do aluno">
-            <a class="btn btn-primary" href="#links-uteis">Ver links úteis</a>
-            <a class="btn btn-secondary" href="calendario.html">Abrir calendário</a>
+            <a class="btn btn-primary" href="projetos.html#enviar-proposta">Enviar projeto</a>
+            <a class="btn btn-secondary" href="laboratorios.html#solicitar-reserva">Solicitar laboratório</a>
           </div>
         </div>
-
-        <aside class="student-hub-card reveal" aria-label="Resumo da área do aluno">
-          <div class="panel-topbar">
-            <span></span><span></span><span></span>
-          </div>
-          <div class="student-hub-body">
-            <div class="student-hub-status">
-              <span class="status-badge">Modo demonstrativo</span>
-              <strong>Acesso rápido sem fingir sistema acadêmico.</strong>
-              <p>Os atalhos funcionam como uma central informativa. Quando houver links oficiais, basta substituir os endereços em <code>dados.js</code>.</p>
-            </div>
-            <div class="metric-stack" aria-label="Organização dos atalhos">
-              <article><strong>01</strong><span>Sistemas institucionais</span></article>
-              <article><strong>02</strong><span>Materiais e biblioteca</span></article>
-              <article><strong>03</strong><span>Calendário e prazos</span></article>
-            </div>
-          </div>
-        </aside>
       </div>
     </section>
 
-    <section class="student-notice-section" aria-labelledby="titulo-aviso-aluno">
-      <div class="container student-notice reveal">
-        <div class="student-notice-icon" aria-hidden="true">!</div>
-        <div>
-          <h2 id="titulo-aviso-aluno">Área informativa, sem login falso.</h2>
-          <p>
-            O acesso a notas, frequência, documentos, sistemas acadêmicos e dados pessoais depende dos canais oficiais do IFPE. Esta página apenas organiza os caminhos e prepara a estrutura visual para futuras integrações.
-          </p>
+    <section class="section student-dashboard-section" aria-labelledby="titulo-painel-aluno-logado">
+      <div class="container">
+        <div class="student-dashboard reveal" data-student-dashboard hidden>
+          <div class="student-dashboard-header">
+            <div>
+              <span class="eyebrow">Central do estudante</span>
+              <h2 id="titulo-painel-aluno-logado">Seu painel acadêmico.</h2>
+              <p>Acompanhe propostas e solicitações vinculadas ao seu perfil.</p>
+            </div>
+            <div class="student-profile-card" aria-label="Dados do perfil logado">
+              <span data-student-initials>AL</span>
+              <div>
+                <strong data-student-name>Aluno</strong>
+                <small data-student-email>E-mail não carregado</small>
+                <small>Matrícula: <b data-student-enrollment>não informada</b></small>
+              </div>
+            </div>
+          </div>
+
+          <div class="student-dashboard-stats" aria-label="Resumo das movimentações do aluno">
+            <article>
+              <strong data-student-project-count>0</strong>
+              <span>propostas enviadas</span>
+            </article>
+            <article>
+              <strong data-student-project-feedback-count>0</strong>
+              <span>retornos com feedback</span>
+            </article>
+            <article>
+              <strong data-student-reservation-count>0</strong>
+              <span>reservas solicitadas</span>
+            </article>
+          </div>
+
+          <div class="student-dashboard-actions" aria-label="Ações rápidas do painel do aluno">
+            <a class="student-action-card" href="projetos.html#enviar-proposta">
+              <span>+</span>
+              <strong>Enviar nova proposta</strong>
+              <small>Pesquisa, extensão ou inovação.</small>
+            </a>
+            <a class="student-action-card" href="laboratorios.html#solicitar-reserva">
+              <span>↗</span>
+              <strong>Solicitar laboratório</strong>
+              <small>Reserve um espaço para estudo, apresentação ou projeto.</small>
+            </a>
+            <a class="student-action-card" href="horarios.html">
+              <span>⌁</span>
+              <strong>Ver horários de aula</strong>
+              <small>Consulte aulas por período e turno.</small>
+            </a>
+          </div>
+
+          <div class="student-tabs" role="tablist" aria-label="Seções do painel do aluno">
+            <button class="is-active" type="button" data-student-tab="projetos">Meus projetos</button>
+            <button type="button" data-student-tab="reservas">Minhas reservas</button>
+          </div>
+
+          <div class="student-panel is-active" data-student-panel="projetos">
+            <div class="student-panel-heading">
+              <div>
+                <span class="eyebrow">Projetos</span>
+                <h3>Feedbacks e andamento das suas propostas.</h3>
+              </div>
+              <a class="btn btn-secondary" href="projetos.html#enviar-proposta">Enviar proposta</a>
+            </div>
+            <div class="student-empty-state" data-student-projects-empty hidden>Você ainda não enviou propostas.</div>
+            <div class="student-item-list" data-student-projects-list aria-live="polite"></div>
+          </div>
+
+          <div class="student-panel" data-student-panel="reservas" hidden>
+            <div class="student-panel-heading">
+              <div>
+                <span class="eyebrow">Laboratórios</span>
+                <h3>Reservas vinculadas à sua conta.</h3>
+              </div>
+              <a class="btn btn-secondary" href="laboratorios.html#solicitar-reserva">Solicitar laboratório</a>
+            </div>
+            <div class="student-empty-state" data-student-reservations-empty hidden>Você ainda não solicitou reservas.</div>
+            <div class="student-item-list" data-student-reservations-list aria-live="polite"></div>
+          </div>
+
+          <p class="student-dashboard-status" data-student-dashboard-status role="status" aria-live="polite"></p>
         </div>
-        <a class="btn btn-light" href="faq.html">Tirar dúvidas</a>
       </div>
     </section>
 
@@ -134,8 +189,8 @@
       <div class="container">
         <div class="section-heading centered reveal">
           <span class="eyebrow">Links úteis</span>
-          <h2 id="titulo-links-uteis">Atalhos organizados por necessidade, não por labirinto.</h2>
-          <p>A ideia é que o estudante encontre rapidamente onde buscar sistemas, documentos, materiais, horários e apoio acadêmico.</p>
+          <h2 id="titulo-links-uteis">Atalhos acadêmicos continuam por aqui.</h2>
+          <p>Além do painel logado, esta área reúne caminhos rápidos para sistemas, documentos, horários e apoio acadêmico.</p>
         </div>
 
         <div class="student-links-grid reveal" data-render="links-aluno" aria-live="polite">
@@ -148,59 +203,16 @@
       </div>
     </section>
 
-    <section class="section student-routine-section" aria-labelledby="titulo-rotina-academica">
-      <div class="container routine-layout">
-        <div class="routine-panel reveal">
-          <span class="eyebrow">Rotina acadêmica</span>
-          <h2 id="titulo-rotina-academica">Um mapa para o aluno não caçar informação no escuro.</h2>
-          <p>
-            Esta trilha resume os momentos mais comuns da vida acadêmica e ajuda a conectar links úteis, calendário e contato da coordenação.
-          </p>
-        </div>
-
-        <div class="routine-steps">
-          <article class="routine-step reveal">
-            <strong>01</strong>
-            <div>
-              <h3>Antes do semestre</h3>
-              <p>Conferir matrícula, horários, calendário, documentos e canais oficiais de comunicação.</p>
-            </div>
-          </article>
-          <article class="routine-step reveal">
-            <strong>02</strong>
-            <div>
-              <h3>Durante as aulas</h3>
-              <p>Acompanhar frequência, materiais, atividades, avisos dos docentes e datas importantes.</p>
-            </div>
-          </article>
-          <article class="routine-step reveal">
-            <strong>03</strong>
-            <div>
-              <h3>Em avaliações e projetos</h3>
-              <p>Observar prazos, entregas, apresentações, eventos acadêmicos e orientações por disciplina.</p>
-            </div>
-          </article>
-          <article class="routine-step reveal">
-            <strong>04</strong>
-            <div>
-              <h3>Quando surgir dúvida</h3>
-              <p>Consultar FAQ, contato da coordenação e canais institucionais antes de depender de informações espalhadas.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section class="section next-step-section" aria-label="Próximos passos">
       <div class="container next-step reveal">
         <div>
-          <span class="eyebrow">Calendário</span>
-          <h2>Agora veja as datas importantes em uma linha do tempo.</h2>
-          <p>O calendário acadêmico também está em modo demonstrativo e pode receber datas oficiais quando forem confirmadas.</p>
+          <span class="eyebrow">Organização acadêmica</span>
+          <h2>Continue acompanhando horários, laboratórios e calendário.</h2>
+          <p>O painel concentra seus retornos individuais, enquanto as páginas públicas mantêm as informações gerais do curso.</p>
         </div>
         <div class="next-actions">
-          <a class="btn btn-light" href="calendario.html">Abrir calendário</a>
-          <a class="btn btn-secondary" href="contato.html">Falar com a coordenação</a>
+          <a class="btn btn-light" href="horarios.html">Horário de aulas</a>
+          <a class="btn btn-secondary" href="laboratorios.html">Laboratórios</a>
         </div>
       </div>
     </section>
@@ -280,5 +292,7 @@
 
   <script src="assets/js/dados.js"></script>
   <script src="assets/js/script.js"></script>
+  <script type="module" src="assets/js/site-auth.js"></script>
+  <script type="module" src="assets/js/area-aluno.js"></script>
 </body>
 </html>

@@ -49,26 +49,16 @@ function createProfileMenu(profile, session) {
   const dropdown = document.createElement("div");
   dropdown.className = "nav-profile-dropdown";
 
-  const accountItem = document.createElement("a");
-  accountItem.href = "area-aluno.html";
-  accountItem.textContent = "Área do aluno";
-  dropdown.appendChild(accountItem);
-
-  const projectItem = document.createElement("a");
-  projectItem.href = "projetos.html#enviar-proposta";
-  projectItem.textContent = "Enviar projeto";
-  dropdown.appendChild(projectItem);
-
-  const labsItem = document.createElement("a");
-  labsItem.href = "laboratorios.html#solicitar-reserva";
-  labsItem.textContent = "Solicitar laboratório";
-  dropdown.appendChild(labsItem);
-
   if (isAdminProfile(profile)) {
     const adminItem = document.createElement("a");
     adminItem.href = "admin/index.html";
-    adminItem.textContent = "Painel admin";
+    adminItem.textContent = "Painel administrativo";
     dropdown.appendChild(adminItem);
+  } else {
+    const studentPanelItem = document.createElement("a");
+    studentPanelItem.href = "area-aluno.html";
+    studentPanelItem.textContent = "Painel do aluno";
+    dropdown.appendChild(studentPanelItem);
   }
 
   const logoutButton = document.createElement("button");

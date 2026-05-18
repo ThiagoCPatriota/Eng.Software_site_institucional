@@ -1850,3 +1850,42 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Módulo 05: equipe docente */
+.admin-docente-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.admin-docente-avatar {
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--color-accent-soft), var(--color-ifpe-soft));
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  font-weight: 950;
+}
+
+.admin-docente-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-docente-card .admin-card-footnote {
+  word-break: break-word;
+}
+
+@media (max-width: 760px) {
+  .admin-docente-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

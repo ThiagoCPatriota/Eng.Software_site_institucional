@@ -93,7 +93,7 @@ function getFilteredPublicProjects() {
 
 function createProjectCard(item) {
   const article = document.createElement("article");
-  article.className = "approved-project-card reveal";
+  article.className = "approved-project-card";
 
   const keywords = formatKeywords(item.palavras_chave);
   const keywordHtml = keywords.length
@@ -170,10 +170,8 @@ async function loadPublicProjects() {
   }
 
   const { data, error } = await supabase
-    .from("projeto_propostas")
+    .from("projetos_publicos")
     .select("id, titulo, slug, eixo, resumo, descricao, objetivo, orientador, equipe, palavras_chave, publico_alvo, aprovado_em, atualizado_em")
-    .eq("status", "aprovada")
-    .eq("visivel", true)
     .order("aprovado_em", { ascending: false, nullsFirst: false })
     .order("atualizado_em", { ascending: false });
 
@@ -364,5 +362,9 @@ async function init() {
 
 init().catch((error) => {
   console.error(error);
+  if (publicEmpty) {
+    publicEmpty.textContent = `Erro ao carregar o mural de projetos: ${error.message}`;
+    publicEmpty.classList.add("is-visible");
+  }
   setFormStatus(`Erro ao iniciar projetos: ${error.message}`, "error");
 });
