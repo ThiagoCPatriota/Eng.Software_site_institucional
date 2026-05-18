@@ -1889,3 +1889,36 @@
     flex-direction: column;
   }
 }
+
+
+/* Entrega 25 - módulos extras */
+.admin-topbar {
+  overflow-y: auto;
+}
+
+.admin-topbar-nav {
+  padding-bottom: 18px;
+}
+
+.admin-topbar-nav a,
+.admin-topbar-nav button {
+  min-height: 38px;
+  font-size: 0.82rem;
+}
+
+.admin-publication-card h2 {
+  word-break: break-word;
+}
+
+.admin-pill.is-home {
+  color: #075985;
+  background: #e0f2fe;
+}
+
+@media (max-height: 720px) and (min-width: 981px) {
+  .admin-topbar-brand a { padding: 10px; }
+  .admin-topbar-brand img { width: 42px; height: 42px; }
+  .admin-topbar-nav { gap: 6px; }
+  .admin-topbar-nav a,
+  .admin-topbar-nav button { min-height: 34px; }
+}

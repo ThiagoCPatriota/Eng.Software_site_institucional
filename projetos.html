@@ -33,6 +33,7 @@
 
       <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
         <a href="index.html" data-nav="inicio">Início</a>
+        <a href="eventos-noticias.html" data-nav="eventos">Notícias</a>
 
         <details class="nav-group" data-nav-group="curso">
           <summary>Curso</summary>
@@ -44,7 +45,14 @@
           </div>
         </details>
 
-        <a href="projetos.html" data-nav="projetos">Projetos</a>
+        <details class="nav-group" data-nav-group="geral">
+          <summary>Geral</summary>
+          <div class="nav-dropdown">
+            <a href="projetos.html" data-nav="projetos">Projetos</a>
+            <a href="editais.html" data-nav="editais">Editais</a>
+            <a href="outros-servicos.html" data-nav="servicos">Outros serviços</a>
+          </div>
+        </details>
 
         <details class="nav-group" data-nav-group="estrutura">
           <summary>Estrutura</summary>
@@ -89,11 +97,12 @@
           <span class="eyebrow">Projetos e inovação</span>
           <h1 id="titulo-projetos">Pesquisa, extensão e inovação em movimento.</h1>
           <p>
-            Consulte projetos aprovados do curso e envie propostas para análise da administração. O mural público exibe apenas informações básicas dos projetos validados.
+            Consulte projetos aprovados de pesquisa, extensão e inovação e envie propostas para análise da administração.
           </p>
           <div class="projects-hero-actions">
             <a class="btn btn-primary" href="#enviar-proposta">Enviar proposta</a>
             <a class="btn btn-secondary" href="#mural-projetos">Ver mural</a>
+            <a class="btn btn-secondary" href="#monitorias">Ver monitorias</a>
           </div>
         </div>
       </div>
@@ -141,6 +150,26 @@
             </ul>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="section monitorias-section" id="monitorias" aria-labelledby="titulo-monitorias">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Monitoria</span>
+          <h2 id="titulo-monitorias">Oportunidades de monitoria disponíveis.</h2>
+          <p>Consulte oportunidades cadastradas pela administração para apoio acadêmico, disciplinas, áreas de estudo e atividades do curso.</p>
+        </div>
+
+        <div class="project-filter-bar reveal" aria-label="Filtro de monitorias">
+          <button class="is-active" type="button" data-monitoria-public-filter="todos">Todas</button>
+          <button type="button" data-monitoria-public-filter="bolsista">Bolsistas</button>
+          <button type="button" data-monitoria-public-filter="voluntaria">Voluntárias</button>
+          <button type="button" data-monitoria-public-filter="mista">Bolsista/voluntária</button>
+        </div>
+
+        <div class="monitorias-grid" data-monitorias-list></div>
+        <div class="projects-empty-state" data-monitorias-empty>Nenhuma oportunidade de monitoria encontrada para este filtro.</div>
       </div>
     </section>
 
@@ -285,12 +314,12 @@
       <div class="container next-step reveal">
         <div>
           <span class="eyebrow">Continue explorando</span>
-          <h2 id="titulo-proxima-etapa-projetos">Depois de conhecer os projetos, acompanhe a vida acadêmica do curso.</h2>
-          <p>Horários, laboratórios e calendário ajudam estudantes a organizar atividades, aulas e propostas futuras.</p>
+          <h2 id="titulo-proxima-etapa-projetos">Depois de conhecer os projetos, acompanhe eventos e a vida acadêmica do curso.</h2>
+          <p>Eventos, horários, laboratórios e calendário ajudam estudantes a organizar atividades, aulas e propostas futuras.</p>
         </div>
         <div class="next-actions">
-          <a class="btn btn-primary" href="laboratorios.html">Ver laboratórios</a>
-          <a class="btn btn-secondary" href="calendario.html">Ver calendário</a>
+          <a class="btn btn-primary" href="eventos-noticias.html">Ver eventos e notícias</a>
+          <a class="btn btn-secondary" href="laboratorios.html">Ver laboratórios</a>
         </div>
       </div>
     </section>
@@ -313,7 +342,10 @@
 
         <nav class="footer-column" aria-label="Links de vida acadêmica">
           <h2>Vida acadêmica</h2>
-          <a href="projetos.html">Projetos e eventos</a>
+          <a href="eventos-noticias.html">Eventos e notícias</a>
+          <a href="projetos.html">Projetos</a>
+          <a href="editais.html">Editais</a>
+          <a href="outros-servicos.html">Outros serviços</a>
           <a href="area-aluno.html">Área do aluno</a>
           <a href="horarios.html">Horário de aulas</a>
           <a href="laboratorios.html">Horário dos laboratórios</a>
@@ -371,5 +403,6 @@
   <script src="assets/js/script.js"></script>
   <script type="module" src="assets/js/site-auth.js"></script>
   <script type="module" src="assets/js/projetos-publico.js"></script>
+  <script type="module" src="assets/js/monitorias-publico.js"></script>
 </body>
 </html>

@@ -39,6 +39,7 @@
 
       <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
         <a href="index.html" data-nav="inicio">Início</a>
+        <a href="eventos-noticias.html" data-nav="eventos">Notícias</a>
 
         <details class="nav-group" data-nav-group="curso">
           <summary>Curso</summary>
@@ -50,7 +51,14 @@
           </div>
         </details>
 
-        <a href="projetos.html" data-nav="projetos">Projetos</a>
+        <details class="nav-group" data-nav-group="geral">
+          <summary>Geral</summary>
+          <div class="nav-dropdown">
+            <a href="projetos.html" data-nav="projetos">Projetos</a>
+            <a href="editais.html" data-nav="editais">Editais</a>
+            <a href="outros-servicos.html" data-nav="servicos">Outros serviços</a>
+          </div>
+        </details>
 
         <details class="nav-group" data-nav-group="estrutura">
           <summary>Estrutura</summary>
@@ -133,7 +141,7 @@
           <h2 id="titulo-noticias">Mural Acadêmico</h2>
         </div>
 
-        <div class="magazine-track reveal" aria-label="Destaques de projetos, eventos e notícias">
+        <div class="magazine-track reveal" data-home-destaques-list aria-label="Destaques de projetos, eventos e notícias">
           <a class="magazine-card magazine-card-large" href="projetos.html">
             <span class="magazine-visual" aria-hidden="true">
               <img src="assets/img/home/jardim-digital.jpg" alt="" loading="lazy" />
@@ -172,7 +180,7 @@
         </div>
 
         <div class="magazine-actions reveal">
-          <a class="text-link" href="projetos.html">Ver página completa de projetos e eventos</a>
+          <a class="text-link" href="eventos-noticias.html" data-home-destaques-action>Ver eventos e notícias</a>
         </div>
       </div>
     </section>
@@ -428,7 +436,10 @@
 
         <nav class="footer-column" aria-label="Links de vida acadêmica">
           <h2>Vida acadêmica</h2>
-          <a href="projetos.html">Projetos e eventos</a>
+          <a href="eventos-noticias.html">Eventos e notícias</a>
+          <a href="projetos.html">Projetos</a>
+          <a href="editais.html">Editais</a>
+          <a href="outros-servicos.html">Outros serviços</a>
           <a href="area-aluno.html">Área do aluno</a>
           <a href="horarios.html">Horário de aulas</a>
           <a href="laboratorios.html">Horário dos laboratórios</a>
@@ -486,7 +497,9 @@
 
   <script src="assets/js/dados.js"></script>
   <script src="assets/js/script.js"></script>
+  <script type="module" src="assets/js/site-auth.js"></script>
   <script src="assets/js/home-diferenciais.js"></script>
+  <script type="module" src="assets/js/home-destaques.js"></script>
 </body>
 
 </html>

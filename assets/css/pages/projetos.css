@@ -458,3 +458,207 @@
     border-radius: 22px;
   }
 }
+
+/* Eventos e notícias do campus */
+.campus-news-section {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(45, 156, 219, 0.12), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, #f4f9fd 100%);
+}
+
+.campus-news-filter {
+  margin-bottom: 26px;
+}
+
+.campus-news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.campus-news-card {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid rgba(210, 222, 233, 0.92);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 22px 54px rgba(11, 42, 74, 0.08);
+}
+
+.campus-news-image {
+  aspect-ratio: 16 / 8.5;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.campus-news-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition);
+}
+
+.campus-news-card:hover .campus-news-image img {
+  transform: scale(1.04);
+}
+
+.campus-news-content {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+}
+
+.campus-news-topline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.campus-news-topline span,
+.campus-news-meta span {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: var(--color-ifpe-soft);
+  color: var(--color-ifpe-dark);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.campus-news-topline small {
+  color: var(--color-muted);
+  font-weight: 850;
+}
+
+.campus-news-card h3 {
+  color: var(--color-primary);
+  font-size: clamp(1.16rem, 2vw, 1.55rem);
+  line-height: 1.12;
+}
+
+.campus-news-card p {
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.campus-news-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.campus-news-meta span {
+  background: #eef6fb;
+  color: var(--color-primary);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+@media (max-width: 1180px) {
+  .campus-news-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .campus-news-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Monitorias disponíveis */
+.monitorias-section {
+  background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+}
+
+.monitorias-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.monitoria-card {
+  display: grid;
+  gap: 14px;
+  border: 1px solid rgba(210, 222, 233, 0.92);
+  border-radius: 28px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 22px 54px rgba(11, 42, 74, 0.08);
+}
+
+.monitoria-topline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.monitoria-topline span,
+.monitoria-topline small {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.monitoria-topline span {
+  background: var(--color-ifpe-soft);
+  color: var(--color-ifpe-dark);
+  text-transform: uppercase;
+}
+
+.monitoria-topline small {
+  background: #eef6fb;
+  color: var(--color-primary);
+}
+
+.monitoria-card h3 {
+  color: var(--color-primary);
+  font-size: clamp(1.2rem, 2vw, 1.62rem);
+  line-height: 1.14;
+}
+
+.monitoria-card p,
+.monitoria-card dd {
+  color: var(--color-muted);
+  line-height: 1.65;
+}
+
+.monitoria-card dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.monitoria-card dt {
+  color: var(--color-primary);
+  font-size: 0.76rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.monitoria-requisitos {
+  border-left: 3px solid rgba(25, 135, 84, 0.24);
+  padding-left: 12px;
+}
+
+.monitoria-requisitos strong {
+  color: var(--color-primary);
+}
+
+@media (max-width: 1180px) {
+  .monitorias-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .monitorias-grid,
+  .monitoria-card dl { grid-template-columns: 1fr; }
+}

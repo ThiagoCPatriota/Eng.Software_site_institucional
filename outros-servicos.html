@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Horários de aulas do curso de Engenharia de Software do IFPE Campus Belo Jardim, organizados por período, turno e dia da semana." />
+  <meta name="description" content="Links para biblioteca, atividades complementares, TCC e serviços acadêmicos do curso." />
   <meta name="author" content="Projeto final da disciplina de Web" />
   <meta name="theme-color" content="#0b2a4a" />
   <meta name="robots" content="index, follow" />
-  <title>Horário de aulas | Engenharia de Software IFPE</title>
+  <title>Outros serviços | Engenharia de Software - IFPE Campus Belo Jardim</title>
   <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
   <link rel="stylesheet" href="assets/css/global.css" />
-  <link rel="stylesheet" href="assets/css/pages/horarios.css" />
+  <link rel="stylesheet" href="assets/css/pages/servicos.css" />
 </head>
-<body data-page="horarios">
+<body data-page="servicos">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
 
   <header class="site-header" id="topo">
@@ -86,81 +86,38 @@
   </header>
 
   <main id="conteudo">
-    <section class="page-hero schedule-hero" aria-labelledby="titulo-horarios">
-      <div class="container page-hero-grid">
+    <section class="page-hero servicos-page-hero" aria-labelledby="titulo-servicos">
+      <div class="container projects-hero-single">
         <div class="page-hero-content reveal">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="index.html">Início</a>
-            <span aria-hidden="true">•</span>
-            <a href="area-aluno.html">Aluno</a>
-            <span aria-hidden="true">•</span>
-            <span>Horário de aulas</span>
-          </nav>
-          <span class="eyebrow">Vida acadêmica</span>
-          <h1 id="titulo-horarios">Horários de aulas organizados por período.</h1>
-          <p>
-            Consulte as aulas do semestre por período, turno e dia da semana. A coordenação/administração atualiza os dados pelo painel administrativo.
-          </p>
-          <div class="hero-actions" aria-label="Ações principais de horários">
-            <a class="btn btn-primary" href="#consulta-horarios">Consultar horários</a>
-            <a class="btn btn-secondary" href="area-aluno.html">Voltar à área do aluno</a>
-          </div>
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Início</a><span>•</span><span>Outros serviços</span></nav>
+          <span class="eyebrow">Outros serviços</span>
+          <h1 id="titulo-servicos">Links úteis para a vida acadêmica.</h1>
+          <p>Acesse biblioteca, orientações sobre atividades complementares, TCC e outros serviços que ajudam o estudante a navegar pelo curso.</p>
+          <div class="projects-hero-actions"><a class="btn btn-primary" href="#servicos-academicos">Ver serviços</a><a class="btn btn-secondary" href="area-aluno.html">Área do aluno</a></div>
         </div>
-
-        <aside class="schedule-hero-card reveal" aria-label="Resumo dos horários">
-          <span class="status-badge">Atualização pelo admin</span>
-          <strong>Turmas, turnos e disciplinas em um só lugar.</strong>
-          <p>O estudante seleciona o período e visualiza a semana em formato de tabela, sem depender de imagem solta ou PDF difícil de ler no celular.</p>
-          <div class="schedule-mini-grid" aria-hidden="true">
-            <span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span>
-          </div>
-        </aside>
       </div>
     </section>
 
-    <section class="section schedule-section" id="consulta-horarios" aria-labelledby="titulo-consulta-horarios">
+    <section class="section servicos-section" id="servicos-academicos" aria-labelledby="titulo-lista-servicos">
       <div class="container">
-        <div class="section-heading centered reveal">
-          <span class="eyebrow">Consulta</span>
-          <h2 id="titulo-consulta-horarios">Escolha o período e veja a semana de aulas.</h2>
-          <p>Os horários abaixo vêm do Supabase. Se nenhum dado aparecer, o módulo ainda precisa ser preenchido no painel administrativo.</p>
+        <div class="section-heading reveal">
+          <span class="eyebrow">Acessos rápidos</span>
+          <h2 id="titulo-lista-servicos">Biblioteca, atividades complementares e TCC.</h2>
+          <p>Os links são cadastrados pela administração e podem apontar para sites, documentos ou páginas oficiais.</p>
         </div>
-
-        <section class="schedule-control-panel reveal" aria-label="Filtros de horário">
-          <label>
-            <span>Semestre</span>
-            <select data-schedule-semester aria-label="Filtrar por semestre"></select>
-          </label>
-          <label>
-            <span>Período</span>
-            <select data-schedule-period aria-label="Filtrar por período"></select>
-          </label>
-          <label>
-            <span>Turno</span>
-            <select data-schedule-shift aria-label="Filtrar por turno"></select>
-          </label>
-        </section>
-
-        <div class="schedule-status" data-schedule-status role="status" aria-live="polite">Carregando horários...</div>
-
-        <section class="schedule-board reveal" data-schedule-board aria-label="Tabela de horários por período"></section>
-      </div>
-    </section>
-
-    <section class="section next-step-section" aria-label="Próximos passos">
-      <div class="container next-step reveal">
-        <div>
-          <span class="eyebrow">Rotina acadêmica</span>
-          <h2>Depois do horário, confira calendário e canais de atendimento.</h2>
-          <p>Essa página centraliza as aulas; datas oficiais, prazos e avisos continuam no calendário acadêmico e nos canais institucionais.</p>
+        <div class="project-filter-bar reveal" aria-label="Filtro de serviços">
+          <button class="is-active" type="button" data-servico-public-filter="todos">Todos</button>
+          <button type="button" data-servico-public-filter="biblioteca">Biblioteca</button>
+          <button type="button" data-servico-public-filter="atividades_complementares">Atividades complementares</button>
+          <button type="button" data-servico-public-filter="tcc">TCC</button>
+          <button type="button" data-servico-public-filter="outro">Outros</button>
         </div>
-        <div class="next-actions">
-          <a class="btn btn-light" href="calendario.html">Abrir calendário</a>
-          <a class="btn btn-secondary" href="contato.html">Falar com a coordenação</a>
-        </div>
+        <div class="servicos-grid" data-servicos-list></div>
+        <div class="projects-empty-state" data-servicos-empty>Nenhum serviço encontrado para este filtro.</div>
       </div>
     </section>
   </main>
+  <script type="module" src="assets/js/servicos-publico.js"></script>
 
   <footer class="site-footer institutional-footer">
     <div class="container footer-main">
@@ -237,8 +194,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/dados.js"></script>
-  <script type="module" src="assets/js/horarios-publico.js"></script>
   <script src="assets/js/script.js"></script>
+  <script type="module" src="assets/js/site-auth.js"></script>
 </body>
 </html>
