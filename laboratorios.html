@@ -101,7 +101,7 @@
 
         <aside class="lab-hero-card reveal" aria-label="Resumo de disponibilidade">
           <span class="status-badge">Reserva com responsabilidade</span>
-          <strong>O nome informado fica vinculado à solicitação.</strong>
+          <strong>O nome e a matrícula ficam vinculados à solicitação.</strong>
           <p>Use para estudo, apresentação, projeto, monitoria ou atividade acadêmica. Horários não listados como ocupados podem estar livres, sujeitos à confirmação.</p>
           <div class="lab-mini-stack" aria-hidden="true">
             <span>Lab 01</span>
@@ -155,7 +155,7 @@
           <span class="eyebrow">Solicitação</span>
           <h2 id="titulo-solicitar-reserva">Reserve um laboratório para uma atividade acadêmica.</h2>
           <p>
-            A solicitação fica pendente até aprovação da administração. Informe um responsável real, porque o horário aprovado ficará associado ao nome informado.
+            A solicitação fica pendente até aprovação da administração. O horário aprovado ficará associado ao seu nome, e-mail e matrícula.
           </p>
         </div>
 
@@ -195,10 +195,15 @@
               <input type="text" name="responsavel_nome" placeholder="Seu nome" readonly required />
             </label>
             <label>
-              <span>E-mail da conta</span>
-              <input type="email" name="responsavel_email" placeholder="seu.email@exemplo.com" readonly required />
+              <span>Matrícula</span>
+              <input type="text" name="responsavel_matricula" inputmode="numeric" placeholder="Sua matrícula" required />
             </label>
           </div>
+
+          <label>
+            <span>E-mail da conta</span>
+            <input type="email" name="responsavel_email" placeholder="seu.email@exemplo.com" readonly required />
+          </label>
 
           <label>
             <span>Finalidade</span>

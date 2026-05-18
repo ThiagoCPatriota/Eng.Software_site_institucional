@@ -54,6 +54,11 @@ function createProfileMenu(profile, session) {
   accountItem.textContent = "Área do aluno";
   dropdown.appendChild(accountItem);
 
+  const projectItem = document.createElement("a");
+  projectItem.href = "projetos.html#enviar-proposta";
+  projectItem.textContent = "Enviar projeto";
+  dropdown.appendChild(projectItem);
+
   const labsItem = document.createElement("a");
   labsItem.href = "laboratorios.html#solicitar-reserva";
   labsItem.textContent = "Solicitar laboratório";

@@ -159,6 +159,11 @@ signupForm?.addEventListener("submit", async (event) => {
   const matricula = String(formData.get("matricula") || "").trim();
   const password = String(formData.get("password") || "");
 
+  if (!matricula) {
+    setStatus("Informe sua matrícula para criar o cadastro. Esse dado será usado como referência institucional nas reservas de laboratório.", "error");
+    return;
+  }
+
   setLoading(signupForm, true);
   setStatus("Criando cadastro...", "info");
 
@@ -193,7 +198,7 @@ signupForm?.addEventListener("submit", async (event) => {
       return;
     }
 
-    setStatus("Cadastro de estudante criado. Abrindo o site com seu perfil...", "success");
+    setStatus("Cadastro de estudante criado com matrícula. Abrindo o site com seu perfil...", "success");
     signupForm.reset();
     goToStudentArea();
   } catch (error) {

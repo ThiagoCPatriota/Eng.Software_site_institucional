@@ -29,6 +29,7 @@
     <nav class="admin-topbar-nav" aria-label="Menu do painel administrativo">
       <a href="index.html">Painel</a>
       <a href="publicacoes.html">Publicações</a>
+      <a href="projetos.html">Projetos</a>
       <a href="horarios.html">Horários</a>
       <a class="is-active" href="laboratorios.html">Laboratórios</a>
       <a href="../laboratorios.html">Ver labs</a>
@@ -53,102 +54,160 @@
     <section class="admin-lab-strip" data-lab-summary data-drag-scroll aria-label="Laboratórios disponíveis no painel"></section>
 
     <section class="admin-editor-layout admin-lab-layout">
-      <form class="admin-publication-form admin-lab-form" data-lab-form>
-        <input type="hidden" name="id" />
-
-        <div class="admin-form-heading">
-          <span>Editor</span>
-          <strong data-form-title>Nova reserva/bloqueio</strong>
+      <div class="admin-lab-editor-card">
+        <div class="admin-editor-switch" role="tablist" aria-label="Alternar editor de laboratórios">
+          <button class="is-active" type="button" data-editor-mode="reservation">Adicionar horário</button>
+          <button type="button" data-editor-mode="laboratory">Cadastrar laboratório</button>
         </div>
 
-        <div class="admin-form-row compact-three">
+        <form class="admin-publication-form admin-lab-form admin-editor-pane is-active" data-editor-pane="reservation" data-lab-form>
+          <input type="hidden" name="id" />
+
+          <div class="admin-form-heading">
+            <span>Editor</span>
+            <strong data-form-title>Nova reserva/bloqueio</strong>
+          </div>
+
+          <div class="admin-form-row compact-three">
+            <label>
+              <span>Laboratório</span>
+              <select name="laboratorio_id" data-lab-select required></select>
+            </label>
+            <label>
+              <span>Tipo</span>
+              <select name="tipo" required>
+                <option value="reserva">Reserva</option>
+                <option value="indisponivel">Indisponível</option>
+                <option value="aula">Aula</option>
+                <option value="manutencao">Manutenção</option>
+                <option value="projeto">Projeto</option>
+                <option value="apresentacao">Apresentação</option>
+              </select>
+            </label>
+            <label>
+              <span>Status</span>
+              <select name="status" required>
+                <option value="aprovada">Aprovada</option>
+                <option value="solicitada">Solicitada</option>
+                <option value="recusada">Recusada</option>
+                <option value="cancelada">Cancelada</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="admin-form-row compact-three">
+            <label>
+              <span>Data</span>
+              <input type="date" name="data_reserva" />
+            </label>
+            <label>
+              <span>Dia semanal</span>
+              <select name="dia_semana" required>
+                <option value="1">Segunda</option>
+                <option value="2">Terça</option>
+                <option value="3">Quarta</option>
+                <option value="4">Quinta</option>
+                <option value="5">Sexta</option>
+              </select>
+            </label>
+            <label>
+              <span>Visibilidade</span>
+              <select name="visivel" required>
+                <option value="true">Visível após aprovação</option>
+                <option value="false">Oculto</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="admin-form-row">
+            <label>
+              <span>Início</span>
+              <input type="time" name="hora_inicio" value="13:30" required />
+            </label>
+            <label>
+              <span>Fim</span>
+              <input type="time" name="hora_fim" value="15:00" required />
+            </label>
+          </div>
+
           <label>
+            <span>Título da atividade</span>
+            <input type="text" name="titulo" placeholder="Ex.: Apresentação de projeto, manutenção, estudo em grupo" required />
+          </label>
+
+          <div class="admin-form-row compact-three">
+            <label>
+              <span>Responsável</span>
+              <input type="text" name="responsavel_nome" placeholder="Nome do aluno, docente ou setor" />
+            </label>
+            <label>
+              <span>Matrícula</span>
+              <input type="text" name="responsavel_matricula" inputmode="numeric" placeholder="Matrícula do aluno" />
+            </label>
+            <label>
+              <span>Contato</span>
+              <input type="email" name="responsavel_email" placeholder="email@exemplo.com" />
+            </label>
+          </div>
+
+          <label>
+            <span>Finalidade / observação</span>
+            <textarea name="finalidade" rows="4" placeholder="Descreva rapidamente a finalidade do uso do laboratório."></textarea>
+          </label>
+
+          <div class="admin-form-actions">
+            <button class="admin-submit" type="submit">Salvar horário</button>
+            <button class="admin-secondary-action" type="button" data-clear-form>Limpar</button>
+          </div>
+        </form>
+
+        <form class="admin-publication-form admin-lab-form admin-editor-pane" data-editor-pane="laboratory" data-laboratory-form>
+          <input type="hidden" name="id" />
+
+          <div class="admin-form-heading">
             <span>Laboratório</span>
-            <select name="laboratorio_id" data-lab-select required></select>
-          </label>
-          <label>
-            <span>Tipo</span>
-            <select name="tipo" required>
-              <option value="reserva">Reserva</option>
-              <option value="indisponivel">Indisponível</option>
-              <option value="aula">Aula</option>
-              <option value="manutencao">Manutenção</option>
-              <option value="projeto">Projeto</option>
-              <option value="apresentacao">Apresentação</option>
-            </select>
-          </label>
-          <label>
-            <span>Status</span>
-            <select name="status" required>
-              <option value="aprovada">Aprovada</option>
-              <option value="solicitada">Solicitada</option>
-              <option value="recusada">Recusada</option>
-              <option value="cancelada">Cancelada</option>
-            </select>
-          </label>
-        </div>
+            <strong data-laboratory-form-title>Novo laboratório</strong>
+          </div>
 
-        <div class="admin-form-row compact-three">
           <label>
-            <span>Data</span>
-            <input type="date" name="data_reserva" />
+            <span>Nome do laboratório</span>
+            <input type="text" name="nome" placeholder="Ex.: Laboratório de Software 03" required />
           </label>
-          <label>
-            <span>Dia semanal</span>
-            <select name="dia_semana" required>
-              <option value="1">Segunda</option>
-              <option value="2">Terça</option>
-              <option value="3">Quarta</option>
-              <option value="4">Quinta</option>
-              <option value="5">Sexta</option>
-            </select>
-          </label>
-          <label>
-            <span>Visibilidade</span>
-            <select name="visivel" required>
-              <option value="true">Visível após aprovação</option>
-              <option value="false">Oculto</option>
-            </select>
-          </label>
-        </div>
 
-        <div class="admin-form-row">
-          <label>
-            <span>Início</span>
-            <input type="time" name="hora_inicio" value="13:30" required />
-          </label>
-          <label>
-            <span>Fim</span>
-            <input type="time" name="hora_fim" value="15:00" required />
-          </label>
-        </div>
+          <div class="admin-form-row compact-three">
+            <label>
+              <span>Código curto</span>
+              <input type="text" name="codigo" placeholder="Ex.: Lab 03" />
+            </label>
+            <label>
+              <span>Localização</span>
+              <input type="text" name="localizacao" placeholder="Ex.: Bloco D" />
+            </label>
+            <label>
+              <span>Capacidade</span>
+              <input type="number" name="capacidade" min="1" step="1" placeholder="Ex.: 30" />
+            </label>
+          </div>
 
-        <label>
-          <span>Título da atividade</span>
-          <input type="text" name="titulo" placeholder="Ex.: Apresentação de projeto, manutenção, estudo em grupo" required />
-        </label>
-
-        <div class="admin-form-row">
-          <label>
-            <span>Responsável</span>
-            <input type="text" name="responsavel_nome" placeholder="Nome do aluno, docente ou setor" />
+          <label class="admin-check-row admin-lab-active-check">
+            <span>
+              <strong>Laboratório ativo</strong>
+              <small>Aparece para estudantes e pode receber reservas.</small>
+            </span>
+            <input type="checkbox" name="ativo" checked />
           </label>
+
           <label>
-            <span>Contato</span>
-            <input type="email" name="responsavel_email" placeholder="email@exemplo.com" />
+            <span>Descrição</span>
+            <textarea name="descricao" rows="4" placeholder="Descreva o uso do espaço, equipamentos ou observações importantes."></textarea>
           </label>
-        </div>
 
-        <label>
-          <span>Finalidade / observação</span>
-          <textarea name="finalidade" rows="4" placeholder="Descreva rapidamente a finalidade do uso do laboratório."></textarea>
-        </label>
-
-        <div class="admin-form-actions">
-          <button class="admin-submit" type="submit">Salvar horário</button>
-          <button class="admin-secondary-action" type="button" data-clear-form>Limpar</button>
-        </div>
-      </form>
+          <div class="admin-form-actions">
+            <button class="admin-submit" type="submit">Salvar laboratório</button>
+            <button class="admin-secondary-action" type="button" data-clear-laboratory-form>Limpar</button>
+          </div>
+        </form>
+      </div>
 
       <section class="admin-publications-list admin-lab-list" aria-label="Lista de horários dos laboratórios cadastrados">
         <div class="admin-list-toolbar">

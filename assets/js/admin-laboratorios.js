@@ -35,11 +35,16 @@ const statusBox = document.querySelector("[data-admin-status]");
 const logoutButtons = document.querySelectorAll("[data-admin-logout]");
 const form = document.querySelector("[data-lab-form]");
 const formTitle = document.querySelector("[data-form-title]");
+const laboratoryForm = document.querySelector("[data-laboratory-form]");
+const laboratoryFormTitle = document.querySelector("[data-laboratory-form-title]");
+const editorModeButtons = document.querySelectorAll("[data-editor-mode]");
+const editorPanes = document.querySelectorAll("[data-editor-pane]");
 const list = document.querySelector("[data-lab-list]");
 const empty = document.querySelector("[data-lab-empty]");
 const filter = document.querySelector("[data-lab-filter]");
 const newButton = document.querySelector("[data-new-lab-slot]");
 const clearButton = document.querySelector("[data-clear-form]");
+const clearLaboratoryButton = document.querySelector("[data-clear-laboratory-form]");
 const labSelect = document.querySelector("[data-lab-select]");
 const labSummary = document.querySelector("[data-lab-summary]");
 
@@ -55,8 +60,8 @@ function setStatus(message, type = "info") {
   statusBox.classList.toggle("is-success", type === "success");
 }
 
-function setFormLoading(isLoading) {
-  form?.querySelectorAll("input, textarea, select, button").forEach((element) => {
+function setFormLoading(targetForm, isLoading) {
+  targetForm?.querySelectorAll("input, textarea, select, button").forEach((element) => {
     element.disabled = isLoading;
   });
 }
@@ -87,6 +92,7 @@ function setupDragScroll() {
     let startScroll = 0;
 
     scroller.addEventListener("pointerdown", (event) => {
+      if (event.target.closest("button")) return;
       isDown = true;
       startX = event.clientX;
       startScroll = scroller.scrollLeft;
@@ -111,14 +117,32 @@ function setupDragScroll() {
   });
 }
 
+function setEditorMode(mode) {
+  editorModeButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.editorMode === mode);
+  });
+
+  editorPanes.forEach((pane) => {
+    pane.classList.toggle("is-active", pane.dataset.editorPane === mode);
+  });
+}
+
 function fillLabSelects() {
   if (!labSelect) return;
   labSelect.innerHTML = "";
 
+  if (!labs.length) {
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = "Cadastre um laboratório primeiro";
+    labSelect.appendChild(option);
+    return;
+  }
+
   labs.forEach((lab) => {
     const option = document.createElement("option");
     option.value = lab.id;
-    option.textContent = `${lab.nome}${lab.codigo ? ` · ${lab.codigo}` : ""}`;
+    option.textContent = `${lab.nome}${lab.codigo ? ` · ${lab.codigo}` : ""}${lab.ativo ? "" : " · inativo"}`;
     labSelect.appendChild(option);
   });
 }
@@ -130,13 +154,23 @@ function renderLabSummary() {
   labs.forEach((lab) => {
     const card = document.createElement("article");
     card.className = "admin-lab-summary-card";
+    card.dataset.labId = lab.id;
+
     const total = reservations.filter((item) => item.laboratorio_id === lab.id).length;
     const pending = reservations.filter((item) => item.laboratorio_id === lab.id && item.status === "solicitada").length;
+
     card.innerHTML = `
-      <span>${lab.codigo || "LAB"}</span>
+      <div class="admin-lab-summary-head">
+        <span>${lab.codigo || "LAB"}</span>
+        <em class="${lab.ativo ? "is-active" : "is-inactive"}">${lab.ativo ? "ativo" : "inativo"}</em>
+      </div>
       <strong>${lab.nome}</strong>
       <small>${lab.localizacao || "Localização a definir"}</small>
       <p>${total} registro${total === 1 ? "" : "s"} · ${pending} pendente${pending === 1 ? "" : "s"}</p>
+      <div class="admin-lab-summary-actions">
+        <button type="button" data-lab-action="edit-lab">Editar</button>
+        <button type="button" data-lab-action="toggle-active">${lab.ativo ? "Desativar" : "Ativar"}</button>
+      </div>
     `;
     labSummary.appendChild(card);
   });
@@ -153,7 +187,17 @@ function resetForm() {
   form.elements.hora_inicio.value = "13:30";
   form.elements.hora_fim.value = "15:00";
   formTitle.textContent = "Nova reserva/bloqueio";
+  setEditorMode("reservation");
   form.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function resetLaboratoryForm() {
+  laboratoryForm.reset();
+  laboratoryForm.elements.id.value = "";
+  laboratoryForm.elements.ativo.checked = true;
+  laboratoryFormTitle.textContent = "Novo laboratório";
+  setEditorMode("laboratory");
+  laboratoryForm.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function getFilteredReservations() {
@@ -200,8 +244,9 @@ function renderReservations() {
 
     const summary = document.createElement("p");
     const responsible = item.responsavel_nome ? `Responsável: ${item.responsavel_nome}` : "Sem responsável informado";
+    const enrollment = item.responsavel_matricula ? ` · Matrícula: ${item.responsavel_matricula}` : "";
     const purpose = item.finalidade ? ` · ${item.finalidade}` : "";
-    summary.textContent = `${responsible}${purpose}`;
+    summary.textContent = `${responsible}${enrollment}${purpose}`;
 
     const footer = document.createElement("small");
     footer.className = "admin-card-footnote";
@@ -233,10 +278,25 @@ function fillForm(item) {
   form.elements.hora_fim.value = formatTime(item.hora_fim);
   form.elements.titulo.value = text(item.titulo);
   form.elements.responsavel_nome.value = text(item.responsavel_nome);
+  form.elements.responsavel_matricula.value = text(item.responsavel_matricula);
   form.elements.responsavel_email.value = text(item.responsavel_email);
   form.elements.finalidade.value = text(item.finalidade);
   formTitle.textContent = "Editar horário de laboratório";
+  setEditorMode("reservation");
   form.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function fillLaboratoryForm(lab) {
+  laboratoryForm.elements.id.value = text(lab.id);
+  laboratoryForm.elements.nome.value = text(lab.nome);
+  laboratoryForm.elements.codigo.value = text(lab.codigo);
+  laboratoryForm.elements.localizacao.value = text(lab.localizacao);
+  laboratoryForm.elements.capacidade.value = text(lab.capacidade);
+  laboratoryForm.elements.ativo.checked = Boolean(lab.ativo);
+  laboratoryForm.elements.descricao.value = text(lab.descricao);
+  laboratoryFormTitle.textContent = "Editar laboratório";
+  setEditorMode("laboratory");
+  laboratoryForm.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function getPayload() {
@@ -253,6 +313,7 @@ function getPayload() {
     hora_fim: String(formData.get("hora_fim") || "15:00"),
     titulo: String(formData.get("titulo") || "").trim() || "Reserva de laboratório",
     responsavel_nome: String(formData.get("responsavel_nome") || "").trim() || null,
+    responsavel_matricula: String(formData.get("responsavel_matricula") || "").trim() || null,
     responsavel_email: String(formData.get("responsavel_email") || "").trim() || null,
     finalidade: String(formData.get("finalidade") || "").trim() || null,
     visivel: String(formData.get("visivel")) === "true",
@@ -260,15 +321,31 @@ function getPayload() {
   };
 }
 
+function getLaboratoryPayload() {
+  const formData = new FormData(laboratoryForm);
+  const capacidade = Number(formData.get("capacidade") || 0);
+
+  return {
+    nome: String(formData.get("nome") || "").trim(),
+    codigo: String(formData.get("codigo") || "").trim() || null,
+    localizacao: String(formData.get("localizacao") || "").trim() || null,
+    capacidade: capacidade > 0 ? capacidade : null,
+    descricao: String(formData.get("descricao") || "").trim() || null,
+    ativo: Boolean(formData.get("ativo")),
+  };
+}
+
 async function loadLabs() {
   const { data, error } = await supabase
     .from("laboratorios")
     .select("*")
+    .order("ativo", { ascending: false })
     .order("nome", { ascending: true });
 
   if (error) throw error;
   labs = data || [];
   fillLabSelects();
+  renderLabSummary();
 }
 
 async function loadReservations() {
@@ -292,7 +369,12 @@ async function saveReservation(event) {
   const id = form.elements.id.value;
   const payload = getPayload();
 
-  setFormLoading(true);
+  if (!payload.laboratorio_id) {
+    setStatus("Cadastre ou selecione um laboratório antes de salvar o horário.", "error");
+    return;
+  }
+
+  setFormLoading(form, true);
   setStatus("Salvando horário de laboratório...", "info");
 
   try {
@@ -316,7 +398,47 @@ async function saveReservation(event) {
   } catch (error) {
     setStatus(`Erro ao salvar horário: ${error.message}`, "error");
   } finally {
-    setFormLoading(false);
+    setFormLoading(form, false);
+  }
+}
+
+async function saveLaboratory(event) {
+  event.preventDefault();
+
+  const id = laboratoryForm.elements.id.value;
+  const payload = getLaboratoryPayload();
+
+  if (!payload.nome) {
+    setStatus("Informe o nome do laboratório antes de salvar.", "error");
+    return;
+  }
+
+  setFormLoading(laboratoryForm, true);
+  setStatus("Salvando laboratório...", "info");
+
+  try {
+    if (id) {
+      const { error } = await supabase
+        .from("laboratorios")
+        .update(payload)
+        .eq("id", id);
+      if (error) throw error;
+      setStatus("Laboratório atualizado com sucesso.", "success");
+    } else {
+      const { error } = await supabase
+        .from("laboratorios")
+        .insert(payload);
+      if (error) throw error;
+      setStatus("Laboratório cadastrado com sucesso.", "success");
+    }
+
+    resetLaboratoryForm();
+    await loadLabs();
+    await loadReservations();
+  } catch (error) {
+    setStatus(`Erro ao salvar laboratório: ${error.message}`, "error");
+  } finally {
+    setFormLoading(laboratoryForm, false);
   }
 }
 
@@ -329,6 +451,19 @@ async function updateReservation(id, patch, successMessage) {
 
   if (error) throw error;
   setStatus(successMessage, "success");
+  await loadReservations();
+}
+
+async function updateLaboratory(id, patch, successMessage) {
+  setStatus("Atualizando laboratório...", "info");
+  const { error } = await supabase
+    .from("laboratorios")
+    .update(patch)
+    .eq("id", id);
+
+  if (error) throw error;
+  setStatus(successMessage, "success");
+  await loadLabs();
   await loadReservations();
 }
 
@@ -380,10 +515,39 @@ list?.addEventListener("click", async (event) => {
   }
 });
 
+labSummary?.addEventListener("click", async (event) => {
+  const button = event.target.closest("button[data-lab-action]");
+  if (!button) return;
+
+  const card = button.closest("[data-lab-id]");
+  const id = card?.dataset.labId;
+  const lab = labs.find((item) => item.id === id);
+  if (!lab) return;
+
+  try {
+    if (button.dataset.labAction === "edit-lab") {
+      fillLaboratoryForm(lab);
+      return;
+    }
+
+    if (button.dataset.labAction === "toggle-active") {
+      await updateLaboratory(id, { ativo: !lab.ativo }, lab.ativo ? "Laboratório desativado. Ele não aparecerá para novos estudantes." : "Laboratório ativado e disponível para reservas.");
+    }
+  } catch (error) {
+    setStatus(`Erro ao atualizar laboratório: ${error.message}`, "error");
+  }
+});
+
+editorModeButtons.forEach((button) => {
+  button.addEventListener("click", () => setEditorMode(button.dataset.editorMode));
+});
+
 filter?.addEventListener("change", renderReservations);
 form?.addEventListener("submit", saveReservation);
+laboratoryForm?.addEventListener("submit", saveLaboratory);
 newButton?.addEventListener("click", resetForm);
 clearButton?.addEventListener("click", resetForm);
+clearLaboratoryButton?.addEventListener("click", resetLaboratoryForm);
 logoutButtons.forEach((button) => button.addEventListener("click", signOutAndGoToLogin));
 
 async function init() {
@@ -408,7 +572,7 @@ async function init() {
   await loadReservations();
   resetForm();
   setupDragScroll();
-  setStatus("Módulo de laboratórios conectado. Cadastre bloqueios ou aprove solicitações pendentes.", "success");
+  setStatus("Módulo de laboratórios conectado. Cadastre bloqueios, aprove solicitações ou registre novos laboratórios.", "success");
 }
 
 init().catch((error) => {

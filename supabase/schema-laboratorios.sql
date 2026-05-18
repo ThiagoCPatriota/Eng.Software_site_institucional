@@ -30,6 +30,7 @@ create table if not exists public.laboratorio_reservas (
   hora_fim time not null,
   titulo text not null,
   responsavel_nome text,
+  responsavel_matricula text,
   responsavel_email text,
   finalidade text,
   visivel boolean not null default false,
@@ -39,6 +40,9 @@ create table if not exists public.laboratorio_reservas (
   atualizado_em timestamptz not null default now(),
   constraint laboratorio_reservas_horario_valido check (hora_fim > hora_inicio)
 );
+
+alter table public.laboratorio_reservas
+  add column if not exists responsavel_matricula text;
 
 create index if not exists idx_laboratorios_ativos on public.laboratorios(ativo, nome);
 create index if not exists idx_laboratorio_reservas_publico on public.laboratorio_reservas(laboratorio_id, status, visivel, data_reserva, dia_semana, hora_inicio);
@@ -124,6 +128,14 @@ with check (
   and status = 'solicitada'
   and visivel = false
   and tipo = 'reserva'
+  and nullif(responsavel_matricula, '') is not null
+  and exists (
+    select 1
+    from public.site_profiles sp
+    where sp.user_id = auth.uid()
+      and sp.ativo = true
+      and nullif(sp.matricula, '') = nullif(laboratorio_reservas.responsavel_matricula, '')
+  )
 );
 
 create policy "Aluno le as proprias reservas"

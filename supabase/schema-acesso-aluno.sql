@@ -7,6 +7,9 @@ alter table public.site_profiles
   add column if not exists matricula text,
   add column if not exists email_alternativo text;
 
+alter table public.laboratorio_reservas
+  add column if not exists responsavel_matricula text;
+
 -- Atualiza a função de criação automática de perfil para guardar dados extras do cadastro.
 create or replace function public.handle_new_site_user()
 returns trigger
@@ -71,6 +74,14 @@ with check (
   and status = 'solicitada'
   and visivel = false
   and tipo = 'reserva'
+  and nullif(responsavel_matricula, '') is not null
+  and exists (
+    select 1
+    from public.site_profiles sp
+    where sp.user_id = auth.uid()
+      and sp.ativo = true
+      and nullif(sp.matricula, '') = nullif(laboratorio_reservas.responsavel_matricula, '')
+  )
 );
 
 create policy "Aluno le as proprias reservas"

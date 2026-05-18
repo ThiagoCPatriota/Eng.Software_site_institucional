@@ -137,11 +137,18 @@ function fillStudentIdentity() {
   if (!requestForm || !currentSession) return;
   const nameField = requestForm.querySelector("[name='responsavel_nome']");
   const emailField = requestForm.querySelector("[name='responsavel_email']");
+  const matriculaField = requestForm.querySelector("[name='responsavel_matricula']");
   const name = currentProfile?.nome || currentSession.user.user_metadata?.nome || currentSession.user.email?.split("@")[0] || "Aluno";
   const email = currentSession.user.email || "";
+  const matricula = currentProfile?.matricula || currentSession.user.user_metadata?.matricula || "";
 
   if (nameField) nameField.value = name;
   if (emailField) emailField.value = email;
+  if (matriculaField) {
+    matriculaField.value = matricula;
+    matriculaField.readOnly = Boolean(matricula);
+    matriculaField.placeholder = matricula ? "Matrícula vinculada ao perfil" : "Informe sua matrícula";
+  }
 }
 
 async function setupRequestAccess() {
@@ -168,10 +175,19 @@ async function setupRequestAccess() {
     currentProfile = await getOwnProfile(currentSession.user);
     fillStudentIdentity();
     setRequestFormEnabled(true);
+
+    if (currentProfile?.matricula || currentSession.user.user_metadata?.matricula) {
+      setAuthGate(`
+        <strong>Solicitação vinculada ao seu perfil.</strong>
+        <span>Você está usando a conta ${currentSession.user.email}. A reserva ficará registrada com seu nome e matrícula.</span>
+      `, "success");
+      return;
+    }
+
     setAuthGate(`
-      <strong>Solicitação vinculada ao seu perfil.</strong>
-      <span>Você está usando a conta ${currentSession.user.email}. A reserva ficará registrada em seu nome.</span>
-    `, "success");
+      <strong>Matrícula necessária.</strong>
+      <span>Informe sua matrícula no formulário para concluir a solicitação. Ela será salva no seu perfil e vinculada à reserva.</span>
+    `, "warning");
   } catch (error) {
     setAuthGate(`Não foi possível validar seu acesso: ${error.message}`, "error");
     setRequestFormEnabled(false);
@@ -347,6 +363,12 @@ async function submitRequest(event) {
   const diaSemana = getDayFromDate(dataReserva);
   const horaInicio = String(formData.get("hora_inicio") || "13:30");
   const horaFim = String(formData.get("hora_fim") || "15:00");
+  const responsavelMatricula = String(formData.get("responsavel_matricula") || currentProfile?.matricula || currentSession.user.user_metadata?.matricula || "").trim();
+
+  if (!responsavelMatricula) {
+    setRequestStatus("Informe sua matrícula para solicitar a reserva do laboratório.", "error");
+    return;
+  }
 
   if (!diaSemana) {
     setRequestStatus("Escolha uma data entre segunda e sexta-feira.", "error");
@@ -371,6 +393,7 @@ async function submitRequest(event) {
     titulo: String(formData.get("titulo") || "").trim(),
     responsavel_nome: currentProfile?.nome || currentSession.user.user_metadata?.nome || currentSession.user.email?.split("@")[0] || "Aluno",
     responsavel_email: currentSession.user.email || String(formData.get("responsavel_email") || "").trim(),
+    responsavel_matricula: responsavelMatricula,
     finalidade: String(formData.get("finalidade") || "").trim(),
     criado_por: currentSession.user.id,
   };
@@ -379,11 +402,21 @@ async function submitRequest(event) {
   requestForm.querySelectorAll("input, textarea, select, button").forEach((field) => field.disabled = true);
 
   try {
+    if (!currentProfile?.matricula) {
+      const { error: profileError } = await supabase
+        .from("site_profiles")
+        .update({ matricula: responsavelMatricula })
+        .eq("user_id", currentSession.user.id);
+
+      if (profileError) throw profileError;
+      currentProfile = { ...(currentProfile || {}), matricula: responsavelMatricula };
+    }
+
     const { error } = await supabase.from("laboratorio_reservas").insert(payload);
     if (error) throw error;
     requestForm.reset();
     fillStudentIdentity();
-    setRequestStatus("Solicitação enviada. Ela ficará pendente até a administração aprovar.", "success");
+    setRequestStatus("Solicitação enviada com matrícula vinculada. Ela ficará pendente até a administração aprovar.", "success");
   } catch (error) {
     setRequestStatus(`Erro ao enviar solicitação: ${error.message}`, "error");
   } finally {

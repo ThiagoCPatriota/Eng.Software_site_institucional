@@ -1682,3 +1682,171 @@
     min-width: 220px;
   }
 }
+
+/* Refinamento do editor de laboratórios: alternância entre horário e cadastro do espaço */
+.admin-lab-editor-card {
+  display: grid;
+  gap: 14px;
+}
+
+.admin-editor-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: 0 14px 34px rgba(11, 42, 74, 0.06);
+}
+
+.admin-editor-switch button {
+  min-height: 44px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--color-muted);
+  font-weight: 950;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.admin-editor-switch button:hover,
+.admin-editor-switch button.is-active {
+  border-color: rgba(45, 156, 219, 0.22);
+  background: #fff;
+  color: var(--color-primary);
+  box-shadow: 0 10px 24px rgba(11, 42, 74, 0.08);
+}
+
+.admin-editor-pane {
+  display: none;
+}
+
+.admin-editor-pane.is-active {
+  display: grid;
+}
+
+.admin-lab-active-check {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.admin-lab-active-check span {
+  display: grid;
+  gap: 4px;
+}
+
+.admin-lab-active-check strong {
+  color: var(--color-primary);
+}
+
+.admin-lab-active-check small {
+  color: var(--color-muted);
+  font-weight: 700;
+}
+
+.admin-lab-active-check input {
+  width: 22px;
+  min-width: 22px;
+  height: 22px;
+  min-height: 22px;
+  accent-color: var(--color-ifpe-dark);
+}
+
+.admin-lab-summary-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.admin-lab-summary-card em {
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.admin-lab-summary-card em.is-active {
+  color: var(--color-ifpe-dark);
+  background: var(--color-ifpe-soft);
+}
+
+.admin-lab-summary-card em.is-inactive {
+  color: #9a3412;
+  background: #ffedd5;
+}
+
+.admin-lab-summary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.admin-lab-summary-actions button {
+  min-height: 34px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-bg);
+  color: var(--color-primary);
+  padding: 0 11px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.admin-lab-summary-actions button:hover {
+  background: var(--color-accent-soft);
+}
+
+@media (max-width: 680px) {
+  .admin-editor-switch {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-lab-active-check {
+    align-items: flex-start;
+  }
+}
+
+/* Módulo de propostas e projetos */
+.admin-project-layout {
+  grid-template-columns: minmax(440px, 0.92fr) minmax(0, 1.08fr);
+}
+
+.admin-project-summary {
+  margin-bottom: 26px;
+}
+
+.admin-project-card .admin-card-footnote,
+.admin-feedback-preview {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.admin-feedback-preview {
+  border-left: 3px solid rgba(45, 156, 219, 0.32);
+  padding-left: 12px;
+}
+
+.admin-pill.is-review {
+  color: #075985;
+  background: #e0f2fe;
+}
+
+.admin-pill.is-pending {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+@media (max-width: 1180px) {
+  .admin-project-layout {
+    grid-template-columns: 1fr;
+  }
+}

@@ -48,16 +48,20 @@ export async function getCurrentSession() {
 
 async function createFallbackProfile(user) {
   const nome = user.user_metadata?.nome || user.email?.split("@")[0] || "Usuário";
+  const matricula = user.user_metadata?.matricula || null;
+  const emailAlternativo = user.user_metadata?.email_alternativo || null;
   const { data, error } = await supabase
     .from("site_profiles")
     .insert({
       user_id: user.id,
       email: user.email,
       nome,
+      matricula,
+      email_alternativo: emailAlternativo,
       role: "aluno",
       ativo: true,
     })
-    .select("user_id, email, nome, role, ativo")
+    .select("user_id, email, nome, matricula, email_alternativo, role, ativo")
     .single();
 
   if (error) throw error;
@@ -69,7 +73,7 @@ export async function getOwnProfile(user) {
 
   const { data, error } = await supabase
     .from("site_profiles")
-    .select("user_id, email, nome, role, ativo")
+    .select("user_id, email, nome, matricula, email_alternativo, role, ativo")
     .eq("user_id", user.id)
     .maybeSingle();
 
