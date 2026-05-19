@@ -73,7 +73,6 @@
           Cadastre professores, coordenação, áreas de atuação, histórico e contatos para manter a página pública de docentes sempre atualizada.
         </p>
       </div>
-      <button class="admin-secondary-action" type="button" data-new-docente>Novo docente</button>
     </section>
 
     <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
@@ -93,8 +92,14 @@
       </article>
     </section>
 
-    <section class="admin-editor-layout admin-docente-layout">
-      <form class="admin-publication-form admin-docente-form" data-docente-form>
+    <section class="admin-docente-workspace">
+      <div class="admin-schedule-tabbar admin-docente-tabbar" role="tablist" aria-label="Navegação do módulo de docentes">
+        <button class="is-active" type="button" data-docente-panel-target="form">Adicionar novo docente</button>
+        <button type="button" data-docente-panel-target="list">Docentes cadastrados</button>
+      </div>
+
+      <section class="admin-docente-panel" data-docente-panel="form">
+        <form class="admin-publication-form admin-docente-form" data-docente-form>
         <input type="hidden" name="id" />
 
         <div class="admin-form-heading">
@@ -164,10 +169,25 @@
             <span>Currículo Lattes ou página pública</span>
             <input type="url" name="lattes_url" placeholder="https://..." />
           </label>
-          <label>
-            <span>Imagem/foto institucional</span>
-            <input type="url" name="imagem_url" placeholder="https://... ou caminho da imagem" />
+          <label class="admin-photo-upload-field">
+            <span>Foto institucional</span>
+            <input type="file" name="foto_docente" accept="image/png,image/jpeg,image/webp" data-docente-photo-input />
+            <small>Envie uma imagem JPG, PNG ou WEBP do computador. Tamanho máximo recomendado: 5 MB.</small>
           </label>
+        </div>
+
+        <input type="hidden" name="imagem_url" />
+        <input type="hidden" name="imagem_path" />
+
+        <div class="admin-docente-photo-preview" data-docente-photo-preview>
+          <div class="admin-docente-preview-frame" data-docente-preview-frame>
+            <span>Sem foto</span>
+          </div>
+          <div>
+            <strong>Prévia da foto</strong>
+            <p>A imagem enviada fica salva no Storage do Supabase e aparece automaticamente na página pública.</p>
+            <button class="admin-secondary-action is-compact" type="button" data-clear-docente-photo>Remover foto</button>
+          </div>
         </div>
 
         <div class="admin-form-row compact">
@@ -191,9 +211,11 @@
           <button class="admin-submit" type="submit">Salvar docente</button>
           <button class="admin-secondary-action" type="button" data-clear-form>Limpar</button>
         </div>
-      </form>
+        </form>
+      </section>
 
-      <section class="admin-publications-list admin-docente-list" aria-label="Lista de docentes cadastrados">
+      <section class="admin-docente-panel" data-docente-panel="list" hidden>
+        <section class="admin-publications-list admin-docente-list" aria-label="Lista de docentes cadastrados">
         <div class="admin-list-toolbar">
           <strong>Docentes cadastrados</strong>
           <select data-docente-filter aria-label="Filtrar docentes">
@@ -205,8 +227,9 @@
           </select>
         </div>
 
-        <div data-docente-list></div>
-        <p class="admin-empty-state" data-docente-empty>Nenhum docente encontrado nesse filtro.</p>
+          <div data-docente-list></div>
+          <p class="admin-empty-state" data-docente-empty>Nenhum docente encontrado nesse filtro.</p>
+        </section>
       </section>
     </section>
   </main>

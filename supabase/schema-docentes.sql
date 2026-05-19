@@ -28,6 +28,7 @@ create table if not exists public.docentes (
   ),
   lattes_url text,
   imagem_url text,
+  imagem_path text,
   ativo boolean not null default true,
   destaque boolean not null default false,
   ordem integer not null default 0,
@@ -48,6 +49,7 @@ alter table public.docentes
   add column if not exists contato_preferencial text not null default 'email',
   add column if not exists lattes_url text,
   add column if not exists imagem_url text,
+  add column if not exists imagem_path text,
   add column if not exists ativo boolean not null default true,
   add column if not exists destaque boolean not null default false,
   add column if not exists ordem integer not null default 0,
@@ -67,7 +69,10 @@ before update on public.docentes
 for each row execute function public.set_updated_at();
 
 -- View pública opcional para consultas mais enxutas.
-create or replace view public.docentes_publicos as
+-- Dropa apenas a VIEW para permitir atualizar a lista/ordem de colunas sem apagar dados da tabela docentes.
+drop view if exists public.docentes_publicos;
+
+create view public.docentes_publicos as
 select
   id,
   nome,
@@ -82,6 +87,7 @@ select
   contato_preferencial,
   lattes_url,
   imagem_url,
+  imagem_path,
   destaque,
   ordem,
   atualizado_em
@@ -132,3 +138,66 @@ on public.docentes
 for delete
 to authenticated
 using (public.current_user_is_site_admin());
+
+
+-- ============================================================
+-- Storage: fotos institucionais dos docentes
+-- ============================================================
+-- Bucket público para leitura das fotos na página pública.
+-- Somente administradores/editor conseguem enviar, atualizar ou remover arquivos.
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'docentes-fotos',
+  'docentes-fotos',
+  true,
+  5242880,
+  array['image/jpeg', 'image/png', 'image/webp']
+)
+on conflict (id) do update
+set
+  public = excluded.public,
+  file_size_limit = excluded.file_size_limit,
+  allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "Publico le fotos docentes" on storage.objects;
+drop policy if exists "Admins enviam fotos docentes" on storage.objects;
+drop policy if exists "Admins atualizam fotos docentes" on storage.objects;
+drop policy if exists "Admins removem fotos docentes" on storage.objects;
+
+create policy "Publico le fotos docentes"
+on storage.objects
+for select
+to anon, authenticated
+using (bucket_id = 'docentes-fotos');
+
+create policy "Admins enviam fotos docentes"
+on storage.objects
+for insert
+to authenticated
+with check (
+  bucket_id = 'docentes-fotos'
+  and public.current_user_is_site_admin()
+);
+
+create policy "Admins atualizam fotos docentes"
+on storage.objects
+for update
+to authenticated
+using (
+  bucket_id = 'docentes-fotos'
+  and public.current_user_is_site_admin()
+)
+with check (
+  bucket_id = 'docentes-fotos'
+  and public.current_user_is_site_admin()
+);
+
+create policy "Admins removem fotos docentes"
+on storage.objects
+for delete
+to authenticated
+using (
+  bucket_id = 'docentes-fotos'
+  and public.current_user_is_site_admin()
+);

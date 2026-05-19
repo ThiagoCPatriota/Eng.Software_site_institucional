@@ -8,6 +8,10 @@ import {
   supabase,
 } from "./supabase-client.js";
 
+const DOCENTES_BUCKET = "docentes-fotos";
+const MAX_PHOTO_SIZE = 5 * 1024 * 1024;
+const ALLOWED_PHOTO_TYPES = ["image/jpeg", "image/png", "image/webp"];
+
 const FUNCOES = {
   docente: "Docente",
   coordenacao: "Coordenação",
@@ -30,13 +34,21 @@ const list = document.querySelector("[data-docente-list]");
 const empty = document.querySelector("[data-docente-empty]");
 const filter = document.querySelector("[data-docente-filter]");
 const newButton = document.querySelector("[data-new-docente]");
+const panelButtons = document.querySelectorAll("[data-docente-panel-target]");
+const panels = document.querySelectorAll("[data-docente-panel]");
 const clearButton = document.querySelector("[data-clear-form]");
+const photoInput = document.querySelector("[data-docente-photo-input]");
+const photoPreview = document.querySelector("[data-docente-photo-preview]");
+const previewFrame = document.querySelector("[data-docente-preview-frame]");
+const clearPhotoButton = document.querySelector("[data-clear-docente-photo]");
 const statTotal = document.querySelector("[data-stat-total]");
 const statActive = document.querySelector("[data-stat-active]");
 const statHighlight = document.querySelector("[data-stat-highlight]");
 
 let currentUser = null;
 let docentes = [];
+let removeCurrentPhoto = false;
+let lastPreviewUrl = null;
 
 function setStatus(message, type = "info") {
   if (!statusBox) return;
@@ -81,18 +93,84 @@ function initials(name) {
   return parts.map((part) => part[0]?.toUpperCase()).join("") || "D";
 }
 
-function resetForm() {
+function revokePreviewUrl() {
+  if (lastPreviewUrl) {
+    URL.revokeObjectURL(lastPreviewUrl);
+    lastPreviewUrl = null;
+  }
+}
+
+function getImageUrl(item) {
+  if (item?.imagem_url) return item.imagem_url;
+  if (item?.imagem_path && isSupabaseConfigured) {
+    const { data } = supabase.storage.from(DOCENTES_BUCKET).getPublicUrl(item.imagem_path);
+    return data?.publicUrl || "";
+  }
+  return "";
+}
+
+function updatePhotoPreview(imageUrl = "", label = "Sem foto") {
+  if (!previewFrame || !photoPreview) return;
+  previewFrame.innerHTML = "";
+  previewFrame.classList.toggle("has-image", Boolean(imageUrl));
+
+  if (imageUrl) {
+    const img = document.createElement("img");
+    img.src = imageUrl;
+    img.alt = "Prévia da foto institucional";
+    previewFrame.appendChild(img);
+  } else {
+    const span = document.createElement("span");
+    span.textContent = label;
+    previewFrame.appendChild(span);
+  }
+}
+
+function resetPhotoState() {
+  revokePreviewUrl();
+  removeCurrentPhoto = false;
+  if (photoInput) photoInput.value = "";
+  if (form?.elements.imagem_url) form.elements.imagem_url.value = "";
+  if (form?.elements.imagem_path) form.elements.imagem_path.value = "";
+  updatePhotoPreview("", "Sem foto");
+}
+
+function setDocentePanel(panelName, shouldScroll = false) {
+  const target = panelName === "list" ? "list" : "form";
+
+  panelButtons.forEach((button) => {
+    const isActive = button.dataset.docentePanelTarget === target;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+  });
+
+  panels.forEach((panel) => {
+    panel.hidden = panel.dataset.docentePanel !== target;
+  });
+
+  if (shouldScroll) {
+    const activePanel = document.querySelector(`[data-docente-panel="${target}"]`);
+    activePanel?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+function resetForm(shouldScroll = true) {
   form.reset();
   form.elements.id.value = "";
   form.elements.funcao.value = "docente";
   form.elements.contato_preferencial.value = "email";
   form.elements.ativo.value = "true";
   form.elements.destaque.value = "false";
+  resetPhotoState();
   formTitle.textContent = "Novo docente";
-  form.scrollIntoView({ behavior: "smooth", block: "start" });
+  setDocentePanel("form", shouldScroll);
 }
 
 function fillForm(item) {
+  revokePreviewUrl();
+  removeCurrentPhoto = false;
+  if (photoInput) photoInput.value = "";
+
   form.elements.id.value = text(item.id);
   form.elements.nome.value = text(item.nome);
   form.elements.funcao.value = text(item.funcao || "docente");
@@ -105,10 +183,22 @@ function fillForm(item) {
   form.elements.contato_preferencial.value = text(item.contato_preferencial || "email");
   form.elements.lattes_url.value = text(item.lattes_url);
   form.elements.imagem_url.value = text(item.imagem_url);
+  if (form.elements.imagem_path) form.elements.imagem_path.value = text(item.imagem_path);
   form.elements.ativo.value = String(Boolean(item.ativo));
   form.elements.destaque.value = String(Boolean(item.destaque));
+  updatePhotoPreview(getImageUrl(item), item.nome ? initials(item.nome) : "Sem foto");
   formTitle.textContent = "Editar docente";
-  form.scrollIntoView({ behavior: "smooth", block: "start" });
+  setDocentePanel("form", true);
+}
+
+function validatePhotoFile(file) {
+  if (!file) return;
+  if (!ALLOWED_PHOTO_TYPES.includes(file.type)) {
+    throw new Error("Envie uma foto em JPG, PNG ou WEBP.");
+  }
+  if (file.size > MAX_PHOTO_SIZE) {
+    throw new Error("A foto deve ter no máximo 5 MB.");
+  }
 }
 
 function getPayload() {
@@ -127,7 +217,8 @@ function getPayload() {
     telefone: String(formData.get("telefone") || "").trim() || null,
     contato_preferencial: String(formData.get("contato_preferencial") || "email"),
     lattes_url: String(formData.get("lattes_url") || "").trim() || null,
-    imagem_url: String(formData.get("imagem_url") || "").trim() || null,
+    imagem_url: removeCurrentPhoto ? null : String(formData.get("imagem_url") || "").trim() || null,
+    imagem_path: removeCurrentPhoto ? null : String(formData.get("imagem_path") || "").trim() || null,
     ativo: String(formData.get("ativo")) === "true",
     destaque: String(formData.get("destaque")) === "true",
     ordem: Number(formData.get("ordem") || 0),
@@ -164,8 +255,9 @@ function renderDocentes() {
     card.dataset.id = item.id;
 
     const safeName = escapeHtml(item.nome);
-    const photo = item.imagem_url
-      ? `<img src="${escapeHtml(item.imagem_url)}" alt="Foto de ${safeName}" loading="lazy" />`
+    const imageUrl = getImageUrl(item);
+    const photo = imageUrl
+      ? `<img src="${escapeHtml(imageUrl)}" alt="Foto de ${safeName}" loading="lazy" />`
       : `<span>${escapeHtml(initials(item.nome))}</span>`;
 
     const header = document.createElement("header");
@@ -183,6 +275,7 @@ function renderDocentes() {
     pills.className = "admin-pills";
     pills.appendChild(createPill(item.ativo ? "visível" : "oculto", item.ativo ? "is-visible" : "is-hidden"));
     if (item.destaque) pills.appendChild(createPill("destaque", "is-home"));
+    pills.appendChild(createPill(imageUrl ? "foto salva" : "sem foto"));
     pills.appendChild(createPill(CONTATOS[item.contato_preferencial] || "Contato"));
     header.append(headingGroup, pills);
 
@@ -222,11 +315,46 @@ async function loadDocentes() {
   renderDocentes();
 }
 
+async function uploadDocentePhoto(file, docenteName) {
+  validatePhotoFile(file);
+  const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
+  const safeName = slugify(docenteName || "docente") || "docente";
+  const path = `${currentUser?.id || "admin"}/${Date.now()}-${safeName}.${extension}`;
+
+  const { error } = await supabase.storage
+    .from(DOCENTES_BUCKET)
+    .upload(path, file, {
+      cacheControl: "3600",
+      contentType: file.type,
+      upsert: false,
+    });
+
+  if (error) throw error;
+
+  const { data } = supabase.storage.from(DOCENTES_BUCKET).getPublicUrl(path);
+  return {
+    imagem_path: path,
+    imagem_url: data?.publicUrl || null,
+  };
+}
+
+async function removeStoredPhoto(path) {
+  if (!path) return;
+  try {
+    await supabase.storage.from(DOCENTES_BUCKET).remove([path]);
+  } catch (error) {
+    console.warn("Não foi possível remover a foto antiga:", error);
+  }
+}
+
 async function saveDocente(event) {
   event.preventDefault();
 
   const payload = getPayload();
   const id = form.elements.id.value;
+  const currentItem = id ? docentes.find((item) => item.id === id) : null;
+  const oldPhotoPath = currentItem?.imagem_path || null;
+  const newPhotoFile = photoInput?.files?.[0] || null;
 
   if (!payload.nome) {
     setStatus("Informe o nome do docente antes de salvar.", "error");
@@ -234,15 +362,24 @@ async function saveDocente(event) {
   }
 
   setFormLoading(true);
-  setStatus("Salvando docente...", "info");
+  setStatus(newPhotoFile ? "Enviando foto e salvando docente..." : "Salvando docente...", "info");
 
   try {
+    if (newPhotoFile) {
+      const uploadedPhoto = await uploadDocentePhoto(newPhotoFile, payload.nome);
+      payload.imagem_url = uploadedPhoto.imagem_url;
+      payload.imagem_path = uploadedPhoto.imagem_path;
+    }
+
     if (id) {
       const { error } = await supabase
         .from("docentes")
         .update(payload)
         .eq("id", id);
       if (error) throw error;
+      if ((newPhotoFile || removeCurrentPhoto) && oldPhotoPath && oldPhotoPath !== payload.imagem_path) {
+        await removeStoredPhoto(oldPhotoPath);
+      }
       setStatus("Docente atualizado com sucesso.", "success");
     } else {
       const { error } = await supabase
@@ -252,8 +389,9 @@ async function saveDocente(event) {
       setStatus("Docente cadastrado com sucesso.", "success");
     }
 
-    resetForm();
+    resetForm(false);
     await loadDocentes();
+    setDocentePanel("list", true);
   } catch (error) {
     setStatus(`Erro ao salvar docente: ${error.message}`, "error");
   } finally {
@@ -285,6 +423,7 @@ async function deleteDocente(id) {
   try {
     const { error } = await supabase.from("docentes").delete().eq("id", id);
     if (error) throw error;
+    await removeStoredPhoto(item?.imagem_path || null);
     setStatus("Docente excluído com sucesso.", "success");
     await loadDocentes();
   } catch (error) {
@@ -295,9 +434,50 @@ async function deleteDocente(id) {
 function setupEvents() {
   logoutButtons.forEach((button) => button.addEventListener("click", signOutAndGoToLogin));
   form?.addEventListener("submit", saveDocente);
-  newButton?.addEventListener("click", resetForm);
-  clearButton?.addEventListener("click", resetForm);
+  newButton?.addEventListener("click", () => resetForm(true));
+  clearButton?.addEventListener("click", () => resetForm(true));
   filter?.addEventListener("change", renderDocentes);
+
+  panelButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const target = button.dataset.docentePanelTarget || "form";
+      if (target === "form") {
+        resetForm(true);
+        return;
+      }
+      setDocentePanel(target, true);
+    });
+  });
+
+  photoInput?.addEventListener("change", () => {
+    revokePreviewUrl();
+    removeCurrentPhoto = false;
+    const file = photoInput.files?.[0];
+    if (!file) {
+      const currentImageUrl = form?.elements.imagem_url?.value || "";
+      updatePhotoPreview(currentImageUrl, "Sem foto");
+      return;
+    }
+
+    try {
+      validatePhotoFile(file);
+      lastPreviewUrl = URL.createObjectURL(file);
+      updatePhotoPreview(lastPreviewUrl);
+    } catch (error) {
+      photoInput.value = "";
+      updatePhotoPreview(form?.elements.imagem_url?.value || "", "Sem foto");
+      setStatus(error.message, "error");
+    }
+  });
+
+  clearPhotoButton?.addEventListener("click", () => {
+    revokePreviewUrl();
+    removeCurrentPhoto = true;
+    if (photoInput) photoInput.value = "";
+    if (form?.elements.imagem_url) form.elements.imagem_url.value = "";
+    if (form?.elements.imagem_path) form.elements.imagem_path.value = "";
+    updatePhotoPreview("", "Foto removida");
+  });
 
   list?.addEventListener("click", async (event) => {
     const button = event.target.closest("button[data-action]");
@@ -320,6 +500,7 @@ function setupEvents() {
 
 async function boot() {
   setupEvents();
+  setDocentePanel("form", false);
 
   if (!isSupabaseConfigured) {
     setStatus(getConfigMessage(), "error");

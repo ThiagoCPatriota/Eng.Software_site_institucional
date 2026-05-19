@@ -8,6 +8,8 @@ const stats = {
   coordenacao: document.querySelector("[data-docentes-coordenacao]"),
 };
 
+const DOCENTES_BUCKET = "docentes-fotos";
+
 const FUNCOES = {
   docente: "Docente",
   coordenacao: "Coordenação",
@@ -22,6 +24,16 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+
+function getImageUrl(item) {
+  if (item?.imagem_url) return item.imagem_url;
+  if (item?.imagem_path && isSupabaseConfigured) {
+    const { data } = supabase.storage.from(DOCENTES_BUCKET).getPublicUrl(item.imagem_path);
+    return data?.publicUrl || "";
+  }
+  return "";
 }
 
 function initials(name) {
@@ -76,8 +88,9 @@ function renderDocentes(items) {
     const safeName = escapeHtml(item.nome);
     card.className = `docent-card${item.destaque ? " is-highlighted" : ""}`;
 
-    const photo = item.imagem_url
-      ? `<img src="${escapeHtml(item.imagem_url)}" alt="Foto de ${safeName}" loading="lazy" />`
+    const imageUrl = getImageUrl(item);
+    const photo = imageUrl
+      ? `<img src="${escapeHtml(imageUrl)}" alt="Foto de ${safeName}" loading="lazy" />`
       : `<span>${escapeHtml(initials(item.nome))}</span><figcaption>Foto institucional futura</figcaption>`;
 
     card.innerHTML = `
@@ -112,7 +125,7 @@ async function loadDocentes() {
   try {
     const { data, error } = await supabase
       .from("docentes")
-      .select("nome, funcao, formacao, area_atuacao, historico, projetos_interesses, email, telefone, contato_preferencial, lattes_url, imagem_url, destaque, ordem")
+      .select("nome, funcao, formacao, area_atuacao, historico, projetos_interesses, email, telefone, contato_preferencial, lattes_url, imagem_url, imagem_path, destaque, ordem")
       .eq("ativo", true)
       .order("destaque", { ascending: false })
       .order("ordem", { ascending: true })
