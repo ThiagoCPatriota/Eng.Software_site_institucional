@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gestão de horários de aulas do curso de Engenharia de Software." />
+  <meta name="theme-color" content="#0b2a4a" />
+  <title>Horários de aula | Admin Engenharia de Software IFPE</title>
+  <link rel="icon" href="../assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/pages/admin.css" />
+</head>
+
+<body class="admin-panel-page" data-page="admin-horarios">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="admin-topbar">
+    <div class="admin-topbar-brand">
+      <a href="../index.html" aria-label="Voltar para a página inicial">
+        <img src="../assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software" />
+        <span>
+          <strong>Admin ES</strong>
+          <small>IFPE Belo Jardim</small>
+        </span>
+      </a>
+    </div>
+
+    <nav class="admin-topbar-nav admin-sidebar-nav" aria-label="Menu do painel administrativo">
+      <a href="index.html">Painel</a>
+
+      <details class="admin-nav-dropdown">
+        <summary>Geral</summary>
+        <div class="admin-subnav">
+        <a href="publicacoes.html">Publicações</a>
+        <a href="eventos.html">Notícias/Eventos</a>
+        <a href="projetos.html">Projetos</a>
+        <a href="monitorias.html">Monitorias</a>
+        </div>
+      </details>
+
+      <details class="admin-nav-dropdown" open>
+        <summary>Acadêmico</summary>
+        <div class="admin-subnav">
+          <a class="is-active" href="horarios.html">Horários</a>
+          <a href="laboratorios.html">Laboratórios</a>
+          <a href="docentes.html">Docentes</a>
+          <a href="grade.html">PPC / Grade</a>
+        </div>
+      </details>
+
+      <details class="admin-nav-dropdown">
+        <summary>Institucional</summary>
+        <div class="admin-subnav">
+        <a href="editais.html">Editais</a>
+        <a href="ingresso.html">Ingresso</a>
+        <a href="servicos.html">Serviços</a>
+        </div>
+      </details>
+
+      <div class="admin-nav-actions">
+        <a href="../index.html">Ver site</a>
+        <button type="button" data-admin-logout>Sair</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="conteudo" class="admin-main admin-publications-main">
+    <section class="admin-page-heading" aria-labelledby="titulo-horarios-admin">
+      <div>
+        <span class="admin-kicker">Módulo 02</span>
+        <h1 id="titulo-horarios-admin">Horários de aulas.</h1>
+        <p>
+          Cadastre as aulas por semestre, período, turno, dia e horário. A página pública de horários mostra apenas os registros marcados como visíveis.
+        </p>
+      </div>
+      <button class="admin-secondary-action" type="button" data-new-schedule>Nova aula</button>
+    </section>
+
+    <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
+
+    <section class="admin-schedule-workspace" aria-label="Gestão dos horários de aulas">
+      <nav class="admin-schedule-tabbar" aria-label="Alternar entre cadastro e calendário de horários">
+        <button class="is-active" type="button" data-schedule-tab-target="form">Cadastrar nova aula</button>
+        <button type="button" data-schedule-tab-target="list">Horários cadastrados</button>
+      </nav>
+
+      <div class="admin-editor-layout admin-schedule-layout" data-schedule-panel="form">
+      <form class="admin-publication-form admin-schedule-form" data-schedule-form>
+        <input type="hidden" name="id" />
+
+        <div class="admin-form-heading">
+          <span>Editor</span>
+          <strong data-form-title>Nova aula</strong>
+        </div>
+
+        <div class="admin-form-row compact-three">
+          <label>
+            <span>Semestre</span>
+            <input type="text" name="semestre_letivo" value="2026.1" placeholder="Ex.: 2026.1" required />
+          </label>
+          <label>
+            <span>Turma</span>
+            <input type="text" name="turma" placeholder="Ex.: 2025.2" />
+          </label>
+          <label>
+            <span>Período</span>
+            <select name="periodo" required>
+              <option value="1">1º período</option>
+              <option value="2">2º período</option>
+              <option value="3">3º período</option>
+              <option value="4">4º período</option>
+              <option value="5">5º período</option>
+              <option value="6">6º período</option>
+              <option value="7">7º período</option>
+              <option value="8">8º período</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="admin-form-row compact-three">
+          <label>
+            <span>Turno</span>
+            <select name="turno" required>
+              <option value="manha">Manhã</option>
+              <option value="tarde">Tarde</option>
+              <option value="noite">Noite</option>
+            </select>
+          </label>
+          <label>
+            <span>Dia</span>
+            <select name="dia_semana" required>
+              <option value="1">Segunda</option>
+              <option value="2">Terça</option>
+              <option value="3">Quarta</option>
+              <option value="4">Quinta</option>
+              <option value="5">Sexta</option>
+            </select>
+          </label>
+          <label>
+            <span>Tipo</span>
+            <select name="tipo" required>
+              <option value="aula">Aula</option>
+              <option value="intervalo">Intervalo</option>
+              <option value="atividade">Atividade</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="admin-form-row">
+          <label>
+            <span>Início</span>
+            <input type="time" name="hora_inicio" value="07:30" required />
+          </label>
+          <label>
+            <span>Fim</span>
+            <input type="time" name="hora_fim" value="08:15" required />
+          </label>
+        </div>
+
+        <label>
+          <span>Disciplina / descrição</span>
+          <input type="text" name="disciplina" placeholder="Ex.: Cálculo Aplicado à Informática" required />
+        </label>
+
+        <div class="admin-form-row">
+          <label>
+            <span>Professor(a)</span>
+            <input type="text" name="professor" placeholder="Ex.: Sidmar" />
+          </label>
+          <label>
+            <span>Sala / laboratório</span>
+            <input type="text" name="sala" placeholder="Ex.: Lab 01" />
+          </label>
+        </div>
+
+        <label>
+          <span>Observação</span>
+          <textarea name="observacao" rows="3" placeholder="Ex.: Aula quinzenal, laboratório, sala a confirmar..."></textarea>
+        </label>
+
+
+        <div class="admin-form-actions">
+          <button class="admin-submit" type="submit">Salvar horário</button>
+          <button class="admin-secondary-action" type="button" data-clear-form>Limpar</button>
+        </div>
+      </form>
+      </div>
+
+      <section class="admin-publications-list admin-schedule-list" aria-label="Lista de horários cadastrados" data-schedule-panel="list" hidden>
+        <div class="admin-list-toolbar admin-list-toolbar-split">
+          <strong>Horários cadastrados</strong>
+          <div class="admin-list-filters admin-schedule-filters" aria-label="Filtros dos horários cadastrados">
+            <select data-schedule-period-filter aria-label="Filtrar horários por período">
+              <option value="todos">Todos os períodos</option>
+              <option value="1">1º período</option>
+              <option value="2">2º período</option>
+              <option value="3">3º período</option>
+              <option value="4">4º período</option>
+              <option value="5">5º período</option>
+              <option value="6">6º período</option>
+              <option value="7">7º período</option>
+              <option value="8">8º período</option>
+            </select>
+            <select data-schedule-filter aria-label="Filtrar horários por turno">
+              <option value="todos">Todos os turnos</option>
+              <option value="manha">Manhã</option>
+              <option value="tarde">Tarde</option>
+              <option value="noite">Noite</option>
+            </select>
+          </div>
+        </div>
+        <div class="admin-list-empty" data-schedule-empty>Nenhum horário cadastrado ainda.</div>
+        <div class="admin-schedule-items" data-schedule-list></div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="../assets/js/admin-horarios.js"></script>
+</body>
+
+</html>

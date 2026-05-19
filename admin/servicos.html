@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gestão de links de biblioteca, atividades complementares e TCC." />
+  <meta name="theme-color" content="#0b2a4a" />
+  <title>Outros Serviços | Admin Engenharia de Software IFPE</title>
+  <link rel="icon" href="../assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/pages/admin.css" />
+</head>
+<body class="admin-panel-page" data-page="admin-servicos">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="admin-topbar">
+    <div class="admin-topbar-brand">
+      <a href="../index.html" aria-label="Voltar para a página inicial">
+        <img src="../assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software" />
+        <span>
+          <strong>Admin ES</strong>
+          <small>IFPE Belo Jardim</small>
+        </span>
+      </a>
+    </div>
+
+    <nav class="admin-topbar-nav admin-sidebar-nav" aria-label="Menu do painel administrativo">
+      <a href="index.html">Painel</a>
+
+      <details class="admin-nav-dropdown">
+        <summary>Geral</summary>
+        <div class="admin-subnav">
+        <a href="publicacoes.html">Publicações</a>
+        <a href="eventos.html">Notícias/Eventos</a>
+        <a href="projetos.html">Projetos</a>
+        <a href="monitorias.html">Monitorias</a>
+        </div>
+      </details>
+
+      <details class="admin-nav-dropdown">
+        <summary>Acadêmico</summary>
+        <div class="admin-subnav">
+          <a href="horarios.html">Horários</a>
+          <a href="laboratorios.html">Laboratórios</a>
+          <a href="docentes.html">Docentes</a>
+          <a href="grade.html">PPC / Grade</a>
+        </div>
+      </details>
+
+      <details class="admin-nav-dropdown" open>
+        <summary>Institucional</summary>
+        <div class="admin-subnav">
+        <a href="editais.html">Editais</a>
+        <a href="ingresso.html">Ingresso</a>
+        <a class="is-active" href="servicos.html">Serviços</a>
+        </div>
+      </details>
+
+      <div class="admin-nav-actions">
+        <a href="../index.html">Ver site</a>
+        <button type="button" data-admin-logout>Sair</button>
+      </div>
+    </nav>
+  </header>
+  <main id="conteudo" class="admin-main admin-publications-main">
+    <section class="admin-page-heading" aria-labelledby="titulo-servicos-admin">
+      <div><span class="admin-kicker">RF 014-016</span><h1 id="titulo-servicos-admin">Outros serviços acadêmicos.</h1><p>Cadastre links úteis como biblioteca geral, atividades complementares, TCC e demais serviços do curso.</p></div>
+      <button class="admin-secondary-action" type="button" data-new-servico>Novo serviço</button>
+    </section>
+    <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
+    <section class="admin-editor-layout admin-campus-layout">
+      <form class="admin-publication-form" data-servico-form>
+        <input type="hidden" name="id" />
+        <div class="admin-form-heading"><span>Editor</span><strong data-form-title>Novo serviço</strong></div>
+        <label><span>Título</span><input type="text" name="titulo" placeholder="Ex.: Biblioteca Geral" required /></label>
+        <div class="admin-form-row compact-three">
+          <label><span>Tipo</span><select name="tipo"><option value="biblioteca">Biblioteca</option><option value="atividades_complementares">Atividades complementares</option><option value="tcc">TCC</option><option value="outro">Outro</option></select></label>
+          <label><span>Status</span><select name="status"><option value="rascunho">Rascunho</option><option value="publicado">Publicado</option><option value="oculto">Oculto</option></select></label>
+          <label><span>Ordem</span><input type="number" name="ordem" value="0" min="0" step="1" /></label>
+        </div>
+        <label><span>Descrição</span><textarea name="descricao" rows="4" placeholder="Explique para que serve esse link ou serviço." required></textarea></label>
+        <div class="admin-form-row"><label><span>Link</span><input type="url" name="link_url" placeholder="https://..." required /></label><label><span>Texto do botão</span><input type="text" name="link_label" placeholder="Acessar serviço" /></label></div>
+        <div class="admin-check-row"><label><input type="checkbox" name="visivel" checked /><span>Visível na página pública</span></label></div>
+        <div class="admin-form-actions"><button class="admin-submit" type="submit">Salvar serviço</button><button class="admin-secondary-action" type="button" data-clear-form>Limpar</button></div>
+      </form>
+      <section class="admin-publications-list"><div class="admin-list-toolbar"><strong>Serviços cadastrados</strong><select data-servico-filter><option value="todos">Todos</option><option value="biblioteca">Biblioteca</option><option value="atividades_complementares">Atividades complementares</option><option value="tcc">TCC</option><option value="publicado">Publicados</option><option value="oculto">Ocultos</option></select></div><div class="admin-list-empty" data-servico-empty>Nenhum serviço cadastrado ainda.</div><div class="admin-publication-items" data-servico-list></div></section>
+    </section>
+  </main>
+  <script type="module" src="../assets/js/admin-servicos.js"></script>
+</body>
+</html>

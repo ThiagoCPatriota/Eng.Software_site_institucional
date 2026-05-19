@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Eventos, notícias, avisos e benefícios do curso de Engenharia de Software do IFPE Campus Belo Jardim." />
+  <meta name="author" content="Projeto final da disciplina de Web" />
+  <meta name="theme-color" content="#0b2a4a" />
+  <meta name="robots" content="index, follow" />
+  <title>Eventos e notícias | Engenharia de Software - IFPE Campus Belo Jardim</title>
+  <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/pages/projetos.css" />
+</head>
+<body data-page="eventos">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="site-header" id="topo">
+    <div class="container header-wrapper">
+      <a class="brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+        <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="brand-mark" />
+        <span class="brand-text">
+          <strong>IFPE</strong>
+          <span>Engenharia de Software</span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
+        <a href="index.html" data-nav="inicio">Início</a>
+        <a href="eventos-noticias.html" data-nav="eventos">Notícias</a>
+
+        <details class="nav-group" data-nav-group="curso">
+          <summary>Curso</summary>
+          <div class="nav-dropdown">
+            <a href="sobre.html" data-nav="sobre">Sobre o curso</a>
+            <a href="ingresso.html" data-nav="ingresso">Formas de ingresso</a>
+            <a href="grade.html" data-nav="grade">Grade curricular</a>
+            <a href="mercado.html" data-nav="mercado">Mercado e estágio</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="geral">
+          <summary>Geral</summary>
+          <div class="nav-dropdown">
+            <a href="projetos.html" data-nav="projetos">Projetos</a>
+            <a href="editais.html" data-nav="editais">Editais</a>
+            <a href="outros-servicos.html" data-nav="servicos">Outros serviços</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="estrutura">
+          <summary>Estrutura</summary>
+          <div class="nav-dropdown">
+            <a href="estrutura.html" data-nav="estrutura">Ambientes</a>
+            <a href="docentes.html" data-nav="docentes">Docentes</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="aluno">
+          <summary>Aluno</summary>
+          <div class="nav-dropdown">
+            <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
+            <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
+            <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
+            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="atendimento">
+          <summary>Contato</summary>
+          <div class="nav-dropdown">
+            <a href="contato.html" data-nav="contato">Coordenação e contato</a>
+            <a href="faq.html" data-nav="faq">FAQ</a>
+          </div>
+        </details>
+
+        <a class="nav-access-button" href="admin/login.html" data-nav="acesso">Acesso</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="page-hero projects-page-hero" aria-labelledby="titulo-eventos-noticias">
+      <div class="container projects-hero-single">
+        <div class="page-hero-content reveal">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Início</a>
+            <span>•</span>
+            <span>Eventos e notícias</span>
+          </nav>
+          <span class="eyebrow">Vida acadêmica</span>
+          <h1 id="titulo-eventos-noticias">Eventos, notícias e comunicados do campus.</h1>
+          <p>
+            Acompanhe publicações institucionais, eventos acadêmicos, avisos e benefícios cadastrados pela administração do curso.
+          </p>
+          <div class="projects-hero-actions">
+            <a class="btn btn-primary" href="#eventos-campus">Ver publicações</a>
+            <a class="btn btn-secondary" href="projetos.html">Ver projetos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section campus-news-section" id="eventos-campus" aria-labelledby="titulo-eventos-campus">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Eventos e notícias</span>
+          <h2 id="titulo-eventos-campus">Vida acadêmica e comunicados do campus.</h2>
+          <p>
+            Aqui entram eventos, notícias institucionais, avisos e benefícios cadastrados pela administração. Os destaques também podem aparecer no Mural Acadêmico da página inicial.
+          </p>
+        </div>
+
+        <div class="project-filter-bar campus-news-filter reveal" aria-label="Filtro de eventos e notícias">
+          <button class="is-active" type="button" data-campus-news-filter="todos">Todos</button>
+          <button type="button" data-campus-news-filter="evento">Eventos</button>
+          <button type="button" data-campus-news-filter="noticia">Notícias</button>
+          <button type="button" data-campus-news-filter="aviso">Avisos</button>
+          <button type="button" data-campus-news-filter="beneficio">Benefícios</button>
+        </div>
+
+        <div class="campus-news-grid" data-campus-news-list></div>
+        <div class="projects-empty-state" data-campus-news-empty>
+          Nenhum evento ou notícia encontrado para este filtro.
+        </div>
+      </div>
+    </section>
+
+    <section class="section next-step-section" aria-labelledby="titulo-proxima-etapa-eventos">
+      <div class="container next-step reveal">
+        <div>
+          <span class="eyebrow">Continue explorando</span>
+          <h2 id="titulo-proxima-etapa-eventos">Depois de ver os eventos, acompanhe os projetos do curso.</h2>
+          <p>Pesquisa, extensão e inovação ficam em uma página própria, com projetos aprovados e envio de propostas pelo estudante.</p>
+        </div>
+        <div class="next-actions">
+          <a class="btn btn-primary" href="projetos.html">Ver projetos</a>
+          <a class="btn btn-secondary" href="calendario.html">Ver calendário</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer institutional-footer">
+    <div class="container footer-main">
+      <a class="footer-gov-mark" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE">
+        IFPE
+      </a>
+
+      <div class="footer-columns" aria-label="Mapa de navegação do rodapé">
+        <nav class="footer-column" aria-label="Links sobre o curso">
+          <h2>Curso</h2>
+          <a href="sobre.html">Sobre o curso</a>
+          <a href="ingresso.html">Formas de ingresso</a>
+          <a href="grade.html">Grade curricular</a>
+          <a href="mercado.html">Mercado e estágio</a>
+        </nav>
+
+        <nav class="footer-column" aria-label="Links de vida acadêmica">
+          <h2>Vida acadêmica</h2>
+          <a href="eventos-noticias.html">Eventos e notícias</a>
+          <a href="projetos.html">Projetos</a>
+          <a href="editais.html">Editais</a>
+          <a href="outros-servicos.html">Outros serviços</a>
+          <a href="area-aluno.html">Área do aluno</a>
+          <a href="horarios.html">Horário de aulas</a>
+          <a href="laboratorios.html">Horário dos laboratórios</a>
+          <a href="calendario.html">Calendário acadêmico</a>
+          <a href="faq.html">Dúvidas frequentes</a>
+        </nav>
+
+        <nav class="footer-column" aria-label="Links de estrutura do curso">
+          <h2>Estrutura</h2>
+          <a href="estrutura.html">Ambientes e infraestrutura</a>
+          <a href="docentes.html">Corpo docente</a>
+          <a href="contato.html">Coordenação e contato</a>
+        </nav>
+
+        <div class="footer-column" aria-label="Informações institucionais">
+          <h2>Atendimento</h2>
+          <span>Coordenação do curso: a confirmar</span>
+          <span>E-mail institucional: a confirmar</span>
+          <span>WhatsApp/telefone: a confirmar</span>
+          <span>IFPE Campus Belo Jardim</span>
+        </div>
+      </div>
+
+      <div class="footer-support-row">
+        <div class="footer-social-block">
+          <h2>Canais institucionais</h2>
+          <div class="footer-socials" aria-label="Canais institucionais em modo demonstrativo">
+            <span>IFPE</span>
+            <span>ES</span>
+            <span>BJ</span>
+          </div>
+        </div>
+
+        <div class="footer-identity" aria-label="Identidade institucional do curso">
+          <a class="footer-seal" href="index.html" aria-label="Engenharia de Software IFPE Campus Belo Jardim">
+            <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software" />
+            <span>
+              <strong>Engenharia de Software</strong>
+              <small>IFPE Campus Belo Jardim</small>
+            </span>
+          </a>
+          <span class="footer-ifpe-wordmark">Instituto Federal de Pernambuco</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <small>© <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim. Conteúdo institucional em versão demonstrativa.</small>
+        <button class="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+  <script type="module" src="assets/js/site-auth.js"></script>
+  <script type="module" src="assets/js/eventos-publico.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gestão de eventos, notícias e avisos institucionais do curso de Engenharia de Software." />
+  <meta name="theme-color" content="#0b2a4a" />
+  <title>Eventos e Notícias | Admin Engenharia de Software IFPE</title>
+  <link rel="icon" href="../assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/pages/admin.css" />
+</head>
+
+<body class="admin-panel-page" data-page="admin-eventos">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="admin-topbar">
+    <div class="admin-topbar-brand">
+      <a href="../index.html" aria-label="Voltar para a página inicial">
+        <img src="../assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software" />
+        <span>
+          <strong>Admin ES</strong>
+          <small>IFPE Belo Jardim</small>
+        </span>
+      </a>
+    </div>
+
+    <nav class="admin-topbar-nav admin-sidebar-nav" aria-label="Menu do painel administrativo">
+      <a href="index.html">Painel</a>
+
+      <details class="admin-nav-dropdown" open>
+        <summary>Geral</summary>
+        <div class="admin-subnav">
+        <a href="publicacoes.html">Publicações</a>
+        <a class="is-active" href="eventos.html">Notícias/Eventos</a>
+        <a href="projetos.html">Projetos</a>
+        <a href="monitorias.html">Monitorias</a>
+        </div>
+      </details>
+
+      <details class="admin-nav-dropdown">
+        <summary>Acadêmico</summary>
+        <div class="admin-subnav">
+          <a href="horarios.html">Horários</a>
+          <a href="laboratorios.html">Laboratórios</a>
+          <a href="docentes.html">Docentes</a>
+          <a href="grade.html">PPC / Grade</a>
+        </div>
+      </details>
+
+      <details class="admin-nav-dropdown">
+        <summary>Institucional</summary>
+        <div class="admin-subnav">
+        <a href="editais.html">Editais</a>
+        <a href="ingresso.html">Ingresso</a>
+        <a href="servicos.html">Serviços</a>
+        </div>
+      </details>
+
+      <div class="admin-nav-actions">
+        <a href="../index.html">Ver site</a>
+        <button type="button" data-admin-logout>Sair</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="conteudo" class="admin-main admin-publications-main">
+    <section class="admin-page-heading" aria-labelledby="titulo-eventos-admin">
+      <div>
+        <span class="admin-kicker">Módulo 06</span>
+        <h1 id="titulo-eventos-admin">Eventos, notícias e avisos do campus.</h1>
+        <p>
+          Cadastre conteúdos institucionais para aparecerem na página de projetos/notícias e, quando marcados como destaque, no Mural Acadêmico da home.
+        </p>
+      </div>
+      <button class="admin-secondary-action" type="button" data-new-campus-post>Novo conteúdo</button>
+    </section>
+
+    <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
+
+    <section class="admin-dashboard-cards admin-campus-summary" aria-label="Resumo de eventos e notícias">
+      <article>
+        <span data-stat-published>0</span>
+        <strong>publicados</strong>
+      </article>
+      <article>
+        <span data-stat-events>0</span>
+        <strong>eventos</strong>
+      </article>
+      <article>
+        <span data-stat-home>0</span>
+        <strong>destaques na home</strong>
+      </article>
+    </section>
+
+    <section class="admin-editor-layout admin-campus-layout">
+      <form class="admin-publication-form admin-campus-form" data-campus-post-form>
+        <input type="hidden" name="id" />
+
+        <div class="admin-form-heading">
+          <span>Editor</span>
+          <strong data-form-title>Novo conteúdo</strong>
+        </div>
+
+        <label>
+          <span>Título</span>
+          <input type="text" name="titulo" placeholder="Ex.: Jardim Digital 2026" required />
+        </label>
+
+        <div class="admin-form-row compact-three">
+          <label>
+            <span>Tipo</span>
+            <select name="tipo" required>
+              <option value="evento">Evento</option>
+              <option value="noticia">Notícia</option>
+              <option value="aviso">Aviso</option>
+              <option value="beneficio">Benefício</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Status</span>
+            <select name="status" required>
+              <option value="rascunho">Rascunho</option>
+              <option value="publicado">Publicado</option>
+              <option value="oculto">Oculto</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Ordem</span>
+            <input type="number" name="ordem" min="0" step="1" value="0" />
+          </label>
+        </div>
+
+        <label>
+          <span>Resumo público</span>
+          <textarea name="resumo" rows="3" placeholder="Resumo curto para cards, mural e listagens." required></textarea>
+        </label>
+
+        <label>
+          <span>Conteúdo / descrição</span>
+          <textarea name="conteudo" rows="5" placeholder="Descrição completa, orientações, programação ou detalhes institucionais."></textarea>
+        </label>
+
+        <div class="admin-form-row compact-three">
+          <label>
+            <span>Data de início</span>
+            <input type="date" name="data_inicio" />
+          </label>
+          <label>
+            <span>Hora de início</span>
+            <input type="time" name="hora_inicio" />
+          </label>
+          <label>
+            <span>Data final</span>
+            <input type="date" name="data_fim" />
+          </label>
+        </div>
+
+        <div class="admin-form-row">
+          <label>
+            <span>Local</span>
+            <input type="text" name="local" placeholder="Auditório, laboratório, campus, online..." />
+          </label>
+          <label>
+            <span>Organização / setor</span>
+            <input type="text" name="organizador" placeholder="Coordenação, docente, setor ou equipe" />
+          </label>
+        </div>
+
+        <div class="admin-form-row">
+          <label>
+            <span>Imagem URL</span>
+            <input type="url" name="imagem_url" placeholder="https://..." />
+          </label>
+          <label>
+            <span>Link externo</span>
+            <input type="url" name="link_externo" placeholder="https://..." />
+          </label>
+        </div>
+
+        <div class="admin-check-row">
+          <label>
+            <input type="checkbox" name="visivel" checked />
+            <span>Visível na página pública</span>
+          </label>
+          <label>
+            <input type="checkbox" name="destaque_home" />
+            <span>Destacar no Mural Acadêmico da home</span>
+          </label>
+        </div>
+
+        <div class="admin-form-actions">
+          <button class="admin-submit" type="submit">Salvar conteúdo</button>
+          <button class="admin-secondary-action" type="button" data-clear-form>Limpar</button>
+        </div>
+      </form>
+
+      <section class="admin-publications-list admin-campus-list" aria-label="Lista de eventos e notícias cadastrados">
+        <div class="admin-list-toolbar">
+          <strong>Conteúdos cadastrados</strong>
+          <select data-campus-post-filter aria-label="Filtrar eventos e notícias">
+            <option value="todos">Todos</option>
+            <option value="publicado">Publicados</option>
+            <option value="rascunho">Rascunhos</option>
+            <option value="oculto">Ocultos</option>
+            <option value="evento">Eventos</option>
+            <option value="noticia">Notícias</option>
+            <option value="home">Destaques da home</option>
+          </select>
+        </div>
+        <div class="admin-list-empty" data-campus-post-empty>Nenhum conteúdo cadastrado ainda.</div>
+        <div class="admin-publication-items admin-campus-items" data-campus-post-list></div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="../assets/js/admin-eventos.js"></script>
+</body>
+
+</html>

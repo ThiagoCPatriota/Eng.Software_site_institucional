@@ -313,3 +313,595 @@
     gap: 14px;
   }
 }
+
+.docentes-summary-card .metric-stack strong {
+  font-size: 1.6rem;
+}
+
+.docent-card.is-highlighted {
+  border-color: rgba(45, 156, 219, 0.36);
+  box-shadow: 0 26px 60px rgba(11, 42, 74, 0.1);
+}
+
+.docent-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.docent-contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.docent-contact-links span {
+  color: var(--color-muted);
+  font-weight: 800;
+}
+
+.docent-contact-links .text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  font-size: 0.88rem;
+  font-weight: 900;
+}
+
+.docentes-empty-state {
+  margin-top: 44px;
+  padding: clamp(28px, 4vw, 44px);
+  border: 1px dashed rgba(45, 156, 219, 0.34);
+  border-radius: 28px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 14% 12%, rgba(45, 156, 219, 0.08), transparent 28%),
+    #fff;
+}
+
+.docentes-empty-state[hidden] {
+  display: none;
+}
+
+.docentes-empty-state span {
+  color: var(--color-ifpe-dark);
+  font-size: 0.82rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.docentes-empty-state h3 {
+  margin-top: 10px;
+  color: var(--color-primary);
+}
+
+.docentes-empty-state p {
+  max-width: 620px;
+  margin: 10px auto 0;
+  color: var(--color-muted);
+}
+
+
+/* Ajuste 38: foto do docente sem corte/zoom excessivo */
+.docent-photo-frame {
+  min-height: 230px;
+  background: linear-gradient(135deg, #f8fbff 0%, #eef7fb 100%);
+}
+
+.docent-photo-frame:has(img) {
+  padding: 10px;
+  border: 1px solid var(--color-border);
+}
+
+.docent-photo-frame img {
+  position: absolute;
+  inset: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  object-fit: contain;
+  border-radius: 16px;
+  background: #fff;
+}
+
+/* Ajuste 39: foto institucional com fundo preenchido sem cortar o rosto */
+.docent-photo-frame.has-image {
+  display: grid;
+  place-items: center;
+  min-height: 260px;
+  padding: 0;
+  border: 1px solid rgba(45, 156, 219, 0.18);
+  border-radius: 24px;
+  overflow: hidden;
+  background-image:
+    linear-gradient(135deg, rgba(11, 42, 74, 0.14), rgba(25, 135, 84, 0.1)),
+    var(--docent-photo-bg);
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.42);
+  isolation: isolate;
+}
+
+.docent-photo-frame.has-image::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: -14px;
+  z-index: 0;
+  border: 0;
+  border-radius: inherit;
+  background-image: var(--docent-photo-bg);
+  background-size: cover;
+  background-position: center;
+  filter: blur(18px) saturate(1.08);
+  opacity: 0.58;
+  transform: scale(1.06);
+}
+
+.docent-photo-frame.has-image::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.26), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(11, 42, 74, 0.14));
+}
+
+.docent-photo-frame.has-image img {
+  position: relative;
+  inset: auto;
+  z-index: 2;
+  display: block;
+  width: min(100%, 280px);
+  max-width: calc(100% - 24px);
+  height: calc(100% - 24px);
+  max-height: 236px;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 18px;
+  background: transparent;
+  box-shadow: 0 18px 36px rgba(11, 42, 74, 0.2);
+}
+
+@media (max-width: 680px) {
+  .docent-photo-frame.has-image {
+    min-height: 230px;
+  }
+
+  .docent-photo-frame.has-image img {
+    width: min(100%, 250px);
+    max-height: 210px;
+  }
+}
+
+/* Ajuste 40: foto única como capa do card, sem imagem duplicada na frente */
+.docent-card {
+  padding: clamp(20px, 2vw, 24px);
+}
+
+.docent-photo-frame.has-image {
+  min-height: 220px;
+  margin-bottom: 20px;
+  border-radius: 22px;
+  border: 1px solid rgba(11, 42, 74, 0.16);
+  background-image:
+    linear-gradient(180deg, rgba(11, 42, 74, 0.02), rgba(11, 42, 74, 0.12)),
+    var(--docent-photo-bg);
+  background-size: cover;
+  background-position: center 34%;
+  box-shadow: inset 0 -56px 80px rgba(11, 42, 74, 0.14);
+}
+
+.docent-photo-frame.has-image::before,
+.docent-photo-frame.has-image::after {
+  display: none;
+}
+
+.docent-photo-frame.has-image img {
+  display: none;
+}
+
+.docent-card h3 {
+  margin-top: 14px;
+}
+
+.docent-meta {
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.docent-contact-links {
+  margin-top: 16px;
+}
+
+@media (max-width: 680px) {
+  .docent-photo-frame.has-image {
+    min-height: 205px;
+    background-position: center 30%;
+  }
+}
+
+/* Ajuste 41: card de docente em formato perfil para evitar foto esticada/pixelizada */
+.docent-card {
+  display: grid;
+  grid-template-columns: 118px minmax(0, 1fr);
+  align-items: start;
+  gap: 18px;
+}
+
+.docent-card::before {
+  width: 4px;
+}
+
+.docent-card-body {
+  min-width: 0;
+}
+
+.docent-photo-frame,
+.docent-photo-frame.has-image {
+  grid-column: 1;
+  grid-row: 1;
+  width: 118px;
+  height: 118px;
+  min-height: 118px;
+  margin: 0;
+  padding: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 16%, rgba(45, 156, 219, 0.16), transparent 38%),
+    linear-gradient(135deg, #f8fbff 0%, #edf7fb 100%);
+  border: 1px solid rgba(11, 42, 74, 0.14);
+  box-shadow: 0 18px 38px rgba(11, 42, 74, 0.11);
+}
+
+.docent-photo-frame.has-image::before,
+.docent-photo-frame.has-image::after,
+.docent-photo-frame::before,
+.docent-photo-frame::after {
+  display: none;
+}
+
+.docent-photo-frame.has-image img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  border-radius: inherit;
+  background: #fff;
+}
+
+.docent-photo-frame:not(.has-image) {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 6px;
+  color: var(--color-primary);
+}
+
+.docent-photo-frame:not(.has-image) span {
+  width: 58px;
+  height: 58px;
+  margin: 0;
+  border-radius: 20px;
+  background: rgba(45, 156, 219, 0.12);
+  color: var(--color-primary);
+}
+
+.docent-photo-frame:not(.has-image) figcaption {
+  max-width: 86px;
+  color: var(--color-muted);
+  font-size: 0.66rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.docent-card h3 {
+  margin-top: 14px;
+}
+
+.docent-meta {
+  padding-left: 16px;
+}
+
+.docent-contact-links {
+  grid-column: 2;
+}
+
+@media (max-width: 760px) {
+  .docent-card {
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .docent-photo-frame,
+  .docent-photo-frame.has-image {
+    width: 96px;
+    height: 96px;
+    min-height: 96px;
+    border-radius: 24px;
+  }
+
+  .docent-contact-links {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 520px) {
+  .docent-card {
+    grid-template-columns: 1fr;
+  }
+
+  .docent-photo-frame,
+  .docent-photo-frame.has-image {
+    width: 104px;
+    height: 104px;
+    min-height: 104px;
+  }
+
+  .docent-contact-links {
+    grid-column: auto;
+  }
+}
+
+/* Ajuste 42: foto do docente um pouco maior e alinhada ao conteúdo do card */
+.docent-card {
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.docent-photo-frame,
+.docent-photo-frame.has-image {
+  width: 150px;
+  height: 150px;
+  min-height: 150px;
+  border-radius: 30px;
+  margin-top: 0;
+}
+
+.docent-photo-frame.has-image img {
+  object-fit: cover;
+  object-position: center 36%;
+}
+
+.docent-card-body {
+  padding-top: 0;
+}
+
+.docent-card h3 {
+  margin-top: 18px;
+}
+
+@media (max-width: 760px) {
+  .docent-card {
+    grid-template-columns: 124px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .docent-photo-frame,
+  .docent-photo-frame.has-image {
+    width: 124px;
+    height: 124px;
+    min-height: 124px;
+    border-radius: 26px;
+  }
+}
+
+@media (max-width: 520px) {
+  .docent-card {
+    grid-template-columns: 1fr;
+  }
+
+  .docent-photo-frame,
+  .docent-photo-frame.has-image {
+    width: 138px;
+    height: 138px;
+    min-height: 138px;
+  }
+}
+
+/* Ajuste 43: remove a moldura/sombra desalinhada da foto do docente */
+.docent-photo-frame.has-image,
+.docent-photo-frame {
+  display: block;
+  width: 152px;
+  height: 152px;
+  min-height: 152px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 30px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: none;
+}
+
+.docent-photo-frame.has-image::before,
+.docent-photo-frame.has-image::after,
+.docent-photo-frame::before,
+.docent-photo-frame::after {
+  display: none !important;
+}
+
+.docent-photo-frame.has-image img {
+  position: static !important;
+  inset: auto !important;
+  display: block !important;
+  width: 152px !important;
+  height: 152px !important;
+  min-width: 152px;
+  min-height: 152px;
+  object-fit: cover;
+  object-position: center 34%;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0 16px 34px rgba(11, 42, 74, 0.14);
+}
+
+.docent-card {
+  grid-template-columns: 152px minmax(0, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 760px) {
+  .docent-card {
+    grid-template-columns: 124px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .docent-photo-frame.has-image,
+  .docent-photo-frame {
+    width: 124px;
+    height: 124px;
+    min-height: 124px;
+    border-radius: 26px;
+  }
+
+  .docent-photo-frame.has-image img {
+    width: 124px !important;
+    height: 124px !important;
+    min-width: 124px;
+    min-height: 124px;
+    border-radius: 26px;
+  }
+}
+
+@media (max-width: 520px) {
+  .docent-card {
+    grid-template-columns: 1fr;
+  }
+
+  .docent-photo-frame.has-image,
+  .docent-photo-frame {
+    width: 138px;
+    height: 138px;
+    min-height: 138px;
+  }
+
+  .docent-photo-frame.has-image img {
+    width: 138px !important;
+    height: 138px !important;
+    min-width: 138px;
+    min-height: 138px;
+  }
+}
+
+/* Ajuste 46: cards de docentes mais largos e menos altos */
+.docent-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.docent-card {
+  grid-template-columns: 166px minmax(0, 1fr);
+  gap: 26px;
+  align-items: start;
+  padding: clamp(24px, 2.2vw, 30px);
+}
+
+.docent-photo-frame.has-image,
+.docent-photo-frame {
+  width: 166px;
+  height: 166px;
+  min-height: 166px;
+  border-radius: 32px;
+}
+
+.docent-photo-frame.has-image img {
+  width: 166px !important;
+  height: 166px !important;
+  min-width: 166px;
+  min-height: 166px;
+  border-radius: 32px;
+  object-position: center 34%;
+}
+
+.docent-card h3 {
+  margin-top: 14px;
+  max-width: 520px;
+}
+
+.docent-meta {
+  max-width: 560px;
+  gap: 9px;
+}
+
+.docent-meta li {
+  line-height: 1.55;
+}
+
+.docent-contact-links {
+  grid-column: 2;
+  align-items: center;
+  margin-top: 18px;
+}
+
+@media (max-width: 1180px) {
+  .docent-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .docent-card {
+    grid-template-columns: 166px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .docent-card {
+    grid-template-columns: 136px minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .docent-photo-frame.has-image,
+  .docent-photo-frame {
+    width: 136px;
+    height: 136px;
+    min-height: 136px;
+    border-radius: 28px;
+  }
+
+  .docent-photo-frame.has-image img {
+    width: 136px !important;
+    height: 136px !important;
+    min-width: 136px;
+    min-height: 136px;
+    border-radius: 28px;
+  }
+}
+
+@media (max-width: 560px) {
+  .docent-card {
+    grid-template-columns: 1fr;
+  }
+
+  .docent-photo-frame.has-image,
+  .docent-photo-frame {
+    width: 148px;
+    height: 148px;
+    min-height: 148px;
+  }
+
+  .docent-photo-frame.has-image img {
+    width: 148px !important;
+    height: 148px !important;
+    min-width: 148px;
+    min-height: 148px;
+  }
+
+  .docent-contact-links {
+    grid-column: auto;
+  }
+}

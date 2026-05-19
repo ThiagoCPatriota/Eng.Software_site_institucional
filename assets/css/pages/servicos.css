@@ -1,0 +1,55 @@
+@import url("./projetos.css");
+
+.servicos-page-hero {
+  background: radial-gradient(circle at 85% 15%, rgba(25, 135, 84, 0.13), transparent 32%), linear-gradient(135deg, #f7fbff 0%, #eef6fb 100%);
+}
+
+.servicos-section {
+  background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+}
+
+.servicos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.servico-card {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  border: 1px solid rgba(210, 222, 233, 0.92);
+  border-radius: 30px;
+  padding: 26px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 24px 58px rgba(11, 42, 74, 0.08);
+}
+
+.servico-card span {
+  width: fit-content;
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: var(--color-ifpe-soft);
+  color: var(--color-ifpe-dark);
+  font-size: 0.77rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.servico-card h3 {
+  color: var(--color-primary);
+  font-size: clamp(1.25rem, 2vw, 1.78rem);
+  line-height: 1.12;
+}
+
+.servico-card p {
+  color: var(--color-muted);
+  line-height: 1.72;
+}
+
+@media (max-width: 1180px) {
+  .servicos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .servicos-grid { grid-template-columns: 1fr; }
+}

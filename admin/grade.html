@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gestão da matriz curricular e PPC do curso de Engenharia de Software." />
+  <meta name="theme-color" content="#0b2a4a" />
+  <title>PPC e Grade | Admin Engenharia de Software IFPE</title>
+  <link rel="icon" href="../assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/pages/admin.css" />
+</head>
+
+<body class="admin-panel-page" data-page="admin-grade">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="admin-topbar">
+    <div class="admin-topbar-brand">
+      <a href="../index.html" aria-label="Voltar para a página inicial">
+        <img src="../assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software" />
+        <span>
+          <strong>Admin ES</strong>
+          <small>IFPE Belo Jardim</small>
+        </span>
+      </a>
+    </div>
+
+    <nav class="admin-topbar-nav admin-sidebar-nav" aria-label="Menu do painel administrativo">
+      <a href="index.html">Painel</a>
+
+      <details class="admin-nav-dropdown">
+        <summary>Geral</summary>
+        <div class="admin-subnav">
+          <a href="publicacoes.html">Publicações</a>
+          <a href="eventos.html">Notícias/Eventos</a>
+          <a href="projetos.html">Projetos</a>
+          <a href="monitorias.html">Monitorias</a>
+        </div>
+      </details>
+
+      <details class="admin-nav-dropdown" open>
+        <summary>Acadêmico</summary>
+        <div class="admin-subnav">
+          <a href="horarios.html">Horários</a>
+          <a href="laboratorios.html">Laboratórios</a>
+          <a href="docentes.html">Docentes</a>
+          <a class="is-active" href="grade.html">PPC / Grade</a>
+        </div>
+      </details>
+
+      <details class="admin-nav-dropdown">
+        <summary>Institucional</summary>
+        <div class="admin-subnav">
+          <a href="editais.html">Editais</a>
+          <a href="ingresso.html">Ingresso</a>
+          <a href="servicos.html">Serviços</a>
+        </div>
+      </details>
+
+      <div class="admin-nav-actions">
+        <a href="../index.html">Ver site</a>
+        <button type="button" data-admin-logout>Sair</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="conteudo" class="admin-main admin-publications-main">
+    <section class="admin-page-heading" aria-labelledby="titulo-grade-admin">
+      <div>
+        <span class="admin-kicker">RF 005</span>
+        <h1 id="titulo-grade-admin">PPC e matriz curricular.</h1>
+        <p>
+          Cadastre, edite ou remova componentes curriculares do curso. A página pública da grade será atualizada automaticamente por período.
+        </p>
+      </div>
+    </section>
+
+    <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
+
+    <section class="admin-dashboard-cards admin-grade-summary" aria-label="Resumo da matriz curricular">
+      <article>
+        <span data-stat-total>0</span>
+        <strong>componentes</strong>
+      </article>
+      <article>
+        <span data-stat-hours>0h</span>
+        <strong>carga horária</strong>
+      </article>
+      <article>
+        <span data-stat-credits>0</span>
+        <strong>créditos</strong>
+      </article>
+    </section>
+
+    <section class="admin-grade-workspace" aria-label="Gestão da matriz curricular">
+      <nav class="admin-schedule-tabbar admin-grade-tabbar" role="tablist" aria-label="Navegação do módulo de PPC e grade">
+        <button class="is-active" type="button" data-grade-panel-target="form">Adicionar componente</button>
+        <button type="button" data-grade-panel-target="list">Componentes cadastrados</button>
+      </nav>
+
+      <section class="admin-grade-panel" data-grade-panel="form">
+        <form class="admin-publication-form admin-grade-form" data-grade-form>
+          <input type="hidden" name="id" />
+          <input type="hidden" name="ordem" />
+
+          <div class="admin-form-heading">
+            <span>Editor</span>
+            <strong data-form-title>Novo componente</strong>
+          </div>
+
+          <div class="admin-form-row compact-three">
+            <label>
+              <span>Período</span>
+              <select name="periodo" required>
+                <option value="1">1º período</option>
+                <option value="2">2º período</option>
+                <option value="3">3º período</option>
+                <option value="4">4º período</option>
+                <option value="5">5º período</option>
+                <option value="6">6º período</option>
+                <option value="7">7º período</option>
+                <option value="8">8º período</option>
+              </select>
+            </label>
+            <label>
+              <span>Código</span>
+              <input type="text" name="codigo" placeholder="Ex.: CBBJ.27" required />
+            </label>
+            <label>
+              <span>Tipo</span>
+              <select name="tipo" required>
+                <option value="obrigatorio">Obrigatório</option>
+                <option value="optativo">Optativo</option>
+                <option value="eletivo">Eletivo</option>
+                <option value="atividade">Atividade</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            <span>Nome do componente curricular</span>
+            <input type="text" name="nome" placeholder="Ex.: Desenvolvimento Web" required />
+          </label>
+
+          <div class="admin-form-row compact-three">
+            <label>
+              <span>Carga horária</span>
+              <input type="number" name="carga_horaria" min="0" step="1" value="60" required />
+            </label>
+            <label>
+              <span>Créditos</span>
+              <input type="number" name="creditos" min="0" step="1" value="4" required />
+            </label>
+            <label>
+              <span>Pré-requisitos</span>
+              <input type="text" name="pre_requisitos" placeholder="Ex.: CBBJ.14 ou sem pré-requisito" />
+            </label>
+          </div>
+
+          <label>
+            <span>Descrição / observação</span>
+            <textarea name="descricao" rows="3" placeholder="Informação complementar opcional sobre o componente ou PPC."></textarea>
+          </label>
+
+          <div class="admin-form-actions">
+            <button class="admin-submit" type="submit">Salvar componente</button>
+            <button class="admin-secondary-action" type="button" data-clear-form>Limpar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="admin-grade-panel admin-grade-list-panel" data-grade-panel="list" hidden>
+        <div class="admin-list-toolbar admin-list-toolbar-split">
+          <strong>Componentes cadastrados</strong>
+          <select data-grade-filter aria-label="Filtrar componentes por período">
+            <option value="todos">Todos os períodos</option>
+            <option value="1">1º período</option>
+            <option value="2">2º período</option>
+            <option value="3">3º período</option>
+            <option value="4">4º período</option>
+            <option value="5">5º período</option>
+            <option value="6">6º período</option>
+            <option value="7">7º período</option>
+            <option value="8">8º período</option>
+          </select>
+        </div>
+        <div class="admin-grade-periods" data-grade-list></div>
+        <p class="admin-empty-state" data-grade-empty>Nenhum componente encontrado nesse filtro.</p>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="../assets/js/admin-grade.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Consulta de horários disponíveis e indisponíveis dos laboratórios do curso de Engenharia de Software do IFPE Campus Belo Jardim." />
+  <meta name="author" content="Projeto final da disciplina de Web" />
+  <meta name="theme-color" content="#0b2a4a" />
+  <meta name="robots" content="index, follow" />
+  <title>Horário dos laboratórios | Engenharia de Software IFPE</title>
+  <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/pages/laboratorios.css" />
+</head>
+
+<body data-page="laboratorios">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="site-header" id="topo">
+    <div class="container header-wrapper">
+      <a class="brand" href="index.html"
+        aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+        <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim"
+          class="brand-mark" />
+        <span class="brand-text">
+          <strong>IFPE</strong>
+          <span>Engenharia de Software</span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false"
+        aria-controls="menu-principal">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
+        <a href="index.html" data-nav="inicio">Início</a>
+        <a href="eventos-noticias.html" data-nav="eventos">Notícias</a>
+
+        <details class="nav-group" data-nav-group="curso">
+          <summary>Curso</summary>
+          <div class="nav-dropdown">
+            <a href="sobre.html" data-nav="sobre">Sobre o curso</a>
+            <a href="ingresso.html" data-nav="ingresso">Formas de ingresso</a>
+            <a href="grade.html" data-nav="grade">Grade curricular</a>
+            <a href="mercado.html" data-nav="mercado">Mercado e estágio</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="geral">
+          <summary>Geral</summary>
+          <div class="nav-dropdown">
+            <a href="projetos.html" data-nav="projetos">Projetos</a>
+            <a href="editais.html" data-nav="editais">Editais</a>
+            <a href="outros-servicos.html" data-nav="servicos">Outros serviços</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="estrutura">
+          <summary>Estrutura</summary>
+          <div class="nav-dropdown">
+            <a href="estrutura.html" data-nav="estrutura">Ambientes</a>
+            <a href="docentes.html" data-nav="docentes">Docentes</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="aluno">
+          <summary>Aluno</summary>
+          <div class="nav-dropdown">
+            <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
+            <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
+            <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
+            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="atendimento">
+          <summary>Contato</summary>
+          <div class="nav-dropdown">
+            <a href="contato.html" data-nav="contato">Coordenação e contato</a>
+            <a href="faq.html" data-nav="faq">FAQ</a>
+          </div>
+        </details>
+
+        <a class="nav-access-button" href="admin/login.html" data-nav="acesso">Acesso</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="page-hero lab-hero" aria-labelledby="titulo-laboratorios">
+      <div class="container page-hero-grid">
+        <div class="page-hero-content reveal">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Início</a>
+            <span aria-hidden="true">•</span>
+            <span>Horário dos laboratórios</span>
+          </nav>
+          <span class="eyebrow">Laboratórios</span>
+          <h1 id="titulo-laboratorios">Disponibilidade dos laboratórios.</h1>
+          <p>
+            Consulte os horários já ocupados e envie uma solicitação de reserva. Depois da aprovação, o horário
+            reservado ficará associado ao seu nome, e-mail e matrícula.
+          </p>
+          <div class="hero-actions" aria-label="Ações principais dos laboratórios">
+            <a class="btn btn-primary" href="#consulta-laboratorios">Ver horários</a>
+            <a class="btn btn-secondary" href="#solicitar-reserva">Solicitar reserva</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section lab-section" id="consulta-laboratorios" aria-labelledby="titulo-consulta-laboratorios">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <span class="eyebrow">Consulta</span>
+          <h2 id="titulo-consulta-laboratorios">Veja a ocupação semanal dos laboratórios.</h2>
+          <p>Use os filtros para consultar laboratório, dia ou data específica. A grade mostra os horários ocupados de
+            segunda a sexta, das 7h30 às 22h.</p>
+        </div>
+
+        <section class="lab-control-panel reveal" aria-label="Filtros dos laboratórios">
+          <label>
+            <span>Laboratório</span>
+            <select data-lab-filter aria-label="Filtrar por laboratório"></select>
+          </label>
+          <label>
+            <span>Dia da semana</span>
+            <select data-lab-day-filter aria-label="Filtrar por dia da semana">
+              <option value="todos">Todos</option>
+              <option value="1">Segunda</option>
+              <option value="2">Terça</option>
+              <option value="3">Quarta</option>
+              <option value="4">Quinta</option>
+              <option value="5">Sexta</option>
+            </select>
+          </label>
+          <label>
+            <span>Data específica</span>
+            <input type="date" data-lab-date-filter aria-label="Filtrar por data específica" />
+          </label>
+        </section>
+
+        <div class="lab-status" data-lab-status role="status" aria-live="polite">Carregando laboratórios...</div>
+
+        <section class="lab-strip reveal" data-lab-strip data-drag-scroll aria-label="Laboratórios cadastrados">
+        </section>
+        <section class="lab-board reveal" data-lab-board aria-label="Horários ocupados dos laboratórios"></section>
+      </div>
+    </section>
+
+    <section class="section lab-request-section" id="solicitar-reserva" aria-labelledby="titulo-solicitar-reserva">
+      <div class="container lab-request-layout">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Solicitação</span>
+          <h2 id="titulo-solicitar-reserva">Reserve um laboratório para uma atividade acadêmica.</h2>
+          <p>
+            A solicitação fica pendente até aprovação da administração. O horário aprovado ficará associado ao seu nome,
+            e-mail e matrícula.
+          </p>
+        </div>
+
+        <div class="lab-auth-gate reveal" data-lab-auth-gate role="status" aria-live="polite"></div>
+
+        <form class="lab-request-form reveal" data-lab-request-form>
+          <div class="lab-identity-card" data-lab-identity-card>
+            <span>Responsável da solicitação</span>
+            <strong>Entre para vincular seu nome e matrícula</strong>
+            <small>A reserva ficará registrada com os dados do seu perfil acadêmico.</small>
+          </div>
+
+          <div class="lab-form-row">
+            <label>
+              <span>Laboratório</span>
+              <select name="laboratorio_id" data-lab-request-select required></select>
+            </label>
+            <label>
+              <span>Data</span>
+              <input type="date" name="data_reserva" required />
+            </label>
+          </div>
+
+          <div class="lab-form-row">
+            <label>
+              <span>Início</span>
+              <input type="time" name="hora_inicio" value="13:30" required />
+            </label>
+            <label>
+              <span>Fim</span>
+              <input type="time" name="hora_fim" value="15:00" required />
+            </label>
+          </div>
+
+          <label>
+            <span>Atividade</span>
+            <input type="text" name="titulo" placeholder="Ex.: Estudo em grupo, apresentação, projeto integrador"
+              required />
+          </label>
+
+          <div class="lab-form-row">
+            <label>
+              <span>Responsável</span>
+              <input type="text" name="responsavel_nome" placeholder="Seu nome" readonly required />
+            </label>
+            <label>
+              <span>Matrícula</span>
+              <input type="text" name="responsavel_matricula" inputmode="numeric" placeholder="Sua matrícula"
+                required />
+            </label>
+          </div>
+
+          <label>
+            <span>E-mail da conta</span>
+            <input type="email" name="responsavel_email" placeholder="seu.email@exemplo.com" readonly required />
+          </label>
+
+          <label>
+            <span>Finalidade</span>
+            <textarea name="finalidade" rows="4" placeholder="Explique rapidamente para que o laboratório será usado."
+              required></textarea>
+          </label>
+
+          <button class="btn btn-primary" type="submit">Enviar solicitação</button>
+          <div class="lab-form-feedback" data-lab-request-status role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer institutional-footer">
+    <div class="container footer-main">
+      <a class="footer-gov-mark" href="index.html"
+        aria-label="Página inicial do curso de Engenharia de Software do IFPE">
+        IFPE
+      </a>
+
+      <div class="footer-columns" aria-label="Mapa de navegação do rodapé">
+        <nav class="footer-column" aria-label="Links sobre o curso">
+          <h2>Curso</h2>
+          <a href="sobre.html">Sobre o curso</a>
+          <a href="ingresso.html">Formas de ingresso</a>
+          <a href="grade.html">Grade curricular</a>
+          <a href="mercado.html">Mercado e estágio</a>
+        </nav>
+
+        <nav class="footer-column" aria-label="Links de vida acadêmica">
+          <h2>Vida acadêmica</h2>
+          <a href="eventos-noticias.html">Eventos e notícias</a>
+          <a href="projetos.html">Projetos</a>
+          <a href="editais.html">Editais</a>
+          <a href="outros-servicos.html">Outros serviços</a>
+          <a href="area-aluno.html">Área do aluno</a>
+          <a href="horarios.html">Horário de aulas</a>
+          <a href="laboratorios.html">Horário dos laboratórios</a>
+          <a href="calendario.html">Calendário acadêmico</a>
+          <a href="faq.html">Dúvidas frequentes</a>
+        </nav>
+
+        <nav class="footer-column" aria-label="Links de estrutura do curso">
+          <h2>Estrutura</h2>
+          <a href="estrutura.html">Ambientes e infraestrutura</a>
+          <a href="docentes.html">Corpo docente</a>
+          <a href="contato.html">Coordenação e contato</a>
+        </nav>
+
+        <div class="footer-column" aria-label="Informações institucionais">
+          <h2>Atendimento</h2>
+          <span>Coordenação do curso: a confirmar</span>
+          <span>E-mail institucional: a confirmar</span>
+          <span>WhatsApp/telefone: a confirmar</span>
+          <span>IFPE Campus Belo Jardim</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <small>© <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim. Conteúdo institucional
+          em versão demonstrativa.</small>
+        <button class="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/dados.js"></script>
+  <script type="module" src="assets/js/laboratorios-publico.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>

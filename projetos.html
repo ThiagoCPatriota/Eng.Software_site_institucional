@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Projetos de extensão, pesquisa e inovação do curso de Engenharia de Software do IFPE Campus Belo Jardim." />
+  <meta name="description" content="Projetos de pesquisa, extensão e inovação do curso de Engenharia de Software do IFPE Campus Belo Jardim." />
   <meta name="author" content="Projeto final da disciplina de Web" />
   <meta name="theme-color" content="#0b2a4a" />
   <meta name="robots" content="index, follow" />
@@ -33,6 +33,7 @@
 
       <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
         <a href="index.html" data-nav="inicio">Início</a>
+        <a href="eventos-noticias.html" data-nav="eventos">Notícias</a>
 
         <details class="nav-group" data-nav-group="curso">
           <summary>Curso</summary>
@@ -44,7 +45,14 @@
           </div>
         </details>
 
-        <a href="projetos.html" data-nav="projetos">Projetos</a>
+        <details class="nav-group" data-nav-group="geral">
+          <summary>Geral</summary>
+          <div class="nav-dropdown">
+            <a href="projetos.html" data-nav="projetos">Projetos</a>
+            <a href="editais.html" data-nav="editais">Editais</a>
+            <a href="outros-servicos.html" data-nav="servicos">Outros serviços</a>
+          </div>
+        </details>
 
         <details class="nav-group" data-nav-group="estrutura">
           <summary>Estrutura</summary>
@@ -58,6 +66,8 @@
           <summary>Aluno</summary>
           <div class="nav-dropdown">
             <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
+            <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
+            <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
             <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
           </div>
         </details>
@@ -69,11 +79,13 @@
             <a href="faq.html" data-nav="faq">FAQ</a>
           </div>
         </details>
+
+        <a class="nav-access-button" href="admin/login.html" data-nav="acesso">Acesso</a>
       </nav>
     </div>
   </header>
 
-<main id="conteudo">
+  <main id="conteudo">
     <section class="page-hero projects-page-hero" aria-labelledby="titulo-projetos">
       <div class="container projects-hero-single">
         <div class="page-hero-content reveal">
@@ -83,34 +95,14 @@
             <span>Projetos</span>
           </nav>
           <span class="eyebrow">Projetos e inovação</span>
-          <h1 id="titulo-projetos">Projetos, pesquisa, extensão e inovação.</h1>
+          <h1 id="titulo-projetos">Pesquisa, extensão e inovação em movimento.</h1>
           <p>
-            A formação em Engenharia de Software vai além da sala de aula, conectando estudantes a pesquisa, extensão, inovação e projetos construídos a partir de desafios reais.
+            Consulte projetos aprovados de pesquisa, extensão e inovação e envie propostas para análise da administração.
           </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section radar-section" id="radar-projetos" aria-labelledby="titulo-radar-projetos">
-      <div class="container radar-layout">
-        <div class="radar-copy reveal">
-          <span class="eyebrow">Radar do curso</span>
-          <h2 id="titulo-radar-projetos">Um bloco vivo para acontecimentos recentes.</h2>
-          <p>
-            A ideia é simular o espaço que no futuro poderá ser alimentado pela administração: eventos, oficinas, notícias, projetos e chamadas rápidas.
-          </p>
-        </div>
-
-        <div class="news-ticker reveal" aria-label="Acontecimentos demonstrativos em movimento">
-          <div class="ticker-track">
-            <article class="ticker-item"><span>Evento</span><strong>Semana Acadêmica reúne palestras, minicursos e apresentações.</strong><small>Data demonstrativa</small></article>
-            <article class="ticker-item"><span>Projeto</span><strong>Estudantes apresentam protótipos de soluções digitais para problemas reais.</strong><small>Atualização futura por administração</small></article>
-            <article class="ticker-item"><span>Extensão</span><strong>Oficinas de tecnologia aproximam o curso da comunidade.</strong><small>Conteúdo a confirmar</small></article>
-            <article class="ticker-item"><span>Pesquisa</span><strong>Iniciação científica e estudos aplicados ganham espaço de divulgação.</strong><small>Modelo visual</small></article>
-            <article class="ticker-item"><span>Evento</span><strong>Semana Acadêmica reúne palestras, minicursos e apresentações.</strong><small>Data demonstrativa</small></article>
-            <article class="ticker-item"><span>Projeto</span><strong>Estudantes apresentam protótipos de soluções digitais para problemas reais.</strong><small>Atualização futura por administração</small></article>
-            <article class="ticker-item"><span>Extensão</span><strong>Oficinas de tecnologia aproximam o curso da comunidade.</strong><small>Conteúdo a confirmar</small></article>
-            <article class="ticker-item"><span>Pesquisa</span><strong>Iniciação científica e estudos aplicados ganham espaço de divulgação.</strong><small>Modelo visual</small></article>
+          <div class="projects-hero-actions">
+            <a class="btn btn-primary" href="#enviar-proposta">Enviar proposta</a>
+            <a class="btn btn-secondary" href="#mural-projetos">Ver mural</a>
+            <a class="btn btn-secondary" href="#monitorias">Ver monitorias</a>
           </div>
         </div>
       </div>
@@ -119,41 +111,41 @@
     <section class="section projects-intro" aria-labelledby="titulo-trilhas-projetos">
       <div class="container">
         <div class="section-heading centered reveal">
-          <span class="eyebrow">Projetos</span>
+          <span class="eyebrow">Trilhas do curso</span>
           <h2 id="titulo-trilhas-projetos">Três caminhos para aprender fazendo.</h2>
-          <p>Os cards abaixo organizam a proposta da página em extensão, pesquisa e projetos integradores, mantendo linguagem institucional e conteúdo adaptável.</p>
+          <p>As propostas podem ser enviadas como pesquisa, extensão ou inovação. Depois da análise, projetos aprovados aparecem no mural.</p>
         </div>
 
         <div class="project-type-grid">
+          <article class="project-type-card reveal" id="pesquisa">
+            <span>Pesquisa</span>
+            <h3>Investigação, iniciação científica e produção acadêmica</h3>
+            <p>Projetos voltados a estudo, experimentação, levantamento, prototipação científica e produção de conhecimento em Engenharia de Software.</p>
+            <ul>
+              <li>Iniciação científica</li>
+              <li>Estudos orientados</li>
+              <li>Problemas de software e dados</li>
+            </ul>
+          </article>
+
           <article class="project-type-card reveal" id="extensao">
             <span>Extensão</span>
             <h3>Comunidade, oficinas e inclusão digital</h3>
-            <p>Ações que aproximam estudantes da comunidade, com tecnologia social, cidadania digital, oficinas e soluções voltadas a necessidades reais.</p>
+            <p>Ações que conectam estudantes, campus e comunidade por meio de tecnologia social, cidadania digital e formação prática.</p>
             <ul>
-              <li>Oficinas introdutórias</li>
+              <li>Oficinas e minicursos</li>
               <li>Ações com escolas e comunidade</li>
               <li>Projetos de impacto social</li>
             </ul>
           </article>
 
-          <article class="project-type-card reveal" id="pesquisa">
-            <span>Pesquisa</span>
-            <h3>Investigação, iniciação científica e produção acadêmica</h3>
-            <p>Espaço para divulgar estudos, grupos, iniciação científica, resultados de trabalhos e temas relacionados à Engenharia de Software.</p>
-            <ul>
-              <li>Estudos orientados</li>
-              <li>Produção acadêmica</li>
-              <li>Problemas de software e inovação</li>
-            </ul>
-          </article>
-
-          <article class="project-type-card reveal" id="projetos-integradores">
-            <span>Integradores</span>
-            <h3>Soluções práticas construídas pelos estudantes</h3>
-            <p>Trabalhos que conectam disciplinas, requisitos, desenvolvimento, testes, documentação e apresentação de produtos digitais.</p>
+          <article class="project-type-card reveal" id="inovacao">
+            <span>Inovação</span>
+            <h3>Protótipos, produtos e soluções digitais</h3>
+            <p>Propostas que transformam ideias em soluções, MVPs, ferramentas, automações, serviços digitais ou experiências tecnológicas.</p>
             <ul>
               <li>Protótipos e sistemas</li>
-              <li>Trabalho em equipe</li>
+              <li>Soluções para problemas reais</li>
               <li>Validação e apresentação</li>
             </ul>
           </article>
@@ -161,16 +153,173 @@
       </div>
     </section>
 
+    <section class="section monitorias-section" id="monitorias" aria-labelledby="titulo-monitorias">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Monitoria</span>
+          <h2 id="titulo-monitorias">Oportunidades de monitoria disponíveis.</h2>
+          <p>Consulte oportunidades cadastradas pela administração para apoio acadêmico, disciplinas, áreas de estudo e atividades do curso.</p>
+        </div>
+
+        <div class="project-filter-bar reveal" aria-label="Filtro de monitorias">
+          <button class="is-active" type="button" data-monitoria-public-filter="todos">Todas</button>
+          <button type="button" data-monitoria-public-filter="bolsista">Bolsistas</button>
+          <button type="button" data-monitoria-public-filter="voluntaria">Voluntárias</button>
+          <button type="button" data-monitoria-public-filter="mista">Bolsista/voluntária</button>
+        </div>
+
+        <div class="monitorias-grid" data-monitorias-list></div>
+        <div class="projects-empty-state" data-monitorias-empty>Nenhuma oportunidade de monitoria encontrada para este filtro.</div>
+      </div>
+    </section>
+
+    <section class="section approved-projects-section" id="mural-projetos" aria-labelledby="titulo-mural-projetos">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Mural de projetos</span>
+          <h2 id="titulo-mural-projetos">Projetos aprovados pela administração.</h2>
+          <p>Visualização pública com informações essenciais, sem expor documentação ou detalhes sensíveis enviados pelos estudantes.</p>
+        </div>
+
+        <div class="project-filter-bar reveal" aria-label="Filtro de projetos aprovados">
+          <button class="is-active" type="button" data-project-filter="todos">Todos</button>
+          <button type="button" data-project-filter="pesquisa">Pesquisa</button>
+          <button type="button" data-project-filter="extensao">Extensão</button>
+          <button type="button" data-project-filter="inovacao">Inovação</button>
+        </div>
+
+        <div class="approved-projects-grid" data-projects-public-list></div>
+        <div class="projects-empty-state" data-projects-public-empty>
+          Nenhum projeto aprovado encontrado para este filtro.
+        </div>
+      </div>
+    </section>
+
+    <section class="section project-submit-section" id="enviar-proposta" aria-labelledby="titulo-enviar-proposta">
+      <div class="container project-submit-layout">
+        <div class="project-submit-copy reveal">
+          <span class="eyebrow">Envio de proposta</span>
+          <h2 id="titulo-enviar-proposta">Solicite a análise de um projeto.</h2>
+          <p>
+            O estudante envia os dados principais e a documentação do projeto. A administração analisa, pode pedir ajustes, recusar ou aprovar a proposta para publicação no mural.
+          </p>
+
+          <div class="project-flow-card">
+            <strong>Fluxo de aprovação</strong>
+            <ol>
+              <li>Aluno envia proposta com documentação.</li>
+              <li>Administração revisa dados e arquivo.</li>
+              <li>Projeto pode ser aprovado, recusado ou voltar com feedback.</li>
+              <li>Apenas aprovados aparecem no mural público.</li>
+            </ol>
+          </div>
+        </div>
+
+        <aside class="project-login-required" data-project-login-required hidden>
+          <strong>Login necessário.</strong>
+          <p>Entre com sua conta de estudante para enviar uma proposta vinculada ao seu nome, e-mail e matrícula.</p>
+          <a class="btn btn-primary" href="admin/login.html?redirect=..%2Fprojetos.html%23enviar-proposta">Entrar ou criar conta</a>
+        </aside>
+
+        <div class="project-form-shell reveal" data-project-form-shell hidden>
+          <div class="project-profile-card" aria-label="Perfil vinculado ao envio">
+            <span>Responsável pela proposta</span>
+            <strong data-profile-name>Carregando...</strong>
+            <small><b>E-mail:</b> <span data-profile-email>carregando</span></small>
+            <small><b>Matrícula:</b> <span data-profile-enrollment>carregando</span></small>
+          </div>
+
+          <form class="project-proposal-form" data-project-submit-form>
+            <input type="hidden" name="responsavel_nome" />
+            <input type="hidden" name="responsavel_email" />
+            <input type="hidden" name="responsavel_matricula" />
+
+            <label>
+              <span>Título do projeto</span>
+              <input type="text" name="titulo" placeholder="Ex.: Plataforma de apoio a projetos acadêmicos" required />
+            </label>
+
+            <label>
+              <span>Eixo</span>
+              <select name="eixo" required>
+                <option value="pesquisa">Pesquisa</option>
+                <option value="extensao">Extensão</option>
+                <option value="inovacao">Inovação</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Resumo público</span>
+              <textarea name="resumo" rows="3" placeholder="Resumo curto para o mural, caso o projeto seja aprovado." required></textarea>
+            </label>
+
+            <label>
+              <span>Descrição da proposta</span>
+              <textarea name="descricao" rows="4" placeholder="Explique a proposta, contexto, problema e ideia geral." required></textarea>
+            </label>
+
+            <label>
+              <span>Objetivo</span>
+              <textarea name="objetivo" rows="3" placeholder="Qual é o objetivo principal do projeto?"></textarea>
+            </label>
+
+            <div class="project-form-row">
+              <label>
+                <span>Orientador(a) ou setor</span>
+                <input type="text" name="orientador" placeholder="Opcional" />
+              </label>
+              <label>
+                <span>Equipe</span>
+                <input type="text" name="equipe" placeholder="Integrantes, se houver" />
+              </label>
+            </div>
+
+            <div class="project-form-row">
+              <label>
+                <span>Público-alvo</span>
+                <input type="text" name="publico_alvo" placeholder="Comunidade, estudantes, escolas..." />
+              </label>
+              <label>
+                <span>Palavras-chave</span>
+                <input type="text" name="palavras_chave" placeholder="software, educação, inovação" />
+              </label>
+            </div>
+
+            <label class="project-file-field">
+              <span>Documentação do projeto</span>
+              <input type="file" name="documento" accept=".pdf,.doc,.docx,.odt,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/plain" required />
+              <small>Formatos aceitos: PDF, DOC, DOCX, ODT ou TXT. Tamanho máximo: 15 MB.</small>
+            </label>
+
+            <button class="btn btn-primary" type="submit">Enviar proposta</button>
+            <p class="project-form-status" data-project-form-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="section my-projects-section" data-my-projects-shell hidden aria-labelledby="titulo-minhas-propostas">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Acompanhamento</span>
+          <h2 id="titulo-minhas-propostas">Minhas propostas enviadas.</h2>
+          <p>Aqui aparecem os retornos da administração para as propostas vinculadas à sua conta.</p>
+        </div>
+        <div class="my-projects-grid" data-my-projects-list></div>
+        <div class="projects-empty-state" data-my-projects-empty>Você ainda não enviou propostas.</div>
+      </div>
+    </section>
+
     <section class="section next-step-section" aria-labelledby="titulo-proxima-etapa-projetos">
       <div class="container next-step reveal">
         <div>
           <span class="eyebrow">Continue explorando</span>
-          <h2 id="titulo-proxima-etapa-projetos">Depois de conhecer as trilhas de projetos, o visitante pode falar com a coordenação ou acompanhar a vida acadêmica.</h2>
-          <p>Esta página fica preparada para, futuramente, receber projetos cadastrados e aprovados pela administração do site.</p>
+          <h2 id="titulo-proxima-etapa-projetos">Depois de conhecer os projetos, acompanhe eventos e a vida acadêmica do curso.</h2>
+          <p>Eventos, horários, laboratórios e calendário ajudam estudantes a organizar atividades, aulas e propostas futuras.</p>
         </div>
         <div class="next-actions">
-          <a class="btn btn-primary" href="contato.html">Falar com a coordenação</a>
-          <a class="btn btn-secondary" href="calendario.html">Ver calendário</a>
+          <a class="btn btn-primary" href="eventos-noticias.html">Ver eventos e notícias</a>
+          <a class="btn btn-secondary" href="laboratorios.html">Ver laboratórios</a>
         </div>
       </div>
     </section>
@@ -193,8 +342,13 @@
 
         <nav class="footer-column" aria-label="Links de vida acadêmica">
           <h2>Vida acadêmica</h2>
-          <a href="projetos.html">Projetos e eventos</a>
+          <a href="eventos-noticias.html">Eventos e notícias</a>
+          <a href="projetos.html">Projetos</a>
+          <a href="editais.html">Editais</a>
+          <a href="outros-servicos.html">Outros serviços</a>
           <a href="area-aluno.html">Área do aluno</a>
+          <a href="horarios.html">Horário de aulas</a>
+          <a href="laboratorios.html">Horário dos laboratórios</a>
           <a href="calendario.html">Calendário acadêmico</a>
           <a href="faq.html">Dúvidas frequentes</a>
         </nav>
@@ -246,7 +400,9 @@
     </div>
   </footer>
 
-
   <script src="assets/js/script.js"></script>
+  <script type="module" src="assets/js/site-auth.js"></script>
+  <script type="module" src="assets/js/projetos-publico.js"></script>
+  <script type="module" src="assets/js/monitorias-publico.js"></script>
 </body>
 </html>

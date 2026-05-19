@@ -1,0 +1,74 @@
+@import url("./projetos.css");
+
+.editais-page-hero {
+  background: radial-gradient(circle at 12% 20%, rgba(45, 156, 219, 0.14), transparent 34%), linear-gradient(135deg, #f7fbff 0%, #edf7f2 100%);
+}
+
+.editais-section {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f9fd 100%);
+}
+
+.editais-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.edital-card {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  border: 1px solid rgba(210, 222, 233, 0.92);
+  border-radius: 28px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 22px 54px rgba(11, 42, 74, 0.08);
+}
+
+.edital-topline,
+.edital-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.edital-topline span,
+.edital-meta span {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: var(--color-ifpe-soft);
+  color: var(--color-ifpe-dark);
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.edital-topline small {
+  color: var(--color-muted);
+  font-weight: 850;
+}
+
+.edital-card h3 {
+  color: var(--color-primary);
+  font-size: clamp(1.22rem, 2vw, 1.7rem);
+  line-height: 1.12;
+}
+
+.edital-card p {
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.edital-description {
+  border-left: 3px solid rgba(45, 156, 219, 0.28);
+  padding-left: 12px;
+}
+
+@media (max-width: 1180px) {
+  .editais-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .editais-grid { grid-template-columns: 1fr; }
+}

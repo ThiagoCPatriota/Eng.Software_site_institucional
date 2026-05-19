@@ -1,0 +1,615 @@
+.lab-hero {
+  background:
+    radial-gradient(circle at 88% 18%, rgba(25, 135, 84, 0.18), transparent 32%),
+    linear-gradient(135deg, #f7fbff 0%, #eef7fb 52%, #f4fbf5 100%);
+}
+.lab-hero .page-hero-grid {
+  grid-template-columns: minmax(0, 980px);
+  gap: 0;
+}
+
+.lab-hero .page-hero-content p {
+  max-width: 760px;
+}
+
+.lab-hero-card,
+.lab-request-form,
+.lab-control-panel,
+.lab-group-card,
+.lab-card-mini {
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 70px rgba(11, 42, 74, 0.1);
+}
+
+.lab-hero-card {
+  display: grid;
+  gap: 16px;
+  padding: clamp(24px, 4vw, 38px);
+}
+
+.lab-hero-card strong {
+  color: var(--color-primary);
+  font-size: clamp(1.4rem, 3vw, 2.15rem);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+}
+
+.lab-hero-card p,
+.lab-card-mini p,
+.lab-group-card p,
+.lab-reservation-card p,
+.lab-request-section p {
+  color: var(--color-muted);
+}
+
+.lab-mini-stack {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.lab-mini-stack span {
+  min-height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: var(--color-bg);
+  color: var(--color-primary);
+  font-weight: 900;
+}
+
+.lab-section,
+.lab-request-section {
+  background: #f7fbff;
+}
+
+.lab-control-panel {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 16px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.lab-control-panel label,
+.lab-request-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--color-primary);
+  font-weight: 850;
+}
+
+.lab-control-panel span,
+.lab-request-form span {
+  font-size: 0.9rem;
+}
+
+.lab-control-panel select,
+.lab-control-panel input,
+.lab-request-form select,
+.lab-request-form input,
+.lab-request-form textarea {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: #fff;
+  color: var(--color-text);
+  padding: 0 14px;
+  outline: none;
+}
+
+.lab-request-form textarea {
+  min-height: 130px;
+  padding-block: 14px;
+  resize: vertical;
+}
+
+.lab-status,
+.lab-form-feedback {
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 14px 16px;
+  background: #fff;
+  color: var(--color-muted);
+  font-weight: 800;
+}
+
+.lab-status.is-error,
+.lab-form-feedback.is-error {
+  border-color: rgba(194, 65, 12, 0.28);
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+.lab-status.is-success,
+.lab-form-feedback.is-success {
+  border-color: rgba(25, 135, 84, 0.26);
+  background: var(--color-ifpe-soft);
+  color: var(--color-ifpe-dark);
+}
+
+.lab-strip,
+.lab-reservation-rail {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 16px 2px 22px;
+  cursor: grab;
+  scroll-snap-type: x proximity;
+}
+
+.lab-strip.is-grabbing,
+.lab-reservation-rail.is-grabbing {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.lab-card-mini {
+  min-width: 260px;
+  scroll-snap-align: start;
+  padding: 20px;
+}
+
+.lab-card-mini span,
+.lab-group-card header > span,
+.lab-reservation-topline span {
+  width: fit-content;
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.76rem;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lab-card-mini strong {
+  display: block;
+  margin-top: 12px;
+  color: var(--color-primary);
+  font-size: 1.18rem;
+}
+
+.lab-card-mini small {
+  color: var(--color-muted);
+  font-weight: 750;
+}
+
+.lab-board {
+  display: grid;
+  gap: 22px;
+  margin-top: 8px;
+}
+
+.lab-group-card {
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.lab-group-card header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.lab-group-card h3 {
+  color: var(--color-primary);
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+}
+
+.lab-reservation-card {
+  min-width: 290px;
+  max-width: 320px;
+  scroll-snap-align: start;
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid rgba(11, 42, 74, 0.12);
+  border-radius: 22px;
+  background: linear-gradient(180deg, #fff 0%, #f8fbff 100%);
+}
+
+.lab-reservation-card.is-manutencao {
+  background: linear-gradient(180deg, #fff7ed 0%, #fff 100%);
+}
+
+.lab-reservation-card.is-indisponivel {
+  background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+}
+
+.lab-reservation-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lab-reservation-topline strong {
+  color: var(--color-ifpe-dark);
+}
+
+.lab-reservation-card h3 {
+  color: var(--color-primary);
+  font-size: 1.2rem;
+}
+
+.lab-reservation-card footer {
+  display: grid;
+  gap: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 0.88rem;
+}
+
+.lab-reservation-card footer strong {
+  color: var(--color-primary);
+}
+
+.lab-empty-state {
+  border: 1px dashed rgba(11, 42, 74, 0.22);
+  border-radius: 24px;
+  padding: 28px;
+  background: #fff;
+  color: var(--color-muted);
+  font-weight: 850;
+  text-align: center;
+}
+
+.lab-request-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.82fr) minmax(440px, 1.18fr);
+  grid-template-areas:
+    "intro form"
+    "notice form";
+  gap: clamp(18px, 3vw, 34px) clamp(32px, 6vw, 72px);
+  align-items: start;
+}
+
+.lab-request-layout > .section-heading {
+  grid-area: intro;
+  max-width: 520px;
+}
+
+.lab-request-layout > .section-heading h2 {
+  max-width: 11ch;
+}
+
+.lab-request-layout > .section-heading p {
+  max-width: 48ch;
+}
+
+.lab-request-layout > .lab-auth-gate {
+  grid-area: notice;
+  max-width: 560px;
+}
+
+.lab-request-form {
+  grid-area: form;
+  display: grid;
+  gap: 16px;
+  width: min(100%, 680px);
+  justify-self: end;
+  padding: clamp(24px, 4vw, 38px);
+}
+
+.lab-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 1020px) {
+  .lab-request-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "intro"
+      "notice"
+      "form";
+  }
+
+  .lab-request-layout > .section-heading,
+  .lab-request-layout > .lab-auth-gate,
+  .lab-request-form {
+    max-width: none;
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .lab-request-layout > .section-heading h2,
+  .lab-request-layout > .section-heading p {
+    max-width: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .lab-control-panel,
+  .lab-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .lab-mini-stack {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lab-auth-gate {
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--color-muted);
+  box-shadow: 0 18px 48px rgba(11, 42, 74, 0.08);
+}
+
+.lab-request-layout .lab-auth-gate {
+  position: relative;
+  overflow: hidden;
+  padding: 22px 24px 22px 26px;
+}
+
+.lab-request-layout .lab-auth-gate::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  background: rgba(245, 158, 11, 0.78);
+}
+
+.lab-auth-gate:empty {
+  display: none;
+}
+
+.lab-auth-gate strong {
+  color: var(--color-primary);
+  font-size: 1.05rem;
+}
+
+.lab-auth-gate span {
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+
+.lab-auth-gate .btn {
+  width: fit-content;
+  margin-top: 4px;
+}
+
+.lab-auth-gate.is-warning {
+  border-color: rgba(245, 158, 11, 0.32);
+  background: #fffbeb;
+}
+
+.lab-auth-gate.is-success {
+  border-color: rgba(25, 135, 84, 0.26);
+  background: var(--color-ifpe-soft);
+}
+
+.lab-auth-gate.is-error {
+  border-color: rgba(194, 65, 12, 0.28);
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+.lab-request-form input[readonly] {
+  background: #f8fbff;
+  color: var(--color-primary);
+  font-weight: 850;
+  cursor: not-allowed;
+}
+
+/* RF Laboratórios: visualização semanal limpa */
+.lab-calendar-card,
+.lab-identity-card {
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 24px 70px rgba(11, 42, 74, 0.1);
+}
+
+.lab-calendar-card {
+  overflow: hidden;
+}
+
+.lab-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(18px, 3vw, 26px);
+  background: linear-gradient(135deg, #ffffff 0%, #f2f9ff 100%);
+}
+
+.lab-calendar-header div {
+  display: grid;
+  gap: 6px;
+}
+
+.lab-calendar-header span {
+  width: fit-content;
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lab-calendar-header h3 {
+  color: var(--color-primary);
+  font-size: clamp(1.35rem, 2.7vw, 2rem);
+}
+
+.lab-calendar-header strong {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 9px 12px;
+  background: var(--color-bg);
+  color: var(--color-primary);
+  font-size: 0.82rem;
+}
+
+.lab-calendar-wrap {
+  overflow: auto;
+  max-height: 76vh;
+}
+
+.lab-calendar-table {
+  width: 100%;
+  min-width: 1060px;
+  border-collapse: collapse;
+}
+
+.lab-calendar-table th,
+.lab-calendar-table td {
+  border: 1px solid rgba(11, 42, 74, 0.12);
+  padding: 11px;
+  vertical-align: top;
+}
+
+.lab-calendar-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lab-calendar-table th:first-child {
+  width: 128px;
+}
+
+.lab-calendar-table tr.is-break-row td {
+  background: #fffbeb;
+}
+
+.lab-calendar-time {
+  color: var(--color-primary);
+  font-weight: 950;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lab-schedule-entry {
+  display: grid;
+  gap: 5px;
+  border: 1px solid rgba(45, 156, 219, 0.28);
+  border-radius: 18px;
+  padding: 11px;
+  background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+  color: var(--color-primary);
+}
+
+.lab-schedule-entry.is-manutencao {
+  border-color: rgba(245, 158, 11, 0.32);
+  background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
+}
+
+.lab-schedule-entry.is-indisponivel {
+  border-color: rgba(100, 116, 139, 0.24);
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+}
+
+.lab-schedule-entry strong {
+  line-height: 1.15;
+  font-size: 0.92rem;
+}
+
+.lab-schedule-entry span,
+.lab-schedule-entry small,
+.lab-schedule-entry p {
+  color: var(--color-muted);
+  line-height: 1.35;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.lab-schedule-entry p {
+  margin: 0;
+}
+
+.lab-empty-cell,
+.lab-break-cell {
+  min-height: 54px;
+  display: grid;
+  place-items: center;
+  border: 1px dashed rgba(11, 42, 74, 0.14);
+  border-radius: 16px;
+  color: #94a3b8;
+  font-weight: 900;
+}
+
+.lab-break-cell {
+  color: var(--color-ifpe-dark);
+  background: var(--color-ifpe-soft);
+}
+
+.lab-identity-card {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(45, 156, 219, 0.12), transparent 32%),
+    #ffffff;
+}
+
+.lab-identity-card span {
+  color: var(--color-ifpe-dark);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lab-identity-card strong {
+  color: var(--color-primary);
+  font-size: 1.15rem;
+}
+
+.lab-identity-card small {
+  color: var(--color-muted);
+  font-weight: 760;
+}
+
+.lab-identity-card div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: var(--color-bg);
+}
+
+.lab-identity-card b {
+  color: var(--color-primary);
+}
+
+.lab-identity-card em {
+  color: var(--color-ifpe-dark);
+  font-style: normal;
+  font-weight: 950;
+}
+
+@media (max-width: 760px) {
+  .lab-calendar-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .lab-calendar-header strong {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Editais de moradia, manutenção, auxílios, seleção e comunicados do curso de Engenharia de Software." />
+  <meta name="author" content="Projeto final da disciplina de Web" />
+  <meta name="theme-color" content="#0b2a4a" />
+  <meta name="robots" content="index, follow" />
+  <title>Editais | Engenharia de Software - IFPE Campus Belo Jardim</title>
+  <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/pages/editais.css" />
+</head>
+<body data-page="editais">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="site-header" id="topo">
+    <div class="container header-wrapper">
+      <a class="brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+        <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="brand-mark" />
+        <span class="brand-text">
+          <strong>IFPE</strong>
+          <span>Engenharia de Software</span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
+        <a href="index.html" data-nav="inicio">Início</a>
+        <a href="eventos-noticias.html" data-nav="eventos">Notícias</a>
+
+        <details class="nav-group" data-nav-group="curso">
+          <summary>Curso</summary>
+          <div class="nav-dropdown">
+            <a href="sobre.html" data-nav="sobre">Sobre o curso</a>
+            <a href="ingresso.html" data-nav="ingresso">Formas de ingresso</a>
+            <a href="grade.html" data-nav="grade">Grade curricular</a>
+            <a href="mercado.html" data-nav="mercado">Mercado e estágio</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="geral">
+          <summary>Geral</summary>
+          <div class="nav-dropdown">
+            <a href="projetos.html" data-nav="projetos">Projetos</a>
+            <a href="editais.html" data-nav="editais">Editais</a>
+            <a href="outros-servicos.html" data-nav="servicos">Outros serviços</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="estrutura">
+          <summary>Estrutura</summary>
+          <div class="nav-dropdown">
+            <a href="estrutura.html" data-nav="estrutura">Ambientes</a>
+            <a href="docentes.html" data-nav="docentes">Docentes</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="aluno">
+          <summary>Aluno</summary>
+          <div class="nav-dropdown">
+            <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
+            <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
+            <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
+            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="atendimento">
+          <summary>Contato</summary>
+          <div class="nav-dropdown">
+            <a href="contato.html" data-nav="contato">Coordenação e contato</a>
+            <a href="faq.html" data-nav="faq">FAQ</a>
+          </div>
+        </details>
+
+        <a class="nav-access-button" href="admin/login.html" data-nav="acesso">Acesso</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="page-hero editais-page-hero" aria-labelledby="titulo-editais">
+      <div class="container projects-hero-single">
+        <div class="page-hero-content reveal">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Início</a><span>•</span><span>Editais</span></nav>
+          <span class="eyebrow">Editais</span>
+          <h1 id="titulo-editais">Editais e comunicados para a comunidade acadêmica.</h1>
+          <p>Consulte editais relacionados a moradia, manutenção, auxílios, seleção e outros comunicados publicados pela administração do curso.</p>
+          <div class="projects-hero-actions"><a class="btn btn-primary" href="#lista-editais">Ver editais</a><a class="btn btn-secondary" href="ingresso.html">Ver ingresso</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section editais-section" id="lista-editais" aria-labelledby="titulo-lista-editais">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Publicações oficiais</span>
+          <h2 id="titulo-lista-editais">Editais disponíveis.</h2>
+          <p>Filtre por categoria e abra o documento ou link oficial quando estiver disponível.</p>
+        </div>
+        <div class="project-filter-bar reveal" aria-label="Filtro de editais">
+          <button class="is-active" type="button" data-edital-public-filter="todos">Todos</button>
+          <button type="button" data-edital-public-filter="moradia">Moradia</button>
+          <button type="button" data-edital-public-filter="manutencao">Manutenção</button>
+          <button type="button" data-edital-public-filter="auxilio">Auxílios</button>
+          <button type="button" data-edital-public-filter="selecao">Seleção</button>
+          <button type="button" data-edital-public-filter="geral">Geral</button>
+        </div>
+        <div class="editais-grid" data-editais-list></div>
+        <div class="projects-empty-state" data-editais-empty>Nenhum edital encontrado para este filtro.</div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="assets/js/editais-publico.js"></script>
+
+  <footer class="site-footer institutional-footer">
+    <div class="container footer-main">
+      <a class="footer-gov-mark" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE">
+        IFPE
+      </a>
+
+      <div class="footer-columns" aria-label="Mapa de navegação do rodapé">
+        <nav class="footer-column" aria-label="Links sobre o curso">
+          <h2>Curso</h2>
+          <a href="sobre.html">Sobre o curso</a>
+          <a href="ingresso.html">Formas de ingresso</a>
+          <a href="grade.html">Grade curricular</a>
+          <a href="mercado.html">Mercado e estágio</a>
+        </nav>
+
+        <nav class="footer-column" aria-label="Links de vida acadêmica">
+          <h2>Vida acadêmica</h2>
+          <a href="eventos-noticias.html">Eventos e notícias</a>
+          <a href="projetos.html">Projetos</a>
+          <a href="editais.html">Editais</a>
+          <a href="outros-servicos.html">Outros serviços</a>
+          <a href="area-aluno.html">Área do aluno</a>
+          <a href="horarios.html">Horário de aulas</a>
+          <a href="laboratorios.html">Horário dos laboratórios</a>
+          <a href="calendario.html">Calendário acadêmico</a>
+          <a href="faq.html">Dúvidas frequentes</a>
+        </nav>
+
+        <nav class="footer-column" aria-label="Links de estrutura do curso">
+          <h2>Estrutura</h2>
+          <a href="estrutura.html">Ambientes e infraestrutura</a>
+          <a href="docentes.html">Corpo docente</a>
+          <a href="contato.html">Coordenação e contato</a>
+        </nav>
+
+        <div class="footer-column" aria-label="Informações institucionais">
+          <h2>Atendimento</h2>
+          <span>Coordenação do curso: a confirmar</span>
+          <span>E-mail institucional: a confirmar</span>
+          <span>WhatsApp/telefone: a confirmar</span>
+          <span>IFPE Campus Belo Jardim</span>
+        </div>
+      </div>
+
+      <div class="footer-support-row">
+        <div class="footer-social-block">
+          <h2>Canais institucionais</h2>
+          <div class="footer-socials" aria-label="Canais institucionais em modo demonstrativo">
+            <span>IFPE</span>
+            <span>ES</span>
+            <span>BJ</span>
+          </div>
+        </div>
+
+        <div class="footer-identity" aria-label="Identidade institucional do curso">
+          <a class="footer-seal" href="index.html" aria-label="Engenharia de Software IFPE Campus Belo Jardim">
+            <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software" />
+            <span>
+              <strong>Engenharia de Software</strong>
+              <small>IFPE Campus Belo Jardim</small>
+            </span>
+          </a>
+          <span class="footer-ifpe-wordmark">Instituto Federal de Pernambuco</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <small>© <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim. Conteúdo institucional em versão demonstrativa.</small>
+        <button class="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+  <script type="module" src="assets/js/site-auth.js"></script>
+</body>
+</html>

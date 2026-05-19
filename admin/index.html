@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Painel administrativo do site institucional de Engenharia de Software do IFPE Campus Belo Jardim." />
+  <meta name="theme-color" content="#0b2a4a" />
+  <title>Painel Admin | Engenharia de Software IFPE</title>
+  <link rel="icon" href="../assets/img/Eng_soft.png" type="image/png" />
+  <link rel="stylesheet" href="../assets/css/global.css" />
+  <link rel="stylesheet" href="../assets/css/pages/admin.css" />
+</head>
+
+<body class="admin-panel-page" data-page="admin">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <header class="admin-topbar">
+    <div class="admin-topbar-brand">
+      <a href="../index.html" aria-label="Voltar para a página inicial">
+        <img src="../assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software" />
+        <span>
+          <strong>Admin ES</strong>
+          <small>IFPE Belo Jardim</small>
+        </span>
+      </a>
+    </div>
+
+    <nav class="admin-topbar-nav admin-sidebar-nav" aria-label="Menu do painel administrativo">
+      <a class="is-active" href="index.html">Painel</a>
+
+      <details class="admin-nav-dropdown">
+        <summary>Geral</summary>
+        <div class="admin-subnav">
+        <a href="publicacoes.html">Publicações</a>
+        <a href="eventos.html">Notícias/Eventos</a>
+        <a href="projetos.html">Projetos</a>
+        <a href="monitorias.html">Monitorias</a>
+        </div>
+      </details>
+
+      <details class="admin-nav-dropdown">
+        <summary>Acadêmico</summary>
+        <div class="admin-subnav">
+          <a href="horarios.html">Horários</a>
+          <a href="laboratorios.html">Laboratórios</a>
+          <a href="docentes.html">Docentes</a>
+          <a href="grade.html">PPC / Grade</a>
+        </div>
+      </details>
+
+      <details class="admin-nav-dropdown">
+        <summary>Institucional</summary>
+        <div class="admin-subnav">
+        <a href="editais.html">Editais</a>
+        <a href="ingresso.html">Ingresso</a>
+        <a href="servicos.html">Serviços</a>
+        </div>
+      </details>
+
+      <div class="admin-nav-actions">
+        <a href="../index.html">Ver site</a>
+        <button type="button" data-admin-logout>Sair</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="conteudo" class="admin-main">
+    <section class="admin-hero-panel" aria-labelledby="titulo-painel">
+      <div>
+        <span class="admin-kicker">Painel administrativo</span>
+        <h1 id="titulo-painel">Central de gestão do site institucional.</h1>
+        <p>
+          Acesse os módulos de gestão do site: publicações, propostas, monitorias, editais, ingresso, serviços, horários, laboratórios, docentes, eventos e notícias institucionais.
+        </p>
+      </div>
+      <div class="admin-user-card" data-admin-user-card>
+        <span>Carregando usuário...</span>
+      </div>
+    </section>
+
+    <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
+
+    <section class="admin-grid" aria-label="Módulos administrativos">
+      <a class="admin-module-card" href="publicacoes.html">
+        <span class="admin-module-icon" aria-hidden="true">▦</span>
+        <small>Módulo 01</small>
+        <h2>Publicações e projetos</h2>
+        <p>Cadastre publicações gerais com status, visibilidade e destaque na home.</p>
+      </a>
+
+
+      <a class="admin-module-card" href="horarios.html">
+        <span class="admin-module-icon" aria-hidden="true">▤</span>
+        <small>Módulo 02</small>
+        <h2>Horários de aulas</h2>
+        <p>Cadastre aulas por período, turno, dia e horário para alimentar a página pública dos estudantes.</p>
+      </a>
+
+      <a class="admin-module-card" href="laboratorios.html">
+        <span class="admin-module-icon" aria-hidden="true">▥</span>
+        <small>Módulo 03</small>
+        <h2>Laboratórios</h2>
+        <p>Gerencie horários indisponíveis, reservas aprovadas e solicitações dos estudantes para uso dos laboratórios.</p>
+      </a>
+
+      <a class="admin-module-card" href="projetos.html">
+        <span class="admin-module-icon" aria-hidden="true">▧</span>
+        <small>Módulo 04</small>
+        <h2>Propostas de projetos</h2>
+        <p>Analise solicitações de pesquisa, extensão e inovação, confira documentos, envie feedback e publique no mural.</p>
+      </a>
+
+      <a class="admin-module-card" href="docentes.html">
+        <span class="admin-module-icon" aria-hidden="true">◌</span>
+        <small>Módulo 05</small>
+        <h2>Equipe docente</h2>
+        <p>Cadastre docentes, coordenação, histórico, áreas de atuação e contatos para alimentar a página pública do curso.</p>
+      </a>
+
+      <a class="admin-module-card" href="grade.html">
+        <span class="admin-module-icon" aria-hidden="true">▤</span>
+        <small>Módulo 11</small>
+        <h2>PPC e grade curricular</h2>
+        <p>Cadastre, edite e remova componentes curriculares do curso por período.</p>
+      </a>
+
+      <a class="admin-module-card" href="eventos.html">
+        <span class="admin-module-icon" aria-hidden="true">◈</span>
+        <small>Módulo 06</small>
+        <h2>Eventos e notícias</h2>
+        <p>Cadastre eventos do campus, notícias institucionais, avisos e destaques para a home e a página de projetos.</p>
+      </a>
+
+      <a class="admin-module-card" href="monitorias.html">
+        <span class="admin-module-icon" aria-hidden="true">◆</span>
+        <small>Módulo 07</small>
+        <h2>Monitorias</h2>
+        <p>Cadastre oportunidades de monitoria para aparecerem na área de projetos do curso.</p>
+      </a>
+
+      <a class="admin-module-card" href="editais.html">
+        <span class="admin-module-icon" aria-hidden="true">◇</span>
+        <small>Módulo 08</small>
+        <h2>Editais</h2>
+        <p>Publique editais de moradia, manutenção, auxílios, seleção e comunicados relacionados.</p>
+      </a>
+
+      <a class="admin-module-card" href="ingresso.html">
+        <span class="admin-module-icon" aria-hidden="true">◎</span>
+        <small>Módulo 09</small>
+        <h2>Ingresso</h2>
+        <p>Atualize períodos de inscrição, aprovados, remanejamento, matrícula e rematrícula.</p>
+      </a>
+
+      <a class="admin-module-card" href="servicos.html">
+        <span class="admin-module-icon" aria-hidden="true">◫</span>
+        <small>Módulo 10</small>
+        <h2>Outros serviços</h2>
+        <p>Gerencie links de biblioteca, atividades complementares, TCC e serviços acadêmicos úteis.</p>
+      </a>
+    </section>
+
+    <section class="admin-dashboard-cards" aria-label="Resumo das publicações">
+      <article>
+        <span data-stat-total>0</span>
+        <strong>publicações</strong>
+      </article>
+      <article>
+        <span data-stat-published>0</span>
+        <strong>publicadas</strong>
+      </article>
+      <article>
+        <span data-stat-home>0</span>
+        <strong>destaques na home</strong>
+      </article>
+    </section>
+  </main>
+
+  <script type="module" src="../assets/js/admin-dashboard.js"></script>
+</body>
+
+</html>

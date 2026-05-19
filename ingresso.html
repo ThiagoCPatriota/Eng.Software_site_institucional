@@ -33,6 +33,7 @@
 
       <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
         <a href="index.html" data-nav="inicio">Início</a>
+        <a href="eventos-noticias.html" data-nav="eventos">Notícias</a>
 
         <details class="nav-group" data-nav-group="curso">
           <summary>Curso</summary>
@@ -44,7 +45,14 @@
           </div>
         </details>
 
-        <a href="projetos.html" data-nav="projetos">Projetos</a>
+        <details class="nav-group" data-nav-group="geral">
+          <summary>Geral</summary>
+          <div class="nav-dropdown">
+            <a href="projetos.html" data-nav="projetos">Projetos</a>
+            <a href="editais.html" data-nav="editais">Editais</a>
+            <a href="outros-servicos.html" data-nav="servicos">Outros serviços</a>
+          </div>
+        </details>
 
         <details class="nav-group" data-nav-group="estrutura">
           <summary>Estrutura</summary>
@@ -58,6 +66,8 @@
           <summary>Aluno</summary>
           <div class="nav-dropdown">
             <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
+            <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
+            <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
             <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
           </div>
         </details>
@@ -69,6 +79,8 @@
             <a href="faq.html" data-nav="faq">FAQ</a>
           </div>
         </details>
+
+        <a class="nav-access-button" href="admin/login.html" data-nav="acesso">Acesso</a>
       </nav>
     </div>
   </header>
@@ -97,6 +109,34 @@
           <strong>Visão geral + encaminhamento oficial</strong>
           <span>Use esta página para entender as possibilidades. Para se inscrever, conferir edital, resultado, matrícula ou convocação, consulte o portal oficial do Ingresso IFPE.</span>
         </div>
+      </div>
+    </section>
+    <section class="section ingresso-info-section" id="informacoes-ingresso" data-ingresso-info aria-labelledby="titulo-informacoes-ingresso">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <span class="eyebrow">Atualizações de ingresso</span>
+          <h2 id="titulo-informacoes-ingresso">Inscrições, listas e matrícula.</h2>
+          <p>Informações cadastradas pela administração sobre período de inscrição, listas de aprovados/remanejamento e matrícula/rematrícula.</p>
+        </div>
+
+        <div class="ingresso-info-layout">
+          <article class="ingresso-info-column reveal">
+            <span>RF 018</span>
+            <h3>Período de inscrições</h3>
+            <div class="ingresso-info-list" data-ingresso-list="inscricoes"></div>
+          </article>
+          <article class="ingresso-info-column reveal">
+            <span>RF 019</span>
+            <h3>Aprovados e remanejamento</h3>
+            <div class="ingresso-info-list" data-ingresso-list="aprovados_remanejamento"></div>
+          </article>
+          <article class="ingresso-info-column reveal">
+            <span>RF 020</span>
+            <h3>Matrícula e rematrícula</h3>
+            <div class="ingresso-info-list" data-ingresso-list="matricula_rematricula"></div>
+          </article>
+        </div>
+        <div class="projects-empty-state" data-ingresso-empty>Nenhuma informação dinâmica cadastrada ainda. Consulte também os canais oficiais do IFPE.</div>
       </div>
     </section>
 
@@ -423,8 +463,13 @@
 
         <nav class="footer-column" aria-label="Links de vida acadêmica">
           <h2>Vida acadêmica</h2>
-          <a href="projetos.html">Projetos e eventos</a>
+          <a href="eventos-noticias.html">Eventos e notícias</a>
+          <a href="projetos.html">Projetos</a>
+          <a href="editais.html">Editais</a>
+          <a href="outros-servicos.html">Outros serviços</a>
           <a href="area-aluno.html">Área do aluno</a>
+          <a href="horarios.html">Horário de aulas</a>
+          <a href="laboratorios.html">Horário dos laboratórios</a>
           <a href="calendario.html">Calendário acadêmico</a>
           <a href="faq.html">Dúvidas frequentes</a>
         </nav>
@@ -478,5 +523,6 @@
 
 
 <script src="assets/js/script.js"></script>
+  <script type="module" src="assets/js/ingresso-publico.js"></script>
 </body>
 </html>

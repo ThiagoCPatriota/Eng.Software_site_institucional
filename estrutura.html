@@ -39,6 +39,7 @@
 
       <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
         <a href="index.html" data-nav="inicio">Início</a>
+        <a href="eventos-noticias.html" data-nav="eventos">Notícias</a>
 
         <details class="nav-group" data-nav-group="curso">
           <summary>Curso</summary>
@@ -50,7 +51,14 @@
           </div>
         </details>
 
-        <a href="projetos.html" data-nav="projetos">Projetos</a>
+        <details class="nav-group" data-nav-group="geral">
+          <summary>Geral</summary>
+          <div class="nav-dropdown">
+            <a href="projetos.html" data-nav="projetos">Projetos</a>
+            <a href="editais.html" data-nav="editais">Editais</a>
+            <a href="outros-servicos.html" data-nav="servicos">Outros serviços</a>
+          </div>
+        </details>
 
         <details class="nav-group" data-nav-group="estrutura">
           <summary>Estrutura</summary>
@@ -64,6 +72,8 @@
           <summary>Aluno</summary>
           <div class="nav-dropdown">
             <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
+            <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
+            <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
             <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
           </div>
         </details>
@@ -75,6 +85,8 @@
             <a href="faq.html" data-nav="faq">FAQ</a>
           </div>
         </details>
+
+        <a class="nav-access-button" href="admin/login.html" data-nav="acesso">Acesso</a>
       </nav>
     </div>
   </header>
@@ -89,7 +101,7 @@
             <span>Estrutura</span>
           </nav>
           <span class="eyebrow">Estrutura acadêmica</span>
-          <h1 id="titulo-estrutura">Estrutura acadêmica que sustenta a formação em Engenharia de Software.</h1>
+          <h1 id="titulo-estrutura">Estrutura acadêmica.</h1>
           <p>
             Esta página reúne os ambientes de aprendizagem, laboratórios, espaços de estudo, recursos tecnológicos e
             informações de acessibilidade que ajudam a tornar a experiência acadêmica mais completa no IFPE Campus Belo
@@ -102,7 +114,7 @@
     <section class="section structure-overview" aria-labelledby="titulo-visao-geral">
       <div class="container">
         <div class="section-heading centered reveal">
-          <span class="eyebrow">Estrutura física</span>
+          <span class="eyebrow">Sobre a Estrutura</span>
           <h2 id="titulo-visao-geral">A prova visual de que o curso tem base acadêmica.</h2>
           <p>Os blocos abaixo sintetizam os espaços e recursos que ajudam a transformar teoria em prática, estudo em
             projeto e aprendizado em experiência acadêmica.</p>
@@ -145,10 +157,10 @@
     <section class="section structure-gallery-section" id="fotos-estrutura" aria-labelledby="titulo-galeria-estrutura">
       <div class="container">
         <div class="section-heading centered reveal">
-          <span class="eyebrow">Galeria preparada</span>
-          <h2 id="titulo-galeria-estrutura">Espaços prontos para receber fotos reais do campus.</h2>
-          <p>Esta área funciona como uma galeria institucional preparada para substituir placeholders por fotos das
-            salas, laboratórios, blocos, biblioteca e ambientes colaborativos quando as imagens oficiais forem reunidas.
+          <span class="eyebrow">Galeria</span>
+          <h2 id="titulo-galeria-estrutura">IFPE - CAMPUS BELO JARDIM</h2>
+          <p>Galeria institucional de fotos dos ambientes do campus, com foco em salas de aula, laboratórios, biblioteca
+            e espaços colaborativos
           </p>
         </div>
 
@@ -159,8 +171,7 @@
                 alt="Bloco da estrutura do curso de Engenharia de Software no IFPE Campus Belo Jardim" />
             </figure>
             <h3>Primeira impressão visual</h3>
-            <p>Use uma foto ampla, bem iluminada e horizontal para apresentar o campus ou um bloco de referência logo no
-              início da galeria.</p>
+            <p>Bloco de Engenharia de Software - Campus Belo Jardim</p>
           </article>
 
           <article class="campus-photo-card reveal">
@@ -169,7 +180,7 @@
                 alt="Bloco da estrutura do curso de Engenharia de Software no IFPE Campus Belo Jardim" />
             </figure>
             <h3>Salas de aula</h3>
-            <p>Fotos de carteiras, quadro, projeção e ambiente de aula ajudam a mostrar a rotina acadêmica.</p>
+            <p>Fotos de carteiras, quadro, projeção e ambiente de aula.</p>
           </article>
 
           <article class="campus-photo-card reveal">
@@ -178,7 +189,7 @@
                 alt="Bloco da estrutura do curso de Engenharia de Software no IFPE Campus Belo Jardim" />
             </figure>
             <h3>Laboratórios</h3>
-            <p>O ideal é mostrar computadores, bancadas e uma composição limpa, sem telas com dados pessoais.</p>
+            <p>Laboratórios, onde sonhos são concretizados e construídos.</p>
           </article>
 
           <article class="campus-photo-card reveal">
@@ -188,7 +199,7 @@
                 alt="Bloco da estrutura do curso de Engenharia de Software no IFPE Campus Belo Jardim" />
             </figure>
             <h3>Biblioteca e estudo</h3>
-            <p>Um registro organizado reforça apoio acadêmico, leitura, permanência e acesso a materiais.</p>
+            <p>Apoio acadêmico, leitura, permanência e acesso a materiais.</p>
           </article>
 
           <article class="campus-photo-card reveal">
@@ -197,7 +208,7 @@
                 alt="Bloco da estrutura do curso de Engenharia de Software no IFPE Campus Belo Jardim" />
             </figure>
             <h3>Espaços colaborativos</h3>
-            <p>Ambientes de conversa, equipe e estudo coletivo deixam o site com mais vida sem virar mural infinito.</p>
+            <p>Ambientes de conversa, equipe e estudo coletivo.</p>
           </article>
         </div>
       </div>
@@ -299,8 +310,13 @@
 
         <nav class="footer-column" aria-label="Links de vida acadêmica">
           <h2>Vida acadêmica</h2>
-          <a href="projetos.html">Projetos e eventos</a>
+          <a href="eventos-noticias.html">Eventos e notícias</a>
+          <a href="projetos.html">Projetos</a>
+          <a href="editais.html">Editais</a>
+          <a href="outros-servicos.html">Outros serviços</a>
           <a href="area-aluno.html">Área do aluno</a>
+          <a href="horarios.html">Horário de aulas</a>
+          <a href="laboratorios.html">Horário dos laboratórios</a>
           <a href="calendario.html">Calendário acadêmico</a>
           <a href="faq.html">Dúvidas frequentes</a>
         </nav>
