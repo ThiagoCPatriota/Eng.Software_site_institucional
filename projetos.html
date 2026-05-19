@@ -95,16 +95,26 @@
             <span>Projetos</span>
           </nav>
           <span class="eyebrow">Projetos e inovação</span>
-          <h1 id="titulo-projetos">Pesquisa, extensão e inovação em movimento.</h1>
+          <h1 id="titulo-projetos">Projetos, monitorias e propostas acadêmicas.</h1>
           <p>
-            Consulte projetos aprovados de pesquisa, extensão e inovação e envie propostas para análise da administração.
+            Acompanhe projetos aprovados, oportunidades de monitoria e envie propostas vinculadas à sua conta acadêmica.
           </p>
           <div class="projects-hero-actions">
             <a class="btn btn-primary" href="#enviar-proposta">Enviar proposta</a>
-            <a class="btn btn-secondary" href="#mural-projetos">Ver mural</a>
+            <a class="btn btn-secondary" href="#mural-projetos">Ver projetos</a>
             <a class="btn btn-secondary" href="#monitorias">Ver monitorias</a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="projects-page-switcher" aria-label="Navegação rápida de projetos e monitorias">
+      <div class="container">
+        <nav class="project-page-tabbar">
+          <a href="#mural-projetos">Projetos</a>
+          <a href="#monitorias">Monitorias</a>
+          <a href="#enviar-proposta">Enviar proposta</a>
+        </nav>
       </div>
     </section>
 
@@ -169,6 +179,78 @@
         </div>
 
         <div class="monitorias-grid" data-monitorias-list></div>
+        <p class="project-form-status monitoria-apply-status" data-monitoria-apply-status role="status" aria-live="polite"></p>
+        <div class="monitoria-application-shell" data-monitoria-application-shell hidden>
+          <div class="monitoria-application-card">
+            <div class="monitoria-application-heading">
+              <div>
+                <span class="eyebrow">Voluntariado em monitoria</span>
+                <h3 data-monitoria-application-title>Solicitar participação</h3>
+                <p>Preencha o questionário para que a administração avalie sua candidatura.</p>
+              </div>
+              <button type="button" aria-label="Fechar formulário de candidatura" data-monitoria-application-close>×</button>
+            </div>
+
+            <form class="monitoria-application-form" data-monitoria-application-form>
+              <input type="hidden" name="oportunidade_id" />
+              <div class="project-form-row">
+                <label>
+                  <span>Nome vinculado</span>
+                  <input type="text" name="responsavel_nome" readonly />
+                </label>
+                <label>
+                  <span>Matrícula</span>
+                  <input type="text" name="responsavel_matricula" readonly />
+                </label>
+              </div>
+
+              <label>
+                <span>E-mail</span>
+                <input type="email" name="responsavel_email" readonly />
+              </label>
+
+              <label>
+                <span>Por que você quer se voluntariar?</span>
+                <textarea name="motivo" rows="4" placeholder="Explique seu interesse, motivação e vínculo com a disciplina ou área." required></textarea>
+              </label>
+
+              <div class="project-form-row">
+                <label>
+                  <span>Nível de experiência</span>
+                  <select name="experiencia_nivel" required>
+                    <option value="">Selecione</option>
+                    <option value="iniciante">Iniciante</option>
+                    <option value="intermediario">Intermediário</option>
+                    <option value="avancado">Avançado</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Aceita passar por avaliação?</span>
+                  <select name="aceita_avaliacao" required>
+                    <option value="">Selecione</option>
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                  </select>
+                </label>
+              </div>
+
+              <label>
+                <span>Disponibilidade</span>
+                <textarea name="disponibilidade" rows="3" placeholder="Informe dias, turnos ou horários em que você pode atuar." required></textarea>
+              </label>
+
+              <label>
+                <span>Observações adicionais</span>
+                <textarea name="mensagem" rows="3" placeholder="Conte experiências, disciplinas cursadas, projetos ou observações que ajudem na análise."></textarea>
+              </label>
+
+              <div class="admin-form-actions monitoria-application-actions">
+                <button class="btn btn-primary" type="submit">Enviar candidatura</button>
+                <button class="btn btn-secondary" type="button" data-monitoria-application-cancel>Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
         <div class="projects-empty-state" data-monitorias-empty>Nenhuma oportunidade de monitoria encontrada para este filtro.</div>
       </div>
     </section>
