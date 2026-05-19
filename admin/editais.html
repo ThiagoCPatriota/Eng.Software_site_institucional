@@ -24,20 +24,41 @@
       </a>
     </div>
 
-    <nav class="admin-topbar-nav" aria-label="Menu do painel administrativo">
+    <nav class="admin-topbar-nav admin-sidebar-nav" aria-label="Menu do painel administrativo">
       <a href="index.html">Painel</a>
-      <a href="publicacoes.html">Publicações</a>
-      <a href="projetos.html">Projetos</a>
-      <a href="monitorias.html">Monitorias</a>
-      <a href="eventos.html">Eventos</a>
-      <a href="horarios.html">Horários</a>
-      <a href="laboratorios.html">Laboratórios</a>
-      <a href="docentes.html">Docentes</a>
-      <a class="is-active" href="editais.html">Editais</a>
-      <a href="ingresso.html">Ingresso</a>
-      <a href="servicos.html">Serviços</a>
-      <a href="../index.html">Ver site</a>
-      <button type="button" data-admin-logout>Sair</button>
+
+      <details class="admin-nav-dropdown">
+        <summary>Geral</summary>
+        <div class="admin-subnav">
+        <a href="publicacoes.html">Publicações</a>
+        <a href="eventos.html">Notícias/Eventos</a>
+        <a href="projetos.html">Projetos</a>
+        <a href="monitorias.html">Monitorias</a>
+        </div>
+      </details>
+
+      <details class="admin-nav-dropdown">
+        <summary>Acadêmico</summary>
+        <div class="admin-subnav">
+        <a href="horarios.html">Horários</a>
+        <a href="laboratorios.html">Laboratórios</a>
+        <a href="docentes.html">Docentes</a>
+        </div>
+      </details>
+
+      <details class="admin-nav-dropdown" open>
+        <summary>Institucional</summary>
+        <div class="admin-subnav">
+        <a class="is-active" href="editais.html">Editais</a>
+        <a href="ingresso.html">Ingresso</a>
+        <a href="servicos.html">Serviços</a>
+        </div>
+      </details>
+
+      <div class="admin-nav-actions">
+        <a href="../index.html">Ver site</a>
+        <button type="button" data-admin-logout>Sair</button>
+      </div>
     </nav>
   </header>
   <main id="conteudo" class="admin-main admin-publications-main">

@@ -1,5 +1,4 @@
 import {
-  formatDateTime,
   getConfigMessage,
   isSupabaseConfigured,
   requireAdminAccess,
@@ -7,18 +6,47 @@ import {
   supabase,
 } from "./supabase-client.js";
 
-const DIAS = {
-  1: "Segunda",
-  2: "Terça",
-  3: "Quarta",
-  4: "Quinta",
-  5: "Sexta",
-};
+const DIAS = [
+  { value: 1, label: "Segunda" },
+  { value: 2, label: "Terça" },
+  { value: 3, label: "Quarta" },
+  { value: 4, label: "Quinta" },
+  { value: 5, label: "Sexta" },
+];
 
 const TURNOS = {
   manha: "Manhã",
   tarde: "Tarde",
   noite: "Noite",
+};
+
+const TIME_SLOTS = {
+  manha: [
+    { start: "07:30", end: "08:15" },
+    { start: "08:15", end: "09:00" },
+    { start: "09:00", end: "09:15", break: true },
+    { start: "09:15", end: "10:00" },
+    { start: "10:00", end: "10:45" },
+    { start: "10:45", end: "11:30" },
+    { start: "11:30", end: "12:15" },
+  ],
+  tarde: [
+    { start: "13:30", end: "14:15" },
+    { start: "14:15", end: "15:00" },
+    { start: "15:00", end: "15:10", break: true },
+    { start: "15:10", end: "15:55" },
+    { start: "15:55", end: "16:40" },
+    { start: "16:40", end: "17:25" },
+    { start: "17:25", end: "18:10" },
+  ],
+  noite: [
+    { start: "18:30", end: "19:15" },
+    { start: "19:15", end: "20:00" },
+    { start: "20:00", end: "20:15", break: true },
+    { start: "20:15", end: "21:00" },
+    { start: "21:00", end: "21:45" },
+    { start: "21:45", end: "22:30" },
+  ],
 };
 
 const statusBox = document.querySelector("[data-admin-status]");
@@ -28,8 +56,12 @@ const formTitle = document.querySelector("[data-form-title]");
 const list = document.querySelector("[data-schedule-list]");
 const empty = document.querySelector("[data-schedule-empty]");
 const filter = document.querySelector("[data-schedule-filter]");
+const periodFilter = document.querySelector("[data-schedule-period-filter]");
 const newButton = document.querySelector("[data-new-schedule]");
 const clearButton = document.querySelector("[data-clear-form]");
+const scheduleTabs = document.querySelectorAll("[data-schedule-tab-target]");
+const schedulePanels = document.querySelectorAll("[data-schedule-panel]");
+const scheduleWorkspace = document.querySelector(".admin-schedule-workspace");
 
 let currentUser = null;
 let schedules = [];
@@ -56,6 +88,30 @@ function formatTime(value) {
   return text(value).slice(0, 5);
 }
 
+function timeKey(start, end) {
+  return `${formatTime(start)}-${formatTime(end)}`;
+}
+
+function timeLabel(start, end) {
+  return `${formatTime(start)} – ${formatTime(end)}`;
+}
+
+function setSchedulePanel(panelName, shouldScroll = false) {
+  scheduleTabs.forEach((tab) => {
+    const isActive = tab.dataset.scheduleTabTarget === panelName;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+  });
+
+  schedulePanels.forEach((panel) => {
+    panel.hidden = panel.dataset.schedulePanel !== panelName;
+  });
+
+  if (shouldScroll) {
+    scheduleWorkspace?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
 function resetForm() {
   form.reset();
   form.elements.id.value = "";
@@ -67,14 +123,47 @@ function resetForm() {
   form.elements.hora_inicio.value = "07:30";
   form.elements.hora_fim.value = "08:15";
   formTitle.textContent = "Nova aula";
-  form.scrollIntoView({ behavior: "smooth", block: "start" });
+  setSchedulePanel("form", true);
 }
 
 function getFilteredSchedules() {
   const value = filter?.value || "todos";
-  if (value === "todos") return schedules;
-  if (value === "ocultos") return schedules.filter((item) => !item.visivel);
-  return schedules.filter((item) => item.turno === value && item.visivel);
+  const periodValue = periodFilter?.value || "todos";
+
+  return schedules.filter((item) => {
+    const matchesPeriod = periodValue === "todos" || String(item.periodo) === String(periodValue);
+    const matchesTurno = value === "todos" || item.turno === value;
+    return matchesPeriod && matchesTurno;
+  });
+}
+
+function groupKey(item) {
+  return [
+    item.semestre_letivo || "Sem semestre",
+    item.periodo || 1,
+    item.turno || "manha",
+    item.turma || "",
+  ].join("__");
+}
+
+function getTimeRows(items, turno) {
+  const slotMap = new Map();
+
+  (TIME_SLOTS[turno] || []).forEach((slot) => {
+    slotMap.set(`${slot.start}-${slot.end}`, { ...slot });
+  });
+
+  items.forEach((item) => {
+    const start = formatTime(item.hora_inicio);
+    const end = formatTime(item.hora_fim);
+    if (!start || !end) return;
+    const key = `${start}-${end}`;
+    if (!slotMap.has(key)) {
+      slotMap.set(key, { start, end, break: item.tipo === "intervalo" });
+    }
+  });
+
+  return [...slotMap.values()].sort((a, b) => `${a.start}-${a.end}`.localeCompare(`${b.start}-${b.end}`, "pt-BR"));
 }
 
 function createPill(label, className = "") {
@@ -84,6 +173,108 @@ function createPill(label, className = "") {
   return span;
 }
 
+function createScheduleEntry(item) {
+  const entry = document.createElement("div");
+  entry.className = `admin-schedule-grid-entry ${item.tipo === "intervalo" ? "is-break" : ""}`.trim();
+  entry.dataset.scheduleId = item.id;
+
+  const title = document.createElement("strong");
+  title.textContent = item.tipo === "intervalo" ? "Intervalo" : item.disciplina;
+  entry.appendChild(title);
+
+  const details = [item.professor, item.sala, item.observacao].filter(Boolean);
+  if (details.length) {
+    const meta = document.createElement("span");
+    meta.textContent = details.join(" · ");
+    entry.appendChild(meta);
+  }
+
+  const actions = document.createElement("div");
+  actions.className = "admin-schedule-grid-actions";
+  actions.innerHTML = `
+    <button type="button" data-action="edit">Editar</button>
+    <button type="button" data-action="delete">Remover</button>
+  `;
+  entry.appendChild(actions);
+
+  return entry;
+}
+
+function renderScheduleTable(items, key) {
+  const [semestre, periodo, turno, turma] = key.split("__");
+  const card = document.createElement("article");
+  card.className = "admin-schedule-grid-card";
+
+  const header = document.createElement("header");
+  header.className = "admin-schedule-grid-header";
+
+  const titleBox = document.createElement("div");
+  const title = document.createElement("h2");
+  title.textContent = `${periodo}º período · ${TURNOS[turno] || turno}`;
+  const subtitle = document.createElement("p");
+  subtitle.textContent = `${semestre}${turma ? ` · Turma ${turma}` : ""}`;
+  titleBox.append(title, subtitle);
+
+  const pills = document.createElement("div");
+  pills.className = "admin-pills";
+  pills.appendChild(createPill(`${items.length} registro${items.length === 1 ? "" : "s"}`));
+  header.append(titleBox, pills);
+  card.appendChild(header);
+
+  const wrap = document.createElement("div");
+  wrap.className = "admin-schedule-table-wrap";
+
+  const table = document.createElement("table");
+  table.className = "admin-schedule-table";
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Horário</th>
+        ${DIAS.map((dia) => `<th>${dia.label}</th>`).join("")}
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
+
+  const tbody = table.querySelector("tbody");
+  const rows = getTimeRows(items, turno);
+
+  rows.forEach((slot) => {
+    const tr = document.createElement("tr");
+    if (slot.break) tr.classList.add("is-break-row");
+
+    const timeCell = document.createElement("td");
+    timeCell.className = "admin-schedule-time-cell";
+    timeCell.textContent = timeLabel(slot.start, slot.end);
+    tr.appendChild(timeCell);
+
+    DIAS.forEach((dia) => {
+      const td = document.createElement("td");
+      const cellItems = items.filter((item) => (
+        Number(item.dia_semana) === dia.value &&
+        timeKey(item.hora_inicio, item.hora_fim) === `${slot.start}-${slot.end}`
+      ));
+
+      if (cellItems.length) {
+        cellItems.forEach((item) => td.appendChild(createScheduleEntry(item)));
+      } else {
+        const placeholder = document.createElement("span");
+        placeholder.className = slot.break ? "admin-schedule-break-placeholder" : "admin-schedule-empty-slot";
+        placeholder.textContent = slot.break ? "Intervalo" : "Livre";
+        td.appendChild(placeholder);
+      }
+
+      tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
+  });
+
+  wrap.appendChild(table);
+  card.appendChild(wrap);
+  return card;
+}
+
 function renderSchedules() {
   if (!list || !empty) return;
 
@@ -91,40 +282,20 @@ function renderSchedules() {
   list.innerHTML = "";
   empty.classList.toggle("is-visible", items.length === 0);
 
+  if (!items.length) return;
+
+  const groups = new Map();
   items.forEach((item) => {
-    const card = document.createElement("article");
-    card.className = "admin-publication-card admin-schedule-card";
-    card.dataset.id = item.id;
-
-    const header = document.createElement("header");
-    const headingGroup = document.createElement("div");
-    const title = document.createElement("h2");
-    title.textContent = item.tipo === "intervalo" ? "Intervalo" : item.disciplina;
-    const meta = document.createElement("small");
-    meta.textContent = `${item.periodo}º período · ${TURNOS[item.turno] || item.turno} · ${DIAS[item.dia_semana] || "Dia"} · ${formatTime(item.hora_inicio)}-${formatTime(item.hora_fim)}`;
-    headingGroup.append(title, meta);
-
-    const pills = document.createElement("div");
-    pills.className = "admin-pills";
-    pills.appendChild(createPill(item.semestre_letivo));
-    if (item.turma) pills.appendChild(createPill(`Turma ${item.turma}`));
-    pills.appendChild(createPill(item.visivel ? "visível" : "oculto", item.visivel ? "is-visible" : "is-hidden"));
-    header.append(headingGroup, pills);
-
-    const summary = document.createElement("p");
-    summary.textContent = [item.professor, item.sala, item.observacao].filter(Boolean).join(" · ") || "Sem professor/sala informados.";
-
-    const actions = document.createElement("div");
-    actions.className = "admin-card-actions";
-    actions.innerHTML = `
-      <button type="button" data-action="edit">Editar</button>
-      <button type="button" data-action="toggle-visible">${item.visivel ? "Ocultar" : "Mostrar"}</button>
-      <button type="button" data-action="delete">Remover</button>
-    `;
-
-    card.append(header, summary, actions);
-    list.appendChild(card);
+    const key = groupKey(item);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(item);
   });
+
+  [...groups.entries()]
+    .sort(([a], [b]) => a.localeCompare(b, "pt-BR", { numeric: true }))
+    .forEach(([key, groupItems]) => {
+      list.appendChild(renderScheduleTable(groupItems, key));
+    });
 }
 
 function fillForm(item) {
@@ -142,7 +313,7 @@ function fillForm(item) {
   form.elements.sala.value = text(item.sala);
   form.elements.observacao.value = text(item.observacao);
   formTitle.textContent = "Editar horário";
-  form.scrollIntoView({ behavior: "smooth", block: "start" });
+  setSchedulePanel("form", true);
 }
 
 function getPayload() {
@@ -164,6 +335,7 @@ function getPayload() {
     sala: String(formData.get("sala") || "").trim() || null,
     observacao: String(formData.get("observacao") || "").trim() || null,
     atualizado_por: currentUser?.id || null,
+    visivel: true,
   };
 }
 
@@ -192,7 +364,6 @@ async function saveSchedule(event) {
   setStatus("Salvando horário...", "info");
 
   try {
-
     if (id) {
       const { error } = await supabase
         .from("horarios_aulas")
@@ -210,23 +381,12 @@ async function saveSchedule(event) {
 
     resetForm();
     await loadSchedules();
+    setSchedulePanel("list", true);
   } catch (error) {
     setStatus(`Erro ao salvar horário: ${error.message}`, "error");
   } finally {
     setFormLoading(false);
   }
-}
-
-async function updateSchedule(id, patch, successMessage) {
-  setStatus("Atualizando horário...", "info");
-  const { error } = await supabase
-    .from("horarios_aulas")
-    .update({ ...patch, atualizado_por: currentUser?.id || null })
-    .eq("id", id);
-
-  if (error) throw error;
-  setStatus(successMessage, "success");
-  await loadSchedules();
 }
 
 async function deleteSchedule(id) {
@@ -248,23 +408,14 @@ list?.addEventListener("click", async (event) => {
   const button = event.target.closest("button[data-action]");
   if (!button) return;
 
-  const card = button.closest(".admin-schedule-card");
-  const id = card?.dataset.id;
+  const entry = button.closest("[data-schedule-id]");
+  const id = entry?.dataset.scheduleId;
   const item = schedules.find((schedule) => schedule.id === id);
   if (!item) return;
 
   try {
     if (button.dataset.action === "edit") {
       fillForm(item);
-      return;
-    }
-
-    if (button.dataset.action === "toggle-visible") {
-      await updateSchedule(
-        id,
-        { visivel: !item.visivel },
-        item.visivel ? "Horário ocultado da página pública." : "Horário liberado na página pública."
-      );
       return;
     }
 
@@ -277,6 +428,10 @@ list?.addEventListener("click", async (event) => {
 });
 
 filter?.addEventListener("change", renderSchedules);
+periodFilter?.addEventListener("change", renderSchedules);
+scheduleTabs.forEach((tab) => {
+  tab.addEventListener("click", () => setSchedulePanel(tab.dataset.scheduleTabTarget || "form", false));
+});
 form?.addEventListener("submit", saveSchedule);
 newButton?.addEventListener("click", resetForm);
 clearButton?.addEventListener("click", resetForm);
@@ -301,7 +456,8 @@ async function bootSchedules() {
   }
 
   currentUser = access.session.user;
-  setStatus("Módulo de horários conectado. Cadastre as primeiras aulas do semestre.", "success");
+  setSchedulePanel("form", false);
+  setStatus("Módulo de horários conectado. A visualização semanal facilita a conferência por período e turno.", "success");
   await loadSchedules();
 }
 

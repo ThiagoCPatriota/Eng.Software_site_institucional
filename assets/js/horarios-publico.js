@@ -18,6 +18,35 @@ const TURNOS = {
   noite: "Noite",
 };
 
+const TIME_SLOTS = {
+  manha: [
+    { start: "07:30", end: "08:15" },
+    { start: "08:15", end: "09:00" },
+    { start: "09:00", end: "09:15", break: true },
+    { start: "09:15", end: "10:00" },
+    { start: "10:00", end: "10:45" },
+    { start: "10:45", end: "11:30" },
+    { start: "11:30", end: "12:15" },
+  ],
+  tarde: [
+    { start: "13:30", end: "14:15" },
+    { start: "14:15", end: "15:00" },
+    { start: "15:00", end: "15:10", break: true },
+    { start: "15:10", end: "15:55" },
+    { start: "15:55", end: "16:40" },
+    { start: "16:40", end: "17:25" },
+    { start: "17:25", end: "18:10" },
+  ],
+  noite: [
+    { start: "18:30", end: "19:15" },
+    { start: "19:15", end: "20:00" },
+    { start: "20:00", end: "20:15", break: true },
+    { start: "20:15", end: "21:00" },
+    { start: "21:00", end: "21:45" },
+    { start: "21:45", end: "22:30" },
+  ],
+};
+
 const board = document.querySelector("[data-schedule-board]");
 const statusBox = document.querySelector("[data-schedule-status]");
 const semesterSelect = document.querySelector("[data-schedule-semester]");
@@ -38,6 +67,14 @@ function normalize(value) {
 
 function formatTime(value) {
   return normalize(value).slice(0, 5);
+}
+
+function timeKey(start, end) {
+  return `${formatTime(start)}-${formatTime(end)}`;
+}
+
+function timeLabel(start, end) {
+  return `${formatTime(start)} – ${formatTime(end)}`;
 }
 
 function option(value, label) {
@@ -86,6 +123,24 @@ function groupKey(item) {
   return `${item.semestre_letivo}__${item.periodo}__${item.turno}__${item.turma || ""}`;
 }
 
+function getTimeRows(items, turno) {
+  const slotMap = new Map();
+
+  (TIME_SLOTS[turno] || []).forEach((slot) => {
+    slotMap.set(`${slot.start}-${slot.end}`, { ...slot });
+  });
+
+  items.forEach((item) => {
+    const start = formatTime(item.hora_inicio);
+    const end = formatTime(item.hora_fim);
+    if (!start || !end) return;
+    const key = `${start}-${end}`;
+    if (!slotMap.has(key)) slotMap.set(key, { start, end, break: item.tipo === "intervalo" });
+  });
+
+  return [...slotMap.values()].sort((a, b) => `${a.start}-${a.end}`.localeCompare(`${b.start}-${b.end}`, "pt-BR"));
+}
+
 function buildClassCard(item) {
   const card = document.createElement("div");
   card.className = `schedule-class-card ${item.tipo === "intervalo" ? "is-break" : ""}`.trim();
@@ -126,14 +181,11 @@ function renderGroup(items, key) {
     <div>
       <span class="eyebrow">${TURNOS[turno] || turno}</span>
       <h3>${periodo}º período${turma ? ` · Turma ${turma}` : ""}</h3>
-      <p>Semestre ${semestre}. Aulas organizadas por dia e horário.</p>
+      <p>Semestre ${semestre}. Grade semanal com aulas por dia e horário.</p>
     </div>
     <span class="status-badge">${items.length} registro${items.length === 1 ? "" : "s"}</span>
   `;
   card.appendChild(header);
-
-  const times = [...new Set(items.map((item) => `${formatTime(item.hora_inicio)} - ${formatTime(item.hora_fim)}`))]
-    .sort((a, b) => a.localeCompare(b, "pt-BR"));
 
   const wrap = document.createElement("div");
   wrap.className = "schedule-table-wrap";
@@ -151,25 +203,32 @@ function renderGroup(items, key) {
   `;
 
   const tbody = table.querySelector("tbody");
-  times.forEach((time) => {
+  const times = getTimeRows(items, turno);
+
+  times.forEach((slot) => {
     const tr = document.createElement("tr");
+    if (slot.break) tr.classList.add("is-break-row");
+
     const timeCell = document.createElement("td");
     timeCell.className = "schedule-time-cell";
-    timeCell.textContent = time;
+    timeCell.textContent = timeLabel(slot.start, slot.end);
     tr.appendChild(timeCell);
 
     DIAS.forEach((dia) => {
       const td = document.createElement("td");
       const cell = document.createElement("div");
       cell.className = "schedule-class-cell";
-      const dayItems = items.filter((item) => item.dia_semana === dia.value && `${formatTime(item.hora_inicio)} - ${formatTime(item.hora_fim)}` === time);
+      const dayItems = items.filter((item) => (
+        Number(item.dia_semana) === dia.value &&
+        timeKey(item.hora_inicio, item.hora_fim) === `${slot.start}-${slot.end}`
+      ));
 
       if (dayItems.length) {
         dayItems.forEach((item) => cell.appendChild(buildClassCard(item)));
       } else {
         const empty = document.createElement("span");
-        empty.className = "schedule-empty-cell";
-        empty.textContent = "—";
+        empty.className = slot.break ? "schedule-break-cell" : "schedule-empty-cell";
+        empty.textContent = slot.break ? "Intervalo" : "Sem aula";
         cell.appendChild(empty);
       }
 
