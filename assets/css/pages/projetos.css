@@ -662,3 +662,164 @@
   .monitorias-grid,
   .monitoria-card dl { grid-template-columns: 1fr; }
 }
+
+/* Ajuste 50: navegação interna e candidaturas de monitoria */
+.projects-page-switcher {
+  padding: 18px 0;
+  background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+}
+
+.project-page-tabbar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 18px 44px rgba(11, 42, 74, 0.07);
+}
+
+.project-page-tabbar a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  border-radius: 18px;
+  color: var(--color-primary);
+  background: #fff;
+  font-weight: 950;
+  text-align: center;
+  transition: transform var(--transition), background var(--transition), color var(--transition);
+}
+
+.project-page-tabbar a:hover {
+  transform: translateY(-1px);
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-ifpe-dark));
+}
+
+.monitoria-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.monitoria-apply-button {
+  min-height: 40px;
+  padding: 0 16px;
+}
+
+.monitoria-apply-button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.monitoria-apply-status {
+  margin-top: 18px;
+}
+
+@media (max-width: 760px) {
+  .project-page-tabbar {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ajuste 51: questionário de candidatura em monitoria */
+.monitoria-application-shell {
+  margin-top: 22px;
+}
+
+.monitoria-application-shell[hidden] {
+  display: none !important;
+}
+
+.monitoria-application-card {
+  border: 1px solid rgba(123, 168, 205, 0.38);
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247,251,255,0.96));
+  box-shadow: 0 24px 54px rgba(11, 42, 74, 0.11);
+  padding: clamp(20px, 3vw, 32px);
+}
+
+.monitoria-application-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.monitoria-application-heading h3 {
+  margin: 4px 0 6px;
+  color: var(--color-primary);
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
+}
+
+.monitoria-application-heading p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.monitoria-application-heading button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-primary);
+  font-size: 1.6rem;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.monitoria-application-form {
+  display: grid;
+  gap: 14px;
+}
+
+.monitoria-application-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--color-primary);
+  font-weight: 900;
+}
+
+.monitoria-application-form input,
+.monitoria-application-form textarea,
+.monitoria-application-form select {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background: #fff;
+  color: var(--color-primary);
+  padding: 14px 16px;
+  font: inherit;
+  font-weight: 700;
+}
+
+.monitoria-application-form textarea {
+  resize: vertical;
+}
+
+.monitoria-application-form input[readonly] {
+  background: #f4f8fb;
+  color: var(--color-muted);
+}
+
+.monitoria-application-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+@media (max-width: 760px) {
+  .monitoria-application-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

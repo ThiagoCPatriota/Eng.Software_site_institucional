@@ -69,9 +69,9 @@
     <section class="admin-page-heading" aria-labelledby="titulo-projetos-admin">
       <div>
         <span class="admin-kicker">Módulo 04</span>
-        <h1 id="titulo-projetos-admin">Propostas de pesquisa, extensão e inovação.</h1>
+        <h1 id="titulo-projetos-admin">Projetos e monitorias.</h1>
         <p>
-          Analise propostas enviadas pelos estudantes, confira a documentação, envie feedback e publique somente o que for aprovado.
+          Cadastre oportunidades de monitoria, acompanhe candidaturas e analise propostas de pesquisa, extensão e inovação enviadas pelos estudantes.
         </p>
       </div>
       <button class="admin-secondary-action" type="button" data-new-project>Nova proposta</button>
@@ -94,127 +94,255 @@
       </article>
     </section>
 
-    <section class="admin-editor-layout admin-project-layout">
-      <form class="admin-publication-form admin-project-form" data-project-form>
-        <input type="hidden" name="id" />
+    <section class="admin-project-workspace" aria-label="Gestão de propostas e candidaturas">
+      <nav class="admin-schedule-tabbar admin-project-tabbar" aria-label="Alternar áreas do módulo de projetos">
+        <button type="button" data-admin-project-tab-target="form">Criar proposta/monitoria</button>
+        <button class="is-active" type="button" data-admin-project-tab-target="projects">Propostas recebidas</button>
+        <button type="button" data-admin-project-tab-target="monitorias">Candidaturas de monitoria</button>
+      </nav>
 
-        <div class="admin-form-heading">
-          <span>Editor</span>
-          <strong data-form-title>Nova proposta</strong>
-        </div>
+      <section class="admin-project-panel" data-admin-project-panel="form" hidden>
+        <nav class="admin-form-mode-switch" aria-label="Escolher tipo de cadastro">
+          <button class="is-active" type="button" data-admin-project-create-mode="projeto">Pesquisa / Extensão / Inovação</button>
+          <button type="button" data-admin-project-create-mode="monitoria">Monitoria</button>
+        </nav>
 
-        <label>
-          <span>Título do projeto</span>
-          <input type="text" name="titulo" placeholder="Ex.: Sistema de gestão para projetos acadêmicos" required />
-        </label>
+        <form class="admin-publication-form admin-project-form" data-project-form data-admin-create-panel="projeto">
+          <input type="hidden" name="id" />
 
-        <div class="admin-form-row compact-three">
+          <div class="admin-form-heading">
+            <span>Editor</span>
+            <strong data-form-title>Nova proposta</strong>
+          </div>
+
           <label>
-            <span>Eixo</span>
-            <select name="eixo" required>
-              <option value="pesquisa">Pesquisa</option>
-              <option value="extensao">Extensão</option>
-              <option value="inovacao">Inovação</option>
-            </select>
+            <span>Título do projeto</span>
+            <input type="text" name="titulo" placeholder="Ex.: Sistema de gestão para projetos acadêmicos" required />
           </label>
+
+          <div class="admin-form-row compact-three">
+            <label>
+              <span>Eixo</span>
+              <select name="eixo" required>
+                <option value="pesquisa">Pesquisa</option>
+                <option value="extensao">Extensão</option>
+                <option value="inovacao">Inovação</option>
+              </select>
+            </label>
+            <label>
+              <span>Status</span>
+              <select name="status" required>
+                <option value="solicitada">Solicitada</option>
+                <option value="em_analise">Em análise</option>
+                <option value="aprovada">Aprovada</option>
+                <option value="revisao">Precisa de ajustes</option>
+                <option value="recusada">Recusada</option>
+                <option value="arquivada">Arquivada</option>
+              </select>
+            </label>
+            <label>
+              <span>Visibilidade</span>
+              <select name="visivel" required>
+                <option value="false">Oculto no mural</option>
+                <option value="true">Visível no mural</option>
+              </select>
+            </label>
+          </div>
+
           <label>
-            <span>Status</span>
-            <select name="status" required>
-              <option value="solicitada">Solicitada</option>
+            <span>Resumo público</span>
+            <textarea name="resumo" rows="3" placeholder="Resumo curto para aparecer no mural público." required></textarea>
+          </label>
+
+          <label>
+            <span>Descrição interna</span>
+            <textarea name="descricao" rows="4" placeholder="Descrição geral da proposta, metodologia, contexto ou detalhes enviados."></textarea>
+          </label>
+
+          <label>
+            <span>Objetivo</span>
+            <textarea name="objetivo" rows="3" placeholder="Objetivo principal do projeto."></textarea>
+          </label>
+
+          <div class="admin-form-row compact-three">
+            <label>
+              <span>Orientador(a)</span>
+              <input type="text" name="orientador" placeholder="Nome do orientador ou setor" />
+            </label>
+            <label>
+              <span>Equipe</span>
+              <input type="text" name="equipe" placeholder="Integrantes principais" />
+            </label>
+            <label>
+              <span>Público-alvo</span>
+              <input type="text" name="publico_alvo" placeholder="Comunidade, estudantes, escolas..." />
+            </label>
+          </div>
+
+          <label>
+            <span>Palavras-chave</span>
+            <input type="text" name="palavras_chave" placeholder="software, educação, inovação" />
+          </label>
+
+          <div class="admin-form-row compact-three">
+            <label>
+              <span>Responsável</span>
+              <input type="text" name="responsavel_nome" placeholder="Nome do aluno" required />
+            </label>
+            <label>
+              <span>Matrícula</span>
+              <input type="text" name="responsavel_matricula" placeholder="Matrícula" required />
+            </label>
+            <label>
+              <span>E-mail</span>
+              <input type="email" name="responsavel_email" placeholder="email@exemplo.com" required />
+            </label>
+          </div>
+
+          <label>
+            <span>Feedback para o estudante</span>
+            <textarea name="feedback_admin" rows="4" placeholder="Retorno da administração: aprovado, ajustes necessários, documentação incompleta etc."></textarea>
+          </label>
+
+          <div class="admin-form-actions">
+            <button class="admin-submit" type="submit">Salvar proposta</button>
+            <button class="admin-secondary-action" type="button" data-clear-form>Limpar</button>
+          </div>
+        </form>
+
+        <form class="admin-publication-form admin-project-form" data-monitoria-form data-admin-create-panel="monitoria" hidden>
+          <input type="hidden" name="id" />
+
+          <div class="admin-form-heading">
+            <span>Editor</span>
+            <strong data-monitoria-form-title>Nova monitoria</strong>
+          </div>
+
+          <label>
+            <span>Título da monitoria</span>
+            <input type="text" name="titulo" placeholder="Ex.: Monitoria de Desenvolvimento Web" required />
+          </label>
+
+          <div class="admin-form-row compact-three">
+            <label>
+              <span>Tipo</span>
+              <select name="tipo" required>
+                <option value="voluntaria">Voluntária</option>
+                <option value="bolsista">Bolsista</option>
+                <option value="mista">Bolsista/voluntária</option>
+              </select>
+            </label>
+            <label>
+              <span>Status</span>
+              <select name="status" required>
+                <option value="rascunho">Rascunho</option>
+                <option value="publicado">Publicado</option>
+                <option value="oculto">Oculto</option>
+              </select>
+            </label>
+            <label>
+              <span>Visibilidade</span>
+              <select name="visivel" required>
+                <option value="true">Visível para alunos</option>
+                <option value="false">Oculta para alunos</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="admin-form-row compact-three">
+            <label>
+              <span>Disciplina/área</span>
+              <input type="text" name="disciplina" placeholder="Ex.: Programação, Web, Banco de Dados" />
+            </label>
+            <label>
+              <span>Vagas</span>
+              <input type="number" name="vagas" min="0" value="1" />
+            </label>
+            <label>
+              <span>Carga horária</span>
+              <input type="text" name="carga_horaria" placeholder="Ex.: 6h semanais" />
+            </label>
+          </div>
+
+          <div class="admin-form-row compact-three">
+            <label>
+              <span>Professor(a)/responsável</span>
+              <input type="text" name="professor" placeholder="Nome do responsável" />
+            </label>
+            <label>
+              <span>Início das inscrições</span>
+              <input type="date" name="inscricao_inicio" />
+            </label>
+            <label>
+              <span>Fim das inscrições</span>
+              <input type="date" name="inscricao_fim" />
+            </label>
+          </div>
+
+          <label>
+            <span>Resumo público</span>
+            <textarea name="resumo" rows="3" placeholder="Resumo curto para aparecer na área de monitorias." required></textarea>
+          </label>
+
+          <label>
+            <span>Requisitos</span>
+            <textarea name="requisitos" rows="3" placeholder="Pré-requisitos, perfil esperado ou observações para candidatura."></textarea>
+          </label>
+
+          <label>
+            <span>Descrição completa</span>
+            <textarea name="descricao" rows="4" placeholder="Detalhes internos ou orientação completa da monitoria."></textarea>
+          </label>
+
+          <label>
+            <span>Link externo ou edital</span>
+            <input type="url" name="link_externo" placeholder="https://..." />
+          </label>
+
+          <div class="admin-form-actions">
+            <button class="admin-submit" type="submit">Salvar monitoria</button>
+            <button class="admin-secondary-action" type="button" data-clear-monitoria-form>Limpar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="admin-project-panel" data-admin-project-panel="projects">
+        <section class="admin-publications-list admin-project-list" aria-label="Lista de propostas cadastradas">
+          <div class="admin-list-toolbar">
+            <strong>Propostas recebidas: pesquisa, extensão e inovação</strong>
+            <select data-project-filter aria-label="Filtrar propostas">
+              <option value="todos">Todas</option>
+              <option value="solicitada">Solicitadas</option>
               <option value="em_analise">Em análise</option>
-              <option value="aprovada">Aprovada</option>
-              <option value="revisao">Precisa de ajustes</option>
-              <option value="recusada">Recusada</option>
-              <option value="arquivada">Arquivada</option>
+              <option value="aprovada">Aprovadas</option>
+              <option value="revisao">Em revisão</option>
+              <option value="recusada">Recusadas</option>
+              <option value="visiveis">Visíveis no mural</option>
             </select>
-          </label>
-          <label>
-            <span>Visibilidade</span>
-            <select name="visivel" required>
-              <option value="false">Oculto no mural</option>
-              <option value="true">Visível no mural</option>
+          </div>
+          <div class="admin-list-empty" data-project-empty>Nenhuma proposta cadastrada ainda.</div>
+          <div class="admin-project-items" data-project-list></div>
+        </section>
+      </section>
+
+      <section class="admin-project-panel" data-admin-project-panel="monitorias" hidden>
+        <section class="admin-publications-list admin-project-list" aria-label="Candidaturas de monitoria">
+          <div class="admin-list-toolbar">
+            <strong>Propostas recebidas: monitoria</strong>
+            <select data-monitoria-candidate-filter aria-label="Filtrar candidaturas de monitoria">
+              <option value="todos">Todas</option>
+              <option value="solicitada">Solicitadas</option>
+              <option value="em_analise">Em análise</option>
+              <option value="aprovada">Aprovadas</option>
+              <option value="recusada">Recusadas</option>
             </select>
-          </label>
-        </div>
-
-        <label>
-          <span>Resumo público</span>
-          <textarea name="resumo" rows="3" placeholder="Resumo curto para aparecer no mural público." required></textarea>
-        </label>
-
-        <label>
-          <span>Descrição interna</span>
-          <textarea name="descricao" rows="4" placeholder="Descrição geral da proposta, metodologia, contexto ou detalhes enviados."></textarea>
-        </label>
-
-        <label>
-          <span>Objetivo</span>
-          <textarea name="objetivo" rows="3" placeholder="Objetivo principal do projeto."></textarea>
-        </label>
-
-        <div class="admin-form-row compact-three">
-          <label>
-            <span>Orientador(a)</span>
-            <input type="text" name="orientador" placeholder="Nome do orientador ou setor" />
-          </label>
-          <label>
-            <span>Equipe</span>
-            <input type="text" name="equipe" placeholder="Integrantes principais" />
-          </label>
-          <label>
-            <span>Público-alvo</span>
-            <input type="text" name="publico_alvo" placeholder="Comunidade, estudantes, escolas..." />
-          </label>
-        </div>
-
-        <label>
-          <span>Palavras-chave</span>
-          <input type="text" name="palavras_chave" placeholder="software, educação, inovação" />
-        </label>
-
-        <div class="admin-form-row compact-three">
-          <label>
-            <span>Responsável</span>
-            <input type="text" name="responsavel_nome" placeholder="Nome do aluno" required />
-          </label>
-          <label>
-            <span>Matrícula</span>
-            <input type="text" name="responsavel_matricula" placeholder="Matrícula" required />
-          </label>
-          <label>
-            <span>E-mail</span>
-            <input type="email" name="responsavel_email" placeholder="email@exemplo.com" required />
-          </label>
-        </div>
-
-        <label>
-          <span>Feedback para o estudante</span>
-          <textarea name="feedback_admin" rows="4" placeholder="Retorno da administração: aprovado, ajustes necessários, documentação incompleta etc."></textarea>
-        </label>
-
-        <div class="admin-form-actions">
-          <button class="admin-submit" type="submit">Salvar proposta</button>
-          <button class="admin-secondary-action" type="button" data-clear-form>Limpar</button>
-        </div>
-      </form>
-
-      <section class="admin-publications-list admin-project-list" aria-label="Lista de propostas cadastradas">
-        <div class="admin-list-toolbar">
-          <strong>Propostas recebidas</strong>
-          <select data-project-filter aria-label="Filtrar propostas">
-            <option value="todos">Todas</option>
-            <option value="solicitada">Solicitadas</option>
-            <option value="em_analise">Em análise</option>
-            <option value="aprovada">Aprovadas</option>
-            <option value="revisao">Em revisão</option>
-            <option value="recusada">Recusadas</option>
-            <option value="visiveis">Visíveis no mural</option>
-          </select>
-        </div>
-        <div class="admin-list-empty" data-project-empty>Nenhuma proposta cadastrada ainda.</div>
-        <div class="admin-project-items" data-project-list></div>
+          </div>
+          <div class="admin-list-empty" data-monitoria-candidate-empty>Nenhuma candidatura de monitoria recebida ainda.</div>
+          <div class="admin-project-items" data-monitoria-candidate-list></div>
+        </section>
       </section>
     </section>
+
   </main>
 
   <script type="module" src="../assets/js/admin-projetos.js"></script>
