@@ -110,6 +110,7 @@ function renderDocentes(items) {
         <ul class="docent-meta">
           ${item.formacao ? `<li><strong>Formação:</strong> ${escapeHtml(item.formacao)}</li>` : ""}
           ${item.area_atuacao ? `<li><strong>Área de atuação:</strong> ${escapeHtml(item.area_atuacao)}</li>` : ""}
+          ${item.materias_ministradas ? `<li><strong>Matérias ministradas:</strong> ${escapeHtml(item.materias_ministradas)}</li>` : ""}
           ${item.historico ? `<li><strong>Histórico:</strong> ${escapeHtml(item.historico)}</li>` : ""}
           ${item.projetos_interesses ? `<li><strong>Projetos e interesses:</strong> ${escapeHtml(item.projetos_interesses)}</li>` : ""}
         </ul>
@@ -137,7 +138,7 @@ async function loadDocentes() {
   try {
     const { data, error } = await supabase
       .from("docentes")
-      .select("nome, funcao, formacao, area_atuacao, historico, projetos_interesses, email, telefone, contato_preferencial, lattes_url, imagem_url, imagem_path, destaque, ordem")
+      .select("nome, funcao, formacao, area_atuacao, materias_ministradas, historico, projetos_interesses, email, telefone, contato_preferencial, lattes_url, imagem_url, imagem_path, destaque, ordem")
       .eq("ativo", true)
       .order("destaque", { ascending: false })
       .order("ordem", { ascending: true })

@@ -176,6 +176,7 @@ function fillForm(item) {
   form.elements.funcao.value = text(item.funcao || "docente");
   form.elements.formacao.value = text(item.formacao);
   form.elements.area_atuacao.value = text(item.area_atuacao);
+  if (form.elements.materias_ministradas) form.elements.materias_ministradas.value = text(item.materias_ministradas);
   form.elements.historico.value = text(item.historico);
   form.elements.projetos_interesses.value = text(item.projetos_interesses);
   form.elements.email.value = text(item.email);
@@ -211,6 +212,7 @@ function getPayload() {
     funcao: String(formData.get("funcao") || "docente"),
     formacao: String(formData.get("formacao") || "").trim() || null,
     area_atuacao: String(formData.get("area_atuacao") || "").trim() || null,
+    materias_ministradas: String(formData.get("materias_ministradas") || "").trim() || null,
     historico: String(formData.get("historico") || "").trim() || null,
     projetos_interesses: String(formData.get("projetos_interesses") || "").trim() || null,
     email: String(formData.get("email") || "").trim() || null,
@@ -280,7 +282,7 @@ function renderDocentes() {
     header.append(headingGroup, pills);
 
     const summary = document.createElement("p");
-    summary.textContent = item.historico || item.formacao || "Sem histórico cadastrado.";
+    summary.textContent = item.historico || item.materias_ministradas || item.formacao || "Sem histórico cadastrado.";
 
     const info = document.createElement("small");
     info.className = "admin-card-footnote";

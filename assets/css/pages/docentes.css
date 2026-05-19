@@ -798,3 +798,110 @@
     min-height: 138px;
   }
 }
+
+/* Ajuste 46: cards de docentes mais largos e menos altos */
+.docent-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.docent-card {
+  grid-template-columns: 166px minmax(0, 1fr);
+  gap: 26px;
+  align-items: start;
+  padding: clamp(24px, 2.2vw, 30px);
+}
+
+.docent-photo-frame.has-image,
+.docent-photo-frame {
+  width: 166px;
+  height: 166px;
+  min-height: 166px;
+  border-radius: 32px;
+}
+
+.docent-photo-frame.has-image img {
+  width: 166px !important;
+  height: 166px !important;
+  min-width: 166px;
+  min-height: 166px;
+  border-radius: 32px;
+  object-position: center 34%;
+}
+
+.docent-card h3 {
+  margin-top: 14px;
+  max-width: 520px;
+}
+
+.docent-meta {
+  max-width: 560px;
+  gap: 9px;
+}
+
+.docent-meta li {
+  line-height: 1.55;
+}
+
+.docent-contact-links {
+  grid-column: 2;
+  align-items: center;
+  margin-top: 18px;
+}
+
+@media (max-width: 1180px) {
+  .docent-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .docent-card {
+    grid-template-columns: 166px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .docent-card {
+    grid-template-columns: 136px minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .docent-photo-frame.has-image,
+  .docent-photo-frame {
+    width: 136px;
+    height: 136px;
+    min-height: 136px;
+    border-radius: 28px;
+  }
+
+  .docent-photo-frame.has-image img {
+    width: 136px !important;
+    height: 136px !important;
+    min-width: 136px;
+    min-height: 136px;
+    border-radius: 28px;
+  }
+}
+
+@media (max-width: 560px) {
+  .docent-card {
+    grid-template-columns: 1fr;
+  }
+
+  .docent-photo-frame.has-image,
+  .docent-photo-frame {
+    width: 148px;
+    height: 148px;
+    min-height: 148px;
+  }
+
+  .docent-photo-frame.has-image img {
+    width: 148px !important;
+    height: 148px !important;
+    min-width: 148px;
+    min-height: 148px;
+  }
+
+  .docent-contact-links {
+    grid-column: auto;
+  }
+}
