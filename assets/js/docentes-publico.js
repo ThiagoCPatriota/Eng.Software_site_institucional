@@ -26,6 +26,13 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
+function cssUrl(value) {
+  return String(value ?? "")
+    .replace(/\\/g, "\\\\")
+    .replace(/"/g, '\\"')
+    .replace(/[\r\n]/g, "");
+}
+
 
 function getImageUrl(item) {
   if (item?.imagem_url) return item.imagem_url;
@@ -94,7 +101,7 @@ function renderDocentes(items) {
       : `<span>${escapeHtml(initials(item.nome))}</span><figcaption>Foto institucional futura</figcaption>`;
 
     card.innerHTML = `
-      <figure class="docent-photo-frame" aria-label="Foto ou identificação de ${safeName}">
+      <figure class="docent-photo-frame${imageUrl ? " has-image" : ""}" aria-label="Foto ou identificação de ${safeName}">
         ${photo}
       </figure>
       <div class="docent-card-body">
@@ -109,6 +116,11 @@ function renderDocentes(items) {
         <div class="docent-contact-links">${createContactLinks(item)}</div>
       </div>
     `;
+
+    if (imageUrl) {
+      const frame = card.querySelector(".docent-photo-frame");
+      frame?.style.setProperty("--docent-photo-bg", `url("${cssUrl(imageUrl)}")`);
+    }
 
     list.appendChild(card);
   });

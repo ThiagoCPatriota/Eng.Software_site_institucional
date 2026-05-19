@@ -2963,3 +2963,41 @@
     max-width: none;
   }
 }
+
+
+/* Ajuste 38: respiro no formulário de docentes e upload de foto */
+.admin-docente-form .admin-docente-balanced-row {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.88fr);
+}
+
+.admin-docente-form .admin-docente-media-row {
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.62fr);
+  align-items: end;
+}
+
+.admin-photo-upload-field {
+  min-width: 0;
+}
+
+.admin-photo-upload-field input[type="file"] {
+  width: 100%;
+  min-height: 52px;
+  font-size: 0.86rem;
+}
+
+.admin-photo-upload-field small {
+  max-width: 320px;
+}
+
+.admin-docente-preview-frame img {
+  object-fit: contain;
+  padding: 6px;
+  background: #fff;
+}
+
+@media (max-width: 900px) {
+  .admin-docente-form .admin-docente-balanced-row,
+  .admin-docente-form .admin-docente-media-row {
+    grid-template-columns: 1fr;
+  }
+}
