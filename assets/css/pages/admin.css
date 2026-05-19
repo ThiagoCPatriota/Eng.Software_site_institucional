@@ -3001,3 +3001,214 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Ajuste 47: PPC / Grade curricular administrável */
+.admin-grade-workspace {
+  display: grid;
+  gap: 22px;
+}
+
+.admin-grade-workspace [hidden] {
+  display: none !important;
+}
+
+.admin-grade-workspace .admin-grade-form {
+  width: min(1040px, 100%);
+  margin-inline: auto;
+}
+
+.admin-grade-panel {
+  width: 100%;
+}
+
+.admin-grade-list-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-grade-periods {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-grade-period-card {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 18px 44px rgba(11, 42, 74, 0.08);
+}
+
+.admin-grade-period-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  padding: 22px 24px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(45, 156, 219, 0.12), transparent 34%),
+    linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.admin-grade-period-header span {
+  display: inline-flex;
+  width: fit-content;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: var(--color-ifpe-dark);
+  background: var(--color-ifpe-soft);
+  font-size: 0.76rem;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.admin-grade-period-header h2 {
+  margin-top: 10px;
+  color: var(--color-primary);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+.admin-grade-period-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: min(390px, 100%);
+}
+
+.admin-grade-stat-chip {
+  display: grid;
+  min-width: 112px;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  color: var(--color-muted);
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 10px 22px rgba(11, 42, 74, 0.045);
+}
+
+.admin-grade-stat-chip strong,
+.admin-grade-stat-chip small {
+  display: block;
+}
+
+.admin-grade-stat-chip strong {
+  color: var(--color-primary);
+  font-size: 1.06rem;
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.admin-grade-stat-chip small {
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 850;
+  line-height: 1.15;
+  text-transform: lowercase;
+}
+
+.admin-grade-component-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  padding: 20px;
+}
+
+.admin-grade-component-card {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 190px;
+  padding: 16px;
+  border: 1px solid rgba(214, 226, 236, 0.96);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(25, 135, 84, 0.06), transparent 36%),
+    #fff;
+}
+
+.admin-grade-component-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-grade-component-head span,
+.admin-grade-component-card small {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  color: var(--color-primary);
+  background: var(--color-accent-soft);
+  font-size: 0.72rem;
+  font-weight: 950;
+}
+
+.admin-grade-component-head span:last-child {
+  color: var(--color-ifpe-dark);
+  background: var(--color-ifpe-soft);
+}
+
+.admin-grade-component-card h3 {
+  color: var(--color-primary);
+  font-size: 1.02rem;
+  line-height: 1.25;
+}
+
+.admin-grade-component-card p {
+  color: var(--color-muted);
+  font-size: 0.86rem;
+  font-weight: 760;
+  line-height: 1.35;
+}
+
+.admin-grade-component-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.admin-grade-component-actions button {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: #f8fbff;
+  color: var(--color-primary);
+  font-size: 0.76rem;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.admin-grade-component-actions button[data-action="delete"] {
+  color: #9a3412;
+  background: #fff7ed;
+  border-color: #fed7aa;
+}
+
+@media (max-width: 1260px) {
+  .admin-grade-component-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .admin-grade-period-header,
+  .admin-grade-component-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-grade-period-stats {
+    min-width: 0;
+  }
+}

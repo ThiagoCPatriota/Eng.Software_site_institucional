@@ -107,27 +107,38 @@
 }
 
 .period-summary {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(90px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 10px;
-  min-width: min(420px, 100%);
+  min-width: min(460px, 100%);
 }
 
-.period-summary span {
+.curriculum-stat-chip {
   display: grid;
-  gap: 2px;
+  min-width: 128px;
+  gap: 4px;
   padding: 12px 14px;
   border: 1px solid rgba(214, 226, 236, 0.95);
   border-radius: 16px;
   background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
   color: var(--color-muted);
-  font-size: 0.83rem;
-  font-weight: 750;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(11, 42, 74, 0.045);
 }
 
-.period-summary strong {
+.curriculum-stat-chip small {
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.curriculum-stat-chip strong {
   color: var(--color-primary);
-  font-size: 1.06rem;
+  font-size: 1.12rem;
+  line-height: 1.1;
 }
 
 .course-card-grid {
@@ -241,6 +252,15 @@
   .course-card {
     min-height: auto;
   }
+  .period-summary {
+    justify-content: flex-start;
+  }
+
+  .curriculum-stat-chip {
+    min-width: 0;
+    flex: 1 1 130px;
+  }
+
 }
 
 @media (max-width: 680px) {
@@ -248,4 +268,41 @@
     min-width: 54px;
     flex: 1 1 54px;
   }
+}
+
+/* Ajuste 47: matriz dinâmica via Supabase */
+.curriculum-empty,
+.curriculum-empty-inline {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px dashed var(--color-border);
+  border-radius: 20px;
+  color: var(--color-muted);
+  background: rgba(255, 255, 255, 0.78);
+  font-weight: 800;
+}
+
+.curriculum-empty-inline {
+  grid-column: 1 / -1;
+  margin-top: 0;
+}
+
+.course-type {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 28px;
+  align-items: center;
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: var(--color-primary);
+  background: var(--color-accent-soft);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.course-description {
+  color: var(--color-muted);
+  font-size: 0.86rem;
+  font-weight: 650;
+  line-height: 1.42;
 }

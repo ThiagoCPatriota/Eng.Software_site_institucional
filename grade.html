@@ -1,816 +1,200 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Conheça a matriz curricular do curso de Engenharia de Software do IFPE Campus Belo Jardim, organizada por períodos, componentes curriculares, carga horária, créditos e pré-requisitos." />
-  <meta name="author" content="Projeto final da disciplina de Web" />
-  <meta name="theme-color" content="#0b2a4a" />
-  <meta name="robots" content="index, follow" />
-  <title>Grade Curricular | Engenharia de Software - IFPE Campus Belo Jardim</title>
-  <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
-  <link rel="stylesheet" href="assets/css/global.css" />
-  <link rel="stylesheet" href="assets/css/pages/grade.css" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Conheça a matriz curricular do curso de Engenharia de Software do IFPE Campus Belo Jardim, organizada por períodos, componentes curriculares, carga horária, créditos e pré-requisitos." name="description"/>
+<meta content="Projeto final da disciplina de Web" name="author"/>
+<meta content="#0b2a4a" name="theme-color"/>
+<meta content="index, follow" name="robots"/>
+<title>Grade Curricular | Engenharia de Software - IFPE Campus Belo Jardim</title>
+<link href="assets/img/Eng_soft.png" rel="icon" type="image/png"/>
+<link href="assets/css/global.css" rel="stylesheet"/>
+<link href="assets/css/pages/grade.css" rel="stylesheet"/>
 </head>
-
 <body data-page="grade">
-  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
-
-  <header class="site-header" id="topo">
-    <div class="container header-wrapper">
-      <a class="brand" href="index.html"
-        aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
-        <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim"
-          class="brand-mark" />
-        <span class="brand-text">
-          <strong>IFPE</strong>
-          <span>Engenharia de Software</span>
-        </span>
-      </a>
-
-      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false"
-        aria-controls="menu-principal">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
-        <a href="index.html" data-nav="inicio">Início</a>
-        <a href="eventos-noticias.html" data-nav="eventos">Notícias</a>
-
-        <details class="nav-group" data-nav-group="curso">
-          <summary>Curso</summary>
-          <div class="nav-dropdown">
-            <a href="sobre.html" data-nav="sobre">Sobre o curso</a>
-            <a href="ingresso.html" data-nav="ingresso">Formas de ingresso</a>
-            <a href="grade.html" data-nav="grade">Grade curricular</a>
-            <a href="mercado.html" data-nav="mercado">Mercado e estágio</a>
-          </div>
-        </details>
-
-        <details class="nav-group" data-nav-group="geral">
-          <summary>Geral</summary>
-          <div class="nav-dropdown">
-            <a href="projetos.html" data-nav="projetos">Projetos</a>
-            <a href="editais.html" data-nav="editais">Editais</a>
-            <a href="outros-servicos.html" data-nav="servicos">Outros serviços</a>
-          </div>
-        </details>
-
-        <details class="nav-group" data-nav-group="estrutura">
-          <summary>Estrutura</summary>
-          <div class="nav-dropdown">
-            <a href="estrutura.html" data-nav="estrutura">Ambientes</a>
-            <a href="docentes.html" data-nav="docentes">Docentes</a>
-          </div>
-        </details>
-
-        <details class="nav-group" data-nav-group="aluno">
-          <summary>Aluno</summary>
-          <div class="nav-dropdown">
-            <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
-            <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
-            <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
-            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
-          </div>
-        </details>
-
-        <details class="nav-group" data-nav-group="atendimento">
-          <summary>Contato</summary>
-          <div class="nav-dropdown">
-            <a href="contato.html" data-nav="contato">Coordenação e contato</a>
-            <a href="faq.html" data-nav="faq">FAQ</a>
-          </div>
-        </details>
-
-        <a class="nav-access-button" href="admin/login.html" data-nav="acesso">Acesso</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="conteudo">
-    <section class="page-hero curriculum-page-hero" aria-labelledby="titulo-grade">
-      <div class="container curriculum-hero-shell reveal">
-        <nav class="breadcrumb" aria-label="Caminho da página">
-          <a href="index.html#inicio">Início</a>
-          <span aria-hidden="true">/</span>
-          <span>Grade curricular</span>
-        </nav>
-        <span class="eyebrow">Grade curricular</span>
-        <h1 id="titulo-grade">Grade curricular e componentes do curso.</h1>
-        <p>
+<a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+<header class="site-header" id="topo">
+<div class="container header-wrapper">
+<a aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="brand" href="index.html">
+<img alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="brand-mark" src="assets/img/Eng_soft.png"/>
+<span class="brand-text">
+<strong>IFPE</strong>
+<span>Engenharia de Software</span>
+</span>
+</a>
+<button aria-controls="menu-principal" aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" type="button">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<nav aria-label="Menu principal" class="main-nav" id="menu-principal">
+<a data-nav="inicio" href="index.html">Início</a>
+<a data-nav="eventos" href="eventos-noticias.html">Notícias</a>
+<details class="nav-group" data-nav-group="curso">
+<summary>Curso</summary>
+<div class="nav-dropdown">
+<a data-nav="sobre" href="sobre.html">Sobre o curso</a>
+<a data-nav="ingresso" href="ingresso.html">Formas de ingresso</a>
+<a data-nav="grade" href="grade.html">Grade curricular</a>
+<a data-nav="mercado" href="mercado.html">Mercado e estágio</a>
+</div>
+</details>
+<details class="nav-group" data-nav-group="geral">
+<summary>Geral</summary>
+<div class="nav-dropdown">
+<a data-nav="projetos" href="projetos.html">Projetos</a>
+<a data-nav="editais" href="editais.html">Editais</a>
+<a data-nav="servicos" href="outros-servicos.html">Outros serviços</a>
+</div>
+</details>
+<details class="nav-group" data-nav-group="estrutura">
+<summary>Estrutura</summary>
+<div class="nav-dropdown">
+<a data-nav="estrutura" href="estrutura.html">Ambientes</a>
+<a data-nav="docentes" href="docentes.html">Docentes</a>
+</div>
+</details>
+<details class="nav-group" data-nav-group="aluno">
+<summary>Aluno</summary>
+<div class="nav-dropdown">
+<a data-nav="area-aluno" href="area-aluno.html">Área do aluno</a>
+<a data-nav="horarios" href="horarios.html">Horário de aulas</a>
+<a data-nav="laboratorios" href="laboratorios.html">Horário dos laboratórios</a>
+<a data-nav="calendario" href="calendario.html">Calendário acadêmico</a>
+</div>
+</details>
+<details class="nav-group" data-nav-group="atendimento">
+<summary>Contato</summary>
+<div class="nav-dropdown">
+<a data-nav="contato" href="contato.html">Coordenação e contato</a>
+<a data-nav="faq" href="faq.html">FAQ</a>
+</div>
+</details>
+<a class="nav-access-button" data-nav="acesso" href="admin/login.html">Acesso</a>
+</nav>
+</div>
+</header>
+<main id="conteudo">
+<section aria-labelledby="titulo-grade" class="page-hero curriculum-page-hero">
+<div class="container curriculum-hero-shell reveal">
+<nav aria-label="Caminho da página" class="breadcrumb">
+<a href="index.html#inicio">Início</a>
+<span aria-hidden="true">/</span>
+<span>Grade curricular</span>
+</nav>
+<span class="eyebrow">Grade curricular</span>
+<h1 id="titulo-grade">Grade curricular e componentes do curso.</h1>
+<p>
           Consulte a matriz do curso de Engenharia de Software por período, com componentes curriculares, carga horária,
           créditos e pré-requisitos. A organização visual evita uma tabela infinita e deixa a navegação mais leve.
         </p>
-        <div class="hero-actions" aria-label="Ações da página">
-          <a class="btn btn-primary" href="#periodos">Ver períodos</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section curriculum-periods-section" id="periodos" aria-labelledby="titulo-periodos">
-      <div class="container">
-        <div class="section-heading reveal">
-          <span class="eyebrow">Matriz curricular</span>
-          <h2 id="titulo-periodos">Matriz curricular do curso de Engenharia de Software.</h2>
-          <p>
+<div aria-label="Ações da página" class="hero-actions">
+<a class="btn btn-primary" href="#periodos">Ver períodos</a>
+</div>
+</div>
+</section>
+<section aria-labelledby="titulo-periodos" class="section curriculum-periods-section" id="periodos">
+<div class="container">
+<div class="section-heading reveal">
+<span class="eyebrow">Matriz curricular</span>
+<h2 id="titulo-periodos">Matriz curricular do curso de Engenharia de Software.</h2>
+<p>
             Navegue pelos períodos para consultar componentes curriculares, carga horária, créditos e pré-requisitos
             indicados na matriz do curso.
           </p>
-        </div>
-
-        <div class="curriculum-tabs reveal" role="tablist" aria-label="Períodos da grade curricular">
-          <button class="period-tab active" type="button" role="tab" aria-selected="true" aria-controls="periodo-1"
-            data-period="periodo-1">1º</button>
-          <button class="period-tab" type="button" role="tab" aria-selected="false" aria-controls="periodo-2"
-            data-period="periodo-2">2º</button>
-          <button class="period-tab" type="button" role="tab" aria-selected="false" aria-controls="periodo-3"
-            data-period="periodo-3">3º</button>
-          <button class="period-tab" type="button" role="tab" aria-selected="false" aria-controls="periodo-4"
-            data-period="periodo-4">4º</button>
-          <button class="period-tab" type="button" role="tab" aria-selected="false" aria-controls="periodo-5"
-            data-period="periodo-5">5º</button>
-          <button class="period-tab" type="button" role="tab" aria-selected="false" aria-controls="periodo-6"
-            data-period="periodo-6">6º</button>
-          <button class="period-tab" type="button" role="tab" aria-selected="false" aria-controls="periodo-7"
-            data-period="periodo-7">7º</button>
-          <button class="period-tab" type="button" role="tab" aria-selected="false" aria-controls="periodo-8"
-            data-period="periodo-8">8º</button>
-        </div>
-
-        <div class="period-panels reveal">
-          <article class="period-panel active" id="periodo-1" role="tabpanel">
-            <div class="period-panel-heading">
-              <div>
-                <span class="period-label">1º período</span>
-                <h3>Fundamentos e entrada na computação</h3>
-              </div>
-              <div class="period-summary" aria-label="Resumo do 1º período">
-                <span><strong>7</strong> componentes</span>
-                <span><strong>390h</strong> carga horária</span>
-                <span><strong>26</strong> créditos</span>
-              </div>
-            </div>
-            <div class="course-card-grid">
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.10</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Comunicação e Expressão</h4>
-                <span class="course-prereq no-prereq">Sem pré-requisito</span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.6</span>
-                  <span class="course-hours">30h • 2 cr.</span>
-                </div>
-                <h4>Ética, Normas e Postura Profissional</h4>
-                <span class="course-prereq no-prereq">Sem pré-requisito</span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.11</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Introdução à Engenharia de Software</h4>
-                <span class="course-prereq no-prereq">Sem pré-requisito</span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.9</span>
-                  <span class="course-hours">90h • 6 cr.</span>
-                </div>
-                <h4>Introdução à Programação</h4>
-                <span class="course-prereq no-prereq">Sem pré-requisito</span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.1</span>
-                  <span class="course-hours">30h • 2 cr.</span>
-                </div>
-                <h4>Língua Inglesa I</h4>
-                <span class="course-prereq no-prereq">Sem pré-requisito</span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.7</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Matemática Discreta</h4>
-                <span class="course-prereq no-prereq">Sem pré-requisito</span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.8</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Sistemas Digitais</h4>
-                <span class="course-prereq no-prereq">Sem pré-requisito</span>
-              </article>
-            </div>
-          </article>
-          <article class="period-panel" id="periodo-2" role="tabpanel" hidden>
-            <div class="period-panel-heading">
-              <div>
-                <span class="period-label">2º período</span>
-                <h3>Estruturas, cálculo e arquitetura de computadores</h3>
-              </div>
-              <div class="period-summary" aria-label="Resumo do 2º período">
-                <span><strong>6</strong> componentes</span>
-                <span><strong>420h</strong> carga horária</span>
-                <span><strong>28</strong> créditos</span>
-              </div>
-            </div>
-            <div class="course-card-grid">
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.14</span>
-                  <span class="course-hours">90h • 6 cr.</span>
-                </div>
-                <h4>Algoritmos e Estrutura de Dados</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.9</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.13</span>
-                  <span class="course-hours">90h • 6 cr.</span>
-                </div>
-                <h4>Cálculo Aplicado à Informática</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.7</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.16</span>
-                  <span class="course-hours">90h • 6 cr.</span>
-                </div>
-                <h4>Introdução à Geometria Analítica e Álgebra Linear</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.7</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.12</span>
-                  <span class="course-hours">30h • 2 cr.</span>
-                </div>
-                <h4>Língua Inglesa II</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.1</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.17</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Organização e Arquitetura de Computadores</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.8</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.15</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Processo de Software</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.11</strong></span>
-              </article>
-            </div>
-          </article>
-          <article class="period-panel" id="periodo-3" role="tabpanel" hidden>
-            <div class="period-panel-heading">
-              <div>
-                <span class="period-label">3º período</span>
-                <h3>Requisitos, dados e orientação a objetos</h3>
-              </div>
-              <div class="period-summary" aria-label="Resumo do 3º período">
-                <span><strong>7</strong> componentes</span>
-                <span><strong>420h</strong> carga horária</span>
-                <span><strong>28</strong> créditos</span>
-              </div>
-            </div>
-            <div class="course-card-grid">
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.22</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Banco de Dados I</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.7</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.23</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Engenharia de Requisitos</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.15</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.20</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Estatística e Probabilidade Aplicada</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.13</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.18</span>
-                  <span class="course-hours">30h • 2 cr.</span>
-                </div>
-                <h4>Língua Inglesa III</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.12</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.24</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Metodologia Científica</h4>
-                <span class="course-prereq no-prereq">Sem pré-requisito</span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.19</span>
-                  <span class="course-hours">90h • 6 cr.</span>
-                </div>
-                <h4>Programação Orientada à Objetos</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.14</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.21</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Sistemas Operacionais</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.17</strong></span>
-              </article>
-            </div>
-          </article>
-          <article class="period-panel" id="periodo-4" role="tabpanel" hidden>
-            <div class="period-panel-heading">
-              <div>
-                <span class="period-label">4º período</span>
-                <h3>Web, banco de dados e interação humano-computador</h3>
-              </div>
-              <div class="period-summary" aria-label="Resumo do 4º período">
-                <span><strong>7</strong> componentes</span>
-                <span><strong>420h</strong> carga horária</span>
-                <span><strong>28</strong> créditos</span>
-              </div>
-            </div>
-            <div class="course-card-grid">
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.31</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Banco de Dados II</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.22</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.27</span>
-                  <span class="course-hours">90h • 6 cr.</span>
-                </div>
-                <h4>Desenvolvimento Web</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.14</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.28</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Economia para Engenharia de Software</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.23</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.30</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Interação Humano Computador</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.10</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.25</span>
-                  <span class="course-hours">30h • 2 cr.</span>
-                </div>
-                <h4>Língua Inglesa IV</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.18</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.29</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Projeto de Software</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.15</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.26</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Redes de Computadores I</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.21</strong></span>
-              </article>
-            </div>
-          </article>
-          <article class="period-panel" id="periodo-5" role="tabpanel" hidden>
-            <div class="period-panel-heading">
-              <div>
-                <span class="period-label">5º período</span>
-                <h3>Arquitetura, gestão e desenvolvimento mobile</h3>
-              </div>
-              <div class="period-summary" aria-label="Resumo do 5º período">
-                <span><strong>8</strong> componentes</span>
-                <span><strong>480h</strong> carga horária</span>
-                <span><strong>32</strong> créditos</span>
-              </div>
-            </div>
-            <div class="course-card-grid">
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.36</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Arquitetura de Software</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.29</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.34</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Gerência de Projetos de Software</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.29</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.32</span>
-                  <span class="course-hours">30h • 2 cr.</span>
-                </div>
-                <h4>Língua Inglesa V</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.25</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.35</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Modelagem de Processos de Negócios</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.28</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.37</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Padrões de Projetos de Software</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.29</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.33</span>
-                  <span class="course-hours">90h • 6 cr.</span>
-                </div>
-                <h4>Programação para Dispositivos Móveis</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.19</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.38</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Redes de Computadores II</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.26</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.41</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Gerência de Configuração e Mudanças</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.34</strong></span>
-              </article>
-            </div>
-          </article>
-          <article class="period-panel" id="periodo-6" role="tabpanel" hidden>
-            <div class="period-panel-heading">
-              <div>
-                <span class="period-label">6º período</span>
-                <h3>Projeto integrador, qualidade e validação</h3>
-              </div>
-              <div class="period-summary" aria-label="Resumo do 6º período">
-                <span><strong>9</strong> componentes</span>
-                <span><strong>600h</strong> carga horária</span>
-                <span><strong>40</strong> créditos</span>
-              </div>
-            </div>
-            <div class="course-card-grid">
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.39</span>
-                  <span class="course-hours">30h • 2 cr.</span>
-                </div>
-                <h4>Língua Inglesa VI</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.32</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.42</span>
-                  <span class="course-hours">90h • 6 cr.</span>
-                </div>
-                <h4>Projeto Integrador</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.29</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.43</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Qualidade de Software</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.34</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.44</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Sistemas Paralelos e Distribuídos</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.29</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.40</span>
-                  <span class="course-hours">90h • 6 cr.</span>
-                </div>
-                <h4>Verificação e Validação de Software</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.34</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.46</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Empreendedorismo e Inovação</h4>
-                <span class="course-prereq no-prereq">Sem pré-requisito</span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.48</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Engenharia de Software Educacional</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.11</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.52</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Libras</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.42</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.45</span>
-                  <span class="course-hours">90h • 6 cr.</span>
-                </div>
-                <h4>Metodologia da Pesquisa I</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.42</strong></span>
-              </article>
-            </div>
-          </article>
-          <article class="period-panel" id="periodo-7" role="tabpanel" hidden>
-            <div class="period-panel-heading">
-              <div>
-                <span class="period-label">7º período</span>
-                <h3>Segurança, jogos, IA e tópicos avançados I</h3>
-              </div>
-              <div class="period-summary" aria-label="Resumo do 7º período">
-                <span><strong>8</strong> componentes</span>
-                <span><strong>480h</strong> carga horária</span>
-                <span><strong>32</strong> créditos</span>
-              </div>
-            </div>
-            <div class="course-card-grid">
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.47</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Segurança e Auditoria de Sistemas</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.44</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.55</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Tópicos Avançados em Banco de Dados I</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.42</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.59</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Tópicos Avançados em TIC I</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.42</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.53</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Tópicos Avançados em Programação I</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.42</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.57</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Tópicos Avançados em Redes de Computadores I</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.42</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.50</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Eng. de Software para Desenvolvimento de Jogos</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.11</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.51</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Introdução aos Sistemas Inteligentes</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.42</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.49</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Metodologia da Pesquisa II</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.45</strong></span>
-              </article>
-            </div>
-          </article>
-          <article class="period-panel" id="periodo-8" role="tabpanel" hidden>
-            <div class="period-panel-heading">
-              <div>
-                <span class="period-label">8º período</span>
-                <h3>Tópicos avançados e fechamento da matriz</h3>
-              </div>
-              <div class="period-summary" aria-label="Resumo do 8º período">
-                <span><strong>4</strong> componentes</span>
-                <span><strong>240h</strong> carga horária</span>
-                <span><strong>16</strong> créditos</span>
-              </div>
-            </div>
-            <div class="course-card-grid">
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.56</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Tópicos Avançados em Banco de Dados II</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.42</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.60</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Tópicos Avançados em TIC II</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.42</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.54</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Tópicos Avançados em Programação II</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.42</strong></span>
-              </article>
-              <article class="course-card">
-                <div class="course-card-header">
-                  <span class="course-code">CBBJ.58</span>
-                  <span class="course-hours">60h • 4 cr.</span>
-                </div>
-                <h4>Tópicos Avançados em Redes de Computadores II</h4>
-                <span class="course-prereq">Pré: <strong>CBBJ.42</strong></span>
-              </article>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="next-step-section section" aria-labelledby="titulo-proxima-etapa-grade">
-      <div class="container next-step reveal">
-        <div>
-          <span class="eyebrow">Continue explorando</span>
-          <h2 id="titulo-proxima-etapa-grade">Depois da grade, o estudante quer entender onde pode atuar.</h2>
-          <p>
+</div>
+<div aria-label="Períodos da grade curricular" class="curriculum-tabs reveal" data-curriculum-tabs="" role="tablist"></div>
+<div class="period-panels reveal" data-curriculum-panels=""></div><p class="curriculum-empty" data-curriculum-empty="" hidden="">Nenhum componente curricular encontrado no momento.</p>
+</div>
+</section>
+<section aria-labelledby="titulo-proxima-etapa-grade" class="next-step-section section">
+<div class="container next-step reveal">
+<div>
+<span class="eyebrow">Continue explorando</span>
+<h2 id="titulo-proxima-etapa-grade">Depois da grade, o estudante quer entender onde pode atuar.</h2>
+<p>
             A página de mercado de trabalho e estágio aprofunda áreas de atuação, cargos, possibilidades de
             empreendedorismo, oportunidades e caminhos profissionais.
           </p>
-        </div>
-        <div class="next-actions">
-          <a class="btn btn-primary" href="mercado.html">Conhecer mercado e estágio</a>
-          <a class="btn btn-secondary" href="ingresso.html">Voltar para ingresso</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer institutional-footer">
-    <div class="container footer-main">
-      <a class="footer-gov-mark" href="index.html"
-        aria-label="Página inicial do curso de Engenharia de Software do IFPE">
+</div>
+<div class="next-actions">
+<a class="btn btn-primary" href="mercado.html">Conhecer mercado e estágio</a>
+<a class="btn btn-secondary" href="ingresso.html">Voltar para ingresso</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer institutional-footer">
+<div class="container footer-main">
+<a aria-label="Página inicial do curso de Engenharia de Software do IFPE" class="footer-gov-mark" href="index.html">
         IFPE
       </a>
-
-      <div class="footer-columns" aria-label="Mapa de navegação do rodapé">
-        <nav class="footer-column" aria-label="Links sobre o curso">
-          <h2>Curso</h2>
-          <a href="sobre.html">Sobre o curso</a>
-          <a href="ingresso.html">Formas de ingresso</a>
-          <a href="grade.html">Grade curricular</a>
-          <a href="mercado.html">Mercado e estágio</a>
-        </nav>
-
-        <nav class="footer-column" aria-label="Links de vida acadêmica">
-          <h2>Vida acadêmica</h2>
-          <a href="eventos-noticias.html">Eventos e notícias</a>
-          <a href="projetos.html">Projetos</a>
-          <a href="editais.html">Editais</a>
-          <a href="outros-servicos.html">Outros serviços</a>
-          <a href="area-aluno.html">Área do aluno</a>
-          <a href="horarios.html">Horário de aulas</a>
-          <a href="laboratorios.html">Horário dos laboratórios</a>
-          <a href="calendario.html">Calendário acadêmico</a>
-          <a href="faq.html">Dúvidas frequentes</a>
-        </nav>
-
-        <nav class="footer-column" aria-label="Links de estrutura do curso">
-          <h2>Estrutura</h2>
-          <a href="estrutura.html">Ambientes e infraestrutura</a>
-          <a href="docentes.html">Corpo docente</a>
-          <a href="contato.html">Coordenação e contato</a>
-        </nav>
-
-        <div class="footer-column" aria-label="Informações institucionais">
-          <h2>Atendimento</h2>
-          <span>Coordenação do curso: a confirmar</span>
-          <span>E-mail institucional: a confirmar</span>
-          <span>WhatsApp/telefone: a confirmar</span>
-          <span>IFPE Campus Belo Jardim</span>
-        </div>
-      </div>
-
-      <div class="footer-support-row">
-        <div class="footer-social-block">
-          <h2>Canais institucionais</h2>
-          <div class="footer-socials" aria-label="Canais institucionais em modo demonstrativo">
-            <span>IFPE</span>
-            <span>ES</span>
-            <span>BJ</span>
-          </div>
-        </div>
-
-        <div class="footer-identity" aria-label="Identidade institucional do curso">
-          <a class="footer-seal" href="index.html" aria-label="Engenharia de Software IFPE Campus Belo Jardim">
-            <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software" />
-            <span>
-              <strong>Engenharia de Software</strong>
-              <small>IFPE Campus Belo Jardim</small>
-            </span>
-          </a>
-          <span class="footer-ifpe-wordmark">Instituto Federal de Pernambuco</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <div class="container footer-bottom-inner">
-        <small>© <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim. Conteúdo institucional
+<div aria-label="Mapa de navegação do rodapé" class="footer-columns">
+<nav aria-label="Links sobre o curso" class="footer-column">
+<h2>Curso</h2>
+<a href="sobre.html">Sobre o curso</a>
+<a href="ingresso.html">Formas de ingresso</a>
+<a href="grade.html">Grade curricular</a>
+<a href="mercado.html">Mercado e estágio</a>
+</nav>
+<nav aria-label="Links de vida acadêmica" class="footer-column">
+<h2>Vida acadêmica</h2>
+<a href="eventos-noticias.html">Eventos e notícias</a>
+<a href="projetos.html">Projetos</a>
+<a href="editais.html">Editais</a>
+<a href="outros-servicos.html">Outros serviços</a>
+<a href="area-aluno.html">Área do aluno</a>
+<a href="horarios.html">Horário de aulas</a>
+<a href="laboratorios.html">Horário dos laboratórios</a>
+<a href="calendario.html">Calendário acadêmico</a>
+<a href="faq.html">Dúvidas frequentes</a>
+</nav>
+<nav aria-label="Links de estrutura do curso" class="footer-column">
+<h2>Estrutura</h2>
+<a href="estrutura.html">Ambientes e infraestrutura</a>
+<a href="docentes.html">Corpo docente</a>
+<a href="contato.html">Coordenação e contato</a>
+</nav>
+<div aria-label="Informações institucionais" class="footer-column">
+<h2>Atendimento</h2>
+<span>Coordenação do curso: a confirmar</span>
+<span>E-mail institucional: a confirmar</span>
+<span>WhatsApp/telefone: a confirmar</span>
+<span>IFPE Campus Belo Jardim</span>
+</div>
+</div>
+<div class="footer-support-row">
+<div class="footer-social-block">
+<h2>Canais institucionais</h2>
+<div aria-label="Canais institucionais em modo demonstrativo" class="footer-socials">
+<span>IFPE</span>
+<span>ES</span>
+<span>BJ</span>
+</div>
+</div>
+<div aria-label="Identidade institucional do curso" class="footer-identity">
+<a aria-label="Engenharia de Software IFPE Campus Belo Jardim" class="footer-seal" href="index.html">
+<img alt="Escudo do curso de Engenharia de Software" src="assets/img/Eng_soft.png"/>
+<span>
+<strong>Engenharia de Software</strong>
+<small>IFPE Campus Belo Jardim</small>
+</span>
+</a>
+<span class="footer-ifpe-wordmark">Instituto Federal de Pernambuco</span>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="container footer-bottom-inner">
+<small>© <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim. Conteúdo institucional
           em versão demonstrativa.</small>
-        <button class="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
-      </div>
-    </div>
-  </footer>
-
-
+<button aria-label="Voltar ao topo" class="back-to-top" type="button">↑</button>
+</div>
+</div>
+</footer>
+<script src="assets/js/grade-publico.js" type="module"></script>
   <script src="assets/js/script.js"></script>
 </body>
-
 </html>
