@@ -6,13 +6,15 @@ import {
   supabase,
 } from "./supabase-client.js";
 
-const DIAS = {
-  1: "Segunda",
-  2: "Terça",
-  3: "Quarta",
-  4: "Quinta",
-  5: "Sexta",
-};
+const DIAS = [
+  { value: 1, label: "Segunda" },
+  { value: 2, label: "Terça" },
+  { value: 3, label: "Quarta" },
+  { value: 4, label: "Quinta" },
+  { value: 5, label: "Sexta" },
+];
+
+const DIAS_LABEL = DIAS.reduce((acc, dia) => ({ ...acc, [dia.value]: dia.label }), {});
 
 const TIPOS = {
   reserva: "Reserva",
@@ -22,6 +24,29 @@ const TIPOS = {
   projeto: "Projeto",
   apresentacao: "Apresentação",
 };
+
+const TIME_SLOTS = [
+  { start: "07:30", end: "08:15" },
+  { start: "08:15", end: "09:00" },
+  { start: "09:00", end: "09:15", break: true },
+  { start: "09:15", end: "10:00" },
+  { start: "10:00", end: "10:45" },
+  { start: "10:45", end: "11:30" },
+  { start: "11:30", end: "12:15" },
+  { start: "13:30", end: "14:15" },
+  { start: "14:15", end: "15:00" },
+  { start: "15:00", end: "15:10", break: true },
+  { start: "15:10", end: "15:55" },
+  { start: "15:55", end: "16:40" },
+  { start: "16:40", end: "17:25" },
+  { start: "17:25", end: "18:10" },
+  { start: "18:30", end: "19:15" },
+  { start: "19:15", end: "20:00" },
+  { start: "20:00", end: "20:15", break: true },
+  { start: "20:15", end: "21:00" },
+  { start: "21:00", end: "21:45" },
+  { start: "21:45", end: "22:00" },
+];
 
 const labFilter = document.querySelector("[data-lab-filter]");
 const dayFilter = document.querySelector("[data-lab-day-filter]");
@@ -33,6 +58,7 @@ const requestForm = document.querySelector("[data-lab-request-form]");
 const requestSelect = document.querySelector("[data-lab-request-select]");
 const requestStatus = document.querySelector("[data-lab-request-status]");
 const authGate = document.querySelector("[data-lab-auth-gate]");
+const identityCard = document.querySelector("[data-lab-identity-card]");
 
 let labs = [];
 let reservations = [];
@@ -69,9 +95,27 @@ function formatTime(value) {
   return text(value).slice(0, 5);
 }
 
+function timeLabel(start, end) {
+  return `${formatTime(start)} – ${formatTime(end)}`;
+}
+
+function timeToMinutes(value) {
+  const [hours = 0, minutes = 0] = formatTime(value).split(":").map(Number);
+  return (hours * 60) + minutes;
+}
+
+function overlaps(slot, item) {
+  const slotStart = timeToMinutes(slot.start);
+  const slotEnd = timeToMinutes(slot.end);
+  const itemStart = timeToMinutes(item.hora_inicio);
+  const itemEnd = timeToMinutes(item.hora_fim);
+  return itemStart < slotEnd && itemEnd > slotStart;
+}
+
 function formatDate(value) {
   if (!value) return "Sem data fixa";
   const [year, month, day] = String(value).split("-");
+  if (!year || !month || !day) return "Sem data fixa";
   return `${day}/${month}/${year}`;
 }
 
@@ -133,11 +177,26 @@ function setRequestFormEnabled(isEnabled) {
   });
 }
 
+function renderIdentityCard({ name = "Aluno não conectado", email = "", matricula = "" } = {}) {
+  if (!identityCard) return;
+
+  identityCard.innerHTML = `
+    <span>Responsável da solicitação</span>
+    <strong>${name}</strong>
+    <small>${email || "Entre para vincular seu e-mail."}</small>
+    <div>
+      <b>Matrícula</b>
+      <em>${matricula || "Será informada no formulário"}</em>
+    </div>
+  `;
+}
+
 function fillStudentIdentity() {
   if (!requestForm || !currentSession) return;
   const nameField = requestForm.querySelector("[name='responsavel_nome']");
   const emailField = requestForm.querySelector("[name='responsavel_email']");
   const matriculaField = requestForm.querySelector("[name='responsavel_matricula']");
+
   const name = currentProfile?.nome || currentSession.user.user_metadata?.nome || currentSession.user.email?.split("@")[0] || "Aluno";
   const email = currentSession.user.email || "";
   const matricula = currentProfile?.matricula || currentSession.user.user_metadata?.matricula || "";
@@ -149,9 +208,13 @@ function fillStudentIdentity() {
     matriculaField.readOnly = Boolean(matricula);
     matriculaField.placeholder = matricula ? "Matrícula vinculada ao perfil" : "Informe sua matrícula";
   }
+
+  renderIdentityCard({ name, email, matricula });
 }
 
 async function setupRequestAccess() {
+  renderIdentityCard();
+
   if (!requestForm) return;
 
   if (!isSupabaseConfigured || !supabase) {
@@ -178,8 +241,8 @@ async function setupRequestAccess() {
 
     if (currentProfile?.matricula || currentSession.user.user_metadata?.matricula) {
       setAuthGate(`
-        <strong>Solicitação vinculada ao seu perfil.</strong>
-        <span>Você está usando a conta ${currentSession.user.email}. A reserva ficará registrada com seu nome e matrícula.</span>
+        <strong>Perfil vinculado.</strong>
+        <span>A solicitação será enviada com os dados acadêmicos exibidos no card do responsável.</span>
       `, "success");
       return;
     }
@@ -196,9 +259,11 @@ async function setupRequestAccess() {
 
 function fillFilters() {
   if (labFilter) {
+    const currentValue = labFilter.value || "todos";
     labFilter.innerHTML = "";
     labFilter.appendChild(option("todos", "Todos"));
     labs.forEach((lab) => labFilter.appendChild(option(lab.id, `${lab.nome}${lab.codigo ? ` · ${lab.codigo}` : ""}`)));
+    labFilter.value = [...labFilter.options].some((item) => item.value === currentValue) ? currentValue : "todos";
   }
 
   if (requestSelect) {
@@ -238,21 +303,97 @@ function getFilteredItems() {
   });
 }
 
-function buildReservationCard(item) {
-  const card = document.createElement("article");
-  card.className = `lab-reservation-card is-${item.tipo || "reserva"}`;
-  card.innerHTML = `
-    <div class="lab-reservation-topline">
-      <span>${TIPOS[item.tipo] || item.tipo}</span>
-      <strong>${formatTime(item.hora_inicio)} - ${formatTime(item.hora_fim)}</strong>
-    </div>
-    <h3>${item.titulo || "Horário indisponível"}</h3>
-    <p>${item.finalidade || "Sem observação informada."}</p>
-    <footer>
-      <span>${formatDate(item.data_reserva)} · ${DIAS[item.dia_semana] || "Dia"}</span>
-      <strong>${item.responsavel_nome ? `Responsável: ${item.responsavel_nome}` : "Responsável a confirmar"}</strong>
-    </footer>
+function getVisibleDays() {
+  const value = dayFilter?.value || "todos";
+  if (value === "todos") return DIAS;
+  return DIAS.filter((dia) => String(dia.value) === String(value));
+}
+
+function getLabIdsForBoard(items) {
+  const selectedLab = labFilter?.value || "todos";
+  if (selectedLab !== "todos") return [selectedLab];
+  return [...new Set(items.map((item) => item.laboratorio_id))];
+}
+
+function createLabScheduleEntry(item) {
+  const entry = document.createElement("div");
+  entry.className = `lab-schedule-entry is-${item.tipo || "reserva"}`;
+  entry.innerHTML = `
+    <strong>${item.titulo || "Horário indisponível"}</strong>
+    <span>${formatTime(item.hora_inicio)}-${formatTime(item.hora_fim)} · ${TIPOS[item.tipo] || item.tipo}</span>
+    <small>${item.responsavel_nome ? `Responsável: ${item.responsavel_nome}` : "Responsável a confirmar"}</small>
+    ${item.finalidade ? `<p>${item.finalidade}</p>` : ""}
   `;
+  return entry;
+}
+
+function renderLabCalendar(labId, items) {
+  const lab = labs.find((item) => item.id === labId);
+  const visibleDays = getVisibleDays();
+  const card = document.createElement("article");
+  card.className = "lab-calendar-card";
+
+  const title = `${labName(labId)}${labCode(labId) !== "LAB" ? ` · ${labCode(labId)}` : ""}`;
+  card.innerHTML = `
+    <header class="lab-calendar-header">
+      <div>
+        <span>${labCode(labId)}</span>
+        <h3>${title}</h3>
+        <p>${lab?.localizacao || "Localização a definir"}${lab?.capacidade ? ` · ${lab.capacidade} lugares` : ""}</p>
+      </div>
+      <strong>${items.length} horário${items.length === 1 ? "" : "s"} ocupado${items.length === 1 ? "" : "s"}</strong>
+    </header>
+  `;
+
+  const wrap = document.createElement("div");
+  wrap.className = "lab-calendar-wrap";
+
+  const table = document.createElement("table");
+  table.className = "lab-calendar-table";
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Horário</th>
+        ${visibleDays.map((dia) => `<th>${dia.label}</th>`).join("")}
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
+
+  const tbody = table.querySelector("tbody");
+
+  TIME_SLOTS.forEach((slot) => {
+    const tr = document.createElement("tr");
+    if (slot.break) tr.classList.add("is-break-row");
+
+    const timeCell = document.createElement("td");
+    timeCell.className = "lab-calendar-time";
+    timeCell.textContent = timeLabel(slot.start, slot.end);
+    tr.appendChild(timeCell);
+
+    visibleDays.forEach((dia) => {
+      const td = document.createElement("td");
+      const cellItems = items.filter((item) => Number(item.dia_semana) === dia.value && overlaps(slot, item));
+
+      if (cellItems.length) {
+        cellItems
+          .sort((a, b) => `${a.hora_inicio}${a.hora_fim}`.localeCompare(`${b.hora_inicio}${b.hora_fim}`))
+          .forEach((item) => td.appendChild(createLabScheduleEntry(item)));
+      } else {
+        const placeholder = document.createElement("span");
+        placeholder.className = slot.break ? "lab-break-cell" : "lab-empty-cell";
+        placeholder.textContent = slot.break ? "Intervalo" : "Livre";
+        td.appendChild(placeholder);
+      }
+
+      tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
+  });
+
+  wrap.appendChild(table);
+  card.appendChild(wrap);
   return card;
 }
 
@@ -269,37 +410,12 @@ function renderBoard() {
     return;
   }
 
-  const groups = new Map();
-  items.forEach((item) => {
-    if (!groups.has(item.laboratorio_id)) groups.set(item.laboratorio_id, []);
-    groups.get(item.laboratorio_id).push(item);
-  });
-
-  [...groups.entries()].forEach(([labId, groupItems]) => {
-    const section = document.createElement("article");
-    section.className = "lab-group-card";
-    section.innerHTML = `
-      <header>
-        <span>${labCode(labId)}</span>
-        <div>
-          <h3>${labName(labId)}</h3>
-          <p>${groupItems.length} horário${groupItems.length === 1 ? "" : "s"} indisponível${groupItems.length === 1 ? "" : "is"}</p>
-        </div>
-      </header>
-    `;
-
-    const rail = document.createElement("div");
-    rail.className = "lab-reservation-rail";
-    rail.setAttribute("data-drag-scroll", "");
-    groupItems
-      .sort((a, b) => `${a.data_reserva || "9999"}${a.dia_semana}${a.hora_inicio}`.localeCompare(`${b.data_reserva || "9999"}${b.dia_semana}${b.hora_inicio}`))
-      .forEach((item) => rail.appendChild(buildReservationCard(item)));
-
-    section.appendChild(rail);
-    board.appendChild(section);
-  });
-
-  setupDragScroll();
+  getLabIdsForBoard(items)
+    .sort((a, b) => labName(a).localeCompare(labName(b), "pt-BR", { numeric: true }))
+    .forEach((labId) => {
+      const labItems = items.filter((item) => item.laboratorio_id === labId);
+      if (labItems.length) board.appendChild(renderLabCalendar(labId, labItems));
+    });
 }
 
 async function loadData() {
@@ -329,7 +445,7 @@ async function loadData() {
   renderLabStrip();
   renderBoard();
   setupDragScroll();
-  setStatus(labs.length ? "Laboratórios carregados. Horários listados são indisponíveis/reservados." : "Nenhum laboratório cadastrado ainda.", labs.length ? "success" : "info");
+  setStatus(labs.length ? "Laboratórios carregados. A grade semanal mostra horários indisponíveis ou reservados." : "Nenhum laboratório cadastrado ainda.", labs.length ? "success" : "info");
 }
 
 function getDayFromDate(dateValue) {
@@ -410,6 +526,7 @@ async function submitRequest(event) {
 
       if (profileError) throw profileError;
       currentProfile = { ...(currentProfile || {}), matricula: responsavelMatricula };
+      fillStudentIdentity();
     }
 
     const { error } = await supabase.from("laboratorio_reservas").insert(payload);

@@ -7,13 +7,15 @@ import {
   supabase,
 } from "./supabase-client.js";
 
-const DIAS = {
-  1: "Segunda",
-  2: "Terça",
-  3: "Quarta",
-  4: "Quinta",
-  5: "Sexta",
-};
+const DIAS = [
+  { value: 1, label: "Segunda" },
+  { value: 2, label: "Terça" },
+  { value: 3, label: "Quarta" },
+  { value: 4, label: "Quinta" },
+  { value: 5, label: "Sexta" },
+];
+
+const DIAS_LABEL = DIAS.reduce((acc, dia) => ({ ...acc, [dia.value]: dia.label }), {});
 
 const TIPOS = {
   reserva: "Reserva",
@@ -31,6 +33,29 @@ const STATUS = {
   cancelada: "Cancelada",
 };
 
+const TIME_SLOTS = [
+  { start: "07:30", end: "08:15" },
+  { start: "08:15", end: "09:00" },
+  { start: "09:00", end: "09:15", break: true },
+  { start: "09:15", end: "10:00" },
+  { start: "10:00", end: "10:45" },
+  { start: "10:45", end: "11:30" },
+  { start: "11:30", end: "12:15" },
+  { start: "13:30", end: "14:15" },
+  { start: "14:15", end: "15:00" },
+  { start: "15:00", end: "15:10", break: true },
+  { start: "15:10", end: "15:55" },
+  { start: "15:55", end: "16:40" },
+  { start: "16:40", end: "17:25" },
+  { start: "17:25", end: "18:10" },
+  { start: "18:30", end: "19:15" },
+  { start: "19:15", end: "20:00" },
+  { start: "20:00", end: "20:15", break: true },
+  { start: "20:15", end: "21:00" },
+  { start: "21:00", end: "21:45" },
+  { start: "21:45", end: "22:00" },
+];
+
 const statusBox = document.querySelector("[data-admin-status]");
 const logoutButtons = document.querySelectorAll("[data-admin-logout]");
 const form = document.querySelector("[data-lab-form]");
@@ -41,12 +66,18 @@ const editorModeButtons = document.querySelectorAll("[data-editor-mode]");
 const editorPanes = document.querySelectorAll("[data-editor-pane]");
 const list = document.querySelector("[data-lab-list]");
 const empty = document.querySelector("[data-lab-empty]");
+const requestsList = document.querySelector("[data-lab-requests-list]");
+const requestsEmpty = document.querySelector("[data-lab-requests-empty]");
 const filter = document.querySelector("[data-lab-filter]");
+const labCalendarFilter = document.querySelector("[data-lab-calendar-filter]");
 const newButton = document.querySelector("[data-new-lab-slot]");
 const clearButton = document.querySelector("[data-clear-form]");
 const clearLaboratoryButton = document.querySelector("[data-clear-laboratory-form]");
 const labSelect = document.querySelector("[data-lab-select]");
 const labSummary = document.querySelector("[data-lab-summary]");
+const labTabs = document.querySelectorAll("[data-lab-tab-target]");
+const labPanels = document.querySelectorAll("[data-lab-panel]");
+const labWorkspace = document.querySelector(".admin-lab-workspace");
 
 let currentUser = null;
 let labs = [];
@@ -74,15 +105,54 @@ function formatTime(value) {
   return text(value).slice(0, 5);
 }
 
+function timeLabel(start, end) {
+  return `${formatTime(start)} – ${formatTime(end)}`;
+}
+
+function timeToMinutes(value) {
+  const [hours = 0, minutes = 0] = formatTime(value).split(":").map(Number);
+  return (hours * 60) + minutes;
+}
+
+function overlaps(slot, item) {
+  const slotStart = timeToMinutes(slot.start);
+  const slotEnd = timeToMinutes(slot.end);
+  const itemStart = timeToMinutes(item.hora_inicio);
+  const itemEnd = timeToMinutes(item.hora_fim);
+  return itemStart < slotEnd && itemEnd > slotStart;
+}
+
 function formatDate(value) {
   if (!value) return "Sem data fixa";
   const [year, month, day] = String(value).split("-");
+  if (!year || !month || !day) return "Sem data fixa";
   return `${day}/${month}/${year}`;
 }
 
 function labName(id) {
   const lab = labs.find((item) => item.id === id);
   return lab ? `${lab.nome}${lab.codigo ? ` · ${lab.codigo}` : ""}` : "Laboratório";
+}
+
+function labCode(id) {
+  const lab = labs.find((item) => item.id === id);
+  return lab?.codigo || "LAB";
+}
+
+function setLabPanel(panelName, shouldScroll = false) {
+  labTabs.forEach((tab) => {
+    const isActive = tab.dataset.labTabTarget === panelName;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+  });
+
+  labPanels.forEach((panel) => {
+    panel.hidden = panel.dataset.labPanel !== panelName;
+  });
+
+  if (shouldScroll) {
+    labWorkspace?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 function setupDragScroll() {
@@ -128,23 +198,35 @@ function setEditorMode(mode) {
 }
 
 function fillLabSelects() {
-  if (!labSelect) return;
-  labSelect.innerHTML = "";
+  if (labSelect) {
+    labSelect.innerHTML = "";
 
-  if (!labs.length) {
-    const option = document.createElement("option");
-    option.value = "";
-    option.textContent = "Cadastre um laboratório primeiro";
-    labSelect.appendChild(option);
-    return;
+    if (!labs.length) {
+      const item = document.createElement("option");
+      item.value = "";
+      item.textContent = "Cadastre um laboratório primeiro";
+      labSelect.appendChild(item);
+    } else {
+      labs.forEach((lab) => {
+        const item = document.createElement("option");
+        item.value = lab.id;
+        item.textContent = `${lab.nome}${lab.codigo ? ` · ${lab.codigo}` : ""}${lab.ativo ? "" : " · inativo"}`;
+        labSelect.appendChild(item);
+      });
+    }
   }
 
-  labs.forEach((lab) => {
-    const option = document.createElement("option");
-    option.value = lab.id;
-    option.textContent = `${lab.nome}${lab.codigo ? ` · ${lab.codigo}` : ""}${lab.ativo ? "" : " · inativo"}`;
-    labSelect.appendChild(option);
-  });
+  if (labCalendarFilter) {
+    const currentValue = labCalendarFilter.value || "todos";
+    labCalendarFilter.innerHTML = '<option value="todos">Todos os laboratórios</option>';
+    labs.forEach((lab) => {
+      const item = document.createElement("option");
+      item.value = lab.id;
+      item.textContent = `${lab.nome}${lab.codigo ? ` · ${lab.codigo}` : ""}`;
+      labCalendarFilter.appendChild(item);
+    });
+    labCalendarFilter.value = [...labCalendarFilter.options].some((item) => item.value === currentValue) ? currentValue : "todos";
+  }
 }
 
 function renderLabSummary() {
@@ -188,7 +270,7 @@ function resetForm() {
   form.elements.hora_fim.value = "15:00";
   formTitle.textContent = "Nova reserva/bloqueio";
   setEditorMode("reservation");
-  form.scrollIntoView({ behavior: "smooth", block: "start" });
+  setLabPanel("form", true);
 }
 
 function resetLaboratoryForm() {
@@ -197,15 +279,22 @@ function resetLaboratoryForm() {
   laboratoryForm.elements.ativo.checked = true;
   laboratoryFormTitle.textContent = "Novo laboratório";
   setEditorMode("laboratory");
-  laboratoryForm.scrollIntoView({ behavior: "smooth", block: "start" });
+  setLabPanel("form", true);
 }
 
 function getFilteredReservations() {
-  const value = filter?.value || "todos";
-  if (value === "todos") return reservations;
-  if (value === "visiveis") return reservations.filter((item) => item.visivel);
-  if (value === "ocultas") return reservations.filter((item) => !item.visivel);
-  return reservations.filter((item) => item.status === value);
+  const statusValue = filter?.value || "todos";
+  const labValue = labCalendarFilter?.value || "todos";
+
+  return reservations.filter((item) => {
+    const matchesLab = labValue === "todos" || item.laboratorio_id === labValue;
+    const matchesStatus = statusValue === "todos"
+      || (statusValue === "visiveis" && item.visivel)
+      || (statusValue === "ocultas" && !item.visivel)
+      || item.status === statusValue;
+
+    return matchesLab && matchesStatus;
+  });
 }
 
 function createPill(label, className = "") {
@@ -215,55 +304,194 @@ function createPill(label, className = "") {
   return span;
 }
 
+function createReservationEntry(item) {
+  const entry = document.createElement("div");
+  entry.className = `admin-lab-calendar-entry is-${item.status || "solicitada"} is-${item.tipo || "reserva"}`;
+  entry.dataset.reservationId = item.id;
+
+  const title = document.createElement("strong");
+  title.textContent = item.titulo || TIPOS[item.tipo] || "Reserva";
+  entry.appendChild(title);
+
+  const meta = document.createElement("span");
+  meta.textContent = [
+    `${formatTime(item.hora_inicio)}-${formatTime(item.hora_fim)}`,
+    TIPOS[item.tipo] || item.tipo,
+    STATUS[item.status] || item.status,
+  ].filter(Boolean).join(" · ");
+  entry.appendChild(meta);
+
+  const responsible = document.createElement("small");
+  const responsibleName = item.responsavel_nome || "Responsável a confirmar";
+  const enrollment = item.responsavel_matricula ? ` · ${item.responsavel_matricula}` : "";
+  responsible.textContent = `${responsibleName}${enrollment}`;
+  entry.appendChild(responsible);
+
+  const actions = document.createElement("div");
+  actions.className = "admin-lab-calendar-actions";
+  actions.innerHTML = `
+    <button type="button" data-action="edit">Editar</button>
+    ${item.status !== "aprovada" ? '<button type="button" data-action="approve">Aprovar</button>' : ""}
+    <button type="button" data-action="toggle-visible">${item.visivel ? "Ocultar" : "Mostrar"}</button>
+    <button type="button" data-action="delete">Remover</button>
+  `;
+  entry.appendChild(actions);
+
+  return entry;
+}
+
+function createPendingRequestCard(item) {
+  const card = document.createElement("article");
+  card.className = "admin-lab-request-card";
+  card.dataset.reservationId = item.id;
+
+  const responsibleName = item.responsavel_nome || "Aluno sem nome informado";
+  const enrollment = item.responsavel_matricula || "Matrícula não informada";
+  const contact = item.responsavel_email || "Contato não informado";
+
+  card.innerHTML = `
+    <div class="admin-lab-request-top">
+      <span>${TIPOS[item.tipo] || "Reserva"}</span>
+      <em>${STATUS[item.status] || "Solicitada"}</em>
+    </div>
+    <strong>${item.titulo || "Reserva de laboratório"}</strong>
+    <p>${labName(item.laboratorio_id)} · ${formatDate(item.data_reserva)} · ${DIAS_LABEL[item.dia_semana] || "Dia"} · ${timeLabel(item.hora_inicio, item.hora_fim)}</p>
+    <dl>
+      <div><dt>Aluno</dt><dd>${responsibleName}</dd></div>
+      <div><dt>Matrícula</dt><dd>${enrollment}</dd></div>
+      <div><dt>Contato</dt><dd>${contact}</dd></div>
+    </dl>
+    ${item.finalidade ? `<small>${item.finalidade}</small>` : ""}
+    <div class="admin-lab-request-actions">
+      <button type="button" data-action="approve">Aprovar</button>
+      <button type="button" data-action="edit">Editar</button>
+      <button type="button" data-action="delete">Remover</button>
+    </div>
+  `;
+
+  return card;
+}
+
+function renderPendingRequests() {
+  if (!requestsList || !requestsEmpty) return;
+
+  const pending = reservations
+    .filter((item) => item.status === "solicitada")
+    .sort((a, b) => `${a.data_reserva || "9999-99-99"}${a.dia_semana}${a.hora_inicio}`.localeCompare(`${b.data_reserva || "9999-99-99"}${b.dia_semana}${b.hora_inicio}`));
+
+  requestsList.innerHTML = "";
+  requestsEmpty.classList.toggle("is-visible", pending.length === 0);
+
+  pending.slice(0, 6).forEach((item) => {
+    requestsList.appendChild(createPendingRequestCard(item));
+  });
+
+  if (pending.length > 6) {
+    const note = document.createElement("p");
+    note.className = "admin-lab-request-more";
+    note.textContent = `+ ${pending.length - 6} solicitação${pending.length - 6 === 1 ? "" : "es"} pendente${pending.length - 6 === 1 ? "" : "s"} no calendário.`;
+    requestsList.appendChild(note);
+  }
+}
+
+function getLabIdsForCalendar(items) {
+  const selectedLab = labCalendarFilter?.value || "todos";
+  if (selectedLab !== "todos") return [selectedLab];
+  return [...new Set(items.map((item) => item.laboratorio_id))];
+}
+
+function renderLabCalendarTable(labId, items) {
+  const lab = labs.find((item) => item.id === labId);
+  const card = document.createElement("article");
+  card.className = "admin-lab-calendar-card";
+
+  const header = document.createElement("header");
+  header.className = "admin-schedule-grid-header admin-lab-calendar-header";
+
+  const titleBox = document.createElement("div");
+  const title = document.createElement("h2");
+  title.textContent = labName(labId);
+  const subtitle = document.createElement("p");
+  subtitle.textContent = lab?.localizacao || "Localização a definir";
+  titleBox.append(title, subtitle);
+
+  const pills = document.createElement("div");
+  pills.className = "admin-pills";
+  pills.appendChild(createPill(`${items.length} registro${items.length === 1 ? "" : "s"}`));
+  if (lab?.capacidade) pills.appendChild(createPill(`${lab.capacidade} lugares`));
+  header.append(titleBox, pills);
+  card.appendChild(header);
+
+  const wrap = document.createElement("div");
+  wrap.className = "admin-schedule-table-wrap admin-lab-calendar-wrap";
+
+  const table = document.createElement("table");
+  table.className = "admin-schedule-table admin-lab-calendar-table";
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Horário</th>
+        ${DIAS.map((dia) => `<th>${dia.label}</th>`).join("")}
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
+
+  const tbody = table.querySelector("tbody");
+
+  TIME_SLOTS.forEach((slot) => {
+    const tr = document.createElement("tr");
+    if (slot.break) tr.classList.add("is-break-row");
+
+    const timeCell = document.createElement("td");
+    timeCell.className = "admin-schedule-time-cell";
+    timeCell.textContent = timeLabel(slot.start, slot.end);
+    tr.appendChild(timeCell);
+
+    DIAS.forEach((dia) => {
+      const td = document.createElement("td");
+      const cellItems = items.filter((item) => (
+        Number(item.dia_semana) === dia.value && overlaps(slot, item)
+      ));
+
+      if (cellItems.length) {
+        cellItems
+          .sort((a, b) => `${a.hora_inicio}${a.hora_fim}`.localeCompare(`${b.hora_inicio}${b.hora_fim}`))
+          .forEach((item) => td.appendChild(createReservationEntry(item)));
+      } else {
+        const placeholder = document.createElement("span");
+        placeholder.className = slot.break ? "admin-schedule-break-placeholder" : "admin-schedule-empty-slot";
+        placeholder.textContent = slot.break ? "Intervalo" : "Livre";
+        td.appendChild(placeholder);
+      }
+
+      tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
+  });
+
+  wrap.appendChild(table);
+  card.appendChild(wrap);
+  return card;
+}
+
 function renderReservations() {
   if (!list || !empty) return;
 
   const items = getFilteredReservations();
+  const labIds = getLabIdsForCalendar(items);
   list.innerHTML = "";
   empty.classList.toggle("is-visible", items.length === 0);
 
-  items.forEach((item) => {
-    const card = document.createElement("article");
-    card.className = "admin-publication-card admin-lab-card";
-    card.dataset.id = item.id;
+  if (!items.length) return;
 
-    const header = document.createElement("header");
-    const headingGroup = document.createElement("div");
-    const title = document.createElement("h2");
-    title.textContent = item.titulo || TIPOS[item.tipo] || "Reserva";
-    const meta = document.createElement("small");
-    meta.textContent = `${labName(item.laboratorio_id)} · ${formatDate(item.data_reserva)} · ${DIAS[item.dia_semana] || "Dia"} · ${formatTime(item.hora_inicio)}-${formatTime(item.hora_fim)}`;
-    headingGroup.append(title, meta);
-
-    const pills = document.createElement("div");
-    pills.className = "admin-pills";
-    pills.appendChild(createPill(TIPOS[item.tipo] || item.tipo));
-    pills.appendChild(createPill(STATUS[item.status] || item.status, item.status === "aprovada" ? "is-visible" : item.status === "solicitada" ? "is-pending" : "is-hidden"));
-    pills.appendChild(createPill(item.visivel ? "visível" : "oculto", item.visivel ? "is-visible" : "is-hidden"));
-    header.append(headingGroup, pills);
-
-    const summary = document.createElement("p");
-    const responsible = item.responsavel_nome ? `Responsável: ${item.responsavel_nome}` : "Sem responsável informado";
-    const enrollment = item.responsavel_matricula ? ` · Matrícula: ${item.responsavel_matricula}` : "";
-    const purpose = item.finalidade ? ` · ${item.finalidade}` : "";
-    summary.textContent = `${responsible}${enrollment}${purpose}`;
-
-    const footer = document.createElement("small");
-    footer.className = "admin-card-footnote";
-    footer.textContent = `Origem: ${item.origem === "aluno" ? "solicitação do aluno" : "administração"} · Atualizado em ${formatDateTime(item.atualizado_em || item.criado_em)}`;
-
-    const actions = document.createElement("div");
-    actions.className = "admin-card-actions";
-    actions.innerHTML = `
-      <button type="button" data-action="edit">Editar</button>
-      ${item.status !== "aprovada" ? '<button type="button" data-action="approve">Aprovar</button>' : ''}
-      <button type="button" data-action="toggle-visible">${item.visivel ? "Ocultar" : "Mostrar"}</button>
-      <button type="button" data-action="delete">Remover</button>
-    `;
-
-    card.append(header, summary, footer, actions);
-    list.appendChild(card);
-  });
+  labIds
+    .sort((a, b) => labName(a).localeCompare(labName(b), "pt-BR", { numeric: true }))
+    .forEach((labId) => {
+      const groupItems = items.filter((item) => item.laboratorio_id === labId);
+      if (groupItems.length) list.appendChild(renderLabCalendarTable(labId, groupItems));
+    });
 }
 
 function fillForm(item) {
@@ -283,7 +511,7 @@ function fillForm(item) {
   form.elements.finalidade.value = text(item.finalidade);
   formTitle.textContent = "Editar horário de laboratório";
   setEditorMode("reservation");
-  form.scrollIntoView({ behavior: "smooth", block: "start" });
+  setLabPanel("form", true);
 }
 
 function fillLaboratoryForm(lab) {
@@ -296,7 +524,7 @@ function fillLaboratoryForm(lab) {
   laboratoryForm.elements.descricao.value = text(lab.descricao);
   laboratoryFormTitle.textContent = "Editar laboratório";
   setEditorMode("laboratory");
-  laboratoryForm.scrollIntoView({ behavior: "smooth", block: "start" });
+  setLabPanel("form", true);
 }
 
 function getPayload() {
@@ -361,6 +589,7 @@ async function loadReservations() {
   reservations = data || [];
   renderLabSummary();
   renderReservations();
+  renderPendingRequests();
 }
 
 async function saveReservation(event) {
@@ -371,6 +600,11 @@ async function saveReservation(event) {
 
   if (!payload.laboratorio_id) {
     setStatus("Cadastre ou selecione um laboratório antes de salvar o horário.", "error");
+    return;
+  }
+
+  if (payload.hora_fim <= payload.hora_inicio) {
+    setStatus("O horário final precisa ser maior que o horário inicial.", "error");
     return;
   }
 
@@ -395,6 +629,7 @@ async function saveReservation(event) {
 
     resetForm();
     await loadReservations();
+    setLabPanel("calendar", true);
   } catch (error) {
     setStatus(`Erro ao salvar horário: ${error.message}`, "error");
   } finally {
@@ -482,12 +717,12 @@ async function deleteReservation(id) {
   await loadReservations();
 }
 
-list?.addEventListener("click", async (event) => {
+async function handleReservationAction(event) {
   const button = event.target.closest("button[data-action]");
   if (!button) return;
 
-  const card = button.closest(".admin-lab-card");
-  const id = card?.dataset.id;
+  const entry = button.closest("[data-reservation-id]");
+  const id = entry?.dataset.reservationId;
   const item = reservations.find((reservation) => reservation.id === id);
   if (!item) return;
 
@@ -513,7 +748,10 @@ list?.addEventListener("click", async (event) => {
   } catch (error) {
     setStatus(`Erro na ação: ${error.message}`, "error");
   }
-});
+}
+
+list?.addEventListener("click", handleReservationAction);
+requestsList?.addEventListener("click", handleReservationAction);
 
 labSummary?.addEventListener("click", async (event) => {
   const button = event.target.closest("button[data-lab-action]");
@@ -542,7 +780,12 @@ editorModeButtons.forEach((button) => {
   button.addEventListener("click", () => setEditorMode(button.dataset.editorMode));
 });
 
+labTabs.forEach((button) => {
+  button.addEventListener("click", () => setLabPanel(button.dataset.labTabTarget, true));
+});
+
 filter?.addEventListener("change", renderReservations);
+labCalendarFilter?.addEventListener("change", renderReservations);
 form?.addEventListener("submit", saveReservation);
 laboratoryForm?.addEventListener("submit", saveLaboratory);
 newButton?.addEventListener("click", resetForm);
@@ -572,7 +815,7 @@ async function init() {
   await loadReservations();
   resetForm();
   setupDragScroll();
-  setStatus("Módulo de laboratórios conectado. Cadastre bloqueios, aprove solicitações ou registre novos laboratórios.", "success");
+  setStatus("Módulo de laboratórios conectado. Cadastre laboratórios, registre horários ou acompanhe reservas no calendário.", "success");
 }
 
 init().catch((error) => {

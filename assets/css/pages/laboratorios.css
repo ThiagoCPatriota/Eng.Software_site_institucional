@@ -3,6 +3,14 @@
     radial-gradient(circle at 88% 18%, rgba(25, 135, 84, 0.18), transparent 32%),
     linear-gradient(135deg, #f7fbff 0%, #eef7fb 52%, #f4fbf5 100%);
 }
+.lab-hero .page-hero-grid {
+  grid-template-columns: minmax(0, 980px);
+  gap: 0;
+}
+
+.lab-hero .page-hero-content p {
+  max-width: 760px;
+}
 
 .lab-hero-card,
 .lab-request-form,
@@ -394,4 +402,214 @@
   color: var(--color-primary);
   font-weight: 850;
   cursor: not-allowed;
+}
+
+/* RF Laboratórios: visualização semanal limpa */
+.lab-calendar-card,
+.lab-identity-card {
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 24px 70px rgba(11, 42, 74, 0.1);
+}
+
+.lab-calendar-card {
+  overflow: hidden;
+}
+
+.lab-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(18px, 3vw, 26px);
+  background: linear-gradient(135deg, #ffffff 0%, #f2f9ff 100%);
+}
+
+.lab-calendar-header div {
+  display: grid;
+  gap: 6px;
+}
+
+.lab-calendar-header span {
+  width: fit-content;
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lab-calendar-header h3 {
+  color: var(--color-primary);
+  font-size: clamp(1.35rem, 2.7vw, 2rem);
+}
+
+.lab-calendar-header strong {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 9px 12px;
+  background: var(--color-bg);
+  color: var(--color-primary);
+  font-size: 0.82rem;
+}
+
+.lab-calendar-wrap {
+  overflow: auto;
+  max-height: 76vh;
+}
+
+.lab-calendar-table {
+  width: 100%;
+  min-width: 1060px;
+  border-collapse: collapse;
+}
+
+.lab-calendar-table th,
+.lab-calendar-table td {
+  border: 1px solid rgba(11, 42, 74, 0.12);
+  padding: 11px;
+  vertical-align: top;
+}
+
+.lab-calendar-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lab-calendar-table th:first-child {
+  width: 128px;
+}
+
+.lab-calendar-table tr.is-break-row td {
+  background: #fffbeb;
+}
+
+.lab-calendar-time {
+  color: var(--color-primary);
+  font-weight: 950;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lab-schedule-entry {
+  display: grid;
+  gap: 5px;
+  border: 1px solid rgba(45, 156, 219, 0.28);
+  border-radius: 18px;
+  padding: 11px;
+  background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+  color: var(--color-primary);
+}
+
+.lab-schedule-entry.is-manutencao {
+  border-color: rgba(245, 158, 11, 0.32);
+  background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
+}
+
+.lab-schedule-entry.is-indisponivel {
+  border-color: rgba(100, 116, 139, 0.24);
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+}
+
+.lab-schedule-entry strong {
+  line-height: 1.15;
+  font-size: 0.92rem;
+}
+
+.lab-schedule-entry span,
+.lab-schedule-entry small,
+.lab-schedule-entry p {
+  color: var(--color-muted);
+  line-height: 1.35;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.lab-schedule-entry p {
+  margin: 0;
+}
+
+.lab-empty-cell,
+.lab-break-cell {
+  min-height: 54px;
+  display: grid;
+  place-items: center;
+  border: 1px dashed rgba(11, 42, 74, 0.14);
+  border-radius: 16px;
+  color: #94a3b8;
+  font-weight: 900;
+}
+
+.lab-break-cell {
+  color: var(--color-ifpe-dark);
+  background: var(--color-ifpe-soft);
+}
+
+.lab-identity-card {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(45, 156, 219, 0.12), transparent 32%),
+    #ffffff;
+}
+
+.lab-identity-card span {
+  color: var(--color-ifpe-dark);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lab-identity-card strong {
+  color: var(--color-primary);
+  font-size: 1.15rem;
+}
+
+.lab-identity-card small {
+  color: var(--color-muted);
+  font-weight: 760;
+}
+
+.lab-identity-card div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: var(--color-bg);
+}
+
+.lab-identity-card b {
+  color: var(--color-primary);
+}
+
+.lab-identity-card em {
+  color: var(--color-ifpe-dark);
+  font-style: normal;
+  font-weight: 950;
+}
+
+@media (max-width: 760px) {
+  .lab-calendar-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .lab-calendar-header strong {
+    width: 100%;
+    text-align: center;
+  }
 }

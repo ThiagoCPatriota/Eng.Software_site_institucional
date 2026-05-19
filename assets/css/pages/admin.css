@@ -2508,3 +2508,331 @@
     min-height: 46px;
   }
 }
+
+/* Ajuste RF Laboratórios: abas internas e calendário semanal */
+.admin-lab-workspace {
+  display: grid;
+  gap: 22px;
+}
+
+.admin-lab-workspace [hidden] {
+  display: none !important;
+}
+
+.admin-lab-workspace .admin-lab-strip {
+  margin-top: 4px;
+}
+
+.admin-lab-workspace .admin-lab-layout {
+  grid-template-columns: minmax(0, 860px);
+}
+
+.admin-lab-workspace .admin-lab-editor-card {
+  width: 100%;
+}
+
+.admin-lab-calendar-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.admin-lab-calendar-filters select {
+  width: min(100%, 240px);
+}
+
+.admin-lab-calendar-items {
+  display: grid;
+  gap: 22px;
+}
+
+.admin-lab-calendar-card {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 54px rgba(11, 42, 74, 0.08);
+}
+
+.admin-lab-calendar-header {
+  background: linear-gradient(135deg, #ffffff 0%, #f4fbff 100%);
+}
+
+.admin-lab-calendar-wrap {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.admin-lab-calendar-table {
+  min-width: 1120px;
+}
+
+.admin-lab-calendar-table th,
+.admin-lab-calendar-table td {
+  vertical-align: top;
+}
+
+.admin-lab-calendar-entry {
+  display: grid;
+  gap: 5px;
+  border: 1px solid rgba(45, 156, 219, 0.26);
+  border-radius: 18px;
+  padding: 10px;
+  background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+  color: var(--color-primary);
+}
+
+.admin-lab-calendar-entry.is-solicitada {
+  border-color: rgba(245, 158, 11, 0.34);
+  background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
+}
+
+.admin-lab-calendar-entry.is-recusada,
+.admin-lab-calendar-entry.is-cancelada {
+  border-color: rgba(194, 65, 12, 0.24);
+  background: linear-gradient(180deg, #fff7ed 0%, #ffffff 100%);
+}
+
+.admin-lab-calendar-entry strong {
+  line-height: 1.15;
+  font-size: 0.9rem;
+}
+
+.admin-lab-calendar-entry span,
+.admin-lab-calendar-entry small {
+  color: var(--color-muted);
+  line-height: 1.35;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.admin-lab-calendar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.admin-lab-calendar-actions button {
+  min-height: 30px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-primary);
+  padding: 0 9px;
+  font-size: 0.72rem;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.admin-lab-calendar-actions button[data-action="approve"] {
+  color: var(--color-ifpe-dark);
+  background: var(--color-ifpe-soft);
+}
+
+.admin-lab-calendar-actions button[data-action="delete"] {
+  color: #9a3412;
+  background: #fff7ed;
+}
+
+.admin-lab-workspace .admin-lab-form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 860px) minmax(320px, 1fr);
+  align-items: start;
+  gap: 22px;
+}
+
+.admin-lab-form-grid .admin-lab-editor-card {
+  min-width: 0;
+}
+
+.admin-lab-requests-card {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 54px rgba(11, 42, 74, 0.08);
+}
+
+.admin-lab-requests-head {
+  display: grid;
+  gap: 6px;
+}
+
+.admin-lab-requests-head span {
+  color: var(--color-ifpe-dark);
+  font-size: 0.75rem;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.admin-lab-requests-head strong {
+  color: var(--color-primary);
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  line-height: 1.05;
+}
+
+.admin-lab-requests-head p,
+.admin-lab-requests-empty,
+.admin-lab-request-card p,
+.admin-lab-request-card small,
+.admin-lab-request-card dd {
+  color: var(--color-muted);
+}
+
+.admin-lab-requests-list {
+  display: grid;
+  gap: 12px;
+  max-height: 650px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.admin-lab-request-card {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(45, 156, 219, 0.24);
+  border-radius: 22px;
+  padding: 16px;
+  background: linear-gradient(180deg, #f8fcff 0%, #ffffff 100%);
+}
+
+.admin-lab-request-top,
+.admin-lab-request-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-lab-request-top {
+  justify-content: space-between;
+}
+
+.admin-lab-request-top span,
+.admin-lab-request-top em {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  border-radius: 999px;
+  padding: 0 10px;
+  font-size: 0.72rem;
+  font-weight: 950;
+  font-style: normal;
+}
+
+.admin-lab-request-top span {
+  color: #fff;
+  background: var(--color-primary);
+}
+
+.admin-lab-request-top em {
+  color: #7c2d12;
+  background: #ffedd5;
+}
+
+.admin-lab-request-card strong {
+  color: var(--color-primary);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.admin-lab-request-card p,
+.admin-lab-request-card small {
+  line-height: 1.45;
+  font-size: 0.86rem;
+}
+
+.admin-lab-request-card dl {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+}
+
+.admin-lab-request-card dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid rgba(210, 225, 238, 0.7);
+  padding-bottom: 6px;
+}
+
+.admin-lab-request-card dt,
+.admin-lab-request-card dd {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.admin-lab-request-card dt {
+  color: var(--color-primary);
+  font-weight: 950;
+}
+
+.admin-lab-request-card dd {
+  max-width: 62%;
+  text-align: right;
+  font-weight: 800;
+  word-break: break-word;
+}
+
+.admin-lab-request-actions button {
+  min-height: 34px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-primary);
+  padding: 0 12px;
+  font-size: 0.76rem;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.admin-lab-request-actions button[data-action="approve"] {
+  color: var(--color-ifpe-dark);
+  background: var(--color-ifpe-soft);
+}
+
+.admin-lab-request-actions button[data-action="delete"] {
+  color: #9a3412;
+  background: #fff7ed;
+}
+
+.admin-lab-request-more,
+.admin-lab-requests-empty {
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(235, 245, 252, 0.85);
+  font-weight: 850;
+}
+
+.admin-lab-requests-empty {
+  display: none;
+  text-align: center;
+}
+
+.admin-lab-requests-empty.is-visible {
+  display: block;
+}
+
+@media (max-width: 1180px) {
+  .admin-lab-workspace .admin-lab-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-lab-requests-list {
+    max-height: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .admin-lab-calendar-filters,
+  .admin-lab-calendar-filters select {
+    width: 100%;
+  }
+}
