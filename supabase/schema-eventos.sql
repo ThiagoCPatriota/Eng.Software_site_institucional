@@ -19,9 +19,11 @@ create table if not exists public.noticias_eventos (
   resumo text not null,
   conteudo text,
   imagem_url text,
+  imagem_path text,
   link_externo text,
   local text,
   organizador text,
+  email_contato text,
   data_inicio date,
   data_fim date,
   hora_inicio time,
@@ -41,6 +43,10 @@ create index if not exists idx_noticias_eventos_status_visivel on public.noticia
 create index if not exists idx_noticias_eventos_home on public.noticias_eventos(destaque_home);
 create index if not exists idx_noticias_eventos_data on public.noticias_eventos(data_inicio desc);
 
+alter table public.noticias_eventos
+  add column if not exists email_contato text,
+  add column if not exists imagem_path text;
+
 -- Reaproveita public.set_updated_at() criada no schema-admin.sql.
 drop trigger if exists trg_noticias_eventos_updated_at on public.noticias_eventos;
 create trigger trg_noticias_eventos_updated_at
@@ -48,7 +54,9 @@ before update on public.noticias_eventos
 for each row execute function public.set_updated_at();
 
 -- View pública: só entrega conteúdos realmente publicados e visíveis.
-create or replace view public.noticias_eventos_publicos as
+-- A view é recriada para aceitar novas colunas sem conflito de ordem/nome.
+drop view if exists public.noticias_eventos_publicos;
+create view public.noticias_eventos_publicos as
 select
   id,
   titulo,
@@ -57,9 +65,11 @@ select
   resumo,
   conteudo,
   imagem_url,
+  imagem_path,
   link_externo,
   local,
   organizador,
+  email_contato,
   data_inicio,
   data_fim,
   hora_inicio,
@@ -115,6 +125,54 @@ for delete
 to authenticated
 using (public.current_user_is_site_admin());
 
+-- Storage público para imagens enviadas pelo administrador.
+-- A leitura é pública; upload/alteração/remoção ficam restritos a admin/editor.
+insert into storage.buckets (id, name, public)
+values ('noticias-eventos-imagens', 'noticias-eventos-imagens', true)
+on conflict (id) do update set public = true;
+
+drop policy if exists "Eventos imagens leitura publica" on storage.objects;
+drop policy if exists "Eventos imagens admin upload" on storage.objects;
+drop policy if exists "Eventos imagens admin atualiza" on storage.objects;
+drop policy if exists "Eventos imagens admin remove" on storage.objects;
+
+create policy "Eventos imagens leitura publica"
+on storage.objects
+for select
+to anon, authenticated
+using (bucket_id = 'noticias-eventos-imagens');
+
+create policy "Eventos imagens admin upload"
+on storage.objects
+for insert
+to authenticated
+with check (
+  bucket_id = 'noticias-eventos-imagens'
+  and public.current_user_is_site_admin()
+);
+
+create policy "Eventos imagens admin atualiza"
+on storage.objects
+for update
+to authenticated
+using (
+  bucket_id = 'noticias-eventos-imagens'
+  and public.current_user_is_site_admin()
+)
+with check (
+  bucket_id = 'noticias-eventos-imagens'
+  and public.current_user_is_site_admin()
+);
+
+create policy "Eventos imagens admin remove"
+on storage.objects
+for delete
+to authenticated
+using (
+  bucket_id = 'noticias-eventos-imagens'
+  and public.current_user_is_site_admin()
+);
+
 -- Conteúdos demonstrativos para teste inicial.
 insert into public.noticias_eventos (
   titulo,
@@ -124,6 +182,7 @@ insert into public.noticias_eventos (
   conteudo,
   local,
   organizador,
+  email_contato,
   data_inicio,
   hora_inicio,
   status,
@@ -141,6 +200,7 @@ values
   'Conteúdo demonstrativo para validar a visualização pública dos eventos do campus.',
   'IFPE Campus Belo Jardim',
   'Curso de Engenharia de Software',
+  'coord.es@belojardim.ifpe.edu.br',
   null,
   null,
   'publicado',
@@ -157,6 +217,7 @@ values
   'Notícia demonstrativa para validar o mural de notícias institucionais.',
   'Campus Belo Jardim',
   'IFPE',
+  'comunicacao@belojardim.ifpe.edu.br',
   null,
   null,
   'publicado',

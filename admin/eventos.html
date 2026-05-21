@@ -79,6 +79,11 @@
 
     <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
 
+    <nav class="admin-module-tabs" aria-label="Alternar área de eventos e notícias">
+      <button class="is-active" type="button" data-campus-tab="editor">Criar notícia/evento</button>
+      <button type="button" data-campus-tab="lista">Conteúdos cadastrados</button>
+    </nav>
+
     <section class="admin-dashboard-cards admin-campus-summary" aria-label="Resumo de eventos e notícias">
       <article>
         <span data-stat-published>0</span>
@@ -94,8 +99,8 @@
       </article>
     </section>
 
-    <section class="admin-editor-layout admin-campus-layout">
-      <form class="admin-publication-form admin-campus-form" data-campus-post-form>
+    <section class="admin-campus-workspace">
+      <form class="admin-publication-form admin-campus-form is-active" data-campus-post-form data-campus-panel="editor">
         <input type="hidden" name="id" />
 
         <div class="admin-form-heading">
@@ -159,7 +164,7 @@
           </label>
         </div>
 
-        <div class="admin-form-row">
+        <div class="admin-form-row compact-three">
           <label>
             <span>Local</span>
             <input type="text" name="local" placeholder="Auditório, laboratório, campus, online..." />
@@ -168,17 +173,36 @@
             <span>Organização / setor</span>
             <input type="text" name="organizador" placeholder="Coordenação, docente, setor ou equipe" />
           </label>
+          <label>
+            <span>E-mail de contato</span>
+            <input type="email" name="email_contato" placeholder="contato@ifpe.edu.br" />
+          </label>
         </div>
 
+        <input type="hidden" name="imagem_url" />
+        <input type="hidden" name="imagem_path" />
+
         <div class="admin-form-row">
-          <label>
-            <span>Imagem URL</span>
-            <input type="url" name="imagem_url" placeholder="https://..." />
+          <label class="admin-photo-upload-field admin-campus-image-field">
+            <span>Imagem da notícia/evento</span>
+            <input type="file" accept="image/jpeg,image/png,image/webp" data-campus-image-input />
+            <small>Envie uma imagem JPG, PNG ou WEBP do computador. Tamanho máximo recomendado: 5 MB.</small>
           </label>
           <label>
             <span>Link externo</span>
             <input type="url" name="link_externo" placeholder="https://..." />
           </label>
+        </div>
+
+        <div class="admin-campus-image-preview" data-campus-image-preview>
+          <div class="admin-campus-preview-frame" data-campus-preview-frame>
+            <span>Sem imagem</span>
+          </div>
+          <div>
+            <strong>Prévia da imagem</strong>
+            <p>A imagem enviada fica salva no Storage do Supabase e aparece automaticamente na página de notícias e nos destaques da home.</p>
+            <button class="admin-secondary-action is-compact" type="button" data-clear-campus-image>Remover imagem</button>
+          </div>
         </div>
 
         <div class="admin-check-row">
@@ -188,7 +212,7 @@
           </label>
           <label>
             <input type="checkbox" name="destaque_home" />
-            <span>Destacar no Mural Acadêmico da home</span>
+            <span>Destacar na home, até 3 conteúdos</span>
           </label>
         </div>
 
@@ -198,7 +222,7 @@
         </div>
       </form>
 
-      <section class="admin-publications-list admin-campus-list" aria-label="Lista de eventos e notícias cadastrados">
+      <section class="admin-publications-list admin-campus-list" data-campus-panel="lista" aria-label="Lista de eventos e notícias cadastrados">
         <div class="admin-list-toolbar">
           <strong>Conteúdos cadastrados</strong>
           <select data-campus-post-filter aria-label="Filtrar eventos e notícias">

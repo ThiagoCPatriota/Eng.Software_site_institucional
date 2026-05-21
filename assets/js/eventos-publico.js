@@ -1,8 +1,9 @@
 import {
-  formatDateTime,
   isSupabaseConfigured,
   supabase,
 } from "./supabase-client.js";
+
+const CAMPUS_IMAGES_BUCKET = "noticias-eventos-imagens";
 
 const TIPOS = {
   todos: "Todos",
@@ -27,7 +28,7 @@ function formatBrazilianDate(value) {
 }
 
 function formatPeriod(item) {
-  if (!item.data_inicio && !item.hora_inicio) return "A confirmar";
+  if (!item.data_inicio && !item.hora_inicio) return item.data_label || "A confirmar";
   const date = formatBrazilianDate(item.data_inicio);
   const hour = item.hora_inicio ? ` · ${String(item.hora_inicio).slice(0, 5)}` : "";
   return `${date}${hour}`;
@@ -40,20 +41,24 @@ function getFallbackPosts() {
     tipo: "noticia",
     titulo: item.titulo,
     resumo: item.resumo,
+    conteudo: "Conteúdo demonstrativo para validar o canal de notícias do curso.",
     data_inicio: null,
     data_label: item.data || "Demonstração",
     local: item.categoria || "Institucional",
     link_externo: null,
+    destaque_home: index < 1,
   })) : [];
   const eventos = Array.isArray(dados.eventos) ? dados.eventos.map((item, index) => ({
     id: `fallback-evento-${index}`,
     tipo: "evento",
     titulo: item.titulo,
     resumo: item.resumo,
+    conteudo: "Evento demonstrativo para validar a visualização pública do campus.",
     data_inicio: null,
     data_label: item.data || "Demonstração",
     local: item.formato || "Campus",
     link_externo: null,
+    destaque_home: index < 1,
   })) : [];
   return [...eventos, ...noticias];
 }
@@ -63,20 +68,49 @@ function getFilteredPosts() {
   return campusPosts.filter((item) => item.tipo === activeFilter);
 }
 
-function createCampusCard(item) {
-  const article = document.createElement("article");
-  article.className = "campus-news-card";
+function createInfoPill(value) {
+  const pill = document.createElement("span");
+  pill.textContent = value;
+  return pill;
+}
 
-  if (item.imagem_url) {
-    const imageWrap = document.createElement("div");
-    imageWrap.className = "campus-news-image";
+function getImageUrl(item) {
+  if (item?.imagem_url) return item.imagem_url;
+  if (item?.imagem_path && isSupabaseConfigured && supabase) {
+    const { data } = supabase.storage.from(CAMPUS_IMAGES_BUCKET).getPublicUrl(item.imagem_path);
+    return data?.publicUrl || "";
+  }
+  return "";
+}
+
+function createVisual(item) {
+  const imageUrl = getImageUrl(item);
+  const visual = document.createElement("div");
+  visual.className = imageUrl ? "campus-news-image" : "campus-news-placeholder";
+
+  if (imageUrl) {
     const image = document.createElement("img");
-    image.src = item.imagem_url;
+    image.src = imageUrl;
     image.alt = "";
     image.loading = "lazy";
-    imageWrap.appendChild(image);
-    article.appendChild(imageWrap);
+    visual.appendChild(image);
+    return visual;
   }
+
+  const type = document.createElement("span");
+  type.textContent = TIPOS[item.tipo] || "Notícia";
+  const title = document.createElement("strong");
+  title.textContent = "IFPE";
+  visual.append(type, title);
+  return visual;
+}
+
+function createCampusCard(item) {
+  const article = document.createElement("article");
+  article.className = `campus-news-card${item.destaque_home ? " is-featured" : ""}`;
+  article.id = `noticia-${item.id}`;
+
+  article.appendChild(createVisual(item));
 
   const content = document.createElement("div");
   content.className = "campus-news-content";
@@ -88,8 +122,15 @@ function createCampusCard(item) {
   type.textContent = TIPOS[item.tipo] || item.tipo || "Destaque";
   topLine.appendChild(type);
 
+  if (item.destaque_home) {
+    const featured = document.createElement("span");
+    featured.className = "campus-news-featured-pill";
+    featured.textContent = "Destaque";
+    topLine.appendChild(featured);
+  }
+
   const date = document.createElement("small");
-  date.textContent = item.data_label || formatPeriod(item);
+  date.textContent = formatPeriod(item);
   topLine.appendChild(date);
   content.appendChild(topLine);
 
@@ -98,17 +139,32 @@ function createCampusCard(item) {
   content.appendChild(title);
 
   const summary = document.createElement("p");
+  summary.className = "campus-news-summary";
   summary.textContent = item.resumo || "Sem resumo cadastrado.";
   content.appendChild(summary);
 
+  if (item.conteudo) {
+    const body = document.createElement("p");
+    body.className = "campus-news-body";
+    body.textContent = item.conteudo;
+    content.appendChild(body);
+  }
+
   const meta = document.createElement("div");
   meta.className = "campus-news-meta";
-  [item.local, item.organizador].filter(Boolean).forEach((value) => {
-    const pill = document.createElement("span");
-    pill.textContent = value;
-    meta.appendChild(pill);
-  });
+  [item.local, item.organizador].filter(Boolean).forEach((value) => meta.appendChild(createInfoPill(value)));
   if (meta.childElementCount) content.appendChild(meta);
+
+  const actions = document.createElement("div");
+  actions.className = "campus-news-actions";
+
+  if (item.email_contato) {
+    const email = document.createElement("a");
+    email.className = "text-link compact-link campus-news-contact";
+    email.href = `mailto:${item.email_contato}`;
+    email.textContent = item.email_contato;
+    actions.appendChild(email);
+  }
 
   if (item.link_externo) {
     const link = document.createElement("a");
@@ -117,8 +173,10 @@ function createCampusCard(item) {
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     link.textContent = "Abrir link oficial";
-    content.appendChild(link);
+    actions.appendChild(link);
   }
+
+  if (actions.childElementCount) content.appendChild(actions);
 
   article.appendChild(content);
   return article;
@@ -144,7 +202,8 @@ async function loadPosts() {
 
   const { data, error } = await supabase
     .from("noticias_eventos_publicos")
-    .select("id, titulo, slug, tipo, resumo, conteudo, imagem_url, link_externo, local, organizador, data_inicio, data_fim, hora_inicio, publicado_em, atualizado_em")
+    .select("id, titulo, slug, tipo, resumo, conteudo, imagem_url, imagem_path, link_externo, email_contato, local, organizador, data_inicio, data_fim, hora_inicio, destaque_home, publicado_em, atualizado_em")
+    .order("destaque_home", { ascending: false })
     .order("ordem", { ascending: true })
     .order("data_inicio", { ascending: false, nullsFirst: false })
     .order("publicado_em", { ascending: false, nullsFirst: false });
