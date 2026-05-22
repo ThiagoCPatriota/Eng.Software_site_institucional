@@ -8,6 +8,10 @@ import {
   supabase,
 } from "./supabase-client.js";
 
+const CAMPUS_IMAGES_BUCKET = "noticias-eventos-imagens";
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
+const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+
 const TIPOS = {
   evento: "Evento",
   noticia: "Notícia",
@@ -33,9 +37,58 @@ const clearButton = document.querySelector("[data-clear-form]");
 const statPublished = document.querySelector("[data-stat-published]");
 const statEvents = document.querySelector("[data-stat-events]");
 const statHome = document.querySelector("[data-stat-home]");
+const tabButtons = document.querySelectorAll("[data-campus-tab]");
+const tabPanels = document.querySelectorAll("[data-campus-panel]");
+const imageInput = document.querySelector("[data-campus-image-input]");
+const imagePreview = document.querySelector("[data-campus-image-preview]");
+const previewFrame = document.querySelector("[data-campus-preview-frame]");
+const clearImageButton = document.querySelector("[data-clear-campus-image]");
+const typeSelect = form?.elements?.tipo || null;
+const eventOnlyFields = document.querySelector("[data-event-only-fields]");
 
 let currentUser = null;
 let campusPosts = [];
+let removeCurrentImage = false;
+let lastPreviewUrl = null;
+
+function setActiveTab(name) {
+  tabButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.campusTab === name);
+  });
+
+  tabPanels.forEach((panel) => {
+    panel.classList.toggle("is-active", panel.dataset.campusPanel === name);
+  });
+}
+
+function countHomeHighlights(exceptId = "") {
+  return campusPosts.filter((item) => item.destaque_home && item.id !== exceptId).length;
+}
+
+function canHighlightHome(exceptId = "") {
+  return countHomeHighlights(exceptId) < 3;
+}
+
+function toggleEventFields(shouldClear = false) {
+  const isEvent = typeSelect?.value === "evento";
+
+  if (eventOnlyFields) {
+    eventOnlyFields.hidden = !isEvent;
+    eventOnlyFields.classList.toggle("is-hidden", !isEvent);
+    eventOnlyFields.setAttribute("aria-hidden", String(!isEvent));
+    eventOnlyFields.style.display = isEvent ? "" : "none";
+
+    eventOnlyFields.querySelectorAll("input, select, textarea").forEach((field) => {
+      field.disabled = !isEvent;
+    });
+  }
+
+  if (!isEvent && shouldClear && form) {
+    form.elements.data_inicio.value = "";
+    form.elements.hora_inicio.value = "";
+    form.elements.data_fim.value = "";
+  }
+}
 
 function setStatus(message, type = "info") {
   if (!statusBox) return;
@@ -68,6 +121,58 @@ function statusClass(status) {
   return "is-draft";
 }
 
+function revokePreviewUrl() {
+  if (lastPreviewUrl) {
+    URL.revokeObjectURL(lastPreviewUrl);
+    lastPreviewUrl = null;
+  }
+}
+
+function getImageUrl(item) {
+  if (item?.imagem_url) return item.imagem_url;
+  if (item?.imagem_path && isSupabaseConfigured) {
+    const { data } = supabase.storage.from(CAMPUS_IMAGES_BUCKET).getPublicUrl(item.imagem_path);
+    return data?.publicUrl || "";
+  }
+  return "";
+}
+
+function updateImagePreview(imageUrl = "", label = "Sem imagem") {
+  if (!previewFrame || !imagePreview) return;
+  previewFrame.innerHTML = "";
+  previewFrame.classList.toggle("has-image", Boolean(imageUrl));
+
+  if (imageUrl) {
+    const img = document.createElement("img");
+    img.src = imageUrl;
+    img.alt = "Prévia da imagem da notícia ou evento";
+    previewFrame.appendChild(img);
+  } else {
+    const span = document.createElement("span");
+    span.textContent = label;
+    previewFrame.appendChild(span);
+  }
+}
+
+function resetImageState() {
+  revokePreviewUrl();
+  removeCurrentImage = false;
+  if (imageInput) imageInput.value = "";
+  if (form?.elements.imagem_url) form.elements.imagem_url.value = "";
+  if (form?.elements.imagem_path) form.elements.imagem_path.value = "";
+  updateImagePreview("", "Sem imagem");
+}
+
+function validateImageFile(file) {
+  if (!file) return;
+  if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+    throw new Error("Envie uma imagem em JPG, PNG ou WEBP.");
+  }
+  if (file.size > MAX_IMAGE_SIZE) {
+    throw new Error("A imagem deve ter no máximo 5 MB.");
+  }
+}
+
 function resetForm() {
   form.reset();
   form.elements.id.value = "";
@@ -76,14 +181,22 @@ function resetForm() {
   form.elements.ordem.value = "0";
   form.elements.visivel.checked = true;
   form.elements.destaque_home.checked = false;
+  resetImageState();
+  toggleEventFields(false);
   formTitle.textContent = "Novo conteúdo";
+  setActiveTab("editor");
   form.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function fillForm(item) {
+  revokePreviewUrl();
+  removeCurrentImage = false;
+  if (imageInput) imageInput.value = "";
+
   form.elements.id.value = text(item.id);
   form.elements.titulo.value = text(item.titulo);
   form.elements.tipo.value = text(item.tipo || "evento");
+  toggleEventFields(false);
   form.elements.status.value = text(item.status || "rascunho");
   form.elements.ordem.value = text(item.ordem ?? 0);
   form.elements.resumo.value = text(item.resumo);
@@ -94,10 +207,15 @@ function fillForm(item) {
   form.elements.local.value = text(item.local);
   form.elements.organizador.value = text(item.organizador);
   form.elements.imagem_url.value = text(item.imagem_url);
+  if (form.elements.imagem_path) form.elements.imagem_path.value = text(item.imagem_path);
+  updateImagePreview(getImageUrl(item));
   form.elements.link_externo.value = text(item.link_externo);
+  if (form.elements.link_rotulo) form.elements.link_rotulo.value = text(item.link_rotulo);
+  if (form.elements.email_contato) form.elements.email_contato.value = text(item.email_contato);
   form.elements.visivel.checked = Boolean(item.visivel);
   form.elements.destaque_home.checked = Boolean(item.destaque_home);
   formTitle.textContent = "Editar conteúdo";
+  setActiveTab("editor");
   form.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -105,13 +223,16 @@ function getPayload() {
   const formData = new FormData(form);
   const titulo = String(formData.get("titulo") || "").trim();
   const status = String(formData.get("status") || "rascunho");
-  const dataInicio = String(formData.get("data_inicio") || "").trim() || null;
-  const dataFim = String(formData.get("data_fim") || "").trim() || null;
+  const tipo = String(formData.get("tipo") || "evento");
+  const isEvent = tipo === "evento";
+  const dataInicio = isEvent ? String(formData.get("data_inicio") || "").trim() || null : null;
+  const dataFim = isEvent ? String(formData.get("data_fim") || "").trim() || null : null;
+  const horaInicio = isEvent ? String(formData.get("hora_inicio") || "").trim() || null : null;
 
   return {
     titulo,
     slug: slugify(titulo),
-    tipo: String(formData.get("tipo") || "evento"),
+    tipo,
     status,
     visivel: form.elements.visivel.checked && status === "publicado",
     destaque_home: form.elements.destaque_home.checked && status === "publicado",
@@ -120,11 +241,14 @@ function getPayload() {
     conteudo: String(formData.get("conteudo") || "").trim() || null,
     data_inicio: dataInicio,
     data_fim: dataFim,
-    hora_inicio: String(formData.get("hora_inicio") || "").trim() || null,
+    hora_inicio: horaInicio,
     local: String(formData.get("local") || "").trim() || null,
     organizador: String(formData.get("organizador") || "").trim() || null,
-    imagem_url: String(formData.get("imagem_url") || "").trim() || null,
+    imagem_url: removeCurrentImage ? null : String(formData.get("imagem_url") || "").trim() || null,
+    imagem_path: removeCurrentImage ? null : String(formData.get("imagem_path") || "").trim() || null,
     link_externo: String(formData.get("link_externo") || "").trim() || null,
+    link_rotulo: String(formData.get("link_rotulo") || "").trim() || null,
+    email_contato: String(formData.get("email_contato") || "").trim() || null,
     publicado_em: status === "publicado" ? new Date().toISOString() : null,
     atualizado_por: currentUser?.id || null,
   };
@@ -142,6 +266,16 @@ function updateStats() {
   if (statPublished) statPublished.textContent = String(campusPosts.filter((item) => item.status === "publicado" && item.visivel).length);
   if (statEvents) statEvents.textContent = String(campusPosts.filter((item) => item.tipo === "evento").length);
   if (statHome) statHome.textContent = String(campusPosts.filter((item) => item.destaque_home).length);
+}
+
+
+function escapeHtml(value = "") {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 function renderPosts() {
@@ -164,7 +298,8 @@ function renderPosts() {
     const meta = document.createElement("small");
     const date = item.data_inicio ? ` · ${formatBrazilianDate(item.data_inicio)}` : "";
     const place = item.local ? ` · ${item.local}` : "";
-    meta.textContent = `${TIPOS[item.tipo] || item.tipo}${date}${place}`;
+    const contact = item.email_contato ? ` · ${item.email_contato}` : "";
+    meta.textContent = `${TIPOS[item.tipo] || item.tipo}${date}${place}${contact}`;
     headingGroup.append(title, meta);
 
     const pills = document.createElement("div");
@@ -173,6 +308,7 @@ function renderPosts() {
     pills.appendChild(createPill(STATUS[item.status] || item.status, statusClass(item.status)));
     if (item.visivel) pills.appendChild(createPill("público", "is-visible"));
     if (item.destaque_home) pills.appendChild(createPill("home", "is-home"));
+    if (getImageUrl(item)) pills.appendChild(createPill("imagem", "is-visible"));
     header.append(headingGroup, pills);
 
     const summary = document.createElement("p");
@@ -188,7 +324,8 @@ function renderPosts() {
       <button type="button" data-action="edit">Editar</button>
       <button type="button" data-action="toggle-status">${item.status === "publicado" ? "Ocultar" : "Publicar"}</button>
       <button type="button" data-action="toggle-home">${item.destaque_home ? "Remover da home" : "Destacar na home"}</button>
-      ${item.link_externo ? '<button type="button" data-action="open-link">Abrir link</button>' : ""}
+      ${item.link_externo ? `<button type="button" data-action="open-link">${escapeHtml(item.link_rotulo || "Abrir link")}</button>` : ""}
+      <button type="button" data-action="delete">Excluir</button>
     `;
 
     card.append(header, summary, footnote, actions);
@@ -201,6 +338,38 @@ function formatBrazilianDate(value) {
   const [year, month, day] = String(value).split("-");
   if (!year || !month || !day) return value;
   return `${day}/${month}/${year}`;
+}
+
+async function uploadCampusImage(file, title) {
+  validateImageFile(file);
+  const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
+  const safeTitle = slugify(title || "noticia-evento") || "noticia-evento";
+  const path = `${currentUser?.id || "admin"}/${Date.now()}-${safeTitle}.${extension}`;
+
+  const { error } = await supabase.storage
+    .from(CAMPUS_IMAGES_BUCKET)
+    .upload(path, file, {
+      cacheControl: "3600",
+      contentType: file.type,
+      upsert: false,
+    });
+
+  if (error) throw error;
+
+  const { data } = supabase.storage.from(CAMPUS_IMAGES_BUCKET).getPublicUrl(path);
+  return {
+    imagem_path: path,
+    imagem_url: data?.publicUrl || null,
+  };
+}
+
+async function removeStoredImage(path) {
+  if (!path) return;
+  try {
+    await supabase.storage.from(CAMPUS_IMAGES_BUCKET).remove([path]);
+  } catch (error) {
+    console.warn("Não foi possível remover a imagem antiga:", error);
+  }
 }
 
 async function loadPosts() {
@@ -218,16 +387,30 @@ async function loadPosts() {
 
 async function savePost(event) {
   event.preventDefault();
-  setFormLoading(true);
-  setStatus("Salvando conteúdo...", "info");
 
   try {
     const id = form.elements.id.value;
     const payload = getPayload();
+    const currentItem = id ? campusPosts.find((item) => item.id === id) : null;
+    const oldImagePath = currentItem?.imagem_path || null;
+    const newImageFile = imageInput?.files?.[0] || null;
+    setFormLoading(true);
+    setStatus(newImageFile ? "Enviando imagem e salvando conteúdo..." : "Salvando conteúdo...", "info");
 
     if (!payload.titulo || !payload.resumo) {
       setStatus("Preencha título e resumo antes de salvar.", "error");
       return;
+    }
+
+    if (payload.destaque_home && !canHighlightHome(id)) {
+      setStatus("A home pode ter no máximo 3 destaques. Remova outro destaque antes de adicionar este.", "error");
+      return;
+    }
+
+    if (newImageFile) {
+      const uploadedImage = await uploadCampusImage(newImageFile, payload.titulo);
+      payload.imagem_url = uploadedImage.imagem_url;
+      payload.imagem_path = uploadedImage.imagem_path;
     }
 
     if (id) {
@@ -241,6 +424,9 @@ async function savePost(event) {
         .update(nextPayload)
         .eq("id", id);
       if (error) throw error;
+      if ((newImageFile || removeCurrentImage) && oldImagePath && oldImagePath !== payload.imagem_path) {
+        await removeStoredImage(oldImagePath);
+      }
       setStatus("Conteúdo atualizado com sucesso.", "success");
     } else {
       const { error } = await supabase
@@ -252,11 +438,41 @@ async function savePost(event) {
 
     resetForm();
     await loadPosts();
+    setActiveTab("lista");
   } catch (error) {
     setStatus(`Erro ao salvar conteúdo: ${error.message}`, "error");
   } finally {
     setFormLoading(false);
   }
+}
+
+
+async function deletePost(item) {
+  const confirmed = window.confirm(
+    `Excluir definitivamente "${item.titulo}"? Essa ação remove o conteúdo cadastrado e não poderá ser desfeita.`
+  );
+
+  if (!confirmed) return;
+
+  setStatus("Excluindo conteúdo...", "info");
+
+  const { error } = await supabase
+    .from("noticias_eventos")
+    .delete()
+    .eq("id", item.id);
+
+  if (error) throw error;
+
+  if (item.imagem_path) {
+    await removeStoredImage(item.imagem_path);
+  }
+
+  if (form?.elements.id?.value === item.id) {
+    resetForm();
+  }
+
+  setStatus("Conteúdo excluído definitivamente.", "success");
+  await loadPosts();
 }
 
 async function updatePost(id, patch, successMessage) {
@@ -306,8 +522,17 @@ list?.addEventListener("click", async (event) => {
       return;
     }
 
+    if (button.dataset.action === "delete") {
+      await deletePost(item);
+      return;
+    }
+
     if (button.dataset.action === "toggle-home") {
       const nextHome = !item.destaque_home;
+      if (nextHome && !canHighlightHome(id)) {
+        setStatus("A home pode ter no máximo 3 destaques. Remova outro destaque antes de adicionar este.", "error");
+        return;
+      }
       await updatePost(
         id,
         {
@@ -324,7 +549,41 @@ list?.addEventListener("click", async (event) => {
   }
 });
 
+imageInput?.addEventListener("change", () => {
+  revokePreviewUrl();
+  removeCurrentImage = false;
+  const file = imageInput.files?.[0];
+  if (!file) {
+    updateImagePreview(form?.elements.imagem_url?.value || "", "Sem imagem");
+    return;
+  }
+
+  try {
+    validateImageFile(file);
+    lastPreviewUrl = URL.createObjectURL(file);
+    updateImagePreview(lastPreviewUrl);
+  } catch (error) {
+    imageInput.value = "";
+    updateImagePreview(form?.elements.imagem_url?.value || "", "Sem imagem");
+    setStatus(error.message, "error");
+  }
+});
+
+clearImageButton?.addEventListener("click", () => {
+  revokePreviewUrl();
+  removeCurrentImage = true;
+  if (imageInput) imageInput.value = "";
+  if (form?.elements.imagem_url) form.elements.imagem_url.value = "";
+  if (form?.elements.imagem_path) form.elements.imagem_path.value = "";
+  updateImagePreview("", "Imagem removida");
+});
+
 filter?.addEventListener("change", renderPosts);
+typeSelect?.addEventListener("change", () => toggleEventFields(true));
+toggleEventFields(false);
+tabButtons.forEach((button) => {
+  button.addEventListener("click", () => setActiveTab(button.dataset.campusTab || "editor"));
+});
 form?.addEventListener("submit", savePost);
 newButton?.addEventListener("click", resetForm);
 clearButton?.addEventListener("click", resetForm);

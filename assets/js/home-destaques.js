@@ -3,6 +3,8 @@ import {
   supabase,
 } from "./supabase-client.js";
 
+const CAMPUS_IMAGES_BUCKET = "noticias-eventos-imagens";
+
 const track = document.querySelector("[data-home-destaques-list]");
 const actionLink = document.querySelector("[data-home-destaques-action]");
 
@@ -26,10 +28,19 @@ function createFallbackImage(type) {
   return "assets/img/home/jardim-digital.jpg";
 }
 
+function getImageUrl(item) {
+  if (item?.imagem_url) return item.imagem_url;
+  if (item?.imagem_path && isSupabaseConfigured && supabase) {
+    const { data } = supabase.storage.from(CAMPUS_IMAGES_BUCKET).getPublicUrl(item.imagem_path);
+    return data?.publicUrl || "";
+  }
+  return "";
+}
+
 function createHighlightCard(item, index) {
   const link = document.createElement("a");
   link.className = index === 0 ? "magazine-card magazine-card-large" : "magazine-card";
-  link.href = item.link_externo || "eventos-noticias.html";
+  link.href = item.link_externo || `eventos-noticias.html#noticia-${item.id}`;
   if (item.link_externo) {
     link.target = "_blank";
     link.rel = "noopener noreferrer";
@@ -39,7 +50,7 @@ function createHighlightCard(item, index) {
   visual.className = "magazine-visual";
   visual.setAttribute("aria-hidden", "true");
   const image = document.createElement("img");
-  image.src = item.imagem_url || createFallbackImage(item.tipo);
+  image.src = getImageUrl(item) || createFallbackImage(item.tipo);
   image.alt = "";
   image.loading = "lazy";
   visual.appendChild(image);
@@ -70,7 +81,7 @@ async function loadHomeHighlights() {
 
   const { data, error } = await supabase
     .from("noticias_eventos_publicos")
-    .select("id, titulo, tipo, resumo, imagem_url, link_externo, data_inicio, destaque_home")
+    .select("id, titulo, tipo, resumo, imagem_url, imagem_path, link_externo, link_rotulo, data_inicio, destaque_home")
     .eq("destaque_home", true)
     .order("ordem", { ascending: true })
     .order("publicado_em", { ascending: false, nullsFirst: false })
