@@ -112,6 +112,151 @@ for delete
 to authenticated
 using (public.current_user_is_site_admin());
 
+
+-- ============================================================
+-- RF 005 / ADM RF 014 - Documento oficial do PPC
+-- ============================================================
+-- Guarda o documento/link ativo do PPC para exibição pública e substituição pelo administrador.
+
+create table if not exists public.ppc_documentos (
+  id uuid primary key default gen_random_uuid(),
+  titulo text not null default 'Projeto Pedagógico do Curso',
+  descricao text,
+  arquivo_url text not null,
+  arquivo_path text,
+  arquivo_nome text,
+  arquivo_tamanho bigint,
+  ativo boolean not null default true,
+  criado_por uuid references auth.users(id) on delete set null,
+  atualizado_por uuid references auth.users(id) on delete set null,
+  criado_em timestamptz not null default now(),
+  atualizado_em timestamptz not null default now()
+);
+
+create index if not exists idx_ppc_documentos_ativo_atualizado on public.ppc_documentos(ativo, atualizado_em desc);
+
+drop trigger if exists trg_ppc_documentos_updated_at on public.ppc_documentos;
+create trigger trg_ppc_documentos_updated_at
+before update on public.ppc_documentos
+for each row execute function public.set_updated_at();
+
+-- View pública usada pela página grade.html.
+drop view if exists public.ppc_documento_publico;
+create view public.ppc_documento_publico as
+select
+  id,
+  titulo,
+  descricao,
+  arquivo_url,
+  arquivo_nome,
+  arquivo_tamanho,
+  criado_em,
+  atualizado_em
+from public.ppc_documentos
+where ativo = true
+order by atualizado_em desc
+limit 1;
+
+grant select on public.ppc_documentos to anon, authenticated;
+grant insert, update, delete on public.ppc_documentos to authenticated;
+grant select on public.ppc_documento_publico to anon, authenticated;
+
+alter table public.ppc_documentos enable row level security;
+
+drop policy if exists "Publico le PPC ativo" on public.ppc_documentos;
+drop policy if exists "Admins leem todos os PPCs" on public.ppc_documentos;
+drop policy if exists "Admins criam PPC" on public.ppc_documentos;
+drop policy if exists "Admins atualizam PPC" on public.ppc_documentos;
+drop policy if exists "Admins removem PPC" on public.ppc_documentos;
+
+create policy "Publico le PPC ativo"
+on public.ppc_documentos
+for select
+to anon, authenticated
+using (ativo = true);
+
+create policy "Admins leem todos os PPCs"
+on public.ppc_documentos
+for select
+to authenticated
+using (public.current_user_is_site_admin());
+
+create policy "Admins criam PPC"
+on public.ppc_documentos
+for insert
+to authenticated
+with check (public.current_user_is_site_admin());
+
+create policy "Admins atualizam PPC"
+on public.ppc_documentos
+for update
+to authenticated
+using (public.current_user_is_site_admin())
+with check (public.current_user_is_site_admin());
+
+create policy "Admins removem PPC"
+on public.ppc_documentos
+for delete
+to authenticated
+using (public.current_user_is_site_admin());
+
+-- Bucket público para PDF do PPC. A leitura é pública; upload e remoção são restritos a admin/editor.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'ppc-documentos',
+  'ppc-documentos',
+  true,
+  20971520,
+  array['application/pdf']
+)
+on conflict (id) do update
+set
+  public = excluded.public,
+  file_size_limit = excluded.file_size_limit,
+  allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "PPC leitura publica" on storage.objects;
+drop policy if exists "PPC admin upload" on storage.objects;
+drop policy if exists "PPC admin atualiza" on storage.objects;
+drop policy if exists "PPC admin remove" on storage.objects;
+
+create policy "PPC leitura publica"
+on storage.objects
+for select
+to anon, authenticated
+using (bucket_id = 'ppc-documentos');
+
+create policy "PPC admin upload"
+on storage.objects
+for insert
+to authenticated
+with check (
+  bucket_id = 'ppc-documentos'
+  and public.current_user_is_site_admin()
+);
+
+create policy "PPC admin atualiza"
+on storage.objects
+for update
+to authenticated
+using (
+  bucket_id = 'ppc-documentos'
+  and public.current_user_is_site_admin()
+)
+with check (
+  bucket_id = 'ppc-documentos'
+  and public.current_user_is_site_admin()
+);
+
+create policy "PPC admin remove"
+on storage.objects
+for delete
+to authenticated
+using (
+  bucket_id = 'ppc-documentos'
+  and public.current_user_is_site_admin()
+);
+
 -- Carga inicial demonstrativa baseada na matriz que já estava na página pública.
 -- Não sobrescreve componentes com o mesmo código.
 insert into public.componentes_curriculares

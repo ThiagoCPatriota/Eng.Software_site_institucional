@@ -155,6 +155,28 @@
   line-height: 1.5;
 }
 
+.footer-update-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.78rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.footer-update-stamp::before {
+  content: "•";
+  color: #8de0b3;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
 .back-to-top {
   display: grid;
   place-items: center;
@@ -221,5 +243,9 @@
   .footer-bottom-inner {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .footer-update-stamp {
+    white-space: normal;
   }
 }

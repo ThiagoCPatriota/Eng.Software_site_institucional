@@ -6,6 +6,7 @@ const yearElement = document.querySelector('#ano-atual');
 const backToTop = document.querySelector('.back-to-top');
 const forms = document.querySelectorAll('.interest-form, [data-contact-form]');
 const bodyPage = document.body.dataset.page;
+const SITE_LAST_UPDATED_AT = '22/05/2026';
 
 const siteHeader = document.querySelector('.site-header');
 
@@ -21,6 +22,27 @@ window.addEventListener('scroll', updateHeaderScrollState, { passive: true });
 if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
 }
+
+
+function renderSiteUpdateStamp() {
+  const footerBottom = document.querySelector('.footer-bottom-inner');
+  if (!footerBottom || footerBottom.querySelector('[data-site-last-update]')) return;
+
+  const stamp = document.createElement('span');
+  stamp.className = 'footer-update-stamp';
+  stamp.dataset.siteLastUpdate = '';
+  stamp.textContent = `Última atualização do site: ${SITE_LAST_UPDATED_AT}`;
+
+  const backButton = footerBottom.querySelector('.back-to-top');
+  if (backButton) {
+    footerBottom.insertBefore(stamp, backButton);
+  } else {
+    footerBottom.appendChild(stamp);
+  }
+}
+
+renderSiteUpdateStamp();
+
 
 function closeNavGroups(exceptGroup = null) {
   navGroups.forEach((group) => {
@@ -479,3 +501,8 @@ setupCalendarFilters();
     console.warn("Não foi possível carregar o acesso público:", error);
   });
 })();
+
+
+import("./site-visibility.js").catch((error) => {
+  console.warn("Não foi possível aplicar visibilidade das páginas:", error);
+});

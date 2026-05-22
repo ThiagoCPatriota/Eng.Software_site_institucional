@@ -68,6 +68,47 @@ create index if not exists idx_publicacoes_status_visivel on public.publicacoes(
 create index if not exists idx_publicacoes_destaque_home on public.publicacoes(destaque_home);
 create index if not exists idx_publicacoes_categoria on public.publicacoes(categoria);
 
+
+
+-- ============================================================
+-- ADM RF 017: Configuração administrável da Home
+-- ============================================================
+create table if not exists public.site_home_config (
+  id text primary key default 'principal' check (id = 'principal'),
+  hero_kicker text not null default 'IFPE Campus Belo Jardim',
+  hero_titulo text not null default 'Engenharia de Software',
+  hero_subtitulo text not null default 'Formação pública, prática e conectada ao desenvolvimento de sistemas, projetos, inovação e impacto regional.',
+  cta_primario_texto text not null default 'Conheça o curso',
+  cta_primario_url text not null default 'sobre.html',
+  cta_secundario_texto text not null default 'Veja formas de ingresso',
+  cta_secundario_url text not null default 'ingresso.html',
+  cta_terciario_texto text not null default 'Projetos e notícias',
+  cta_terciario_url text not null default 'projetos.html',
+  destaque_1_valor text not null default '8 períodos',
+  destaque_1_rotulo text not null default 'Jornada acadêmica',
+  destaque_2_valor text not null default 'Presencial',
+  destaque_2_rotulo text not null default 'Vivência no campus e contato com docentes',
+  destaque_3_valor text not null default 'Projetos e extensão',
+  destaque_3_rotulo text not null default 'Prática, pesquisa, desafios e oportunidades reais',
+  atualizado_por uuid references auth.users(id) on delete set null,
+  criado_em timestamptz not null default now(),
+  atualizado_em timestamptz not null default now()
+);
+
+-- ADM RF 018: Controle de visibilidade das páginas públicas.
+create table if not exists public.site_paginas_visibilidade (
+  slug text primary key,
+  titulo text not null,
+  url text not null,
+  grupo text not null default 'Geral',
+  visivel boolean not null default true,
+  ordem integer not null default 0,
+  observacao text,
+  atualizado_por uuid references auth.users(id) on delete set null,
+  criado_em timestamptz not null default now(),
+  atualizado_em timestamptz not null default now()
+);
+
 -- Atualização automática do campo atualizado_em.
 create or replace function public.set_updated_at()
 returns trigger
@@ -87,6 +128,17 @@ for each row execute function public.set_updated_at();
 drop trigger if exists trg_publicacoes_updated_at on public.publicacoes;
 create trigger trg_publicacoes_updated_at
 before update on public.publicacoes
+for each row execute function public.set_updated_at();
+
+
+drop trigger if exists trg_site_home_config_updated_at on public.site_home_config;
+create trigger trg_site_home_config_updated_at
+before update on public.site_home_config
+for each row execute function public.set_updated_at();
+
+drop trigger if exists trg_site_paginas_visibilidade_updated_at on public.site_paginas_visibilidade;
+create trigger trg_site_paginas_visibilidade_updated_at
+before update on public.site_paginas_visibilidade
 for each row execute function public.set_updated_at();
 
 -- Cria perfil automaticamente quando um usuário novo é cadastrado no Supabase Auth.
@@ -162,10 +214,17 @@ grant select, insert, update, delete on public.site_admin_emails to authenticate
 grant execute on function public.current_user_is_site_admin() to anon, authenticated;
 grant execute on function public.handle_new_site_user() to authenticated;
 
+grant select on public.site_home_config to anon, authenticated;
+grant insert, update, delete on public.site_home_config to authenticated;
+grant select on public.site_paginas_visibilidade to anon, authenticated;
+grant insert, update, delete on public.site_paginas_visibilidade to authenticated;
+
 -- RLS: sempre ligado.
 alter table public.site_admin_emails enable row level security;
 alter table public.site_profiles enable row level security;
 alter table public.publicacoes enable row level security;
+alter table public.site_home_config enable row level security;
+alter table public.site_paginas_visibilidade enable row level security;
 
 -- Limpeza segura para reexecutar o SQL durante testes.
 drop policy if exists "Admins gerenciam e-mails autorizados" on public.site_admin_emails;
@@ -179,6 +238,10 @@ drop policy if exists "Admins leem todas as publicacoes" on public.publicacoes;
 drop policy if exists "Admins criam publicacoes" on public.publicacoes;
 drop policy if exists "Admins atualizam publicacoes" on public.publicacoes;
 drop policy if exists "Admins removem publicacoes" on public.publicacoes;
+drop policy if exists "Publico le configuracao da home" on public.site_home_config;
+drop policy if exists "Admins gerenciam configuracao da home" on public.site_home_config;
+drop policy if exists "Publico le visibilidade das paginas" on public.site_paginas_visibilidade;
+drop policy if exists "Admins gerenciam visibilidade das paginas" on public.site_paginas_visibilidade;
 
 -- site_admin_emails: somente admins já reconhecidos conseguem ler/gerenciar.
 create policy "Admins gerenciam e-mails autorizados"
@@ -253,6 +316,67 @@ on public.publicacoes
 for delete
 to authenticated
 using (public.current_user_is_site_admin());
+
+-- Home: pública para leitura, administrável apenas por admin/editor.
+create policy "Publico le configuracao da home"
+on public.site_home_config
+for select
+to anon, authenticated
+using (true);
+
+create policy "Admins gerenciam configuracao da home"
+on public.site_home_config
+for all
+to authenticated
+using (public.current_user_is_site_admin())
+with check (public.current_user_is_site_admin());
+
+-- Páginas: público lê para esconder menu; admin gerencia visibilidade.
+create policy "Publico le visibilidade das paginas"
+on public.site_paginas_visibilidade
+for select
+to anon, authenticated
+using (true);
+
+create policy "Admins gerenciam visibilidade das paginas"
+on public.site_paginas_visibilidade
+for all
+to authenticated
+using (public.current_user_is_site_admin())
+with check (public.current_user_is_site_admin());
+
+
+-- Registro padrão da home administrável.
+insert into public.site_home_config (id)
+values ('principal')
+on conflict (id) do nothing;
+
+-- Páginas públicas controláveis pelo ADM RF 018.
+insert into public.site_paginas_visibilidade (slug, titulo, url, grupo, ordem, observacao)
+values
+  ('inicio', 'Início', 'index.html', 'Geral', 1, 'Página inicial do site. Recomenda-se manter ativa.'),
+  ('eventos', 'Notícias', 'eventos-noticias.html', 'Geral', 2, 'Canal de notícias, eventos, avisos e benefícios.'),
+  ('sobre', 'Sobre o curso', 'sobre.html', 'Curso', 3, 'Informações gerais do curso.'),
+  ('ingresso', 'Formas de ingresso', 'ingresso.html', 'Curso', 4, 'Orientação para candidatos e formas de entrada.'),
+  ('grade', 'Grade curricular / PPC', 'grade.html', 'Curso', 5, 'Matriz curricular e PPC do curso.'),
+  ('aprovados-remanejados', 'Chamadas e vínculo', 'aprovados-remanejados.html', 'Curso', 6, 'Aprovados, remanejamento, matrícula, rematrícula e reingresso.'),
+  ('projetos', 'Projetos', 'projetos.html', 'Geral', 7, 'Pesquisa, extensão, inovação e monitorias.'),
+  ('editais', 'Editais', 'editais.html', 'Geral', 8, 'Editais e comunicados relacionados.'),
+  ('servicos', 'Outros serviços', 'outros-servicos.html', 'Geral', 9, 'Biblioteca, atividades complementares, TCC e serviços úteis.'),
+  ('estrutura', 'Ambientes', 'estrutura.html', 'Estrutura', 10, 'Ambientes e infraestrutura do campus.'),
+  ('docentes', 'Docentes', 'docentes.html', 'Estrutura', 11, 'Equipe docente e coordenação.'),
+  ('area-aluno', 'Área do aluno', 'area-aluno.html', 'Aluno', 12, 'Painel básico do aluno logado.'),
+  ('horarios', 'Horário de aulas', 'horarios.html', 'Aluno', 13, 'Horários de aula por período.'),
+  ('laboratorios', 'Horário dos laboratórios', 'laboratorios.html', 'Aluno', 14, 'Disponibilidade e reservas de laboratórios.'),
+  ('calendario', 'Calendário acadêmico', 'calendario.html', 'Aluno', 15, 'Calendário e datas acadêmicas.'),
+  ('contato', 'Coordenação e contato', 'contato.html', 'Contato', 16, 'Contato institucional do curso.'),
+  ('faq', 'FAQ', 'faq.html', 'Contato', 17, 'Dúvidas frequentes e renovação de cadeiras.')
+on conflict (slug) do update
+  set titulo = excluded.titulo,
+      url = excluded.url,
+      grupo = excluded.grupo,
+      ordem = excluded.ordem,
+      observacao = excluded.observacao;
 
 -- Troque este e-mail pelo seu e-mail real de administrador antes de cadastrar/entrar.
 insert into public.site_admin_emails (email, role, ativo, observacao)

@@ -32,6 +32,8 @@
       <details class="admin-nav-dropdown">
         <summary>Geral</summary>
         <div class="admin-subnav">
+          <a href="home.html">Home</a>
+          <a href="menu.html">Páginas/Menu</a>
           <a href="publicacoes.html">Publicações</a>
           <a href="eventos.html">Notícias/Eventos</a>
           <a href="projetos.html">Projetos</a>
@@ -97,6 +99,7 @@
       <nav class="admin-schedule-tabbar admin-grade-tabbar" role="tablist" aria-label="Navegação do módulo de PPC e grade">
         <button class="is-active" type="button" data-grade-panel-target="form">Adicionar componente</button>
         <button type="button" data-grade-panel-target="list">Componentes cadastrados</button>
+        <button type="button" data-grade-panel-target="ppc">PPC do curso</button>
       </nav>
 
       <section class="admin-grade-panel" data-grade-panel="form">
@@ -187,6 +190,50 @@
         </div>
         <div class="admin-grade-periods" data-grade-list></div>
         <p class="admin-empty-state" data-grade-empty>Nenhum componente encontrado nesse filtro.</p>
+      </section>
+
+
+      <section class="admin-grade-panel admin-ppc-panel" data-grade-panel="ppc" hidden>
+        <div class="admin-ppc-grid">
+          <form class="admin-publication-form admin-ppc-form" data-ppc-form>
+            <div class="admin-form-heading">
+              <span>Documento oficial</span>
+              <strong>Substituir PPC do curso</strong>
+            </div>
+
+            <label>
+              <span>Título do documento</span>
+              <input type="text" name="titulo" placeholder="Ex.: PPC Engenharia de Software - IFPE Belo Jardim" value="Projeto Pedagógico do Curso" required />
+            </label>
+
+            <label>
+              <span>Descrição pública</span>
+              <textarea name="descricao" rows="3" placeholder="Resumo opcional exibido na página pública de Grade curricular / PPC."></textarea>
+            </label>
+
+            <label>
+              <span>PDF do PPC</span>
+              <input type="file" name="arquivo" accept="application/pdf,.pdf" data-ppc-file />
+              <small>Envie um PDF de até 20 MB. Ao salvar, ele passa a substituir o documento público anterior.</small>
+            </label>
+
+            <label>
+              <span>Ou link externo oficial</span>
+              <input type="url" name="arquivo_url" placeholder="https://..." data-ppc-url />
+              <small>Use apenas se o PPC estiver hospedado em um endereço institucional externo.</small>
+            </label>
+
+            <div class="admin-form-actions">
+              <button class="admin-submit" type="submit">Salvar PPC</button>
+            </div>
+          </form>
+
+          <aside class="admin-ppc-current" data-ppc-current aria-live="polite">
+            <span class="admin-kicker">PPC atual</span>
+            <h2>Nenhum PPC publicado</h2>
+            <p>Quando um PDF ou link oficial for salvo, a página pública Grade curricular / PPC exibirá o botão de acesso automaticamente.</p>
+          </aside>
+        </div>
       </section>
     </section>
   </main>

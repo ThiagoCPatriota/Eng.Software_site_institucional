@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Editais de moradia, manutenção, auxílios, seleção e comunicados do curso de Engenharia de Software." />
+  <meta name="description" content="Chamadas, aprovados, remanejamento, matrícula, rematrícula e reingresso do curso de Engenharia de Software do IFPE Campus Belo Jardim." />
   <meta name="author" content="Projeto final da disciplina de Web" />
   <meta name="theme-color" content="#0b2a4a" />
   <meta name="robots" content="index, follow" />
-  <title>Editais | Engenharia de Software - IFPE Campus Belo Jardim</title>
+  <title>Chamadas e Vínculo | Engenharia de Software - IFPE Campus Belo Jardim</title>
   <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
   <link rel="stylesheet" href="assets/css/global.css" />
-  <link rel="stylesheet" href="assets/css/pages/editais.css" />
+  <link rel="stylesheet" href="assets/css/pages/aprovados-remanejados.css" />
 </head>
-<body data-page="editais">
+<body data-page="aprovados-remanejados">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
 
   <header class="site-header" id="topo">
@@ -86,39 +86,84 @@
   </header>
 
   <main id="conteudo">
-    <section class="page-hero editais-page-hero" aria-labelledby="titulo-editais">
-      <div class="container projects-hero-single">
-        <div class="page-hero-content reveal">
-          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Início</a><span>•</span><span>Editais</span></nav>
-          <span class="eyebrow">Editais</span>
-          <h1 id="titulo-editais">Editais e comunicados para a comunidade acadêmica.</h1>
-          <p>Consulte editais relacionados a moradia, manutenção, auxílios, seleção e outros comunicados publicados pela administração do curso.</p>
-          <div class="projects-hero-actions"><a class="btn btn-primary" href="#lista-editais">Ver editais</a><a class="btn btn-secondary" href="ingresso.html">Ver ingresso</a></div>
+    <section class="page-hero results-page-hero" aria-labelledby="titulo-pagina">
+      <div class="container results-hero-shell reveal">
+        <nav class="breadcrumb" aria-label="Caminho da página">
+          <a href="index.html#inicio">Início</a>
+          <span aria-hidden="true">/</span>
+          <a href="ingresso.html">Formas de ingresso</a>
+          <span aria-hidden="true">/</span>
+          <strong>Chamadas e vínculo</strong>
+        </nav>
+
+        <span class="eyebrow">RF 019 · RF 020 · ADM RF 013</span>
+        <h1 id="titulo-pagina">Chamadas, aprovados e vínculo acadêmico.</h1>
+        <p>
+          Consulte listas de aprovados, remanejamento, matrícula inicial, rematrícula, reingresso e comunicados publicados pela administração do curso.
+        </p>
+
+        <div class="hero-actions" aria-label="Ações da página">
+          <a class="btn btn-primary" href="#listas">Ver publicações</a>
+          <a class="btn btn-secondary" href="ingresso.html">Voltar para formas de ingresso</a>
+        </div>
+
+        <div class="results-official-note" aria-label="Aviso sobre canais oficiais">
+          <strong>Atenção aos prazos</strong>
+          <span>Esta página organiza informações do curso, mas candidatos e estudantes devem conferir editais, convocações, matrícula e rematrícula nos canais oficiais do IFPE.</span>
         </div>
       </div>
     </section>
 
-    <section class="section editais-section" id="lista-editais" aria-labelledby="titulo-lista-editais">
+    <section class="section results-board-section" id="listas" data-aprovados-page aria-labelledby="titulo-listas">
       <div class="container">
-        <div class="section-heading reveal">
-          <span class="eyebrow">Publicações oficiais</span>
-          <h2 id="titulo-lista-editais">Editais disponíveis.</h2>
-          <p>Filtre por categoria e abra o documento ou link oficial quando estiver disponível.</p>
+        <div class="section-heading centered reveal">
+          <span class="eyebrow">Publicações administrativas</span>
+          <h2 id="titulo-listas">Documentos, chamadas e orientações disponíveis.</h2>
+          <p>Os itens abaixo vêm do painel administrativo de Ingresso e aparecem apenas quando estão publicados e visíveis.</p>
         </div>
-        <div class="project-filter-bar reveal" aria-label="Filtro de editais">
-          <button class="is-active" type="button" data-edital-public-filter="todos">Todos</button>
-          <button type="button" data-edital-public-filter="moradia">Moradia</button>
-          <button type="button" data-edital-public-filter="manutencao">Manutenção</button>
-          <button type="button" data-edital-public-filter="auxilio">Auxílios</button>
-          <button type="button" data-edital-public-filter="selecao">Seleção</button>
-          <button type="button" data-edital-public-filter="geral">Geral</button>
+
+        <div class="results-grid">
+          <article class="results-column reveal">
+            <span>Lista</span>
+            <h3>Aprovados</h3>
+            <div class="results-list" data-aprovados-list="aprovados"></div>
+          </article>
+
+          <article class="results-column reveal">
+            <span>Chamada</span>
+            <h3>Remanejamento</h3>
+            <div class="results-list" data-aprovados-list="remanejamento"></div>
+          </article>
+
+          <article class="results-column reveal">
+            <span>Matrícula</span>
+            <h3>Matrícula inicial</h3>
+            <div class="results-list" data-aprovados-list="matricula"></div>
+          </article>
+
+          <article class="results-column reveal">
+            <span>Aluno atual</span>
+            <h3>Rematrícula</h3>
+            <div class="results-list" data-aprovados-list="rematricula"></div>
+          </article>
+
+          <article class="results-column reveal">
+            <span>Retorno</span>
+            <h3>Reingresso</h3>
+            <div class="results-list" data-aprovados-list="reingresso"></div>
+          </article>
+
+          <article class="results-column reveal">
+            <span>Geral</span>
+            <h3>Comunicados gerais</h3>
+            <div class="results-list" data-aprovados-list="geral"></div>
+          </article>
         </div>
-        <div class="editais-grid" data-editais-list></div>
-        <div class="projects-empty-state" data-editais-empty>Nenhum edital encontrado para este filtro.</div>
+
+        <div class="projects-empty-state" data-aprovados-empty>Nenhuma chamada, lista ou orientação publicada no momento.</div>
       </div>
     </section>
   </main>
-  <script type="module" src="assets/js/editais-publico.js"></script>
 
   <footer class="site-footer institutional-footer">
     <div class="container footer-main">
@@ -196,6 +241,6 @@
   </footer>
 
   <script src="assets/js/script.js"></script>
-  <script type="module" src="assets/js/site-auth.js"></script>
+  <script type="module" src="assets/js/aprovados-remanejados-publico.js"></script>
 </body>
 </html>

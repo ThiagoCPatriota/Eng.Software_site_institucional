@@ -640,6 +640,12 @@ const FALLBACK_COMPONENTS = [
 const tabsContainer = document.querySelector("[data-curriculum-tabs]");
 const panelsContainer = document.querySelector("[data-curriculum-panels]");
 const empty = document.querySelector("[data-curriculum-empty]");
+const ppcCard = document.querySelector("[data-ppc-card]");
+const ppcStatus = document.querySelector("[data-ppc-status]");
+const ppcTitle = document.querySelector("[data-ppc-title]");
+const ppcDescription = document.querySelector("[data-ppc-description]");
+const ppcUpdated = document.querySelector("[data-ppc-updated]");
+const ppcLink = document.querySelector("[data-ppc-link]");
 
 let components = [];
 
@@ -650,6 +656,83 @@ function text(value) {
 function numberValue(value, fallback = 0) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+
+function formatDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+}
+
+function formatFileSize(bytes) {
+  const size = Number(bytes);
+  if (!Number.isFinite(size) || size <= 0) return "";
+  if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`;
+  return `${(size / (1024 * 1024)).toFixed(1).replace(".", ",")} MB`;
+}
+
+function renderPpcDocument(documento) {
+  if (!ppcCard) return;
+
+  const hasDocument = Boolean(documento?.arquivo_url);
+  ppcCard.classList.toggle("has-document", hasDocument);
+
+  if (!hasDocument) {
+    if (ppcStatus) ppcStatus.textContent = "PPC a publicar";
+    if (ppcTitle) ppcTitle.textContent = "Documento do PPC ainda não publicado";
+    if (ppcDescription) {
+      ppcDescription.textContent = "Assim que a coordenação enviar ou vincular o PDF oficial pelo painel administrativo, o acesso ficará disponível aqui sem depender de arquivo fixo no HTML.";
+    }
+    if (ppcUpdated) ppcUpdated.textContent = "";
+    if (ppcLink) ppcLink.hidden = true;
+    return;
+  }
+
+  if (ppcStatus) ppcStatus.textContent = "PPC disponível";
+  if (ppcTitle) ppcTitle.textContent = documento.titulo || "Projeto Pedagógico do Curso";
+  if (ppcDescription) {
+    ppcDescription.textContent = documento.descricao || "Documento oficial do curso disponível para consulta pública.";
+  }
+
+  const updated = formatDate(documento.atualizado_em || documento.criado_em);
+  const size = formatFileSize(documento.arquivo_tamanho);
+  if (ppcUpdated) {
+    ppcUpdated.textContent = [updated ? `Atualizado em ${updated}` : "", size ? `Arquivo: ${size}` : ""]
+      .filter(Boolean)
+      .join(" • ");
+  }
+
+  if (ppcLink) {
+    ppcLink.href = documento.arquivo_url;
+    ppcLink.hidden = false;
+    ppcLink.textContent = documento.arquivo_nome ? "Abrir PPC em PDF" : "Abrir PPC";
+  }
+}
+
+async function loadPpcDocument() {
+  if (!isSupabaseConfigured) {
+    renderPpcDocument(null);
+    return;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from("ppc_documento_publico")
+      .select("*")
+      .maybeSingle();
+
+    if (error) throw error;
+    renderPpcDocument(data || null);
+  } catch (error) {
+    console.warn("Não foi possível carregar o PPC publicado:", error);
+    renderPpcDocument(null);
+  }
 }
 
 function groupByPeriod(items) {
@@ -809,4 +892,5 @@ async function loadCurriculum() {
   renderCurriculum();
 }
 
+loadPpcDocument();
 loadCurriculum();

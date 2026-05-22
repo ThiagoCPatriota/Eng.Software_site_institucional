@@ -3213,6 +3213,73 @@
   }
 }
 
+/* Ajuste 51: PPC do curso administrável */
+.admin-ppc-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.admin-grade-workspace .admin-ppc-form {
+  width: 100%;
+  margin-inline: 0;
+}
+
+.admin-ppc-form small {
+  color: var(--color-muted);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.admin-ppc-current {
+  display: grid;
+  gap: 14px;
+  padding: 26px;
+  border: 1px solid rgba(214, 226, 236, 0.96);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(45, 156, 219, 0.12), transparent 36%),
+    #fff;
+  box-shadow: 0 18px 44px rgba(11, 42, 74, 0.08);
+}
+
+.admin-ppc-current h2 {
+  color: var(--color-primary);
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+}
+
+.admin-ppc-current p,
+.admin-ppc-meta {
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+
+.admin-ppc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.admin-ppc-meta span {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-primary-2);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+@media (max-width: 980px) {
+  .admin-ppc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 /* Ajuste 50: abas de propostas e candidaturas no módulo Projetos */
 .admin-project-workspace {
   display: grid;
@@ -3460,4 +3527,43 @@
 .admin-form-row[data-event-only-fields][hidden],
 .admin-form-row[data-event-only-fields].is-hidden {
   display: none !important;
+}
+
+.admin-field-hint {
+  display: block;
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  margin-top: 8px;
+  line-height: 1.45;
+}
+
+
+/* RF 017 e RF 018: Home administrável e visibilidade de páginas */
+.admin-home-editor .admin-publication-form {
+  max-width: 1180px;
+}
+
+.admin-pages-visibility-list .admin-list-toolbar span {
+  color: var(--color-muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.admin-page-visibility-card {
+  border-left: 5px solid rgba(25, 135, 84, 0.45);
+}
+
+.admin-page-visibility-card.is-page-hidden {
+  border-left-color: rgba(220, 53, 69, 0.45);
+  background: linear-gradient(135deg, rgba(220, 53, 69, 0.06), #fff);
+}
+
+.admin-page-visibility-card.is-page-hidden h2 {
+  color: #8a1f2d;
+}
+
+.admin-subnav a.is-active {
+  background: rgba(45, 156, 219, 0.13);
+  color: var(--color-primary);
+  font-weight: 950;
 }

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Gestão de informações de inscrição, aprovados, remanejamento e matrícula." />
+  <meta name="description" content="Gestão de inscrições, aprovados, remanejamento, matrícula, rematrícula e reingresso." />
   <meta name="theme-color" content="#0b2a4a" />
-  <title>Ingresso | Admin Engenharia de Software IFPE</title>
+  <title>Ingresso e chamadas | Admin Engenharia de Software IFPE</title>
   <link rel="icon" href="../assets/img/Eng_soft.png" type="image/png" />
   <link rel="stylesheet" href="../assets/css/global.css" />
   <link rel="stylesheet" href="../assets/css/pages/admin.css" />
@@ -30,6 +30,8 @@
       <details class="admin-nav-dropdown">
         <summary>Geral</summary>
         <div class="admin-subnav">
+        <a href="home.html">Home</a>
+        <a href="menu.html">Páginas/Menu</a>
         <a href="publicacoes.html">Publicações</a>
         <a href="eventos.html">Notícias/Eventos</a>
         <a href="projetos.html">Projetos</a>
@@ -64,7 +66,7 @@
   </header>
   <main id="conteudo" class="admin-main admin-publications-main">
     <section class="admin-page-heading" aria-labelledby="titulo-ingresso-admin">
-      <div><span class="admin-kicker">RF 018-020</span><h1 id="titulo-ingresso-admin">Informações de ingresso e matrícula.</h1><p>Atualize períodos de inscrição, listas de aprovados/remanejamento e matrícula/rematrícula sem editar HTML.</p></div>
+      <div><span class="admin-kicker">RF 018-020 · ADM RF 013/015</span><h1 id="titulo-ingresso-admin">Ingresso, rematrícula e chamadas.</h1><p>Atualize períodos de inscrição, matrícula, rematrícula, reingresso, listas de aprovados e remanejamento sem editar HTML.</p></div>
       <button class="admin-secondary-action" type="button" data-new-ingresso>Nova informação</button>
     </section>
     <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
@@ -74,7 +76,7 @@
         <div class="admin-form-heading"><span>Editor</span><strong data-form-title>Nova informação</strong></div>
         <label><span>Título</span><input type="text" name="titulo" placeholder="Ex.: Inscrições 2026.1" required /></label>
         <div class="admin-form-row compact-three">
-          <label><span>Tipo</span><select name="tipo"><option value="inscricoes">Período de inscrições</option><option value="aprovados_remanejamento">Aprovados e remanejamento</option><option value="matricula_rematricula">Matrícula e rematrícula</option><option value="geral">Informação geral</option></select></label>
+          <label><span>Tipo</span><select name="tipo"><option value="inscricoes">Período de inscrições</option><option value="aprovados">Lista de aprovados</option><option value="remanejamento">Lista de remanejamento</option><option value="matricula">Matrícula inicial</option><option value="rematricula">Rematrícula</option><option value="reingresso">Reingresso</option><option value="geral">Informação geral</option></select></label>
           <label><span>Status</span><select name="status"><option value="rascunho">Rascunho</option><option value="publicado">Publicado</option><option value="oculto">Oculto</option></select></label>
           <label><span>Ordem</span><input type="number" name="ordem" value="0" min="0" step="1" /></label>
         </div>
@@ -82,10 +84,11 @@
         <label><span>Conteúdo</span><textarea name="conteudo" rows="5" placeholder="Detalhes, documentação, canais oficiais e observações."></textarea></label>
         <div class="admin-form-row"><label><span>Início do período</span><input type="date" name="data_inicio" /></label><label><span>Fim do período</span><input type="date" name="data_fim" /></label></div>
         <div class="admin-form-row"><label><span>Link oficial/lista</span><input type="url" name="link_url" placeholder="https://..." /></label><label><span>Texto do botão</span><input type="text" name="link_label" placeholder="Acessar informação" /></label></div>
-        <div class="admin-check-row"><label><input type="checkbox" name="visivel" checked /><span>Visível na página de Ingresso</span></label><label><input type="checkbox" name="destaque" /><span>Marcar como destaque</span></label></div>
+        <label><span>PDF da lista ou documento oficial</span><input type="file" name="documento_pdf" accept="application/pdf,.pdf" data-ingresso-file /><small class="admin-field-hint">Opcional. Ao enviar um PDF, o link público será preenchido automaticamente pelo Supabase Storage.</small></label>
+        <div class="admin-check-row"><label><input type="checkbox" name="visivel" checked /><span>Visível nas páginas públicas</span></label><label><input type="checkbox" name="destaque" /><span>Marcar como destaque</span></label></div>
         <div class="admin-form-actions"><button class="admin-submit" type="submit">Salvar informação</button><button class="admin-secondary-action" type="button" data-clear-form>Limpar</button></div>
       </form>
-      <section class="admin-publications-list"><div class="admin-list-toolbar"><strong>Informações cadastradas</strong><select data-ingresso-filter><option value="todos">Todas</option><option value="inscricoes">Inscrições</option><option value="aprovados_remanejamento">Aprovados/remanejamento</option><option value="matricula_rematricula">Matrícula/rematrícula</option><option value="publicado">Publicadas</option><option value="oculto">Ocultas</option></select></div><div class="admin-list-empty" data-ingresso-empty>Nenhuma informação cadastrada ainda.</div><div class="admin-publication-items" data-ingresso-list></div></section>
+      <section class="admin-publications-list"><div class="admin-list-toolbar"><strong>Informações cadastradas</strong><select data-ingresso-filter><option value="todos">Todas</option><option value="inscricoes">Inscrições</option><option value="aprovados">Aprovados</option><option value="remanejamento">Remanejamento</option><option value="matricula">Matrícula</option><option value="rematricula">Rematrícula</option><option value="reingresso">Reingresso</option><option value="publicado">Publicadas</option><option value="oculto">Ocultas</option></select></div><div class="admin-list-empty" data-ingresso-empty>Nenhuma informação cadastrada ainda.</div><div class="admin-publication-items" data-ingresso-list></div></section>
     </section>
   </main>
   <script type="module" src="../assets/js/admin-ingresso.js"></script>
