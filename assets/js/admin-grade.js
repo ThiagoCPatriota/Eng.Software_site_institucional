@@ -37,9 +37,17 @@ const filter = document.querySelector("[data-grade-filter]");
 const statTotal = document.querySelector("[data-stat-total]");
 const statHours = document.querySelector("[data-stat-hours]");
 const statCredits = document.querySelector("[data-stat-credits]");
+const ppcForm = document.querySelector("[data-ppc-form]");
+const ppcFileInput = document.querySelector("[data-ppc-file]");
+const ppcUrlInput = document.querySelector("[data-ppc-url]");
+const ppcCurrent = document.querySelector("[data-ppc-current]");
+
+const PPC_BUCKET = "ppc-documentos";
+const MAX_PPC_SIZE = 20 * 1024 * 1024;
 
 let currentUser = null;
 let components = [];
+let ppcDocument = null;
 
 function setStatus(message, type = "info") {
   if (!statusBox) return;
@@ -55,6 +63,12 @@ function setFormLoading(isLoading) {
   });
 }
 
+function setPpcFormLoading(isLoading) {
+  ppcForm?.querySelectorAll("input, textarea, button").forEach((element) => {
+    element.disabled = isLoading;
+  });
+}
+
 function text(value) {
   return value == null ? "" : String(value);
 }
@@ -65,7 +79,8 @@ function numberValue(value, fallback = 0) {
 }
 
 function setGradePanel(panelName, shouldScroll = false) {
-  const target = panelName === "list" ? "list" : "form";
+  const allowedPanels = new Set(["form", "list", "ppc"]);
+  const target = allowedPanels.has(panelName) ? panelName : "form";
 
   panelButtons.forEach((button) => {
     const isActive = button.dataset.gradePanelTarget === target;
@@ -134,6 +149,42 @@ function getPayload() {
     visivel: true,
     atualizado_por: currentUser?.id || null,
   };
+}
+
+
+function slugify(value) {
+  return String(value || "ppc")
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80) || "ppc";
+}
+
+function formatDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+}
+
+function formatFileSize(bytes) {
+  const size = Number(bytes);
+  if (!Number.isFinite(size) || size <= 0) return "";
+  if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`;
+  return `${(size / (1024 * 1024)).toFixed(1).replace(".", ",")} MB`;
+}
+
+function validatePpcFile(file) {
+  if (!file) return;
+  const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+  if (!isPdf) throw new Error("Envie o PPC em formato PDF.");
+  if (file.size > MAX_PPC_SIZE) throw new Error("O arquivo do PPC deve ter no máximo 20 MB.");
 }
 
 function groupByPeriod(items) {
@@ -317,6 +368,180 @@ function handleListClick(event) {
   }
 }
 
+
+function renderPpcDocument() {
+  if (!ppcCurrent) return;
+
+  if (!ppcDocument) {
+    ppcCurrent.innerHTML = `
+      <span class="admin-kicker">PPC atual</span>
+      <h2>Nenhum PPC publicado</h2>
+      <p>Quando um PDF ou link oficial for salvo, a página pública Grade curricular / PPC exibirá o botão de acesso automaticamente.</p>
+    `;
+    if (ppcForm) {
+      ppcForm.elements.titulo.value = "Projeto Pedagógico do Curso";
+      ppcForm.elements.descricao.value = "";
+      ppcForm.elements.arquivo_url.value = "";
+      if (ppcFileInput) ppcFileInput.value = "";
+    }
+    return;
+  }
+
+  if (ppcForm) {
+    ppcForm.elements.titulo.value = text(ppcDocument.titulo || "Projeto Pedagógico do Curso");
+    ppcForm.elements.descricao.value = text(ppcDocument.descricao);
+    ppcForm.elements.arquivo_url.value = text(ppcDocument.arquivo_path ? "" : ppcDocument.arquivo_url);
+    if (ppcFileInput) ppcFileInput.value = "";
+  }
+
+  const updated = formatDate(ppcDocument.atualizado_em || ppcDocument.criado_em);
+  const size = formatFileSize(ppcDocument.arquivo_tamanho);
+
+  ppcCurrent.innerHTML = `
+    <span class="admin-kicker">PPC atual</span>
+    <h2>${text(ppcDocument.titulo || "Projeto Pedagógico do Curso")}</h2>
+    <p>${text(ppcDocument.descricao || "Documento oficial publicado para consulta pública.")}</p>
+    <div class="admin-ppc-meta">
+      ${updated ? `<span>Atualizado em ${updated}</span>` : ""}
+      ${ppcDocument.arquivo_nome ? `<span>${text(ppcDocument.arquivo_nome)}</span>` : ""}
+      ${size ? `<span>${size}</span>` : ""}
+    </div>
+    <a class="admin-secondary-action" href="${text(ppcDocument.arquivo_url)}" target="_blank" rel="noopener">Abrir PPC publicado</a>
+  `;
+}
+
+async function loadPpcDocument() {
+  try {
+    const { data, error } = await supabase
+      .from("ppc_documentos")
+      .select("*")
+      .eq("ativo", true)
+      .order("atualizado_em", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (error) throw error;
+    ppcDocument = data || null;
+    renderPpcDocument();
+  } catch (error) {
+    console.error(error);
+    ppcDocument = null;
+    renderPpcDocument();
+    setStatus("A área do PPC precisa do SQL atualizado de grade para funcionar.", "error");
+  }
+}
+
+async function uploadPpcFile(file, title) {
+  validatePpcFile(file);
+  const safeTitle = slugify(title || "ppc-engenharia-software");
+  const path = `${currentUser?.id || "admin"}/${Date.now()}-${safeTitle}.pdf`;
+
+  const { error } = await supabase.storage
+    .from(PPC_BUCKET)
+    .upload(path, file, {
+      cacheControl: "3600",
+      contentType: "application/pdf",
+      upsert: false,
+    });
+
+  if (error) throw error;
+
+  const { data } = supabase.storage.from(PPC_BUCKET).getPublicUrl(path);
+  return {
+    arquivo_path: path,
+    arquivo_url: data?.publicUrl || null,
+    arquivo_nome: file.name,
+    arquivo_tamanho: file.size,
+  };
+}
+
+async function removeStoredPpc(path) {
+  if (!path) return;
+  try {
+    await supabase.storage.from(PPC_BUCKET).remove([path]);
+  } catch (error) {
+    console.warn("Não foi possível remover o PPC antigo:", error);
+  }
+}
+
+async function savePpcDocument(event) {
+  event.preventDefault();
+  if (!supabase || !ppcForm) return;
+
+  const formData = new FormData(ppcForm);
+  const title = String(formData.get("titulo") || "Projeto Pedagógico do Curso").trim();
+  const description = String(formData.get("descricao") || "").trim() || null;
+  const externalUrl = String(formData.get("arquivo_url") || "").trim();
+  const newFile = ppcFileInput?.files?.[0] || null;
+
+  if (!title) {
+    setStatus("Informe o título do documento do PPC.", "error");
+    return;
+  }
+
+  if (!newFile && !externalUrl && !ppcDocument?.arquivo_url) {
+    setStatus("Envie um PDF ou informe um link oficial do PPC.", "error");
+    return;
+  }
+
+  setPpcFormLoading(true);
+  setStatus(newFile ? "Enviando PDF do PPC..." : "Salvando informações do PPC...", "info");
+
+  const oldPath = ppcDocument?.arquivo_path || null;
+
+  try {
+    let filePayload = {};
+
+    if (newFile) {
+      filePayload = await uploadPpcFile(newFile, title);
+    } else if (externalUrl) {
+      filePayload = {
+        arquivo_url: externalUrl,
+        arquivo_path: null,
+        arquivo_nome: null,
+        arquivo_tamanho: null,
+      };
+    } else {
+      filePayload = {
+        arquivo_url: ppcDocument.arquivo_url,
+        arquivo_path: ppcDocument.arquivo_path,
+        arquivo_nome: ppcDocument.arquivo_nome,
+        arquivo_tamanho: ppcDocument.arquivo_tamanho,
+      };
+    }
+
+    const payload = {
+      titulo: title,
+      descricao: description,
+      ativo: true,
+      atualizado_por: currentUser?.id || null,
+      ...filePayload,
+    };
+
+    if (ppcDocument?.id) {
+      const { error } = await supabase.from("ppc_documentos").update(payload).eq("id", ppcDocument.id);
+      if (error) throw error;
+    } else {
+      const { error } = await supabase
+        .from("ppc_documentos")
+        .insert({ ...payload, criado_por: currentUser?.id || null });
+      if (error) throw error;
+    }
+
+    if ((newFile || externalUrl) && oldPath && oldPath !== filePayload.arquivo_path) {
+      await removeStoredPpc(oldPath);
+    }
+
+    setStatus("PPC publicado/atualizado com sucesso.", "success");
+    await loadPpcDocument();
+  } catch (error) {
+    console.error(error);
+    setStatus(error.message || "Não foi possível salvar o PPC.", "error");
+  } finally {
+    setPpcFormLoading(false);
+  }
+}
+
 async function init() {
   logoutButtons.forEach((button) => button.addEventListener("click", signOutAndGoToLogin));
   panelButtons.forEach((button) => {
@@ -324,12 +549,14 @@ async function init() {
   });
   clearButton?.addEventListener("click", () => resetForm(true));
   form?.addEventListener("submit", saveComponent);
+  ppcForm?.addEventListener("submit", savePpcDocument);
   list?.addEventListener("click", handleListClick);
   filter?.addEventListener("change", renderComponents);
 
   if (!isSupabaseConfigured) {
     setStatus(getConfigMessage(), "error");
     setFormLoading(true);
+    setPpcFormLoading(true);
     return;
   }
 
@@ -343,12 +570,14 @@ async function init() {
     if (!access.isAdmin) {
       setStatus("Acesso restrito a administradores.", "error");
       setFormLoading(true);
+      setPpcFormLoading(true);
       return;
     }
 
     currentUser = access.session.user;
-    setStatus("Módulo de PPC conectado. Edite a matriz curricular por período.", "success");
+    setStatus("Módulo de PPC conectado. Edite a matriz curricular por período e atualize o documento oficial.", "success");
     await loadComponents();
+    await loadPpcDocument();
   } catch (error) {
     console.error(error);
     setStatus(error.message || "Não foi possível carregar os componentes curriculares.", "error");

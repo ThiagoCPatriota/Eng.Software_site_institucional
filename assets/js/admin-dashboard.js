@@ -84,7 +84,7 @@ function renderUser(profile, user) {
 
 async function loadStats() {
   const { data, error } = await supabase
-    .from("publicacoes")
+    .from("noticias_eventos")
     .select("id, status, destaque_home");
 
   if (error) throw error;
@@ -122,7 +122,7 @@ async function bootDashboard() {
   try {
     await loadStats();
   } catch (error) {
-    setStatus(`Painel conectado, mas não consegui ler publicações: ${error.message}`, "error");
+    setStatus(`Painel conectado, mas não consegui ler notícias e eventos: ${error.message}`, "error");
   }
 }
 

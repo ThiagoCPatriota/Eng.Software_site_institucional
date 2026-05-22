@@ -135,13 +135,17 @@ create table if not exists public.ingresso_informacoes (
   id uuid primary key default gen_random_uuid(),
   titulo text not null,
   slug text not null unique,
-  tipo text not null default 'geral' check (tipo in ('inscricoes', 'aprovados_remanejamento', 'matricula_rematricula', 'geral')),
+  tipo text not null default 'geral' check (tipo in ('inscricoes', 'aprovados', 'remanejamento', 'matricula', 'rematricula', 'reingresso', 'geral')),
   resumo text not null,
   conteudo text,
   data_inicio date,
   data_fim date,
   link_url text,
   link_label text not null default 'Acessar informação',
+  documento_path text,
+  documento_nome text,
+  documento_tamanho bigint,
+  documento_tipo text,
   status text not null default 'rascunho' check (status in ('rascunho', 'publicado', 'oculto')),
   visivel boolean not null default false,
   destaque boolean not null default false,
@@ -153,6 +157,27 @@ create table if not exists public.ingresso_informacoes (
   atualizado_em timestamptz not null default now()
 );
 
+-- Migração segura para bases que já tinham o módulo de ingresso criado.
+alter table public.ingresso_informacoes add column if not exists documento_path text;
+alter table public.ingresso_informacoes add column if not exists documento_nome text;
+alter table public.ingresso_informacoes add column if not exists documento_tamanho bigint;
+alter table public.ingresso_informacoes add column if not exists documento_tipo text;
+
+alter table public.ingresso_informacoes
+  drop constraint if exists ingresso_informacoes_tipo_check;
+
+update public.ingresso_informacoes
+set tipo = 'aprovados'
+where tipo = 'aprovados_remanejamento';
+
+update public.ingresso_informacoes
+set tipo = 'matricula'
+where tipo = 'matricula_rematricula';
+
+alter table public.ingresso_informacoes
+  add constraint ingresso_informacoes_tipo_check
+  check (tipo in ('inscricoes', 'aprovados', 'remanejamento', 'matricula', 'rematricula', 'reingresso', 'geral'));
+
 create index if not exists idx_ingresso_info_status_visivel on public.ingresso_informacoes(status, visivel);
 create index if not exists idx_ingresso_info_tipo on public.ingresso_informacoes(tipo);
 create index if not exists idx_ingresso_info_ordem on public.ingresso_informacoes(ordem);
@@ -163,9 +188,71 @@ before update on public.ingresso_informacoes
 for each row execute function public.set_updated_at();
 
 create or replace view public.ingresso_informacoes_publicas as
-select id, titulo, slug, tipo, resumo, conteudo, data_inicio, data_fim, link_url, link_label, destaque, ordem, publicado_em, criado_em, atualizado_em
+select
+  id, titulo, slug, tipo, resumo, conteudo, data_inicio, data_fim,
+  link_url, link_label, documento_nome, documento_tamanho, documento_tipo,
+  destaque, ordem, publicado_em, criado_em, atualizado_em
 from public.ingresso_informacoes
 where status = 'publicado' and visivel = true;
+
+-- ------------------------------------------------------------
+-- Storage para PDFs de ingresso, aprovados e remanejamento
+-- ------------------------------------------------------------
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'ingresso-documentos',
+  'ingresso-documentos',
+  true,
+  20971520,
+  array['application/pdf']
+)
+on conflict (id) do update
+set
+  public = excluded.public,
+  file_size_limit = excluded.file_size_limit,
+  allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "Ingresso documentos leitura publica" on storage.objects;
+drop policy if exists "Ingresso documentos admin upload" on storage.objects;
+drop policy if exists "Ingresso documentos admin atualiza" on storage.objects;
+drop policy if exists "Ingresso documentos admin remove" on storage.objects;
+
+create policy "Ingresso documentos leitura publica"
+on storage.objects
+for select
+to anon, authenticated
+using (bucket_id = 'ingresso-documentos');
+
+create policy "Ingresso documentos admin upload"
+on storage.objects
+for insert
+to authenticated
+with check (
+  bucket_id = 'ingresso-documentos'
+  and public.current_user_is_site_admin()
+);
+
+create policy "Ingresso documentos admin atualiza"
+on storage.objects
+for update
+to authenticated
+using (
+  bucket_id = 'ingresso-documentos'
+  and public.current_user_is_site_admin()
+)
+with check (
+  bucket_id = 'ingresso-documentos'
+  and public.current_user_is_site_admin()
+);
+
+create policy "Ingresso documentos admin remove"
+on storage.objects
+for delete
+to authenticated
+using (
+  bucket_id = 'ingresso-documentos'
+  and public.current_user_is_site_admin()
+);
 
 -- ------------------------------------------------------------
 -- Grants explícitos para Data API
@@ -277,6 +364,9 @@ on conflict (slug) do nothing;
 insert into public.ingresso_informacoes (titulo, slug, tipo, resumo, conteudo, data_inicio, data_fim, link_url, link_label, status, visivel, destaque, ordem, publicado_em)
 values
 ('Período de inscrições demonstrativo', 'periodo-inscricoes-demonstrativo', 'inscricoes', 'Exemplo de período de inscrição para validar a seção dinâmica.', 'Substitua pelas datas oficiais quando forem divulgadas.', current_date, current_date + 15, 'https://ingresso.ifpe.edu.br/inscricao/', 'Acessar Ingresso IFPE', 'publicado', true, true, 1, now()),
-('Listas de aprovados e remanejamento', 'listas-aprovados-remanejamento-demonstrativo', 'aprovados_remanejamento', 'Área preparada para links de listas, chamadas e remanejamentos.', 'Cadastre aqui chamadas oficiais, remanejamento e orientações quando houver.', null, null, 'https://ingresso.ifpe.edu.br/inscricao/', 'Ver listas oficiais', 'publicado', true, false, 2, now()),
-('Matrícula e rematrícula', 'matricula-rematricula-demonstrativo', 'matricula_rematricula', 'Área preparada para prazos e orientações de matrícula/rematrícula.', 'Use este espaço para documentos, períodos e orientações oficiais.', null, null, null, 'Ver orientação', 'publicado', true, false, 3, now())
+('Lista de aprovados demonstrativa', 'lista-aprovados-demonstrativa', 'aprovados', 'Área preparada para PDF ou link oficial de lista de aprovados.', 'Cadastre aqui chamadas oficiais, listas e orientações quando houver.', null, null, 'https://ingresso.ifpe.edu.br/inscricao/', 'Ver lista oficial', 'publicado', true, false, 2, now()),
+('Remanejamento demonstrativo', 'remanejamento-demonstrativo', 'remanejamento', 'Área preparada para chamadas, remanejamentos e convocações complementares.', 'Use este espaço para documentos, períodos e orientações oficiais.', null, null, 'https://ingresso.ifpe.edu.br/inscricao/', 'Ver remanejamento', 'publicado', true, false, 3, now()),
+('Matrícula inicial', 'matricula-inicial-demonstrativa', 'matricula', 'Área preparada para prazos e orientações de matrícula inicial.', 'Use este espaço para documentos, períodos e orientações oficiais.', null, null, null, 'Ver orientação', 'publicado', true, false, 4, now()),
+('Rematrícula', 'rematricula-demonstrativa', 'rematricula', 'Área preparada para prazos e orientações de rematrícula.', 'Use este espaço para renovação de vínculo, escolha de componentes e canais oficiais.', null, null, null, 'Ver orientação', 'publicado', true, false, 5, now()),
+('Reingresso', 'reingresso-demonstrativo', 'reingresso', 'Área preparada para orientações de retorno ao curso quando houver edital ou chamada.', 'Informe aqui links, documentos e condições oficiais quando o processo existir.', null, null, null, 'Ver orientação', 'publicado', true, false, 6, now())
 on conflict (slug) do nothing;

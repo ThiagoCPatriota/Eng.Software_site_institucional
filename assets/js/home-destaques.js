@@ -5,6 +5,7 @@ import {
 
 const CAMPUS_IMAGES_BUCKET = "noticias-eventos-imagens";
 
+const section = document.getElementById("explorar-curso");
 const track = document.querySelector("[data-home-destaques-list]");
 const actionLink = document.querySelector("[data-home-destaques-action]");
 
@@ -76,8 +77,22 @@ function createHighlightCard(item, index) {
   return link;
 }
 
+function hideHighlightsSection() {
+  if (section) section.hidden = true;
+  if (track) track.innerHTML = "";
+}
+
+function showHighlightsSection() {
+  if (section) section.hidden = false;
+}
+
 async function loadHomeHighlights() {
-  if (!track || !isSupabaseConfigured || !supabase) return;
+  if (!track || !isSupabaseConfigured || !supabase) {
+    hideHighlightsSection();
+    return;
+  }
+
+  track.setAttribute("aria-busy", "true");
 
   const { data, error } = await supabase
     .from("noticias_eventos_publicos")
@@ -87,7 +102,12 @@ async function loadHomeHighlights() {
     .order("publicado_em", { ascending: false, nullsFirst: false })
     .limit(3);
 
-  if (error || !data || data.length === 0) return;
+  track.removeAttribute("aria-busy");
+
+  if (error || !data || data.length === 0) {
+    hideHighlightsSection();
+    return;
+  }
 
   track.innerHTML = "";
   data.forEach((item, index) => track.appendChild(createHighlightCard(item, index)));
@@ -96,6 +116,8 @@ async function loadHomeHighlights() {
     actionLink.href = "eventos-noticias.html";
     actionLink.textContent = "Ver eventos e notícias do campus";
   }
+
+  showHighlightsSection();
 }
 
 loadHomeHighlights().catch((error) => {
