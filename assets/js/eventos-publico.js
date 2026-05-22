@@ -148,6 +148,24 @@ function createCampusCard(item) {
     body.className = "campus-news-body";
     body.textContent = item.conteudo;
     content.appendChild(body);
+
+    const shouldToggleDetails = String(item.conteudo).trim().length > 180;
+    if (shouldToggleDetails) {
+      const detailsButton = document.createElement("button");
+      detailsButton.type = "button";
+      detailsButton.className = "campus-news-more-button";
+      detailsButton.textContent = "Ver mais informações";
+      detailsButton.setAttribute("aria-expanded", "false");
+
+      detailsButton.addEventListener("click", () => {
+        const isExpanded = article.classList.toggle("is-expanded");
+        body.classList.toggle("is-expanded", isExpanded);
+        detailsButton.setAttribute("aria-expanded", String(isExpanded));
+        detailsButton.textContent = isExpanded ? "Mostrar menos" : "Ver mais informações";
+      });
+
+      content.appendChild(detailsButton);
+    }
   }
 
   const meta = document.createElement("div");
@@ -172,7 +190,7 @@ function createCampusCard(item) {
     link.href = item.link_externo;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    link.textContent = "Abrir link oficial";
+    link.textContent = item.link_rotulo || "Acessar link de apoio";
     actions.appendChild(link);
   }
 
@@ -194,22 +212,25 @@ function renderPosts() {
 async function loadPosts() {
   if (!publicList) return;
 
+  publicList.innerHTML = "";
+
   if (!isSupabaseConfigured || !supabase) {
-    campusPosts = getFallbackPosts();
+    campusPosts = [];
+    if (publicEmpty) publicEmpty.textContent = "Configure o Supabase para carregar eventos e notícias cadastrados.";
     renderPosts();
     return;
   }
 
   const { data, error } = await supabase
     .from("noticias_eventos_publicos")
-    .select("id, titulo, slug, tipo, resumo, conteudo, imagem_url, imagem_path, link_externo, email_contato, local, organizador, data_inicio, data_fim, hora_inicio, destaque_home, publicado_em, atualizado_em")
+    .select("id, titulo, slug, tipo, resumo, conteudo, imagem_url, imagem_path, link_externo, link_rotulo, email_contato, local, organizador, data_inicio, data_fim, hora_inicio, destaque_home, publicado_em, atualizado_em")
     .order("destaque_home", { ascending: false })
     .order("ordem", { ascending: true })
     .order("data_inicio", { ascending: false, nullsFirst: false })
     .order("publicado_em", { ascending: false, nullsFirst: false });
 
   if (error) throw error;
-  campusPosts = data && data.length ? data : getFallbackPosts();
+  campusPosts = Array.isArray(data) ? data : [];
   renderPosts();
 }
 
@@ -226,7 +247,7 @@ function setupFilters() {
 setupFilters();
 loadPosts().catch((error) => {
   console.error("Erro ao carregar eventos e notícias:", error);
-  campusPosts = getFallbackPosts();
+  campusPosts = [];
   if (publicEmpty) publicEmpty.textContent = "Não foi possível carregar os conteúdos do campus agora.";
   renderPosts();
 });

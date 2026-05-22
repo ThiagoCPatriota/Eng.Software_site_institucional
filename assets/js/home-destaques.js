@@ -81,7 +81,7 @@ async function loadHomeHighlights() {
 
   const { data, error } = await supabase
     .from("noticias_eventos_publicos")
-    .select("id, titulo, tipo, resumo, imagem_url, imagem_path, link_externo, data_inicio, destaque_home")
+    .select("id, titulo, tipo, resumo, imagem_url, imagem_path, link_externo, link_rotulo, data_inicio, destaque_home")
     .eq("destaque_home", true)
     .order("ordem", { ascending: true })
     .order("publicado_em", { ascending: false, nullsFirst: false })

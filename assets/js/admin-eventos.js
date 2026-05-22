@@ -43,6 +43,8 @@ const imageInput = document.querySelector("[data-campus-image-input]");
 const imagePreview = document.querySelector("[data-campus-image-preview]");
 const previewFrame = document.querySelector("[data-campus-preview-frame]");
 const clearImageButton = document.querySelector("[data-clear-campus-image]");
+const typeSelect = form?.elements?.tipo || null;
+const eventOnlyFields = document.querySelector("[data-event-only-fields]");
 
 let currentUser = null;
 let campusPosts = [];
@@ -65,6 +67,27 @@ function countHomeHighlights(exceptId = "") {
 
 function canHighlightHome(exceptId = "") {
   return countHomeHighlights(exceptId) < 3;
+}
+
+function toggleEventFields(shouldClear = false) {
+  const isEvent = typeSelect?.value === "evento";
+
+  if (eventOnlyFields) {
+    eventOnlyFields.hidden = !isEvent;
+    eventOnlyFields.classList.toggle("is-hidden", !isEvent);
+    eventOnlyFields.setAttribute("aria-hidden", String(!isEvent));
+    eventOnlyFields.style.display = isEvent ? "" : "none";
+
+    eventOnlyFields.querySelectorAll("input, select, textarea").forEach((field) => {
+      field.disabled = !isEvent;
+    });
+  }
+
+  if (!isEvent && shouldClear && form) {
+    form.elements.data_inicio.value = "";
+    form.elements.hora_inicio.value = "";
+    form.elements.data_fim.value = "";
+  }
 }
 
 function setStatus(message, type = "info") {
@@ -159,6 +182,7 @@ function resetForm() {
   form.elements.visivel.checked = true;
   form.elements.destaque_home.checked = false;
   resetImageState();
+  toggleEventFields(false);
   formTitle.textContent = "Novo conteúdo";
   setActiveTab("editor");
   form.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -172,6 +196,7 @@ function fillForm(item) {
   form.elements.id.value = text(item.id);
   form.elements.titulo.value = text(item.titulo);
   form.elements.tipo.value = text(item.tipo || "evento");
+  toggleEventFields(false);
   form.elements.status.value = text(item.status || "rascunho");
   form.elements.ordem.value = text(item.ordem ?? 0);
   form.elements.resumo.value = text(item.resumo);
@@ -185,6 +210,7 @@ function fillForm(item) {
   if (form.elements.imagem_path) form.elements.imagem_path.value = text(item.imagem_path);
   updateImagePreview(getImageUrl(item));
   form.elements.link_externo.value = text(item.link_externo);
+  if (form.elements.link_rotulo) form.elements.link_rotulo.value = text(item.link_rotulo);
   if (form.elements.email_contato) form.elements.email_contato.value = text(item.email_contato);
   form.elements.visivel.checked = Boolean(item.visivel);
   form.elements.destaque_home.checked = Boolean(item.destaque_home);
@@ -197,13 +223,16 @@ function getPayload() {
   const formData = new FormData(form);
   const titulo = String(formData.get("titulo") || "").trim();
   const status = String(formData.get("status") || "rascunho");
-  const dataInicio = String(formData.get("data_inicio") || "").trim() || null;
-  const dataFim = String(formData.get("data_fim") || "").trim() || null;
+  const tipo = String(formData.get("tipo") || "evento");
+  const isEvent = tipo === "evento";
+  const dataInicio = isEvent ? String(formData.get("data_inicio") || "").trim() || null : null;
+  const dataFim = isEvent ? String(formData.get("data_fim") || "").trim() || null : null;
+  const horaInicio = isEvent ? String(formData.get("hora_inicio") || "").trim() || null : null;
 
   return {
     titulo,
     slug: slugify(titulo),
-    tipo: String(formData.get("tipo") || "evento"),
+    tipo,
     status,
     visivel: form.elements.visivel.checked && status === "publicado",
     destaque_home: form.elements.destaque_home.checked && status === "publicado",
@@ -212,12 +241,13 @@ function getPayload() {
     conteudo: String(formData.get("conteudo") || "").trim() || null,
     data_inicio: dataInicio,
     data_fim: dataFim,
-    hora_inicio: String(formData.get("hora_inicio") || "").trim() || null,
+    hora_inicio: horaInicio,
     local: String(formData.get("local") || "").trim() || null,
     organizador: String(formData.get("organizador") || "").trim() || null,
     imagem_url: removeCurrentImage ? null : String(formData.get("imagem_url") || "").trim() || null,
     imagem_path: removeCurrentImage ? null : String(formData.get("imagem_path") || "").trim() || null,
     link_externo: String(formData.get("link_externo") || "").trim() || null,
+    link_rotulo: String(formData.get("link_rotulo") || "").trim() || null,
     email_contato: String(formData.get("email_contato") || "").trim() || null,
     publicado_em: status === "publicado" ? new Date().toISOString() : null,
     atualizado_por: currentUser?.id || null,
@@ -236,6 +266,16 @@ function updateStats() {
   if (statPublished) statPublished.textContent = String(campusPosts.filter((item) => item.status === "publicado" && item.visivel).length);
   if (statEvents) statEvents.textContent = String(campusPosts.filter((item) => item.tipo === "evento").length);
   if (statHome) statHome.textContent = String(campusPosts.filter((item) => item.destaque_home).length);
+}
+
+
+function escapeHtml(value = "") {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 function renderPosts() {
@@ -284,7 +324,8 @@ function renderPosts() {
       <button type="button" data-action="edit">Editar</button>
       <button type="button" data-action="toggle-status">${item.status === "publicado" ? "Ocultar" : "Publicar"}</button>
       <button type="button" data-action="toggle-home">${item.destaque_home ? "Remover da home" : "Destacar na home"}</button>
-      ${item.link_externo ? '<button type="button" data-action="open-link">Abrir link</button>' : ""}
+      ${item.link_externo ? `<button type="button" data-action="open-link">${escapeHtml(item.link_rotulo || "Abrir link")}</button>` : ""}
+      <button type="button" data-action="delete">Excluir</button>
     `;
 
     card.append(header, summary, footnote, actions);
@@ -405,6 +446,35 @@ async function savePost(event) {
   }
 }
 
+
+async function deletePost(item) {
+  const confirmed = window.confirm(
+    `Excluir definitivamente "${item.titulo}"? Essa ação remove o conteúdo cadastrado e não poderá ser desfeita.`
+  );
+
+  if (!confirmed) return;
+
+  setStatus("Excluindo conteúdo...", "info");
+
+  const { error } = await supabase
+    .from("noticias_eventos")
+    .delete()
+    .eq("id", item.id);
+
+  if (error) throw error;
+
+  if (item.imagem_path) {
+    await removeStoredImage(item.imagem_path);
+  }
+
+  if (form?.elements.id?.value === item.id) {
+    resetForm();
+  }
+
+  setStatus("Conteúdo excluído definitivamente.", "success");
+  await loadPosts();
+}
+
 async function updatePost(id, patch, successMessage) {
   setStatus("Atualizando conteúdo...", "info");
   const { error } = await supabase
@@ -449,6 +519,11 @@ list?.addEventListener("click", async (event) => {
         },
         nextStatus === "publicado" ? "Conteúdo publicado." : "Conteúdo ocultado."
       );
+      return;
+    }
+
+    if (button.dataset.action === "delete") {
+      await deletePost(item);
       return;
     }
 
@@ -504,6 +579,8 @@ clearImageButton?.addEventListener("click", () => {
 });
 
 filter?.addEventListener("change", renderPosts);
+typeSelect?.addEventListener("change", () => toggleEventFields(true));
+toggleEventFields(false);
 tabButtons.forEach((button) => {
   button.addEventListener("click", () => setActiveTab(button.dataset.campusTab || "editor"));
 });

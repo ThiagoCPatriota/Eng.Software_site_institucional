@@ -21,6 +21,7 @@ create table if not exists public.noticias_eventos (
   imagem_url text,
   imagem_path text,
   link_externo text,
+  link_rotulo text,
   local text,
   organizador text,
   email_contato text,
@@ -45,7 +46,8 @@ create index if not exists idx_noticias_eventos_data on public.noticias_eventos(
 
 alter table public.noticias_eventos
   add column if not exists email_contato text,
-  add column if not exists imagem_path text;
+  add column if not exists imagem_path text,
+  add column if not exists link_rotulo text;
 
 -- Reaproveita public.set_updated_at() criada no schema-admin.sql.
 drop trigger if exists trg_noticias_eventos_updated_at on public.noticias_eventos;
@@ -67,6 +69,7 @@ select
   imagem_url,
   imagem_path,
   link_externo,
+  link_rotulo,
   local,
   organizador,
   email_contato,

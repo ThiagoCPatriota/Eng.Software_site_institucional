@@ -3443,3 +3443,21 @@
     height: 160px;
   }
 }
+
+
+.admin-campus-card .admin-card-actions button[data-action="delete"] {
+  color: #9a3412;
+  background: #fff7ed;
+  border-color: #fed7aa;
+}
+
+.admin-campus-card .admin-card-actions button[data-action="delete"]:hover {
+  background: #ffedd5;
+}
+
+/* Campos condicionais do módulo de notícias/eventos */
+.admin-campus-workspace [hidden],
+.admin-form-row[data-event-only-fields][hidden],
+.admin-form-row[data-event-only-fields].is-hidden {
+  display: none !important;
+}
