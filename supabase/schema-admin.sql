@@ -35,28 +35,6 @@ create table if not exists public.site_profiles (
   atualizado_em timestamptz not null default now()
 );
 
--- Primeiro módulo administrável: publicações, projetos, notícias, eventos etc.
-create table if not exists public.publicacoes (
-  id uuid primary key default gen_random_uuid(),
-  titulo text not null,
-  slug text not null unique,
-  categoria text not null default 'projeto' check (
-    categoria in ('projeto', 'pesquisa', 'extensao', 'inovacao', 'evento', 'noticia', 'monitoria', 'oportunidade')
-  ),
-  resumo text not null,
-  conteudo text,
-  imagem_url text,
-  link_externo text,
-  visivel boolean not null default false,
-  destaque_home boolean not null default false,
-  status text not null default 'rascunho' check (status in ('rascunho', 'publicado', 'oculto')),
-  ordem integer not null default 0,
-  publicado_em timestamptz,
-  criado_por uuid references auth.users(id) on delete set null,
-  atualizado_por uuid references auth.users(id) on delete set null,
-  criado_em timestamptz not null default now(),
-  atualizado_em timestamptz not null default now()
-);
 
 -- Compatibilidade para bancos que já tinham a tabela criada em entregas anteriores.
 alter table public.site_profiles
@@ -64,10 +42,6 @@ alter table public.site_profiles
   add column if not exists email_alternativo text;
 
 create index if not exists idx_site_profiles_role on public.site_profiles(role);
-create index if not exists idx_publicacoes_status_visivel on public.publicacoes(status, visivel);
-create index if not exists idx_publicacoes_destaque_home on public.publicacoes(destaque_home);
-create index if not exists idx_publicacoes_categoria on public.publicacoes(categoria);
-
 
 
 -- ============================================================
@@ -123,11 +97,6 @@ $$;
 drop trigger if exists trg_site_profiles_updated_at on public.site_profiles;
 create trigger trg_site_profiles_updated_at
 before update on public.site_profiles
-for each row execute function public.set_updated_at();
-
-drop trigger if exists trg_publicacoes_updated_at on public.publicacoes;
-create trigger trg_publicacoes_updated_at
-before update on public.publicacoes
 for each row execute function public.set_updated_at();
 
 
@@ -207,8 +176,6 @@ as $$
 $$;
 
 -- Grants explícitos para projetos Supabase novos, onde tabelas públicas podem não ser expostas automaticamente à Data API.
-grant select, insert, update, delete on public.publicacoes to authenticated;
-grant select on public.publicacoes to anon;
 grant select, insert, update on public.site_profiles to authenticated;
 grant select, insert, update, delete on public.site_admin_emails to authenticated;
 grant execute on function public.current_user_is_site_admin() to anon, authenticated;
@@ -222,7 +189,6 @@ grant insert, update, delete on public.site_paginas_visibilidade to authenticate
 -- RLS: sempre ligado.
 alter table public.site_admin_emails enable row level security;
 alter table public.site_profiles enable row level security;
-alter table public.publicacoes enable row level security;
 alter table public.site_home_config enable row level security;
 alter table public.site_paginas_visibilidade enable row level security;
 
@@ -233,11 +199,6 @@ drop policy if exists "Admin le todos os perfis" on public.site_profiles;
 drop policy if exists "Usuario cria perfil proprio como aluno" on public.site_profiles;
 drop policy if exists "Usuario atualiza apenas dados basicos do proprio perfil" on public.site_profiles;
 drop policy if exists "Admin atualiza perfis" on public.site_profiles;
-drop policy if exists "Publico le publicacoes publicadas" on public.publicacoes;
-drop policy if exists "Admins leem todas as publicacoes" on public.publicacoes;
-drop policy if exists "Admins criam publicacoes" on public.publicacoes;
-drop policy if exists "Admins atualizam publicacoes" on public.publicacoes;
-drop policy if exists "Admins removem publicacoes" on public.publicacoes;
 drop policy if exists "Publico le configuracao da home" on public.site_home_config;
 drop policy if exists "Admins gerenciam configuracao da home" on public.site_home_config;
 drop policy if exists "Publico le visibilidade das paginas" on public.site_paginas_visibilidade;
@@ -284,38 +245,6 @@ for update
 to authenticated
 using (public.current_user_is_site_admin())
 with check (public.current_user_is_site_admin());
-
--- publicacoes: visitantes só leem o que está publicado e visível.
-create policy "Publico le publicacoes publicadas"
-on public.publicacoes
-for select
-to anon, authenticated
-using (status = 'publicado' and visivel = true);
-
-create policy "Admins leem todas as publicacoes"
-on public.publicacoes
-for select
-to authenticated
-using (public.current_user_is_site_admin());
-
-create policy "Admins criam publicacoes"
-on public.publicacoes
-for insert
-to authenticated
-with check (public.current_user_is_site_admin());
-
-create policy "Admins atualizam publicacoes"
-on public.publicacoes
-for update
-to authenticated
-using (public.current_user_is_site_admin())
-with check (public.current_user_is_site_admin());
-
-create policy "Admins removem publicacoes"
-on public.publicacoes
-for delete
-to authenticated
-using (public.current_user_is_site_admin());
 
 -- Home: pública para leitura, administrável apenas por admin/editor.
 create policy "Publico le configuracao da home"
@@ -386,27 +315,3 @@ on conflict (email) do update
       ativo = excluded.ativo,
       observacao = excluded.observacao;
 
--- Opcional: uma publicação demonstrativa para testar o painel.
-insert into public.publicacoes (
-  titulo,
-  slug,
-  categoria,
-  resumo,
-  conteudo,
-  visivel,
-  destaque_home,
-  status,
-  ordem
-)
-values (
-  'Publicação demonstrativa do painel',
-  'publicacao-demonstrativa-do-painel',
-  'noticia',
-  'Este item serve apenas para validar a primeira integração do admin com o Supabase.',
-  'Depois de validar o cadastro, login e listagem, esta publicação pode ser editada, ocultada ou removida pelo painel.',
-  true,
-  false,
-  'publicado',
-  0
-)
-on conflict (slug) do nothing;

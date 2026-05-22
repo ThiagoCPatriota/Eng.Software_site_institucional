@@ -34,35 +34,6 @@ function formatPeriod(item) {
   return `${date}${hour}`;
 }
 
-function getFallbackPosts() {
-  const dados = window.dadosSite || {};
-  const noticias = Array.isArray(dados.noticias) ? dados.noticias.map((item, index) => ({
-    id: `fallback-noticia-${index}`,
-    tipo: "noticia",
-    titulo: item.titulo,
-    resumo: item.resumo,
-    conteudo: "Conteúdo demonstrativo para validar o canal de notícias do curso.",
-    data_inicio: null,
-    data_label: item.data || "Demonstração",
-    local: item.categoria || "Institucional",
-    link_externo: null,
-    destaque_home: index < 1,
-  })) : [];
-  const eventos = Array.isArray(dados.eventos) ? dados.eventos.map((item, index) => ({
-    id: `fallback-evento-${index}`,
-    tipo: "evento",
-    titulo: item.titulo,
-    resumo: item.resumo,
-    conteudo: "Evento demonstrativo para validar a visualização pública do campus.",
-    data_inicio: null,
-    data_label: item.data || "Demonstração",
-    local: item.formato || "Campus",
-    link_externo: null,
-    destaque_home: index < 1,
-  })) : [];
-  return [...eventos, ...noticias];
-}
-
 function getFilteredPosts() {
   if (activeFilter === "todos") return campusPosts;
   return campusPosts.filter((item) => item.tipo === activeFilter);
