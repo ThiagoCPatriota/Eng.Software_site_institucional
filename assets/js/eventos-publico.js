@@ -34,35 +34,6 @@ function formatPeriod(item) {
   return `${date}${hour}`;
 }
 
-function getFallbackPosts() {
-  const dados = window.dadosSite || {};
-  const noticias = Array.isArray(dados.noticias) ? dados.noticias.map((item, index) => ({
-    id: `fallback-noticia-${index}`,
-    tipo: "noticia",
-    titulo: item.titulo,
-    resumo: item.resumo,
-    conteudo: "Conteúdo demonstrativo para validar o canal de notícias do curso.",
-    data_inicio: null,
-    data_label: item.data || "Demonstração",
-    local: item.categoria || "Institucional",
-    link_externo: null,
-    destaque_home: index < 1,
-  })) : [];
-  const eventos = Array.isArray(dados.eventos) ? dados.eventos.map((item, index) => ({
-    id: `fallback-evento-${index}`,
-    tipo: "evento",
-    titulo: item.titulo,
-    resumo: item.resumo,
-    conteudo: "Evento demonstrativo para validar a visualização pública do campus.",
-    data_inicio: null,
-    data_label: item.data || "Demonstração",
-    local: item.formato || "Campus",
-    link_externo: null,
-    destaque_home: index < 1,
-  })) : [];
-  return [...eventos, ...noticias];
-}
-
 function getFilteredPosts() {
   if (activeFilter === "todos") return campusPosts;
   return campusPosts.filter((item) => item.tipo === activeFilter);
@@ -119,7 +90,9 @@ function createCampusCard(item) {
   topLine.className = "campus-news-topline";
 
   const type = document.createElement("span");
-  type.textContent = TIPOS[item.tipo] || item.tipo || "Destaque";
+  const normalizedType = item.tipo || "noticia";
+  type.className = `campus-news-type is-${normalizedType}`;
+  type.textContent = TIPOS[normalizedType] || normalizedType || "Destaque";
   topLine.appendChild(type);
 
   if (item.destaque_home) {
@@ -129,7 +102,8 @@ function createCampusCard(item) {
     topLine.appendChild(featured);
   }
 
-  const date = document.createElement("small");
+  const date = document.createElement("time");
+  if (item.data_inicio) date.dateTime = item.data_inicio;
   date.textContent = formatPeriod(item);
   topLine.appendChild(date);
   content.appendChild(topLine);

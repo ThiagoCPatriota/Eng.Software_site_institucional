@@ -17,21 +17,13 @@
 
 <body data-page="inicio" class="home-cinematic">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
-
   <header class="site-header" id="topo">
     <div class="container header-wrapper">
-      <a class="brand" href="index.html"
-        aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
-        <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim"
-          class="brand-mark" />
-        <span class="brand-text">
-          <strong>IFPE</strong>
-          <span>Engenharia de Software</span>
-        </span>
+      <a class="brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+        <span class="brand-name">Engenharia de Software IFPE</span>
       </a>
 
-      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false"
-        aria-controls="menu-principal">
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
         <span></span>
         <span></span>
         <span></span>
@@ -112,20 +104,6 @@
           <a class="btn btn-ghost" href="projetos.html" data-home-link="cta_terciario">Projetos e notícias</a>
         </div>
 
-        <div class="hero-highlights" aria-label="Destaques rápidos do curso">
-          <article>
-            <strong data-home-field="destaque_1_valor">8 períodos</strong>
-            <span data-home-field="destaque_1_rotulo">Jornada acadêmica</span>
-          </article>
-          <article>
-            <strong data-home-field="destaque_2_valor">Presencial</strong>
-            <span data-home-field="destaque_2_rotulo">Vivência no campus e contato com docentes</span>
-          </article>
-          <article>
-            <strong data-home-field="destaque_3_valor">Projetos e extensão</strong>
-            <span data-home-field="destaque_3_rotulo">Prática, pesquisa, desafios e oportunidades reais</span>
-          </article>
-        </div>
       </div>
 
       <a class="hero-explore-bar" href="#explorar-curso" aria-label="Rolar para projetos, eventos e notícias do curso">
@@ -133,6 +111,58 @@
         <strong aria-hidden="true">↓</strong>
       </a>
     </section>
+
+    <section class="home-quick-facts" aria-label="Destaques rápidos do curso">
+      <div class="container">
+        <div class="hero-highlights reveal">
+          <article>
+            <span class="quick-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" />
+                <path d="M9 7h6" />
+                <path d="M9 11h6" />
+                <path d="M9 15h3" />
+              </svg>
+            </span>
+            <div>
+              <strong data-home-field="destaque_1_valor">8 períodos</strong>
+              <span data-home-field="destaque_1_rotulo">Jornada acadêmica</span>
+            </div>
+          </article>
+          <article>
+            <span class="quick-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M4 20h16" />
+                <path d="M6 20V9l6-4 6 4v11" />
+                <path d="M9 20v-6h6v6" />
+                <path d="M9 10h.01" />
+                <path d="M15 10h.01" />
+              </svg>
+            </span>
+            <div>
+              <strong data-home-field="destaque_2_valor">Presencial</strong>
+              <span data-home-field="destaque_2_rotulo">Vivência no campus e contato com docentes</span>
+            </div>
+          </article>
+          <article>
+            <span class="quick-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M4 17.5 10.5 11l3 3L20 7.5" />
+                <path d="M15 7h5v5" />
+                <path d="M5 21h14" />
+                <circle cx="7" cy="16" r="1.8" />
+                <circle cx="12" cy="11" r="1.8" />
+              </svg>
+            </span>
+            <div>
+              <strong data-home-field="destaque_3_valor">Projetos e extensão</strong>
+              <span data-home-field="destaque_3_rotulo">Prática, pesquisa, desafios e oportunidades reais</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
 
     <section class="section magazine-section" id="explorar-curso" aria-labelledby="titulo-noticias" hidden>
       <div class="container magazine-layout">
