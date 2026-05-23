@@ -17,162 +17,139 @@
 
   <header class="admin-topbar">
     <div class="admin-topbar-brand">
-      <a href="../index.html" aria-label="Voltar para a página inicial">
-        <img src="../assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software" />
-        <span>
-          <strong>Admin ES</strong>
-          <small>IFPE Belo Jardim</small>
+      <a href="index.html" aria-label="Ir para o painel administrativo">
+        <span class="admin-brand-mark" aria-hidden="true">ES</span>
+        <span class="admin-brand-copy">
+          <strong>Eng.<br />Software</strong>
+          <small>Admin</small>
         </span>
       </a>
     </div>
 
     <nav class="admin-topbar-nav admin-sidebar-nav" aria-label="Menu do painel administrativo">
-      <a class="is-active" href="index.html">Painel</a>
-
-      <details class="admin-nav-dropdown">
-        <summary>Geral</summary>
-        <div class="admin-subnav">
-        <a href="home.html">Home</a>
-        <a href="menu.html">Páginas/Menu</a>
-        <a href="eventos.html">Notícias/Eventos</a>
-        <a href="projetos.html">Projetos</a>
-        </div>
-      </details>
-
-      <details class="admin-nav-dropdown">
-        <summary>Acadêmico</summary>
-        <div class="admin-subnav">
-          <a href="horarios.html">Horários</a>
-          <a href="laboratorios.html">Laboratórios</a>
-          <a href="docentes.html">Docentes</a>
-          <a href="grade.html">PPC / Grade</a>
-        </div>
-      </details>
-
-      <details class="admin-nav-dropdown">
-        <summary>Institucional</summary>
-        <div class="admin-subnav">
-        <a href="editais.html">Editais</a>
-        <a href="ingresso.html">Ingresso</a>
-        <a href="servicos.html">Serviços</a>
-        </div>
-      </details>
-
-      <div class="admin-nav-actions">
-        <a href="../index.html">Ver site</a>
-        <button type="button" data-admin-logout>Sair</button>
+      <div class="admin-nav-section">
+        <span class="admin-nav-section-label">Painel</span>
+        <a class="is-active" href="index.html"><span class="admin-nav-icon" aria-hidden="true">▦</span><span>Visão Geral</span></a>
+      </div>
+      <div class="admin-nav-section">
+        <span class="admin-nav-section-label">Geral</span>
+        <a href="home.html"><span class="admin-nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
+        <a href="menu.html"><span class="admin-nav-icon" aria-hidden="true">▤</span><span>Páginas</span></a>
+        <a href="eventos.html"><span class="admin-nav-icon" aria-hidden="true">▣</span><span>Notícias</span></a>
+      </div>
+      <div class="admin-nav-section">
+        <span class="admin-nav-section-label">Acadêmico</span>
+        <a href="projetos.html"><span class="admin-nav-icon" aria-hidden="true">⚗</span><span>Projetos</span></a>
+        <a href="horarios.html"><span class="admin-nav-icon" aria-hidden="true">◷</span><span>Horários</span></a>
+        <a href="grade.html"><span class="admin-nav-icon" aria-hidden="true">▱</span><span>Grade/PPC</span></a>
+      </div>
+      <div class="admin-nav-section">
+        <span class="admin-nav-section-label">Institucional</span>
+        <a href="laboratorios.html"><span class="admin-nav-icon" aria-hidden="true">▭</span><span>Laboratórios</span></a>
+        <a href="docentes.html"><span class="admin-nav-icon" aria-hidden="true">☷</span><span>Docentes</span></a>
+        <a href="editais.html"><span class="admin-nav-icon" aria-hidden="true">⌁</span><span>Editais</span></a>
+        <a href="ingresso.html"><span class="admin-nav-icon" aria-hidden="true">♙</span><span>Ingresso</span></a>
+        <a href="servicos.html"><span class="admin-nav-icon" aria-hidden="true">⚒</span><span>Serviços</span></a>
+      </div>
+      <div class="admin-nav-section admin-nav-section-actions">
+        <span class="admin-nav-section-label">Ações</span>
+        <a href="../index.html"><span class="admin-nav-icon" aria-hidden="true">↗</span><span>Ver site público</span></a>
+        <button type="button" data-admin-logout><span class="admin-nav-icon" aria-hidden="true">⎋</span><span>Sair</span></button>
       </div>
     </nav>
   </header>
 
-  <main id="conteudo" class="admin-main">
-    <section class="admin-hero-panel" aria-labelledby="titulo-painel">
+  <main id="conteudo" class="admin-main admin-dashboard-main">
+    <section class="admin-dashboard-head" aria-labelledby="titulo-painel">
       <div>
-        <span class="admin-kicker">Painel administrativo</span>
-        <h1 id="titulo-painel">Central de gestão do site institucional.</h1>
-        <p>
-          Acesse os módulos de gestão do site: home, menu, notícias e eventos, projetos, editais, ingresso, serviços, horários, laboratórios, docentes e PPC.
-        </p>
+        <h1 id="titulo-painel">Central de gestão do site institucional</h1>
+        <p>Selecione um módulo abaixo para gerenciar o conteúdo.</p>
       </div>
-      <div class="admin-user-card" data-admin-user-card>
-        <span>Carregando usuário...</span>
+      <div class="admin-dashboard-actions">
+        <div class="admin-user-card" data-admin-user-card>
+          <span>Carregando usuário...</span>
+        </div>
+        <a class="admin-public-site-button" href="../index.html">Ver site público</a>
       </div>
     </section>
 
     <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
 
-    <section class="admin-grid" aria-label="Módulos administrativos">
+    <section class="admin-dashboard-grid" aria-label="Módulos administrativos">
       <a class="admin-module-card" href="home.html">
         <span class="admin-module-icon" aria-hidden="true">⌂</span>
-        <small>ADM RF 017</small>
-        <h2>Home do site</h2>
-        <p>Edite título, descrição, botões e destaques rápidos da tela inicial.</p>
+        <h2>Home</h2>
+        <p>Gerencie os destaques, botões e seções da página inicial.</p>
+        <small>Atualização rápida</small>
       </a>
 
       <a class="admin-module-card" href="menu.html">
-        <span class="admin-module-icon" aria-hidden="true">☰</span>
-        <small>ADM RF 018</small>
-        <h2>Páginas e menu</h2>
-        <p>Oculte temporariamente seções públicas sem remover arquivos do projeto.</p>
+        <span class="admin-module-icon" aria-hidden="true">▤</span>
+        <h2>Páginas</h2>
+        <p>Edite a visibilidade das páginas públicas do portal.</p>
+        <small>Menu público</small>
       </a>
 
-      <a class="admin-module-card" href="eventos.html">
-        <span class="admin-module-icon" aria-hidden="true">◈</span>
-        <small>Módulo 01</small>
-        <h2>Notícias e eventos</h2>
-        <p>Cadastre notícias, eventos, avisos, benefícios, imagens, links de apoio e destaques para a home.</p>
+      <a class="admin-module-card admin-module-card-wide" href="eventos.html">
+        <span class="admin-module-icon is-accent" aria-hidden="true">▣</span>
+        <div>
+          <h2>Notícias e comunicados</h2>
+          <p>Publique e gerencie artigos, anúncios e cobertura de eventos do curso.</p>
+          <div class="admin-card-metrics" aria-label="Resumo de notícias e eventos">
+            <span><strong data-stat-total>0</strong> cadastrados</span>
+            <span><strong data-stat-published>0</strong> publicados</span>
+            <span><strong data-stat-home>0</strong> na home</span>
+          </div>
+        </div>
       </a>
 
       <a class="admin-module-card" href="projetos.html">
-        <span class="admin-module-icon" aria-hidden="true">▧</span>
-        <small>Módulo 02</small>
+        <span class="admin-module-icon" aria-hidden="true">⚗</span>
         <h2>Projetos</h2>
-        <p>Gerencie pesquisa, extensão, inovação, oportunidades de monitoria, candidaturas e propostas recebidas.</p>
+        <p>Cadastre projetos de pesquisa, extensão, inovação e monitorias.</p>
       </a>
 
       <a class="admin-module-card" href="horarios.html">
-        <span class="admin-module-icon" aria-hidden="true">▤</span>
-        <small>Módulo 03</small>
-        <h2>Horários de aulas</h2>
-        <p>Cadastre aulas por período, turno, dia e horário para alimentar a página pública dos estudantes.</p>
+        <span class="admin-module-icon" aria-hidden="true">◷</span>
+        <h2>Horários</h2>
+        <p>Gestão das grades de horários das disciplinas.</p>
       </a>
 
       <a class="admin-module-card" href="laboratorios.html">
-        <span class="admin-module-icon" aria-hidden="true">▥</span>
-        <small>Módulo 04</small>
+        <span class="admin-module-icon" aria-hidden="true">▭</span>
         <h2>Laboratórios</h2>
-        <p>Gerencie horários indisponíveis, reservas aprovadas e solicitações dos estudantes para uso dos laboratórios.</p>
+        <p>Informações sobre infraestrutura, reservas e bloqueios.</p>
       </a>
 
       <a class="admin-module-card" href="docentes.html">
-        <span class="admin-module-icon" aria-hidden="true">◌</span>
-        <small>Módulo 05</small>
-        <h2>Equipe docente</h2>
-        <p>Cadastre docentes, coordenação, histórico, áreas de atuação e contatos para alimentar a página pública do curso.</p>
+        <span class="admin-module-icon" aria-hidden="true">☷</span>
+        <h2>Docentes</h2>
+        <p>Cadastre o perfil e os contatos do corpo docente do curso.</p>
       </a>
 
       <a class="admin-module-card" href="grade.html">
-        <span class="admin-module-icon" aria-hidden="true">▤</span>
-        <small>Módulo 06</small>
-        <h2>PPC e grade curricular</h2>
-        <p>Cadastre componentes curriculares por período e publique o documento oficial do PPC do curso.</p>
+        <span class="admin-module-icon" aria-hidden="true">▱</span>
+        <h2>Grade / PPC</h2>
+        <p>Gestão do Projeto Pedagógico, matriz curricular e componentes.</p>
       </a>
 
       <a class="admin-module-card" href="editais.html">
-        <span class="admin-module-icon" aria-hidden="true">◇</span>
-        <small>Módulo 07</small>
+        <span class="admin-module-icon" aria-hidden="true">⌁</span>
         <h2>Editais</h2>
-        <p>Publique editais de moradia, manutenção, auxílios, seleção e comunicados relacionados.</p>
+        <p>Publicação de chamadas, seleções e documentos oficiais.</p>
       </a>
 
       <a class="admin-module-card" href="ingresso.html">
-        <span class="admin-module-icon" aria-hidden="true">◎</span>
-        <small>Módulo 08</small>
+        <span class="admin-module-icon" aria-hidden="true">♙</span>
         <h2>Ingresso</h2>
-        <p>Atualize inscrições, chamadas, matrícula inicial, rematrícula, reingresso e documentos de apoio.</p>
+        <p>Informações sobre vestibular, SISU, chamadas e vínculo.</p>
       </a>
 
       <a class="admin-module-card" href="servicos.html">
-        <span class="admin-module-icon" aria-hidden="true">◫</span>
-        <small>Módulo 09</small>
-        <h2>Outros serviços</h2>
-        <p>Gerencie links de biblioteca, atividades complementares, TCC e serviços acadêmicos úteis.</p>
+        <span class="admin-module-icon" aria-hidden="true">⚒</span>
+        <h2>Serviços</h2>
+        <p>Links úteis, requerimentos, TCC e suporte acadêmico.</p>
       </a>
-    </section>
-
-    <section class="admin-dashboard-cards" aria-label="Resumo de notícias e eventos">
-      <article>
-        <span data-stat-total>0</span>
-        <strong>notícias/eventos</strong>
-      </article>
-      <article>
-        <span data-stat-published>0</span>
-        <strong>publicados</strong>
-      </article>
-      <article>
-        <span data-stat-home>0</span>
-        <strong>destaques na home</strong>
-      </article>
     </section>
   </main>
 

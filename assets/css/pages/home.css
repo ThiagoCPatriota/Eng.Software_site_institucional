@@ -1613,15 +1613,16 @@
 .home-quick-facts .hero-highlights article {
   min-height: 128px;
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 16px;
-  align-items: start;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-content: center;
+  gap: 14px;
   padding: 24px;
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(192, 201, 192, 0.72);
   box-shadow: 0 22px 46px rgba(0, 42, 21, 0.10);
-  text-align: left;
+  text-align: center;
   backdrop-filter: blur(18px);
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
@@ -1635,8 +1636,12 @@
 .quick-icon {
   display: inline-grid;
   place-items: center;
+  justify-content: center;
+  align-items: center;
   width: 48px;
   height: 48px;
+  margin-inline: auto;
+  line-height: 0;
   border-radius: 16px;
   background:
     linear-gradient(135deg, rgba(232, 247, 238, 0.98), rgba(219, 241, 250, 0.92));
@@ -1647,6 +1652,7 @@
 }
 
 .quick-icon svg {
+  display: block;
   width: 24px;
   height: 24px;
   fill: none;
@@ -1675,12 +1681,14 @@
 
 .magazine-layout {
   gap: 30px;
+  justify-items: center;
 }
 
 .magazine-heading {
-  justify-items: start;
-  max-width: none;
-  text-align: left;
+  justify-items: center;
+  max-width: 860px;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .magazine-heading h2 {

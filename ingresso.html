@@ -81,28 +81,41 @@
   </header>
 
 <main id="conteudo">
-    <section class="page-hero admission-page-hero" aria-labelledby="titulo-pagina">
-      <div class="container admission-hero-shell reveal">
-        <nav class="breadcrumb" aria-label="Caminho da página">
+    <section class="admission-page-hero" aria-labelledby="titulo-pagina">
+      <div class="container">
+        <nav class="breadcrumb reveal" aria-label="Caminho da página">
           <a href="index.html#inicio">Início</a>
           <span aria-hidden="true">/</span>
-          <strong>Ingresso e matrícula</strong>
+          <strong>Formas de ingresso</strong>
         </nav>
 
-        <span class="eyebrow">Formas de ingresso</span>
-        <h1 id="titulo-pagina">Seu caminho para Engenharia de Software começa pelo Ingresso IFPE.</h1>
-        <p>
-          Esta página apresenta uma visão geral para quem deseja acompanhar processos seletivos, editais, documentação e matrícula. A inscrição e os dados oficiais ficam sempre nos canais institucionais do IFPE.
-        </p>
+        <div class="admission-hero-panel reveal">
+          <div class="admission-hero-copy">
+            <span class="eyebrow">Formas de ingresso</span>
+            <h1 id="titulo-pagina">Caminhos para entrar em Engenharia de Software.</h1>
+            <p>
+              Um guia direto para entender processos seletivos, editais, inscrições e matrícula inicial no IFPE Campus Belo Jardim. As informações oficiais continuam nos canais institucionais.
+            </p>
+            <div class="hero-actions" aria-label="Ações da página">
+              <a class="btn btn-primary" href="https://ingresso.ifpe.edu.br/inscricao/" target="_blank" rel="noopener">Acessar Ingresso IFPE</a>
+              <a class="btn btn-secondary" href="#guia-ingresso">Ver caminhos de entrada</a>
+            </div>
+          </div>
 
-        <div class="hero-actions" aria-label="Ações da página">
-          <a class="btn btn-primary" href="https://ingresso.ifpe.edu.br/inscricao/" target="_blank" rel="noopener">Acessar Ingresso IFPE</a>
-          <a class="btn btn-secondary" href="aprovados-remanejados.html">Chamadas e vínculo</a>
-        </div>
-
-        <div class="admission-official-strip" aria-label="Resumo sobre canais oficiais">
-          <strong>Visão geral + encaminhamento oficial</strong>
-          <span>Use esta página para entender as possibilidades. Para se inscrever, conferir edital, resultado, matrícula ou convocação, consulte o portal oficial do Ingresso IFPE.</span>
+          <div class="admission-hero-summary" aria-label="Resumo da página de ingresso">
+            <article>
+              <strong>Editais e inscrições</strong>
+              <span>Acompanhe processos seletivos e prazos publicados pelos canais oficiais do IFPE.</span>
+            </article>
+            <article>
+              <strong>Matrícula inicial</strong>
+              <span>Confira orientações gerais sobre documentos, etapas e convocações.</span>
+            </article>
+            <article>
+              <strong>Chamadas e vínculo</strong>
+              <span>Listas de aprovados, remanejamento, rematrícula e reingresso ficam em página própria.</span>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -110,49 +123,51 @@
     <section class="section ingresso-info-section" id="informacoes-ingresso" data-ingresso-info aria-labelledby="titulo-informacoes-ingresso">
       <div class="container">
         <div class="section-heading centered reveal">
-          <span class="eyebrow">Atualizações de ingresso</span>
+          <span class="eyebrow">Atualizações</span>
           <h2 id="titulo-informacoes-ingresso">Inscrições e matrícula inicial.</h2>
-          <p>Informações cadastradas pela administração sobre prazos, documentos e canais oficiais. Listas de chamadas e vínculo agora têm página própria.</p>
+          <p>Informações cadastradas pela administração sobre prazos, documentos, editais e canais oficiais de ingresso.</p>
         </div>
 
         <div class="ingresso-info-layout">
           <article class="ingresso-info-column reveal">
-            <span>RF 018</span>
+            <span>Inscrições</span>
             <h3>Período de inscrições</h3>
             <div class="ingresso-info-list" data-ingresso-list="inscricoes"></div>
           </article>
           <article class="ingresso-info-column reveal">
-            <span>RF 020</span>
+            <span>Matrícula</span>
             <h3>Matrícula inicial</h3>
             <div class="ingresso-info-list" data-ingresso-list="matricula"></div>
           </article>
         </div>
+
         <div class="ingresso-results-callout reveal">
           <div>
-            <span class="eyebrow">RF 019</span>
-            <strong>Chamadas, rematrícula e reingresso ficam em uma página própria.</strong>
-            <p>Use a nova aba para consultar PDFs, listas, chamadas, remanejamento, rematrícula e reingresso.</p>
+            <span class="eyebrow">Chamadas e vínculo</span>
+            <strong>Aprovados, remanejamento, rematrícula e reingresso têm uma página própria.</strong>
+            <p>Use a aba específica para consultar PDFs, listas, chamadas, comunicados e orientações de vínculo acadêmico.</p>
           </div>
           <a class="btn btn-secondary" href="aprovados-remanejados.html">Ver chamadas e vínculo</a>
         </div>
+
         <div class="projects-empty-state" data-ingresso-empty>Nenhuma informação dinâmica cadastrada ainda. Consulte também os canais oficiais do IFPE.</div>
       </div>
     </section>
 
-    <section class="section experience-section" id="simulador-ingresso" aria-labelledby="titulo-simulador-ingresso">
+    <section class="section experience-section" id="guia-ingresso" aria-labelledby="titulo-guia-ingresso">
       <div class="container choice-lab">
         <div class="experience-copy reveal">
-          <span class="eyebrow">Guia interativo</span>
-          <h2 id="titulo-simulador-ingresso">Escolha sua situação e veja por onde começar.</h2>
+          <span class="eyebrow">Guia rápido</span>
+          <h2 id="titulo-guia-ingresso">Escolha sua situação e veja o primeiro passo.</h2>
           <p>
-            O processo pode variar conforme edital: algumas seleções podem usar ENEM/SISU, outras podem ter processo seletivo próprio, vagas remanescentes, transferência ou portador de diploma. Aqui a ideia é orientar o primeiro passo sem substituir o edital oficial.
+            As regras podem mudar a cada edital. Esta área serve como orientação inicial para candidatos, estudantes de outros cursos e pessoas que já possuem diploma.
           </p>
         </div>
 
         <div class="choice-system reveal">
           <div class="choice-tabs" role="tablist" aria-label="Escolha de caminho de ingresso" data-choice-group data-choice-panels="#paineis-ingresso">
             <button class="choice-tab active" type="button" role="tab" aria-selected="true" data-choice-target="rota-sisu">
-              <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 5h16v14H4z" fill="none" stroke="currentColor" stroke-width="2" rx="2" ry="2"/><path d="M4 8l8 5 8-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 5h16v14H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 8l8 5 8-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
               <span class="choice-tab-copy">
                 <strong>Usei o ENEM</strong>
                 <span>Quero concorrer por seleção nacional.</span>
@@ -236,7 +251,7 @@
       </div>
     </section>
 
-    <section class="section" id="formas-ingresso" aria-labelledby="titulo-formas-ingresso">
+    <section class="section routes-section" id="formas-ingresso" aria-labelledby="titulo-formas-ingresso">
       <div class="container">
         <div class="section-heading centered reveal">
           <span class="eyebrow">Caminhos de entrada</span>
@@ -246,98 +261,39 @@
           </p>
         </div>
 
-        <div class="rail-toolbar routes-toolbar reveal" aria-label="Controles das formas de ingresso">
-          <div class="rail-controls">
-            <button class="rail-btn" type="button" data-rail-prev="#rotas-ingresso" aria-label="Voltar formas de ingresso">‹</button>
-            <button class="rail-btn" type="button" data-rail-next="#rotas-ingresso" aria-label="Avançar formas de ingresso">›</button>
-          </div>
-        </div>
-
-        <div class="admission-route-grid interactive-card-rail" id="rotas-ingresso" data-experience-rail>
+        <div class="admission-route-grid" id="rotas-ingresso">
           <article class="route-card featured reveal">
             <div class="route-number">01</div>
             <span>SISU / ENEM</span>
             <h3>Seleção com nota do ENEM</h3>
-            <p>
-              Quando disponível em edital, o candidato pode usar a nota do ENEM/SISU para concorrer às vagas de graduação.
-            </p>
-            <ul>
-              <li>Conferir edital e cronograma.</li>
-              <li>Verificar curso, campus e vagas.</li>
-              <li>Acompanhar convocação e matrícula.</li>
-            </ul>
+            <p>Quando disponível em edital, o candidato pode usar a nota do ENEM/SISU para concorrer às vagas de graduação.</p>
           </article>
 
           <article class="route-card reveal">
             <div class="route-number">02</div>
             <span>Ingresso IFPE</span>
             <h3>Processo seletivo institucional</h3>
-            <p>
-              O IFPE também pode publicar editais próprios ou complementares para cursos técnicos e de graduação, conforme oferta e período letivo.
-            </p>
-            <ul>
-              <li>Acessar o portal Ingresso IFPE.</li>
-              <li>Ler o edital correspondente.</li>
-              <li>Realizar inscrição no sistema indicado.</li>
-            </ul>
+            <p>O IFPE também pode publicar editais próprios ou complementares conforme oferta e período letivo.</p>
           </article>
 
           <article class="route-card reveal">
             <div class="route-number">03</div>
             <span>Transferência</span>
             <h3>Entrada para estudantes de outros cursos</h3>
-            <p>
-              A transferência depende de vagas, regras do edital e análise acadêmica da documentação apresentada.
-            </p>
-            <ul>
-              <li>Conferir possibilidade de vaga.</li>
-              <li>Apresentar histórico e ementas.</li>
-              <li>Buscar orientação da coordenação.</li>
-            </ul>
+            <p>A transferência depende de vagas, regras do edital e análise acadêmica da documentação apresentada.</p>
           </article>
 
           <article class="route-card reveal">
             <div class="route-number">04</div>
             <span>Portador de diploma</span>
             <h3>Nova graduação para quem já concluiu curso superior</h3>
-            <p>
-              Pessoas diplomadas podem concorrer quando houver edital específico ou vagas remanescentes para essa modalidade.
-            </p>
-            <ul>
-              <li>Comprovar conclusão da graduação.</li>
-              <li>Enviar documentos exigidos.</li>
-              <li>Consultar aproveitamento de componentes.</li>
-            </ul>
-          </article>
-
-          <article class="route-card reveal">
-            <div class="route-number">05</div>
-            <span>Editais e resultados</span>
-            <h3>Listas, chamadas e remanejamento</h3>
-            <p>
-              O candidato deve acompanhar resultados, chamadas, remanejamentos e prazos de matrícula nos canais oficiais.
-            </p>
-            <ul>
-              <li>Observar publicações oficiais.</li>
-              <li>Conferir documentos e prazos.</li>
-              <li>Responder convocações dentro do período.</li>
-            </ul>
-          </article>
-
-          <article class="route-card reveal route-card-cta">
-            <div class="route-number">→</div>
-            <span>Portal oficial</span>
-            <h3>Ir direto para o Ingresso IFPE</h3>
-            <p>
-              Use o portal oficial para consultar seleções abertas, inscrições, documentos, resultados e matrícula.
-            </p>
-            <a class="text-link" href="https://ingresso.ifpe.edu.br/inscricao/" target="_blank" rel="noopener">Acessar portal oficial</a>
+            <p>Pessoas diplomadas podem concorrer quando houver edital específico ou vagas remanescentes.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="documentos" aria-labelledby="titulo-documentos">
+    <section class="section documents-section" id="documentos" aria-labelledby="titulo-documentos">
       <div class="container">
         <div class="section-heading centered reveal">
           <span class="eyebrow">Matrícula</span>
@@ -373,10 +329,10 @@
             </ul>
           </article>
           <article class="document-card reveal">
-            <h3>Atenção às cotas e modalidades</h3>
+            <h3>Cotas e modalidades</h3>
             <ul>
               <li>Documentos de renda, quando aplicável.</li>
-              <li>Comprovações específicas para ações afirmativas.</li>
+              <li>Comprovações para ações afirmativas.</li>
               <li>Validação conforme banca ou setor responsável.</li>
             </ul>
           </article>
@@ -390,7 +346,7 @@
           <span class="eyebrow">Dúvidas comuns</span>
           <h2 id="titulo-duvidas">Perguntas rápidas sobre ingresso.</h2>
           <p>
-            Nesta fase, incluímos uma prévia de FAQ dentro da página de ingresso. Mais adiante, essa estrutura pode virar uma página própria de perguntas frequentes.
+            Respostas curtas para orientar o primeiro acesso. Informações oficiais devem ser conferidas no edital vigente e nos canais institucionais.
           </p>
         </div>
 
@@ -424,22 +380,6 @@
               <p>O ideal é consultar o portal Ingresso IFPE, editais, comunicados e canais oficiais antes de qualquer inscrição ou matrícula.</p>
             </div>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section next-step-section" aria-labelledby="titulo-proxima-etapa">
-      <div class="container next-step reveal">
-        <div>
-          <span class="eyebrow">Próximo passo</span>
-          <h2 id="titulo-proxima-etapa">Depois de entender como entrar, o candidato quer conhecer a grade.</h2>
-          <p>
-            Agora o candidato pode consultar uma página própria de grade curricular, com períodos, eixos de formação, projetos integradores, estágio, TCC e atividades complementares.
-          </p>
-        </div>
-        <div class="next-actions">
-          <a class="btn btn-primary" href="grade.html">Ver grade curricular</a>
-          <a class="btn btn-secondary" href="https://ingresso.ifpe.edu.br/inscricao/" target="_blank" rel="noopener">Abrir Ingresso IFPE</a>
         </div>
       </div>
     </section>
