@@ -81,42 +81,44 @@
   </header>
 
 <main id="conteudo">
-    <section class="admission-page-hero" aria-labelledby="titulo-pagina">
-      <div class="container">
-        <nav class="breadcrumb reveal" aria-label="Caminho da página">
-          <a href="index.html#inicio">Início</a>
-          <span aria-hidden="true">/</span>
-          <strong>Formas de ingresso</strong>
-        </nav>
+    <section class="admission-intro" aria-labelledby="titulo-ingresso">
+      <div class="container admission-intro-grid">
+        <div class="admission-intro-copy reveal">
+          <span class="admission-kicker">IFPE Campus Belo Jardim</span>
+          <h1 id="titulo-ingresso">Formas de ingresso</h1>
+          <p>
+            Um guia para candidatos acompanharem processos seletivos, inscrições, editais e matrícula inicial
+            no Bacharelado em Engenharia de Software. As etapas oficiais continuam sendo publicadas nos canais
+            institucionais do IFPE.
+          </p>
 
-        <div class="admission-hero-panel reveal">
-          <div class="admission-hero-copy">
-            <span class="eyebrow">Formas de ingresso</span>
-            <h1 id="titulo-pagina">Caminhos para entrar em Engenharia de Software.</h1>
-            <p>
-              Um guia direto para entender processos seletivos, editais, inscrições e matrícula inicial no IFPE Campus Belo Jardim. As informações oficiais continuam nos canais institucionais.
-            </p>
-            <div class="hero-actions" aria-label="Ações da página">
-              <a class="btn btn-primary" href="https://ingresso.ifpe.edu.br/inscricao/" target="_blank" rel="noopener">Acessar Ingresso IFPE</a>
-              <a class="btn btn-secondary" href="#guia-ingresso">Ver caminhos de entrada</a>
-            </div>
-          </div>
-
-          <div class="admission-hero-summary" aria-label="Resumo da página de ingresso">
+          <div class="admission-metrics" aria-label="Resumo rápido de ingresso">
             <article>
-              <strong>Editais e inscrições</strong>
-              <span>Acompanhe processos seletivos e prazos publicados pelos canais oficiais do IFPE.</span>
+              <strong>Editais</strong>
+              <span>Processos oficiais</span>
             </article>
             <article>
-              <strong>Matrícula inicial</strong>
-              <span>Confira orientações gerais sobre documentos, etapas e convocações.</span>
+              <strong>Inscrição</strong>
+              <span>Prazos e orientações</span>
             </article>
             <article>
-              <strong>Chamadas e vínculo</strong>
-              <span>Listas de aprovados, remanejamento, rematrícula e reingresso ficam em página própria.</span>
+              <strong>Matrícula</strong>
+              <span>Etapa inicial</span>
             </article>
           </div>
         </div>
+
+        <aside class="admission-guide-card reveal" aria-label="Canais principais de ingresso">
+          <span class="guide-card-label">Canais oficiais</span>
+          <h2>Acompanhe os editais antes de qualquer etapa.</h2>
+          <p>
+            Modalidade de ingresso, prazos, documentos e convocações podem mudar conforme o edital vigente.
+          </p>
+          <div class="guide-card-actions">
+            <a class="btn btn-primary" href="https://ingresso.ifpe.edu.br/inscricao/" target="_blank" rel="noopener">Acessar Ingresso IFPE</a>
+            <a class="btn btn-secondary" href="#guia-ingresso">Ver guia rápido</a>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -144,7 +146,7 @@
         <div class="ingresso-results-callout reveal">
           <div>
             <span class="eyebrow">Chamadas e vínculo</span>
-            <strong>Aprovados, remanejamento, rematrícula e reingresso têm uma página própria.</strong>
+            <strong>Aprovados, remanejamento, rematrícula e reingresso ficam reunidos em uma página própria.</strong>
             <p>Use a aba específica para consultar PDFs, listas, chamadas, comunicados e orientações de vínculo acadêmico.</p>
           </div>
           <a class="btn btn-secondary" href="aprovados-remanejados.html">Ver chamadas e vínculo</a>
@@ -154,92 +156,124 @@
       </div>
     </section>
 
+    <section class="section routes-section" id="formas-ingresso" aria-labelledby="titulo-formas-ingresso">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <span class="eyebrow">Caminhos de entrada</span>
+          <h2 id="titulo-formas-ingresso">Principais rotas para acompanhar no IFPE.</h2>
+          <p>
+            As formas de ingresso são definidas por edital. Esta página resume os caminhos mais comuns e direciona o candidato para os canais oficiais.
+          </p>
+        </div>
+
+        <div class="admission-route-grid" id="rotas-ingresso">
+          <article class="route-card featured reveal">
+            <span class="route-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 8l8 5 8-5"/></svg>
+            </span>
+            <span>SISU / ENEM</span>
+            <h3>Seleção com nota do ENEM</h3>
+            <p>Quando disponível em edital, o candidato pode usar a nota do ENEM/SISU para concorrer às vagas de graduação.</p>
+          </article>
+
+          <article class="route-card reveal">
+            <span class="route-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 4h10l3 3v13H7z"/><path d="M17 4v4h4M10 12h7M10 16h5"/></svg>
+            </span>
+            <span>Ingresso IFPE</span>
+            <h3>Processo seletivo institucional</h3>
+            <p>O IFPE também pode publicar editais próprios ou complementares conforme oferta e período letivo.</p>
+          </article>
+
+          <article class="route-card reveal">
+            <span class="route-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 7h11a2 2 0 0 1 2 2v9"/><path d="M7 3 3 7l4 4"/><path d="M17 21l4-4-4-4"/><path d="M4 16h11a2 2 0 0 0 2-2V5"/></svg>
+            </span>
+            <span>Transferência</span>
+            <h3>Entrada para estudantes de outros cursos</h3>
+            <p>A transferência depende de vagas, regras do edital e análise acadêmica da documentação apresentada.</p>
+          </article>
+
+          <article class="route-card reveal">
+            <span class="route-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M6 10.5V15c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/><path d="M22 9v4"/></svg>
+            </span>
+            <span>Portador de diploma</span>
+            <h3>Nova graduação para quem já concluiu curso superior</h3>
+            <p>Pessoas diplomadas podem concorrer quando houver edital específico ou vagas remanescentes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section experience-section" id="guia-ingresso" aria-labelledby="titulo-guia-ingresso">
       <div class="container choice-lab">
-        <div class="experience-copy reveal">
+        <div class="section-heading reveal">
           <span class="eyebrow">Guia rápido</span>
           <h2 id="titulo-guia-ingresso">Escolha sua situação e veja o primeiro passo.</h2>
           <p>
-            As regras podem mudar a cada edital. Esta área serve como orientação inicial para candidatos, estudantes de outros cursos e pessoas que já possuem diploma.
+            Esta área serve como orientação inicial. As regras finais, documentos e prazos devem ser conferidos no edital vigente.
           </p>
         </div>
 
         <div class="choice-system reveal">
           <div class="choice-tabs" role="tablist" aria-label="Escolha de caminho de ingresso" data-choice-group data-choice-panels="#paineis-ingresso">
             <button class="choice-tab active" type="button" role="tab" aria-selected="true" data-choice-target="rota-sisu">
-              <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 5h16v14H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 8l8 5 8-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <span class="choice-tab-copy">
-                <strong>Usei o ENEM</strong>
-                <span>Quero concorrer por seleção nacional.</span>
-              </span>
+              <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 8l8 5 8-5"/></svg></span>
+              <span class="choice-tab-copy"><strong>Usei o ENEM</strong><span>Quero concorrer por seleção nacional.</span></span>
             </button>
             <button class="choice-tab" type="button" role="tab" aria-selected="false" data-choice-target="rota-transferencia">
-              <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 7h11a2 2 0 0 1 2 2v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 3L3 7l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 21l4-4-4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16h11a2 2 0 0 0 2-2V5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <span class="choice-tab-copy">
-                <strong>Já estudo em outro curso</strong>
-                <span>Quero verificar transferência.</span>
-              </span>
+              <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 7h11a2 2 0 0 1 2 2v9"/><path d="M7 3 3 7l4 4"/><path d="M17 21l4-4-4-4"/><path d="M4 16h11a2 2 0 0 0 2-2V5"/></svg></span>
+              <span class="choice-tab-copy"><strong>Já estudo em outro curso</strong><span>Quero verificar transferência.</span></span>
             </button>
             <button class="choice-tab" type="button" role="tab" aria-selected="false" data-choice-target="rota-diploma">
-              <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 3L2 8l10 5 10-5-10-5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6 10.5V15c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 9v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
-              <span class="choice-tab-copy">
-                <strong>Já tenho graduação</strong>
-                <span>Quero tentar uma nova formação.</span>
-              </span>
+              <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M6 10.5V15c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/><path d="M22 9v4"/></svg></span>
+              <span class="choice-tab-copy"><strong>Já tenho graduação</strong><span>Quero tentar uma nova formação.</span></span>
             </button>
             <button class="choice-tab" type="button" role="tab" aria-selected="false" data-choice-target="rota-edital">
-              <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 9a2.5 2.5 0 1 1 4.2 1.8c-.8.7-1.7 1.2-1.7 2.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1" fill="currentColor"/></svg></span>
-              <span class="choice-tab-copy">
-                <strong>Não sei por onde começar</strong>
-                <span>Quero saber onde acompanhar.</span>
-              </span>
+              <span class="choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 4.2 1.8c-.8.7-1.7 1.2-1.7 2.7"/><circle cx="12" cy="17.3" r="1"/></svg></span>
+              <span class="choice-tab-copy"><strong>Não sei por onde começar</strong><span>Quero saber onde acompanhar.</span></span>
             </button>
           </div>
 
           <div class="choice-panels" id="paineis-ingresso">
             <article class="choice-panel active" id="rota-sisu" role="tabpanel">
               <h3>Verifique se a seleção atual usa ENEM/SISU ou outro formato.</h3>
-              <p>O IFPE pode divulgar processos para cursos de graduação por SISU/ENEM ou por editais próprios. O caminho seguro é conferir no portal oficial qual modalidade está aberta e quais critérios serão usados.</p>
+              <p>O caminho seguro é conferir no portal oficial qual modalidade está aberta e quais critérios serão usados.</p>
               <ul>
                 <li>Consultar o edital vigente no Ingresso IFPE.</li>
-                <li>Verificar se a vaga do curso aparece para o Campus Belo Jardim.</li>
+                <li>Verificar se a vaga aparece para o Campus Belo Jardim.</li>
                 <li>Acompanhar resultado, convocação e matrícula no prazo indicado.</li>
               </ul>
-              <div class="choice-panel-actions">
-                <a class="text-link" href="https://ingresso.ifpe.edu.br/inscricao/" target="_blank" rel="noopener">Abrir portal Ingresso IFPE</a>
-              </div>
+              <div class="choice-panel-actions"><a class="text-link" href="https://ingresso.ifpe.edu.br/inscricao/" target="_blank" rel="noopener">Abrir portal Ingresso IFPE</a></div>
             </article>
             <article class="choice-panel" id="rota-transferencia" role="tabpanel" hidden>
               <h3>Transferência depende de edital, vagas e análise acadêmica.</h3>
-              <p>O IFPE pode disponibilizar editais de transferência conforme oferta de vagas. O candidato deve conferir datas, regras, documentação e se existe possibilidade de transferência para o curso desejado.</p>
+              <p>O candidato deve conferir datas, regras, documentação e se existe possibilidade de transferência para o curso desejado.</p>
               <ul>
                 <li>Procurar editais de transferência ou vagas remanescentes.</li>
                 <li>Separar histórico, ementas e documentos acadêmicos.</li>
-                <li>Entrar em contato com a coordenação ou secretaria para dúvidas específicas.</li>
+                <li>Entrar em contato com a coordenação para dúvidas específicas.</li>
               </ul>
-              <div class="choice-panel-actions">
-                <a class="text-link" href="contato.html">Ver contato da coordenação</a>
-              </div>
+              <div class="choice-panel-actions"><a class="text-link" href="contato.html">Ver contato da coordenação</a></div>
             </article>
             <article class="choice-panel" id="rota-diploma" role="tabpanel" hidden>
               <h3>Quem já possui graduação pode buscar vagas para portador de diploma.</h3>
-              <p>Essa entrada geralmente depende de edital específico e disponibilidade de vagas. Depois da aprovação e matrícula, componentes já cursados podem ser analisados para possível aproveitamento, conforme regras acadêmicas e avaliação institucional.</p>
+              <p>Essa entrada geralmente depende de edital específico e disponibilidade de vagas.</p>
               <ul>
                 <li>Verificar se há edital para portador de diploma.</li>
                 <li>Conferir documentação da graduação concluída.</li>
-                <li>Consultar possibilidade de aproveitamento de componentes equivalentes.</li>
+                <li>Consultar aproveitamento de componentes equivalentes.</li>
               </ul>
-              <div class="choice-panel-actions">
-                <a class="text-link" href="https://portal.ifpe.edu.br/ingresso/estude-no-ifpe/portadora-de-diploma/" target="_blank" rel="noopener">Entender portador de diploma no IFPE</a>
-              </div>
+              <div class="choice-panel-actions"><a class="text-link" href="https://portal.ifpe.edu.br/ingresso/estude-no-ifpe/portadora-de-diploma/" target="_blank" rel="noopener">Entender portador de diploma no IFPE</a></div>
             </article>
             <article class="choice-panel" id="rota-edital" role="tabpanel" hidden>
               <h3>Acompanhe o portal de ingresso e os canais oficiais do IFPE.</h3>
-              <p>Quando um processo abre, o edital informa modalidade, período de inscrição, documentos, critérios, resultados e matrícula. Também vale acompanhar os canais oficiais do IFPE, que costumam divulgar chamadas e orientações.</p>
+              <p>Quando um processo abre, o edital informa modalidade, período de inscrição, documentos, critérios, resultados e matrícula.</p>
               <ul>
                 <li>Acessar o portal Ingresso IFPE com frequência.</li>
                 <li>Observar comunicados, editais e resultados publicados.</li>
-                <li>Acompanhar redes oficiais, como o Instagram do IFPE.</li>
+                <li>Acompanhar redes oficiais do IFPE.</li>
               </ul>
               <div class="choice-panel-actions">
                 <a class="text-link" href="https://ingresso.ifpe.edu.br/inscricao/" target="_blank" rel="noopener">Ir para Ingresso IFPE</a>
@@ -247,48 +281,6 @@
               </div>
             </article>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section routes-section" id="formas-ingresso" aria-labelledby="titulo-formas-ingresso">
-      <div class="container">
-        <div class="section-heading centered reveal">
-          <span class="eyebrow">Caminhos de entrada</span>
-          <h2 id="titulo-formas-ingresso">Principais rotas para acompanhar no IFPE.</h2>
-          <p>
-            As formas de ingresso são definidas por edital. Esta página resume os caminhos mais comuns e direciona o candidato para o portal oficial onde inscrições, resultados e matrículas são publicados.
-          </p>
-        </div>
-
-        <div class="admission-route-grid" id="rotas-ingresso">
-          <article class="route-card featured reveal">
-            <div class="route-number">01</div>
-            <span>SISU / ENEM</span>
-            <h3>Seleção com nota do ENEM</h3>
-            <p>Quando disponível em edital, o candidato pode usar a nota do ENEM/SISU para concorrer às vagas de graduação.</p>
-          </article>
-
-          <article class="route-card reveal">
-            <div class="route-number">02</div>
-            <span>Ingresso IFPE</span>
-            <h3>Processo seletivo institucional</h3>
-            <p>O IFPE também pode publicar editais próprios ou complementares conforme oferta e período letivo.</p>
-          </article>
-
-          <article class="route-card reveal">
-            <div class="route-number">03</div>
-            <span>Transferência</span>
-            <h3>Entrada para estudantes de outros cursos</h3>
-            <p>A transferência depende de vagas, regras do edital e análise acadêmica da documentação apresentada.</p>
-          </article>
-
-          <article class="route-card reveal">
-            <div class="route-number">04</div>
-            <span>Portador de diploma</span>
-            <h3>Nova graduação para quem já concluiu curso superior</h3>
-            <p>Pessoas diplomadas podem concorrer quando houver edital específico ou vagas remanescentes.</p>
-          </article>
         </div>
       </div>
     </section>
@@ -306,35 +298,19 @@
         <div class="documents-layout">
           <article class="document-card reveal">
             <h3>Identificação pessoal</h3>
-            <ul>
-              <li>Documento oficial com foto.</li>
-              <li>CPF.</li>
-              <li>Certidão de nascimento ou casamento, quando solicitada.</li>
-            </ul>
+            <ul><li>Documento oficial com foto.</li><li>CPF.</li><li>Certidão de nascimento ou casamento, quando solicitada.</li></ul>
           </article>
           <article class="document-card reveal">
             <h3>Comprovação escolar</h3>
-            <ul>
-              <li>Histórico escolar.</li>
-              <li>Certificado de conclusão do ensino médio.</li>
-              <li>Documentos acadêmicos para transferência ou diploma.</li>
-            </ul>
+            <ul><li>Histórico escolar.</li><li>Certificado de conclusão do ensino médio.</li><li>Documentos acadêmicos para transferência ou diploma.</li></ul>
           </article>
           <article class="document-card reveal">
             <h3>Comprovantes e declarações</h3>
-            <ul>
-              <li>Comprovante de residência.</li>
-              <li>Foto 3x4, se exigida.</li>
-              <li>Declarações específicas previstas no edital.</li>
-            </ul>
+            <ul><li>Comprovante de residência.</li><li>Foto 3x4, se exigida.</li><li>Declarações específicas previstas no edital.</li></ul>
           </article>
           <article class="document-card reveal">
             <h3>Cotas e modalidades</h3>
-            <ul>
-              <li>Documentos de renda, quando aplicável.</li>
-              <li>Comprovações para ações afirmativas.</li>
-              <li>Validação conforme banca ou setor responsável.</li>
-            </ul>
+            <ul><li>Documentos de renda, quando aplicável.</li><li>Comprovações para ações afirmativas.</li><li>Validação conforme banca ou setor responsável.</li></ul>
           </article>
         </div>
       </div>
@@ -345,40 +321,21 @@
         <div class="section-heading reveal">
           <span class="eyebrow">Dúvidas comuns</span>
           <h2 id="titulo-duvidas">Perguntas rápidas sobre ingresso.</h2>
-          <p>
-            Respostas curtas para orientar o primeiro acesso. Informações oficiais devem ser conferidas no edital vigente e nos canais institucionais.
-          </p>
+          <p>Respostas curtas para orientar o primeiro acesso. Informações oficiais devem ser conferidas no edital vigente.</p>
         </div>
 
         <div class="faq-list reveal" data-faq-list>
           <article class="faq-item">
-            <button type="button" aria-expanded="false">
-              Posso usar a nota do ENEM?
-              <span>+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Sim, quando o edital vigente permitir ingresso por SISU/ENEM ou outra modalidade que utilize essa nota. O candidato deve confirmar a regra no portal oficial.</p>
-            </div>
+            <button type="button" aria-expanded="false">Posso usar a nota do ENEM?<span>+</span></button>
+            <div class="faq-answer"><p>Sim, quando o edital vigente permitir ingresso por SISU/ENEM ou outra modalidade que utilize essa nota.</p></div>
           </article>
-
           <article class="faq-item">
-            <button type="button" aria-expanded="false">
-              O curso tem mensalidade?
-              <span>+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Por se tratar de uma instituição pública federal, o curso é apresentado no projeto como uma formação pública. Informações específicas devem ser confirmadas nos canais oficiais.</p>
-            </div>
+            <button type="button" aria-expanded="false">O curso tem mensalidade?<span>+</span></button>
+            <div class="faq-answer"><p>Por se tratar de uma instituição pública federal, o curso é apresentado no projeto como uma formação pública.</p></div>
           </article>
-
           <article class="faq-item">
-            <button type="button" aria-expanded="false">
-              Onde vejo os documentos oficiais?
-              <span>+</span>
-            </button>
-            <div class="faq-answer">
-              <p>O ideal é consultar o portal Ingresso IFPE, editais, comunicados e canais oficiais antes de qualquer inscrição ou matrícula.</p>
-            </div>
+            <button type="button" aria-expanded="false">Onde vejo os documentos oficiais?<span>+</span></button>
+            <div class="faq-answer"><p>O ideal é consultar o portal Ingresso IFPE, editais, comunicados e canais oficiais antes de qualquer inscrição ou matrícula.</p></div>
           </article>
         </div>
       </div>

@@ -28,7 +28,7 @@ function formatBrazilianDate(value) {
 }
 
 function formatPeriod(item) {
-  if (!item.data_inicio && !item.hora_inicio) return item.data_label || "";
+  if (!item.data_inicio && !item.hora_inicio) return "";
   const date = formatBrazilianDate(item.data_inicio);
   const hour = item.hora_inicio ? ` · ${String(item.hora_inicio).slice(0, 5)}` : "";
   return `${date}${hour}`.trim();
@@ -90,9 +90,7 @@ function createCampusCard(item) {
   topLine.className = "campus-news-topline";
 
   const type = document.createElement("span");
-  const normalizedType = item.tipo || "noticia";
-  type.className = `campus-news-type is-${normalizedType}`;
-  type.textContent = TIPOS[normalizedType] || normalizedType || "Destaque";
+  type.textContent = TIPOS[item.tipo] || item.tipo || "Destaque";
   topLine.appendChild(type);
 
   if (item.destaque_home) {
@@ -102,11 +100,10 @@ function createCampusCard(item) {
     topLine.appendChild(featured);
   }
 
-  const periodLabel = formatPeriod(item);
-  if (periodLabel) {
-    const date = document.createElement("time");
-    if (item.data_inicio) date.dateTime = item.data_inicio;
-    date.textContent = periodLabel;
+  const period = formatPeriod(item);
+  if (period) {
+    const date = document.createElement("small");
+    date.textContent = period;
     topLine.appendChild(date);
   }
   content.appendChild(topLine);

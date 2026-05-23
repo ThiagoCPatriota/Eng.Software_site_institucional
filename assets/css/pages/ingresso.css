@@ -1,118 +1,181 @@
-/* Página Formas de ingresso - padrão minimalista institucional */
-.admission-page-hero {
-  padding: 34px 0 46px;
-  background:
-    radial-gradient(circle at 8% 10%, rgba(0, 63, 42, 0.08), transparent 25%),
-    radial-gradient(circle at 92% 8%, rgba(45, 156, 219, 0.08), transparent 24%),
-    linear-gradient(180deg, #f7faf8 0%, #eef5f1 100%);
+/* Página Formas de ingresso - padrão institucional minimalista */
+.admission-intro {
+  padding: clamp(64px, 8.5vw, 108px) 0 clamp(54px, 7vw, 84px);
+  background: #ffffff;
 }
 
-.admission-page-hero .breadcrumb {
-  margin-bottom: 18px;
-}
-
-.admission-hero-panel {
+.admission-intro-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
-  gap: 26px;
-  align-items: stretch;
-  padding: clamp(28px, 5vw, 58px);
-  border: 1px solid rgba(0, 48, 27, 0.12);
-  border-radius: 28px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 252, 250, 0.98) 54%, rgba(232, 247, 238, 0.78) 100%);
-  box-shadow: 0 22px 58px rgba(0, 48, 27, 0.08);
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.72fr);
+  gap: clamp(34px, 7vw, 92px);
+  align-items: center;
 }
 
-.admission-hero-copy {
-  display: grid;
-  align-content: center;
-  justify-items: start;
-  gap: 16px;
+.admission-intro-copy {
+  max-width: 780px;
 }
 
-.admission-hero-copy h1 {
-  max-width: 860px;
-  color: #002a18;
-  font-size: clamp(2.35rem, 4.9vw, 4.75rem);
+.admission-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  min-height: 28px;
+  margin-bottom: 20px;
+  padding: 0 12px;
+  border-radius: 2px;
+  background: #e7f8ff;
+  color: #0b5574;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.admission-kicker::before {
+  content: "⌂";
+  font-size: 0.78rem;
+  color: #007453;
+}
+
+.admission-intro h1 {
+  color: #003f2a;
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
   line-height: 0.98;
   letter-spacing: -0.07em;
   text-wrap: balance;
 }
 
-.admission-hero-copy p {
-  max-width: 760px;
-  margin: 0;
-  color: #36534a;
-  font-size: clamp(1rem, 1.45vw, 1.18rem);
-  line-height: 1.75;
+.admission-intro p {
+  max-width: 700px;
+  margin-top: 20px;
+  color: #233a34;
+  font-size: clamp(1rem, 1.35vw, 1.18rem);
+  line-height: 1.78;
 }
 
-.admission-hero-summary {
-  display: grid;
-  gap: 14px;
+.admission-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 34px;
 }
 
-.admission-hero-summary article {
+.admission-metrics article {
+  min-width: 136px;
+  padding: 0 24px;
+  border-left: 1px solid rgba(0, 116, 83, 0.28);
+}
+
+.admission-metrics article:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.admission-metrics strong {
+  display: block;
+  color: #004b35;
+  font-size: clamp(1.12rem, 1.55vw, 1.55rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.admission-metrics span {
+  display: block;
+  margin-top: 6px;
+  color: #60756c;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.admission-guide-card {
   position: relative;
   overflow: hidden;
-  padding: 22px 22px 22px 24px;
-  border: 1px solid rgba(0, 63, 42, 0.12);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 14px 34px rgba(0, 48, 27, 0.06);
+  padding: clamp(28px, 4vw, 42px);
+  border: 1px solid rgba(0, 48, 27, 0.13);
+  border-radius: 10px;
+  background: linear-gradient(135deg, #003f2a 0%, #00593e 100%);
+  color: #ffffff;
+  box-shadow: 0 20px 48px rgba(0, 48, 27, 0.18);
 }
 
-.admission-hero-summary article::before {
+.admission-guide-card::after {
   content: "";
   position: absolute;
-  inset: 18px auto 18px 0;
-  width: 4px;
+  right: -30px;
+  bottom: -30px;
+  width: 190px;
+  height: 190px;
+  opacity: 0.13;
+  background: radial-gradient(circle at center, #ffffff 0 2px, transparent 3px);
+  background-size: 17px 17px;
+}
+
+.guide-card-label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  width: fit-content;
+  min-height: 30px;
+  align-items: center;
+  padding: 0 12px;
   border-radius: 999px;
-  background: linear-gradient(180deg, #003f2a, #4fb477);
+  background: rgba(255, 255, 255, 0.12);
+  color: #d9fff0;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.admission-hero-summary strong,
-.ingresso-info-column h3,
-.ingresso-results-callout strong,
-.route-card h3,
-.document-card h3 {
-  display: block;
-  color: #002a18;
+.admission-guide-card h2 {
+  position: relative;
+  z-index: 1;
+  margin-top: 22px;
+  color: #ffffff;
+  font-size: clamp(1.75rem, 3vw, 2.7rem);
+  line-height: 1.02;
+  letter-spacing: -0.06em;
 }
 
-.admission-hero-summary span,
-.ingresso-info-column p,
-.ingresso-info-card p,
-.ingresso-results-callout p,
-.route-card p,
-.document-card li,
-.choice-tab-copy span,
-.choice-panel p,
-.choice-panel li,
-.faq-answer p {
-  color: var(--color-muted);
-  line-height: 1.65;
+.admission-guide-card p {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.7;
+}
+
+.guide-card-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.admission-guide-card .btn-secondary {
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .ingresso-info-section,
 .experience-section,
 .documents-section {
-  background:
-    radial-gradient(circle at 8% 12%, rgba(45, 156, 219, 0.055), transparent 24%),
-    radial-gradient(circle at 95% 10%, rgba(0, 63, 42, 0.065), transparent 24%),
-    var(--color-bg);
+  background: #f7faf8;
 }
 
 .ingresso-info-section {
-  padding-top: 26px;
+  border-top: 1px solid rgba(0, 48, 27, 0.1);
 }
 
 .ingresso-info-layout {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-  margin-top: 38px;
+  gap: 18px;
+  margin-top: 42px;
 }
 
 .ingresso-info-column,
@@ -123,9 +186,9 @@
 .choice-tab,
 .choice-panels,
 .faq-item {
-  border: 1px solid rgba(0, 48, 27, 0.1);
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 16px 42px rgba(0, 48, 27, 0.055);
+  border: 1px solid rgba(0, 48, 27, 0.13);
+  background: #ffffff;
+  box-shadow: 0 16px 34px rgba(0, 48, 27, 0.05);
 }
 
 .ingresso-info-column {
@@ -134,14 +197,13 @@
   display: grid;
   align-content: start;
   gap: 16px;
-  min-height: 270px;
-  padding: 24px;
-  border-radius: 22px;
+  min-height: 248px;
+  padding: 26px;
+  border-radius: 10px;
 }
 
 .ingresso-info-column::before,
 .ingresso-info-card::before,
-.route-card::before,
 .document-card::before {
   content: "";
   position: absolute;
@@ -155,16 +217,39 @@
 .route-card > span {
   display: inline-flex;
   width: fit-content;
+  min-height: 28px;
   align-items: center;
-  min-height: 32px;
-  padding: 0 12px;
+  padding: 0 10px;
   border-radius: 999px;
   background: #e8f7ee;
   color: #003f2a;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 900;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
+}
+
+.ingresso-info-column h3,
+.ingresso-info-card h3,
+.ingresso-results-callout strong,
+.route-card h3,
+.document-card h3,
+.choice-tab-copy strong,
+.choice-panel h3 {
+  color: #002f21;
+}
+
+.ingresso-info-column p,
+.ingresso-info-card p,
+.ingresso-results-callout p,
+.route-card p,
+.document-card li,
+.choice-tab-copy span,
+.choice-panel p,
+.choice-panel li,
+.faq-answer p {
+  color: #415750;
+  line-height: 1.72;
 }
 
 .ingresso-info-list {
@@ -177,15 +262,13 @@
   overflow: hidden;
   display: grid;
   gap: 10px;
-  padding: 18px 18px 18px 22px;
-  border-radius: 18px;
+  padding: 18px 18px 18px 24px;
+  border-radius: 10px;
 }
 
 .ingresso-info-card.is-featured {
-  border-color: rgba(0, 63, 42, 0.2);
-  background:
-    radial-gradient(circle at 100% 0, rgba(0, 63, 42, 0.08), transparent 30%),
-    #ffffff;
+  border-color: rgba(0, 116, 83, 0.28);
+  background: #fbfffd;
 }
 
 .ingresso-info-topline {
@@ -215,8 +298,8 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 22px;
-  padding: 24px;
-  border-radius: 22px;
+  padding: 26px;
+  border-radius: 10px;
 }
 
 .ingresso-results-callout::before {
@@ -228,6 +311,7 @@
 }
 
 .ingresso-results-callout strong {
+  display: block;
   font-size: 1.08rem;
 }
 
@@ -235,20 +319,114 @@
   margin-top: 8px;
 }
 
-.ingresso-results-callout .btn {
-  flex: 0 0 auto;
+.routes-section,
+.faq-preview-section {
+  background: #ffffff;
+}
+
+.admission-route-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 42px;
+}
+
+.route-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  align-content: start;
+  min-height: 274px;
+  padding: 26px;
+  border-radius: 10px;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.route-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 116, 83, 0.28);
+  box-shadow: 0 22px 44px rgba(0, 48, 27, 0.09);
+}
+
+.route-card.featured {
+  color: #ffffff;
+  background: linear-gradient(135deg, #003f2a 0%, #00593e 100%);
+  border-color: rgba(0, 63, 42, 0.36);
+}
+
+.route-card.featured::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 140px;
+  height: 140px;
+  opacity: 0.12;
+  background: radial-gradient(circle at bottom right, #ffffff 0 2px, transparent 3px);
+  background-size: 16px 16px;
+}
+
+.route-icon,
+.choice-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 24px;
+  border-radius: 9px;
+  background: #eef2f3;
+  color: #004b35;
+}
+
+.route-icon svg,
+.choice-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.route-card.featured .route-icon {
+  background: rgba(255, 255, 255, 0.12);
+  color: #d9fff0;
+}
+
+.route-card.featured > span:not(.route-icon) {
+  background: rgba(255, 255, 255, 0.12);
+  color: #d9fff0;
+}
+
+.route-card h3 {
+  margin-top: 16px;
+  font-size: 1.16rem;
+  letter-spacing: -0.03em;
+}
+
+.route-card p {
+  margin-top: 12px;
+}
+
+.route-card.featured h3,
+.route-card.featured p {
+  position: relative;
+  z-index: 1;
+  color: #ffffff;
 }
 
 .choice-lab {
   display: grid;
-  grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
-  gap: clamp(28px, 4vw, 58px);
+  grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(28px, 5vw, 70px);
   align-items: start;
 }
 
 .choice-system {
   display: grid;
-  gap: 18px;
+  gap: 16px;
 }
 
 .choice-tabs {
@@ -260,59 +438,31 @@
 .choice-tab {
   position: relative;
   display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
+  grid-template-columns: 54px minmax(0, 1fr);
   gap: 16px;
   align-items: center;
   width: 100%;
-  min-height: 106px;
+  min-height: 98px;
   padding: 18px;
-  border-radius: 22px;
-  color: #002a18;
+  border-radius: 10px;
   text-align: left;
-  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
-.choice-tab::after {
-  content: "";
-  position: absolute;
-  inset: auto 18px 0;
-  height: 3px;
-  border-radius: 999px 999px 0 0;
-  background: linear-gradient(90deg, #003f2a, #4fb477);
-  opacity: 0;
-  transition: opacity var(--transition);
+.choice-tab .choice-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  flex: 0 0 auto;
 }
 
 .choice-tab:hover,
 .choice-tab:focus-visible,
 .choice-tab.active {
   transform: translateY(-3px);
-  border-color: rgba(0, 63, 42, 0.22);
-  background:
-    radial-gradient(circle at 100% 0, rgba(0, 63, 42, 0.1), transparent 34%),
-    #ffffff;
-  box-shadow: 0 22px 52px rgba(0, 48, 27, 0.09);
-}
-
-.choice-tab.active::after {
-  opacity: 1;
-}
-
-.choice-icon {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 18px;
-  color: #003f2a;
-  background: #e8f7ee;
-}
-
-.choice-icon svg {
-  display: block;
-  width: 27px;
-  height: 27px;
+  border-color: rgba(0, 116, 83, 0.28);
+  background: #fbfffd;
+  box-shadow: 0 22px 44px rgba(0, 48, 27, 0.08);
 }
 
 .choice-tab.active .choice-icon,
@@ -329,20 +479,16 @@
 }
 
 .choice-tab-copy strong {
-  color: #002a18;
   line-height: 1.22;
 }
 
 .choice-tab-copy span {
-  font-size: 0.94rem;
+  font-size: 0.92rem;
 }
 
 .choice-panels {
   overflow: hidden;
-  border-radius: 26px;
-  background:
-    radial-gradient(circle at 92% 10%, rgba(0, 63, 42, 0.11), transparent 30%),
-    linear-gradient(180deg, #ffffff 0%, #f5fbf8 100%);
+  border-radius: 10px;
 }
 
 .choice-panel[hidden] {
@@ -355,8 +501,7 @@
 
 .choice-panel h3 {
   max-width: 720px;
-  color: #002a18;
-  font-size: clamp(1.45rem, 2vw, 2.1rem);
+  font-size: clamp(1.35rem, 2vw, 2rem);
   line-height: 1.14;
 }
 
@@ -377,8 +522,8 @@
 .choice-panel li {
   padding: 15px;
   border: 1px solid rgba(0, 48, 27, 0.09);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.72);
+  border-radius: 10px;
+  background: #f7faf8;
   font-weight: 750;
 }
 
@@ -389,68 +534,19 @@
   margin-top: 20px;
 }
 
-.routes-section {
-  background: #ffffff;
-}
-
-.admission-route-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 38px;
-}
-
-.route-card {
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  align-content: start;
-  min-height: 260px;
-  padding: 24px;
-  border-radius: 22px;
-}
-
-.route-card.featured {
-  background:
-    radial-gradient(circle at 95% 5%, rgba(0, 63, 42, 0.1), transparent 34%),
-    #ffffff;
-}
-
-.route-number {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  margin-bottom: 18px;
-  border-radius: 15px;
-  background: #e8f7ee;
-  color: #003f2a;
-  font-weight: 950;
-}
-
-.route-card h3 {
-  margin-top: 16px;
-  font-size: 1.18rem;
-  line-height: 1.22;
-}
-
-.route-card p {
-  margin-top: 12px;
-}
-
 .documents-layout {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
-  margin-top: 38px;
+  margin-top: 42px;
 }
 
 .document-card {
   position: relative;
   overflow: hidden;
-  min-height: 240px;
-  padding: 24px;
-  border-radius: 22px;
+  min-height: 230px;
+  padding: 26px;
+  border-radius: 10px;
 }
 
 .document-card ul {
@@ -460,10 +556,6 @@
   padding-left: 20px;
 }
 
-.faq-preview-section {
-  background: #ffffff;
-}
-
 .faq-list {
   display: grid;
   gap: 14px;
@@ -471,7 +563,7 @@
 
 .faq-item {
   overflow: hidden;
-  border-radius: 22px;
+  border-radius: 10px;
 }
 
 .faq-item button {
@@ -483,7 +575,7 @@
   padding: 22px;
   border: 0;
   background: transparent;
-  color: #002a18;
+  color: #002f21;
   font-weight: 850;
   text-align: left;
 }
@@ -494,7 +586,7 @@
   place-items: center;
   width: 34px;
   height: 34px;
-  border-radius: 12px;
+  border-radius: 9px;
   color: #003f2a;
   background: #e8f7ee;
 }
@@ -539,10 +631,14 @@
 }
 
 @media (max-width: 980px) {
-  .admission-hero-panel,
+  .admission-intro-grid,
   .choice-lab,
   .ingresso-info-layout {
     grid-template-columns: 1fr;
+  }
+
+  .admission-guide-card {
+    max-width: 720px;
   }
 
   .choice-panel ul {
@@ -556,17 +652,23 @@
 }
 
 @media (max-width: 680px) {
-  .admission-page-hero {
-    padding-top: 24px;
+  .admission-intro {
+    padding-top: 46px;
   }
 
-  .admission-hero-panel {
-    padding: 24px;
-    border-radius: 24px;
+  .admission-intro h1 {
+    letter-spacing: -0.05em;
   }
 
-  .admission-hero-copy h1 {
-    letter-spacing: -0.045em;
+  .admission-metrics article {
+    min-width: 50%;
+    margin-top: 16px;
+    padding: 0 18px;
+  }
+
+  .admission-metrics article:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
   }
 
   .choice-tabs,
@@ -576,15 +678,9 @@
   }
 
   .choice-tab {
-    grid-template-columns: 54px minmax(0, 1fr);
+    grid-template-columns: 50px minmax(0, 1fr);
     min-height: auto;
     padding: 16px;
-  }
-
-  .choice-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
   }
 
   .route-card,
