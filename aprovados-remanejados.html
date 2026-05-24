@@ -14,15 +14,10 @@
 </head>
 <body data-page="aprovados-remanejados">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
-
   <header class="site-header" id="topo">
     <div class="container header-wrapper">
       <a class="brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
-        <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="brand-mark" />
-        <span class="brand-text">
-          <strong>IFPE</strong>
-          <span>Engenharia de Software</span>
-        </span>
+        <span class="brand-name">Engenharia de Software IFPE</span>
       </a>
 
       <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
@@ -86,30 +81,86 @@
   </header>
 
   <main id="conteudo">
-    <section class="page-hero results-page-hero" aria-labelledby="titulo-pagina">
-      <div class="container results-hero-shell reveal">
-        <nav class="breadcrumb" aria-label="Caminho da página">
-          <a href="index.html#inicio">Início</a>
-          <span aria-hidden="true">/</span>
-          <a href="ingresso.html">Formas de ingresso</a>
-          <span aria-hidden="true">/</span>
-          <strong>Chamadas e vínculo</strong>
-        </nav>
+    <section class="calls-intro" aria-labelledby="titulo-pagina">
+      <div class="container calls-intro-grid">
+        <div class="calls-intro-copy reveal">
+          <span class="calls-kicker">IFPE Campus Belo Jardim</span>
+          <h1 id="titulo-pagina">Chamadas e vínculo</h1>
+          <p>
+            Central de acompanhamento para listas de aprovados, remanejamento, matrícula inicial,
+            rematrícula, reingresso e comunicados vinculados ao curso de Engenharia de Software.
+            Esta página organiza os documentos publicados e direciona para canais oficiais quando necessário.
+          </p>
 
-        <span class="eyebrow">RF 019 · RF 020 · ADM RF 013</span>
-        <h1 id="titulo-pagina">Chamadas, aprovados e vínculo acadêmico.</h1>
-        <p>
-          Consulte listas de aprovados, remanejamento, matrícula inicial, rematrícula, reingresso e comunicados publicados pela administração do curso.
-        </p>
-
-        <div class="hero-actions" aria-label="Ações da página">
-          <a class="btn btn-primary" href="#listas">Ver publicações</a>
-          <a class="btn btn-secondary" href="ingresso.html">Voltar para formas de ingresso</a>
+          <div class="calls-metrics" aria-label="Resumo rápido da página">
+            <article>
+              <strong>Listas</strong>
+              <span>Aprovados</span>
+            </article>
+            <article>
+              <strong>Chamadas</strong>
+              <span>Remanejamento</span>
+            </article>
+            <article>
+              <strong>Vínculo</strong>
+              <span>Matrícula e retorno</span>
+            </article>
+          </div>
         </div>
 
-        <div class="results-official-note" aria-label="Aviso sobre canais oficiais">
-          <strong>Atenção aos prazos</strong>
-          <span>Esta página organiza informações do curso, mas candidatos e estudantes devem conferir editais, convocações, matrícula e rematrícula nos canais oficiais do IFPE.</span>
+        <aside class="calls-guide-card reveal" aria-label="Orientação sobre chamadas e vínculo">
+          <span class="guide-card-label">Acompanhamento acadêmico</span>
+          <h2>Consulte listas, PDFs e orientações em um só lugar.</h2>
+          <p>
+            Use os cards abaixo para acessar documentos publicados. Prazos, convocações e procedimentos
+            continuam valendo conforme os editais e sistemas oficiais do IFPE.
+          </p>
+          <div class="guide-card-actions">
+            <a class="btn btn-primary" href="#listas">Ver publicações</a>
+            <a class="btn btn-secondary" href="ingresso.html">Formas de ingresso</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section calls-status-section" aria-labelledby="titulo-status-chamadas">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <span class="eyebrow">Organização</span>
+          <h2 id="titulo-status-chamadas">O que você encontra nesta página.</h2>
+          <p>
+            As informações ficam separadas por situação para facilitar a consulta de candidatos,
+            aprovados e estudantes que precisam acompanhar vínculo acadêmico.
+          </p>
+        </div>
+
+        <div class="calls-path-grid">
+          <article class="calls-path-card featured reveal">
+            <span class="path-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 6h12"/><path d="M8 12h12"/><path d="M8 18h12"/><path d="m3 6 1 1 2-2"/><path d="m3 12 1 1 2-2"/><path d="m3 18 1 1 2-2"/></svg>
+            </span>
+            <span>Listas</span>
+            <h3>Aprovados</h3>
+            <p>Publicações de resultado, listas de chamada e documentos de acompanhamento para candidatos.</p>
+          </article>
+
+          <article class="calls-path-card reveal">
+            <span class="path-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 7h11a2 2 0 0 1 2 2v9"/><path d="M7 3 3 7l4 4"/><path d="M17 21l4-4-4-4"/><path d="M4 16h11a2 2 0 0 0 2-2V5"/></svg>
+            </span>
+            <span>Convocações</span>
+            <h3>Remanejamento</h3>
+            <p>Novas chamadas, orientações complementares e movimentações relacionadas a vagas.</p>
+          </article>
+
+          <article class="calls-path-card reveal">
+            <span class="path-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
+            </span>
+            <span>Vínculo</span>
+            <h3>Matrícula, rematrícula e reingresso</h3>
+            <p>Orientações para entrada, renovação de vínculo ou retorno acadêmico quando houver publicação.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -117,9 +168,14 @@
     <section class="section results-board-section" id="listas" data-aprovados-page aria-labelledby="titulo-listas">
       <div class="container">
         <div class="section-heading centered reveal">
-          <span class="eyebrow">Publicações administrativas</span>
-          <h2 id="titulo-listas">Documentos, chamadas e orientações disponíveis.</h2>
-          <p>Os itens abaixo vêm do painel administrativo de Ingresso e aparecem apenas quando estão publicados e visíveis.</p>
+          <span class="eyebrow">Publicações</span>
+          <h2 id="titulo-listas">Documentos e orientações disponíveis.</h2>
+          <p>Consulte PDFs, listas, comunicados e links oficiais cadastrados pela administração do curso.</p>
+        </div>
+
+        <div class="calls-official-note reveal" aria-label="Aviso sobre canais oficiais">
+          <strong>Atenção aos canais oficiais</strong>
+          <span>Esta página facilita o acesso às informações, mas não substitui editais, sistemas acadêmicos ou comunicações oficiais do IFPE.</span>
         </div>
 
         <div class="results-grid">

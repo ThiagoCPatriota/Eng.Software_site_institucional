@@ -21,17 +21,17 @@ let campusPosts = [];
 let activeFilter = "todos";
 
 function formatBrazilianDate(value) {
-  if (!value) return "Data a confirmar";
+  if (!value) return "";
   const [year, month, day] = String(value).split("-");
   if (!year || !month || !day) return value;
   return `${day}/${month}/${year}`;
 }
 
 function formatPeriod(item) {
-  if (!item.data_inicio && !item.hora_inicio) return item.data_label || "A confirmar";
+  if (!item.data_inicio && !item.hora_inicio) return "";
   const date = formatBrazilianDate(item.data_inicio);
   const hour = item.hora_inicio ? ` · ${String(item.hora_inicio).slice(0, 5)}` : "";
-  return `${date}${hour}`;
+  return `${date}${hour}`.trim();
 }
 
 function getFilteredPosts() {
@@ -100,9 +100,12 @@ function createCampusCard(item) {
     topLine.appendChild(featured);
   }
 
-  const date = document.createElement("small");
-  date.textContent = formatPeriod(item);
-  topLine.appendChild(date);
+  const period = formatPeriod(item);
+  if (period) {
+    const date = document.createElement("small");
+    date.textContent = period;
+    topLine.appendChild(date);
+  }
   content.appendChild(topLine);
 
   const title = document.createElement("h3");

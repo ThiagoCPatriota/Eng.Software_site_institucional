@@ -15,122 +15,166 @@
 </head>
 <body data-page="grade">
 <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
-<header class="site-header" id="topo">
-<div class="container header-wrapper">
-<a aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="brand" href="index.html">
-<img alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim" class="brand-mark" src="assets/img/Eng_soft.png"/>
-<span class="brand-text">
-<strong>IFPE</strong>
-<span>Engenharia de Software</span>
-</span>
-</a>
-<button aria-controls="menu-principal" aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" type="button">
-<span></span>
-<span></span>
-<span></span>
-</button>
-<nav aria-label="Menu principal" class="main-nav" id="menu-principal">
-<a data-nav="inicio" href="index.html">Início</a>
-<a data-nav="eventos" href="eventos-noticias.html">Notícias</a>
-<details class="nav-group" data-nav-group="curso">
-<summary>Curso</summary>
-<div class="nav-dropdown">
-<a data-nav="sobre" href="sobre.html">Sobre o curso</a>
-<a data-nav="ingresso" href="ingresso.html">Formas de ingresso</a>
-<a data-nav="grade" href="grade.html">Grade curricular / PPC</a>
-<a data-nav="aprovados-remanejados" href="aprovados-remanejados.html">Chamadas e vínculo</a>
-</div>
-</details>
-<details class="nav-group" data-nav-group="geral">
-<summary>Geral</summary>
-<div class="nav-dropdown">
-<a data-nav="projetos" href="projetos.html">Projetos</a>
-<a data-nav="editais" href="editais.html">Editais</a>
-<a data-nav="servicos" href="outros-servicos.html">Outros serviços</a>
-</div>
-</details>
-<details class="nav-group" data-nav-group="estrutura">
-<summary>Estrutura</summary>
-<div class="nav-dropdown">
-<a data-nav="estrutura" href="estrutura.html">Ambientes</a>
-<a data-nav="docentes" href="docentes.html">Docentes</a>
-</div>
-</details>
-<details class="nav-group" data-nav-group="aluno">
-<summary>Aluno</summary>
-<div class="nav-dropdown">
-<a data-nav="area-aluno" href="area-aluno.html">Área do aluno</a>
-<a data-nav="horarios" href="horarios.html">Horário de aulas</a>
-<a data-nav="laboratorios" href="laboratorios.html">Horário dos laboratórios</a>
-<a data-nav="calendario" href="calendario.html">Calendário acadêmico</a>
-</div>
-</details>
-<details class="nav-group" data-nav-group="atendimento">
-<summary>Contato</summary>
-<div class="nav-dropdown">
-<a data-nav="contato" href="contato.html">Coordenação e contato</a>
-<a data-nav="faq" href="faq.html">FAQ</a>
-</div>
-</details>
-<a class="nav-access-button" data-nav="acesso" href="admin/login.html">Acesso</a>
-</nav>
-</div>
-</header>
-<main id="conteudo">
-<section aria-labelledby="titulo-grade" class="page-hero curriculum-page-hero">
-<div class="container curriculum-hero-shell reveal">
-<nav aria-label="Caminho da página" class="breadcrumb">
-<a href="index.html#inicio">Início</a>
-<span aria-hidden="true">/</span>
-<span>Grade curricular / PPC</span>
-</nav>
-<span class="eyebrow">Grade curricular / PPC</span>
-<h1 id="titulo-grade">Grade curricular / PPC do curso.</h1>
-<p>
-          Consulte a matriz do curso de Engenharia de Software por período, com componentes curriculares, carga horária,
-          créditos e pré-requisitos. A organização visual evita uma tabela infinita e deixa a navegação mais leve.
-        </p>
-<div aria-label="Ações da página" class="hero-actions">
-<a class="btn btn-primary" href="#periodos">Ver períodos</a>
-<a class="btn btn-secondary" href="#ppc-curso">Acessar PPC</a>
-</div>
-</div>
-</section>
-<section aria-labelledby="titulo-ppc-curso" class="section curriculum-ppc-section" id="ppc-curso">
-<div class="container">
-<div class="section-heading reveal">
-<span class="eyebrow">Documento oficial</span>
-<h2 id="titulo-ppc-curso">Projeto Pedagógico do Curso.</h2>
-<p>
-            Consulte o PPC oficial quando ele estiver publicado pela coordenação. O documento reúne informações completas sobre a proposta pedagógica, matriz curricular, perfil do egresso, componentes, estágio, TCC e regras acadêmicas do curso.
-          </p>
-</div>
-<div class="ppc-card reveal" data-ppc-card>
-<div>
-<span class="ppc-status" data-ppc-status>PPC a publicar</span>
-<h3 data-ppc-title>Documento do PPC ainda não publicado</h3>
-<p data-ppc-description>Assim que a coordenação enviar ou vincular o PDF oficial pelo painel administrativo, o acesso ficará disponível aqui sem depender de arquivo fixo no HTML.</p>
-<small data-ppc-updated></small>
-</div>
-<a class="btn btn-primary" data-ppc-link href="#" hidden target="_blank" rel="noopener">Abrir PPC em PDF</a>
-</div>
-</div>
-</section>
-<section aria-labelledby="titulo-periodos" class="section curriculum-periods-section" id="periodos">
-<div class="container">
-<div class="section-heading reveal">
-<span class="eyebrow">Matriz curricular</span>
-<h2 id="titulo-periodos">Matriz curricular do curso de Engenharia de Software.</h2>
-<p>
-            Navegue pelos períodos para consultar componentes curriculares, carga horária, créditos e pré-requisitos
-            indicados na matriz do curso.
-          </p>
-</div>
-<div aria-label="Períodos da grade curricular" class="curriculum-tabs reveal" data-curriculum-tabs="" role="tablist"></div>
-<div class="period-panels reveal" data-curriculum-panels=""></div><p class="curriculum-empty" data-curriculum-empty="" hidden="">Nenhum componente curricular encontrado no momento.</p>
-</div>
-</section>
+  <header class="site-header" id="topo">
+    <div class="container header-wrapper">
+      <a class="brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+        <span class="brand-name">Engenharia de Software IFPE</span>
+      </a>
 
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="main-nav" id="menu-principal" aria-label="Menu principal">
+        <a href="index.html" data-nav="inicio">Início</a>
+        <a href="eventos-noticias.html" data-nav="eventos">Notícias</a>
+
+        <details class="nav-group" data-nav-group="curso">
+          <summary>Curso</summary>
+          <div class="nav-dropdown">
+            <a href="sobre.html" data-nav="sobre">Sobre o curso</a>
+            <a href="ingresso.html" data-nav="ingresso">Formas de ingresso</a>
+            <a href="grade.html" data-nav="grade">Grade curricular / PPC</a>
+            <a href="aprovados-remanejados.html" data-nav="aprovados-remanejados">Chamadas e vínculo</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="geral">
+          <summary>Geral</summary>
+          <div class="nav-dropdown">
+            <a href="projetos.html" data-nav="projetos">Projetos</a>
+            <a href="editais.html" data-nav="editais">Editais</a>
+            <a href="outros-servicos.html" data-nav="servicos">Outros serviços</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="estrutura">
+          <summary>Estrutura</summary>
+          <div class="nav-dropdown">
+            <a href="estrutura.html" data-nav="estrutura">Ambientes</a>
+            <a href="docentes.html" data-nav="docentes">Docentes</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="aluno">
+          <summary>Aluno</summary>
+          <div class="nav-dropdown">
+            <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
+            <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
+            <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
+            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
+          </div>
+        </details>
+
+        <details class="nav-group" data-nav-group="atendimento">
+          <summary>Contato</summary>
+          <div class="nav-dropdown">
+            <a href="contato.html" data-nav="contato">Coordenação e contato</a>
+            <a href="faq.html" data-nav="faq">FAQ</a>
+          </div>
+        </details>
+
+        <a class="nav-access-button" href="admin/login.html" data-nav="acesso">Acesso</a>
+      </nav>
+    </div>
+  </header>
+<main id="conteudo">
+  <section class="curriculum-intro" aria-labelledby="titulo-grade">
+    <div class="container">
+      <nav aria-label="Caminho da página" class="breadcrumb reveal">
+        <a href="index.html#inicio">Início</a>
+        <span aria-hidden="true">/</span>
+        <strong>Grade curricular / PPC</strong>
+      </nav>
+
+      <div class="curriculum-intro-grid">
+        <div class="curriculum-intro-copy reveal">
+          <span class="curriculum-kicker">Matriz curricular</span>
+          <h1 id="titulo-grade">Grade curricular do curso de Engenharia de Software</h1>
+          <p>
+            Consulte a organização dos componentes curriculares por período, acompanhe a carga horária,
+            créditos e pré-requisitos, e acesse o Projeto Pedagógico do Curso quando o documento oficial
+            estiver publicado pela coordenação.
+          </p>
+
+          <div class="curriculum-metrics" aria-label="Resumo rápido da matriz curricular">
+            <article>
+              <strong>8</strong>
+              <span>Períodos</span>
+            </article>
+            <article>
+              <strong>PPC</strong>
+              <span>Documento oficial</span>
+            </article>
+            <article>
+              <strong>CH</strong>
+              <span>Carga horária</span>
+            </article>
+          </div>
+        </div>
+
+        <aside class="curriculum-guide-card reveal" aria-labelledby="titulo-guia-grade">
+          <span class="guide-label">Como consultar</span>
+          <h2 id="titulo-guia-grade">Um mapa simples da formação acadêmica.</h2>
+          <p>
+            A matriz apresenta os componentes por período para facilitar a leitura da trajetória do estudante
+            ao longo do curso.
+          </p>
+          <ul>
+            <li>Veja componentes, créditos e carga horária.</li>
+            <li>Confira pré-requisitos quando existirem.</li>
+            <li>Acesse o PPC oficial publicado pelo painel administrativo.</li>
+          </ul>
+          <div class="hero-actions" aria-label="Ações da página">
+            <a class="btn btn-primary" href="#periodos">Ver períodos</a>
+            <a class="btn btn-secondary" href="#ppc-curso">Acessar PPC</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="titulo-ppc-curso" class="section curriculum-ppc-section" id="ppc-curso">
+    <div class="container ppc-layout">
+      <div class="section-heading reveal">
+        <span class="eyebrow">Documento oficial</span>
+        <h2 id="titulo-ppc-curso">Projeto Pedagógico do Curso</h2>
+        <p>
+          O PPC reúne a proposta pedagógica, perfil do egresso, organização curricular, componentes,
+          estágio, TCC, atividades complementares e regras acadêmicas do curso.
+        </p>
+      </div>
+
+      <div class="ppc-card reveal" data-ppc-card>
+        <div>
+          <span class="ppc-status" data-ppc-status>PPC a publicar</span>
+          <h3 data-ppc-title>Documento do PPC ainda não publicado</h3>
+          <p data-ppc-description>Assim que a coordenação enviar ou vincular o PDF oficial pelo painel administrativo, o acesso ficará disponível aqui sem depender de arquivo fixo no HTML.</p>
+          <small data-ppc-updated></small>
+        </div>
+        <a class="btn btn-primary" data-ppc-link href="#" hidden target="_blank" rel="noopener">Abrir PPC em PDF</a>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="titulo-periodos" class="section curriculum-periods-section" id="periodos">
+    <div class="container">
+      <div class="section-heading centered reveal">
+        <span class="eyebrow">Componentes por período</span>
+        <h2 id="titulo-periodos">Matriz curricular de Engenharia de Software</h2>
+        <p>
+          Selecione um período para visualizar os componentes curriculares organizados com seus códigos,
+          carga horária, créditos e pré-requisitos.
+        </p>
+      </div>
+
+      <div aria-label="Períodos da grade curricular" class="curriculum-tabs reveal" data-curriculum-tabs role="tablist"></div>
+      <div class="period-panels reveal" data-curriculum-panels></div>
+      <p class="curriculum-empty" data-curriculum-empty hidden>Nenhum componente curricular encontrado no momento.</p>
+    </div>
+  </section>
 </main>
 <footer class="site-footer institutional-footer">
 <div class="container footer-main">

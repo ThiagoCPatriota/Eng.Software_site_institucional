@@ -15,50 +15,44 @@
 
   <header class="admin-topbar">
     <div class="admin-topbar-brand">
-      <a href="../index.html" aria-label="Voltar para a página inicial">
-        <img src="../assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software" />
-        <span>
-          <strong>Admin ES</strong>
-          <small>IFPE Belo Jardim</small>
+      <a href="index.html" aria-label="Ir para o painel administrativo">
+        <span class="admin-brand-mark" aria-hidden="true">ES</span>
+        <span class="admin-brand-copy">
+          <strong>Eng.<br />Software</strong>
+          <small>Admin</small>
         </span>
       </a>
     </div>
 
     <nav class="admin-topbar-nav admin-sidebar-nav" aria-label="Menu do painel administrativo">
-      <a href="index.html">Painel</a>
-
-      <details class="admin-nav-dropdown">
-        <summary>Geral</summary>
-        <div class="admin-subnav">
-        <a href="home.html">Home</a>
-        <a href="menu.html">Páginas/Menu</a>
-        <a href="eventos.html">Notícias/Eventos</a>
-        <a href="projetos.html">Projetos</a>
-        </div>
-      </details>
-
-      <details class="admin-nav-dropdown">
-        <summary>Acadêmico</summary>
-        <div class="admin-subnav">
-          <a href="horarios.html">Horários</a>
-          <a href="laboratorios.html">Laboratórios</a>
-          <a href="docentes.html">Docentes</a>
-          <a href="grade.html">PPC / Grade</a>
-        </div>
-      </details>
-
-      <details class="admin-nav-dropdown" open>
-        <summary>Institucional</summary>
-        <div class="admin-subnav">
-        <a class="is-active" href="editais.html">Editais</a>
-        <a href="ingresso.html">Ingresso</a>
-        <a href="servicos.html">Serviços</a>
-        </div>
-      </details>
-
-      <div class="admin-nav-actions">
-        <a href="../index.html">Ver site</a>
-        <button type="button" data-admin-logout>Sair</button>
+      <div class="admin-nav-section">
+        <span class="admin-nav-section-label">Painel</span>
+        <a href="index.html"><span class="admin-nav-icon" aria-hidden="true">▦</span><span>Visão Geral</span></a>
+      </div>
+      <div class="admin-nav-section">
+        <span class="admin-nav-section-label">Geral</span>
+        <a href="home.html"><span class="admin-nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
+        <a href="menu.html"><span class="admin-nav-icon" aria-hidden="true">▤</span><span>Páginas</span></a>
+        <a href="eventos.html"><span class="admin-nav-icon" aria-hidden="true">▣</span><span>Notícias</span></a>
+      </div>
+      <div class="admin-nav-section">
+        <span class="admin-nav-section-label">Acadêmico</span>
+        <a href="projetos.html"><span class="admin-nav-icon" aria-hidden="true">⚗</span><span>Projetos</span></a>
+        <a href="horarios.html"><span class="admin-nav-icon" aria-hidden="true">◷</span><span>Horários</span></a>
+        <a href="grade.html"><span class="admin-nav-icon" aria-hidden="true">▱</span><span>Grade/PPC</span></a>
+      </div>
+      <div class="admin-nav-section">
+        <span class="admin-nav-section-label">Institucional</span>
+        <a href="laboratorios.html"><span class="admin-nav-icon" aria-hidden="true">▭</span><span>Laboratórios</span></a>
+        <a href="docentes.html"><span class="admin-nav-icon" aria-hidden="true">☷</span><span>Docentes</span></a>
+        <a class="is-active" href="editais.html"><span class="admin-nav-icon" aria-hidden="true">⌁</span><span>Editais</span></a>
+        <a href="ingresso.html"><span class="admin-nav-icon" aria-hidden="true">♙</span><span>Ingresso</span></a>
+        <a href="servicos.html"><span class="admin-nav-icon" aria-hidden="true">⚒</span><span>Serviços</span></a>
+      </div>
+      <div class="admin-nav-section admin-nav-section-actions">
+        <span class="admin-nav-section-label">Ações</span>
+        <a href="../index.html"><span class="admin-nav-icon" aria-hidden="true">↗</span><span>Ver site público</span></a>
+        <button type="button" data-admin-logout><span class="admin-nav-icon" aria-hidden="true">⎋</span><span>Sair</span></button>
       </div>
     </nav>
   </header>

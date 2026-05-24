@@ -1,0 +1,289 @@
+.market-page-hero {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(25, 135, 84, 0.18), transparent 28%),
+    radial-gradient(circle at 92% 18%, rgba(45, 156, 219, 0.18), transparent 30%),
+    linear-gradient(135deg, #f7fbff 0%, #edf7fb 46%, #f6fbf8 100%);
+}
+
+.market-guide-card .metric-stack article:nth-child(2) strong {
+  color: var(--color-ifpe-dark);
+}
+
+.market-intro-section {
+  background: var(--color-surface);
+}
+
+.career-area-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 44px;
+}
+
+.career-area-card,
+.preparation-card,
+.sector-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: 0 18px 42px rgba(11, 42, 74, 0.065);
+}
+
+.career-area-card::before,
+.preparation-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--color-primary), var(--color-accent), var(--color-ifpe));
+}
+
+.career-area-card span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  color: var(--color-ifpe-dark);
+  background: var(--color-ifpe-soft);
+  font-weight: 950;
+}
+
+.career-area-card p,
+.preparation-card p,
+.sector-card span,
+.trend-list p {
+  color: var(--color-muted);
+  margin-top: 12px;
+}
+
+.roles-section {
+  background:
+    radial-gradient(circle at 12% 14%, rgba(45, 156, 219, 0.09), transparent 26%),
+    radial-gradient(circle at 88% 18%, rgba(25, 135, 84, 0.09), transparent 26%),
+    var(--color-bg);
+}
+
+.roles-layout,
+.trends-layout {
+  display: grid;
+  grid-template-columns: 0.72fr 1.28fr;
+  gap: 72px;
+  align-items: start;
+}
+
+.role-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-content: start;
+}
+
+.role-cloud span {
+  background: #fff;
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-weight: 850;
+  box-shadow: 0 14px 32px rgba(11, 42, 74, 0.06);
+}
+
+.role-cloud span:nth-child(3n),
+.role-cloud span:nth-child(4n) {
+  border-color: rgba(25, 135, 84, 0.24);
+  background: linear-gradient(135deg, #fff, var(--color-ifpe-soft));
+}
+
+.internship-section {
+  color: #fff;
+  background:
+    radial-gradient(circle at 10% 12%, rgba(25, 135, 84, 0.32), transparent 26%),
+    radial-gradient(circle at 90% 20%, rgba(45, 156, 219, 0.24), transparent 30%),
+    linear-gradient(135deg, var(--color-primary), var(--color-primary-2));
+}
+
+.internship-card {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.internship-card .eyebrow {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.internship-card h2,
+.internship-card p {
+  color: #fff;
+}
+
+.internship-card p {
+  opacity: 0.78;
+  margin-top: 16px;
+}
+
+.internship-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.internship-steps article {
+  min-height: 190px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-top: 4px solid rgba(25, 135, 84, 0.9);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.internship-steps strong,
+.internship-steps span {
+  display: block;
+}
+
+.internship-steps strong {
+  color: #fff;
+  font-size: 1.12rem;
+}
+
+.internship-steps span {
+  color: rgba(255, 255, 255, 0.74);
+  margin-top: 10px;
+}
+
+.preparation-section {
+  background: var(--color-surface);
+}
+
+.preparation-layout {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 72px;
+  align-items: start;
+}
+
+.preparation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.preparation-card {
+  min-height: 180px;
+}
+
+.sector-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 44px;
+}
+
+.sector-card {
+  min-height: 164px;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(25, 135, 84, 0.08), transparent 34%),
+    #fff;
+}
+
+.sector-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-ifpe));
+  opacity: 0.72;
+}
+
+.sector-card strong,
+.sector-card span {
+  display: block;
+}
+
+.sector-card strong {
+  color: var(--color-primary);
+  font-size: 1.08rem;
+}
+
+.trends-section {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 100%),
+    radial-gradient(circle at 18% 12%, rgba(45, 156, 219, 0.12), transparent 28%),
+    radial-gradient(circle at 84% 18%, rgba(25, 135, 84, 0.12), transparent 28%);
+}
+
+.trend-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.trend-list article {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 26px;
+  box-shadow: 0 18px 42px rgba(11, 42, 74, 0.06);
+}
+
+.trend-list article::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-ifpe));
+}
+
+.trend-list span {
+  display: block;
+  color: var(--color-primary);
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 1180px) {
+  .career-area-grid,
+  .sector-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .roles-layout,
+  .trends-layout,
+  .internship-card,
+  .preparation-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .career-area-grid,
+  .sector-grid,
+  .internship-steps,
+  .preparation-grid,
+  .trend-list {
+    grid-template-columns: 1fr;
+  }
+
+  .internship-steps article,
+  .career-area-card,
+  .preparation-card,
+  .sector-card,
+  .trend-list article {
+    border-radius: 24px;
+  }
+}

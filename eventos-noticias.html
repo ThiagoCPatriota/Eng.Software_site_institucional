@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Eventos, notícias, avisos e benefícios do curso de Engenharia de Software do IFPE Campus Belo Jardim." />
+  <meta name="description" content="Eventos, notícias, avisos e benefícios do curso de Engenharia de Software do IFPE Campus Belo Jardim." />
   <meta name="author" content="Projeto final da disciplina de Web" />
   <meta name="theme-color" content="#0b2a4a" />
   <meta name="robots" content="index, follow" />
   <title>Notícias e eventos | Engenharia de Software - IFPE Campus Belo Jardim</title>
   <link rel="icon" href="assets/img/Eng_soft.png" type="image/png" />
   <link rel="stylesheet" href="assets/css/global.css" />
-  <link rel="stylesheet" href="assets/css/pages/projetos.css" />
+  <link rel="stylesheet" href="assets/css/pages/eventos-noticias.css" />
 </head>
-
 <body data-page="eventos">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
-
   <header class="site-header" id="topo">
     <div class="container header-wrapper">
-      <a class="brand" href="index.html"
-        aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
-        <img src="assets/img/Eng_soft.png" alt="Escudo do curso de Engenharia de Software do IFPE Campus Belo Jardim"
-          class="brand-mark" />
-        <span class="brand-text">
-          <strong>IFPE</strong>
-          <span>Engenharia de Software</span>
-        </span>
+      <a class="brand" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE Campus Belo Jardim">
+        <span class="brand-name">Engenharia de Software IFPE</span>
       </a>
 
-      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false"
-        aria-controls="menu-principal">
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
         <span></span>
         <span></span>
         <span></span>
@@ -91,44 +80,30 @@
     </div>
   </header>
 
-  <main id="conteudo">
-    <section class="page-hero projects-page-hero" aria-labelledby="titulo-eventos-noticias">
-      <div class="container projects-hero-single">
-        <div class="page-hero-content reveal">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="index.html">Início</a>
-            <span>•</span>
-            <span>Notícias e eventos</span>
-          </nav>
-          <span class="eyebrow">Vida acadêmica</span>
-          <h1 id="titulo-eventos-noticias">Notícias, eventos e comunicados.</h1>
-          <p>
-            Acompanhe o canal de notícias do curso, com eventos, comunicados, avisos acadêmicos e oportunidades.
-          </p>
-          <div class="projects-hero-actions">
-            <a class="btn btn-primary" href="#eventos-campus">Ver publicações</a>
-          </div>
-        </div>
+  <main id="conteudo" class="news-page">
+    <section class="news-hero" aria-labelledby="titulo-eventos-noticias">
+      <div class="container news-hero-inner reveal">
+        <span class="eyebrow news-eyebrow">Mural acadêmico</span>
+        <h1 id="titulo-eventos-noticias">Notícias e eventos</h1>
+        <p>
+          Acompanhe os últimos comunicados, eventos, editais, oportunidades e registros do curso de Engenharia de Software do IFPE Campus Belo Jardim.
+        </p>
       </div>
     </section>
 
-    <section class="section campus-news-section" id="eventos-campus" aria-labelledby="titulo-eventos-campus">
+    <section class="section campus-news-section" id="eventos-campus" aria-label="Publicações recentes do curso">
       <div class="container">
-        <div class="section-heading reveal">
-          <span class="eyebrow">Eventos e notícias</span>
-          <h2 id="titulo-eventos-campus">Canal de notícias do curso.</h2>
-        </div>
 
-        <div class="project-filter-bar campus-news-filter reveal" aria-label="Filtro de eventos e notícias">
+        <div class="campus-news-filter reveal" aria-label="Filtro de eventos e notícias">
           <button class="is-active" type="button" data-campus-news-filter="todos">Todos</button>
-          <button type="button" data-campus-news-filter="evento">Eventos</button>
           <button type="button" data-campus-news-filter="noticia">Notícias</button>
+          <button type="button" data-campus-news-filter="evento">Eventos</button>
           <button type="button" data-campus-news-filter="aviso">Avisos</button>
           <button type="button" data-campus-news-filter="beneficio">Benefícios</button>
         </div>
 
         <div class="campus-news-grid" data-campus-news-list></div>
-        <div class="projects-empty-state" data-campus-news-empty>
+        <div class="campus-news-empty" data-campus-news-empty>
           Nenhum evento ou notícia encontrado para este filtro.
         </div>
       </div>
@@ -138,8 +113,7 @@
 
   <footer class="site-footer institutional-footer">
     <div class="container footer-main">
-      <a class="footer-gov-mark" href="index.html"
-        aria-label="Página inicial do curso de Engenharia de Software do IFPE">
+      <a class="footer-gov-mark" href="index.html" aria-label="Página inicial do curso de Engenharia de Software do IFPE">
         IFPE
       </a>
 
@@ -206,8 +180,7 @@
 
     <div class="footer-bottom">
       <div class="container footer-bottom-inner">
-        <small>© <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim. Conteúdo institucional
-          em versão demonstrativa.</small>
+        <small>© <span id="ano-atual"></span> Engenharia de Software - IFPE Campus Belo Jardim. Conteúdo institucional em versão demonstrativa.</small>
         <button class="back-to-top" type="button" aria-label="Voltar ao topo">↑</button>
       </div>
     </div>
@@ -217,5 +190,4 @@
   <script type="module" src="assets/js/site-auth.js"></script>
   <script type="module" src="assets/js/eventos-publico.js"></script>
 </body>
-
 </html>
