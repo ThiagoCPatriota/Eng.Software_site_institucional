@@ -59,21 +59,38 @@
     </nav>
   </header>
 
-  <main id="conteudo" class="admin-main admin-publications-main">
-    <section class="admin-page-heading" aria-labelledby="titulo-horarios-admin">
+  <main id="conteudo" class="admin-main admin-publications-main admin-academic-main">
+    <section class="admin-page-heading admin-academic-heading" aria-labelledby="titulo-horarios-admin">
       <div>
-        <span class="admin-kicker">Módulo 02</span>
+        <span class="admin-kicker">Acadêmico · Horários</span>
         <h1 id="titulo-horarios-admin">Horários de aulas.</h1>
         <p>
-          Cadastre as aulas por semestre, período, turno, dia e horário. A página pública de horários mostra apenas os registros marcados como visíveis.
+          Cadastre aulas por semestre, período, turno, dia e horário. A página pública organiza tudo em grade semanal e exibe apenas os registros visíveis.
         </p>
       </div>
-      <button class="admin-secondary-action" type="button" data-new-schedule>Nova aula</button>
+      <div class="admin-academic-actions">
+        <a class="admin-secondary-action" href="../horarios.html" target="_blank" rel="noopener">Ver página pública</a>
+        <button class="admin-submit" type="button" data-new-schedule>Nova aula</button>
+      </div>
     </section>
-
     <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
 
-    <section class="admin-schedule-workspace" aria-label="Gestão dos horários de aulas">
+    <section class="admin-dashboard-cards admin-schedule-summary admin-academic-summary" aria-label="Referência de organização dos horários">
+      <article>
+        <span>8</span>
+        <strong>períodos</strong>
+      </article>
+      <article>
+        <span>5</span>
+        <strong>dias úteis</strong>
+      </article>
+      <article>
+        <span>3</span>
+        <strong>turnos</strong>
+      </article>
+    </section>
+
+    <section class="admin-schedule-workspace admin-academic-workspace" aria-label="Gestão dos horários de aulas">
       <nav class="admin-schedule-tabbar" aria-label="Alternar entre cadastro e calendário de horários">
         <button class="is-active" type="button" data-schedule-tab-target="form">Cadastrar nova aula</button>
         <button type="button" data-schedule-tab-target="list">Horários cadastrados</button>
