@@ -62,23 +62,60 @@
   <main id="conteudo" class="admin-main">
     <section class="admin-hero-panel" aria-labelledby="titulo-home-admin">
       <div>
-        <span class="admin-kicker">ADM RF 017 · Home</span>
-        <h1 id="titulo-home-admin">Editar informações da tela inicial.</h1>
-        <p>Atualize o texto principal, botões e destaques rápidos da primeira dobra da home sem alterar o HTML.</p>
+        <span class="admin-kicker">Geral · Home</span>
+        <h1 id="titulo-home-admin">Conteúdo principal da página inicial.</h1>
+        <p>Controle os textos do hero, chamadas principais e destaques rápidos da primeira tela do site público.</p>
       </div>
-      <div class="admin-user-card">
+      <div class="admin-user-card admin-home-state-card">
         <strong>Home pública</strong>
         <span data-home-updated>Nenhuma alteração carregada ainda.</span>
       </div>
     </section>
 
+
+    <nav class="admin-general-switcher" aria-label="Navegação rápida do grupo Geral">
+      <a class="is-active" aria-current="page" href="home.html">
+        <span>01</span>
+        <strong>Home</strong>
+        <small>Hero, botões e destaques</small>
+      </a>
+      <a  href="menu.html">
+        <span>02</span>
+        <strong>Páginas</strong>
+        <small>Visibilidade do menu público</small>
+      </a>
+      <a  href="eventos.html">
+        <span>03</span>
+        <strong>Notícias</strong>
+        <small>Eventos, avisos e mural</small>
+      </a>
+    </nav>
+
     <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
+
+    <section class="admin-home-summary-grid" aria-label="Resumo da edição da home">
+      <article>
+        <span>Hero</span>
+        <strong>Texto principal</strong>
+        <p>Título, descrição e etiqueta superior exibidos na primeira dobra.</p>
+      </article>
+      <article>
+        <span>Chamadas</span>
+        <strong>Botões de acesso</strong>
+        <p>Links para curso, ingresso, projetos ou outras páginas estratégicas.</p>
+      </article>
+      <article>
+        <span>Destaques</span>
+        <strong>Cards rápidos</strong>
+        <p>Três informações curtas que aparecem logo abaixo da imagem inicial.</p>
+      </article>
+    </section>
 
     <section class="admin-publications-main admin-home-editor" aria-label="Editor da home">
       <form class="admin-publication-form" data-home-form>
-        <div class="admin-form-heading">
-          <span>Conteúdo inicial</span>
-          <strong>Textos e chamadas principais</strong>
+        <div class="admin-form-heading admin-form-heading-large">
+          <span>Editor da home</span>
+          <strong>Textos, botões e cards da primeira dobra</strong>
         </div>
 
         <label>
