@@ -276,53 +276,6 @@ function createStudentLinkCard(item) {
   return article;
 }
 
-function createCalendarItem(item) {
-  const article = document.createElement('article');
-  article.className = 'calendar-item';
-  article.dataset.calendarCategory = item.categoria || 'todos';
-
-  const dot = document.createElement('div');
-  dot.className = 'calendar-dot';
-  dot.textContent = item.marcador || '•';
-  article.appendChild(dot);
-
-  const card = document.createElement('div');
-  card.className = 'calendar-card';
-
-  const header = document.createElement('div');
-  header.className = 'calendar-card-header';
-
-  const tag = document.createElement('small');
-  tag.textContent = item.etiqueta || item.categoria || 'Data';
-  header.appendChild(tag);
-
-  const date = document.createElement('span');
-  date.className = 'status-badge';
-  date.textContent = item.data || 'A confirmar';
-  header.appendChild(date);
-  card.appendChild(header);
-
-  const title = document.createElement('h3');
-  title.textContent = item.titulo;
-  card.appendChild(title);
-
-  const summary = document.createElement('p');
-  summary.textContent = item.resumo;
-  card.appendChild(summary);
-
-  if (item.status) {
-    const tags = document.createElement('div');
-    tags.className = 'calendar-tags';
-    const status = document.createElement('span');
-    status.textContent = item.status;
-    tags.appendChild(status);
-    card.appendChild(tags);
-  }
-
-  article.appendChild(card);
-  return article;
-}
-
 function renderCollection(selector, data, factory) {
   const container = document.querySelector(selector);
   if (!container || !Array.isArray(data)) return;
@@ -336,7 +289,6 @@ renderCollection('[data-render="noticias"]', dadosSite.noticias, createUpdateCar
 renderCollection('[data-render="eventos"]', dadosSite.eventos, createUpdateCard);
 renderCollection('[data-render="depoimentos"]', dadosSite.depoimentos, createTestimonialCard);
 renderCollection('[data-render="links-aluno"]', dadosSite.linksAluno, createStudentLinkCard);
-renderCollection('[data-render="calendario"]', dadosSite.calendarioAcademico, createCalendarItem);
 
 function setupRevealAnimations() {
   const revealItems = document.querySelectorAll('.reveal');
