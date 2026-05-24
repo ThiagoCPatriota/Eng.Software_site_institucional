@@ -2,6 +2,8 @@ import { isSupabaseConfigured, supabase } from "./supabase-client.js";
 
 const list = document.querySelector("[data-docentes-list]");
 const empty = document.querySelector("[data-docentes-empty]");
+const searchInput = document.querySelector("[data-docentes-search]");
+const filterButtons = document.querySelectorAll("[data-docente-filter]");
 const stats = {
   total: document.querySelector("[data-docentes-total]"),
   areas: document.querySelector("[data-docentes-areas]"),
@@ -17,6 +19,10 @@ const FUNCOES = {
   apoio_academico: "Apoio acadêmico",
 };
 
+let docentes = [];
+let activeFilter = "todos";
+let searchTerm = "";
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -26,13 +32,13 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
-function cssUrl(value) {
+function normalize(value) {
   return String(value ?? "")
-    .replace(/\\/g, "\\\\")
-    .replace(/"/g, '\\"')
-    .replace(/[\r\n]/g, "");
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
 }
-
 
 function getImageUrl(item) {
   if (item?.imagem_url) return item.imagem_url;
@@ -63,10 +69,10 @@ function shouldShowPhone(item) {
 function createContactLinks(item) {
   const links = [];
   if (shouldShowEmail(item)) {
-    links.push(`<a class="text-link" href="mailto:${escapeHtml(item.email)}">${escapeHtml(item.email)}</a>`);
+    links.push(`<a class="text-link" href="mailto:${escapeHtml(item.email)}">E-mail</a>`);
   }
   if (shouldShowPhone(item)) {
-    links.push(`<a class="text-link" href="tel:${String(item.telefone).replace(/\D/g, "")}">${escapeHtml(item.telefone)}</a>`);
+    links.push(`<a class="text-link" href="tel:${String(item.telefone).replace(/\D/g, "")}">Telefone</a>`);
   }
   if (item.lattes_url) {
     links.push(`<a class="text-link" href="${escapeHtml(item.lattes_url)}" target="_blank" rel="noopener">Currículo / página pública</a>`);
@@ -84,11 +90,61 @@ function updateStats(items) {
   if (stats.coordenacao) stats.coordenacao.textContent = hasCoordination ? "Sim" : "—";
 }
 
+function resetEmptyState() {
+  if (!empty) return;
+  empty.innerHTML = `
+    <span>Equipe docente em atualização</span>
+    <h3>Nenhum docente ativo foi encontrado no momento.</h3>
+    <p>Assim que a administração cadastrar e ativar os docentes, os cards aparecerão automaticamente nesta área.</p>
+  `;
+}
+
+function setNoResultsState() {
+  if (!empty) return;
+  empty.innerHTML = `
+    <span>Nenhum resultado</span>
+    <h3>Nenhum docente encontrado para este filtro ou busca.</h3>
+    <p>Tente limpar a busca ou selecionar outro filtro para visualizar mais profissionais cadastrados.</p>
+  `;
+}
+
+function matchesFilter(item) {
+  if (activeFilter === "todos") return true;
+  if (activeFilter === "docente") return ["docente", "docente_coordenacao"].includes(item.funcao);
+  if (activeFilter === "coordenacao") return ["coordenacao", "docente_coordenacao"].includes(item.funcao);
+  return item.funcao === activeFilter;
+}
+
+function matchesSearch(item) {
+  if (!searchTerm) return true;
+  const searchable = [
+    item.nome,
+    FUNCOES[item.funcao],
+    item.formacao,
+    item.area_atuacao,
+    item.materias_ministradas,
+    item.historico,
+    item.projetos_interesses,
+  ].join(" ");
+  return normalize(searchable).includes(searchTerm);
+}
+
+function getFilteredDocentes() {
+  return docentes.filter((item) => matchesFilter(item) && matchesSearch(item));
+}
+
 function renderDocentes(items) {
   if (!list || !empty) return;
   list.innerHTML = "";
-  empty.hidden = items.length > 0;
-  updateStats(items);
+
+  if (!items.length) {
+    empty.hidden = false;
+    if (docentes.length) setNoResultsState();
+    return;
+  }
+
+  resetEmptyState();
+  empty.hidden = true;
 
   items.forEach((item) => {
     const card = document.createElement("article");
@@ -110,7 +166,7 @@ function renderDocentes(items) {
         <ul class="docent-meta">
           ${item.formacao ? `<li><strong>Formação:</strong> ${escapeHtml(item.formacao)}</li>` : ""}
           ${item.area_atuacao ? `<li><strong>Área de atuação:</strong> ${escapeHtml(item.area_atuacao)}</li>` : ""}
-          ${item.materias_ministradas ? `<li><strong>Matérias ministradas:</strong> ${escapeHtml(item.materias_ministradas)}</li>` : ""}
+          ${item.materias_ministradas ? `<li><strong>Componentes:</strong> ${escapeHtml(item.materias_ministradas)}</li>` : ""}
           ${item.historico ? `<li><strong>Histórico:</strong> ${escapeHtml(item.historico)}</li>` : ""}
           ${item.projetos_interesses ? `<li><strong>Projetos e interesses:</strong> ${escapeHtml(item.projetos_interesses)}</li>` : ""}
         </ul>
@@ -118,12 +174,27 @@ function renderDocentes(items) {
       </div>
     `;
 
-    if (imageUrl) {
-      const frame = card.querySelector(".docent-photo-frame");
-      frame?.style.setProperty("--docent-photo-bg", `url("${cssUrl(imageUrl)}")`);
-    }
-
     list.appendChild(card);
+  });
+}
+
+function applyFilters() {
+  updateStats(docentes);
+  renderDocentes(getFilteredDocentes());
+}
+
+function setupInteractions() {
+  searchInput?.addEventListener("input", (event) => {
+    searchTerm = normalize(event.target.value);
+    applyFilters();
+  });
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      activeFilter = button.dataset.docenteFilter || "todos";
+      filterButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+      applyFilters();
+    });
   });
 }
 
@@ -131,6 +202,9 @@ async function loadDocentes() {
   if (!list) return;
 
   if (!isSupabaseConfigured) {
+    docentes = [];
+    updateStats(docentes);
+    resetEmptyState();
     empty.hidden = false;
     return;
   }
@@ -145,11 +219,19 @@ async function loadDocentes() {
       .order("nome", { ascending: true });
 
     if (error) throw error;
-    renderDocentes(data || []);
+    docentes = data || [];
+    applyFilters();
   } catch (error) {
+    docentes = [];
+    updateStats(docentes);
     empty.hidden = false;
-    empty.textContent = `Não foi possível carregar a equipe docente: ${error.message}`;
+    empty.innerHTML = `
+      <span>Erro de carregamento</span>
+      <h3>Não foi possível carregar a equipe docente.</h3>
+      <p>${escapeHtml(error.message)}</p>
+    `;
   }
 }
 
+setupInteractions();
 loadDocentes();
