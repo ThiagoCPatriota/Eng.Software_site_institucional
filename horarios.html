@@ -84,36 +84,22 @@
   </header>
 
   <main id="conteudo">
-    <section class="page-hero schedule-hero" aria-labelledby="titulo-horarios">
-      <div class="container page-hero-grid">
-        <div class="page-hero-content reveal">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="index.html">Início</a>
-            <span aria-hidden="true">•</span>
-            <span>Horário de aulas</span>
-          </nav>
-          <span class="eyebrow">Vida acadêmica</span>
-          <h1 id="titulo-horarios">Horários de aulas</h1>
-          <p>
-            Consulte as aulas do semestre por período, turno e dia da semana.
-          </p>
-          <div class="hero-actions" aria-label="Ações principais de horários">
-            <a class="btn btn-primary" href="#consulta-horarios">Consultar horários</a>
-            <a class="btn btn-secondary" href="area-aluno.html">Voltar à área do aluno</a>
+    <section class="schedule-board-page" id="consulta-horarios" aria-labelledby="titulo-horarios">
+      <div class="container schedule-board-container">
+        <header class="schedule-board-header reveal">
+          <div class="schedule-title-block">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+              <a href="index.html">Início</a>
+              <span aria-hidden="true">•</span>
+              <span>Horário de aulas</span>
+            </nav>
+            <span class="schedule-kicker">Vida acadêmica</span>
+            <h1 id="titulo-horarios">Horários de aulas</h1>
+            <p>
+              Consulte a grade semanal do curso por semestre, turno e período. Use as setas laterais para alternar entre os períodos sem empilhar todos os calendários na mesma tela.
+            </p>
           </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="section schedule-section" id="consulta-horarios" aria-labelledby="titulo-consulta-horarios">
-      <div class="container">
-        <div class="section-heading centered reveal">
-          <span class="eyebrow">Consulta</span>
-          <h2 id="titulo-consulta-horarios">Escolha o período e veja a semana de aulas.</h2>
-          <p>Os horários abaixo vêm do Supabase. Se nenhum dado aparecer, o módulo ainda precisa ser preenchido no
-            painel administrativo.</p>
-        </div>
+        </header>
 
         <section class="schedule-control-panel reveal" aria-label="Filtros de horário">
           <label>
@@ -122,7 +108,7 @@
           </label>
           <label>
             <span>Período</span>
-            <select data-schedule-period aria-label="Filtrar por período"></select>
+            <select data-schedule-period aria-label="Ir para um período específico"></select>
           </label>
           <label>
             <span>Turno</span>
@@ -136,7 +122,6 @@
         </section>
       </div>
     </section>
-
   </main>
 
   <footer class="site-footer institutional-footer">

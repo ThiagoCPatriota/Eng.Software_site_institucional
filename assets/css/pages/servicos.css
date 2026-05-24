@@ -17,11 +17,12 @@ body[data-page="servicos"] {
 }
 
 .services-board {
+  --page-hero-split: clamp(244px, 23vw, 282px);
   min-height: calc(100vh - var(--header-height, 72px));
-  padding: clamp(34px, 5vw, 62px) 0 clamp(58px, 7vw, 92px);
+  padding: clamp(24px, 4vw, 48px) 0 clamp(58px, 7vw, 92px);
   background:
     radial-gradient(circle at 10% 0%, rgba(25, 102, 125, 0.08), transparent 28%),
-    linear-gradient(180deg, #ffffff 0 132px, #f1f3f4 132px 100%);
+    linear-gradient(180deg, #ffffff 0 var(--page-hero-split), #f1f3f4 var(--page-hero-split) 100%);
 }
 
 .services-board-container {
@@ -506,5 +507,15 @@ body[data-page="servicos"] {
   .service-card-link {
     width: 100%;
     justify-content: center;
+  }
+}
+
+
+/* Ajuste fino do respiro superior: mantém o título/kicker dentro da faixa branca
+   e deixa a divisão com o fundo cinza mais intencional nas páginas remodeladas. */
+@media (max-width: 720px) {
+  .services-board {
+    --page-hero-split: 340px;
+    padding-top: 24px;
   }
 }
