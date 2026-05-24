@@ -1,0 +1,285 @@
+/* Login e cadastro - versão compacta e responsiva no padrão institucional verde */
+body.admin-auth-page {
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(25, 102, 125, 0.10), transparent 30%),
+    radial-gradient(circle at 92% 8%, rgba(0, 66, 37, 0.10), transparent 26%),
+    linear-gradient(135deg, #eef6f7 0%, #f7fbf8 48%, #eef4f1 100%);
+}
+
+.admin-auth-shell {
+  min-height: 100dvh;
+  padding: clamp(14px, 2.5vw, 30px);
+  align-items: center;
+}
+
+.admin-auth-card.admin-auth-card-compact {
+  width: min(1080px, calc(100vw - 32px));
+  min-height: auto;
+  grid-template-columns: minmax(300px, 0.78fr) minmax(420px, 1fr);
+  border-radius: 28px;
+  border: 1px solid rgba(0, 48, 27, 0.10);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 24px 64px rgba(0, 42, 21, 0.14);
+}
+
+.admin-auth-brand-panel {
+  min-height: 540px;
+  padding: clamp(30px, 4vw, 48px);
+  gap: 22px;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(45, 156, 219, 0.22), transparent 30%),
+    radial-gradient(circle at 82% 90%, rgba(30, 145, 88, 0.22), transparent 34%),
+    linear-gradient(145deg, #092e4b 0%, #0c4a5f 52%, #063f2a 100%);
+}
+
+.admin-auth-brand-panel::before {
+  opacity: 0.52;
+  background-size: 30px 30px;
+}
+
+.admin-auth-brand-panel .admin-back-link {
+  min-height: 38px;
+  padding: 0 14px;
+  font-size: 0.82rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.20);
+}
+
+.admin-auth-brand-line {
+  gap: 22px;
+}
+
+.admin-auth-brand-line img {
+  width: clamp(96px, 9vw, 124px);
+  height: clamp(96px, 9vw, 124px);
+  padding: 12px;
+  border-radius: 26px;
+}
+
+.admin-auth-brand-line span {
+  font-size: 0.82rem;
+}
+
+.admin-auth-brand-line strong {
+  max-width: 300px;
+  font-size: clamp(1.85rem, 3vw, 2.55rem);
+  line-height: 0.96;
+}
+
+.admin-auth-brand-line small {
+  margin-top: 8px;
+  font-size: 0.92rem;
+}
+
+.admin-auth-brand-panel p {
+  max-width: 440px;
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.admin-auth-card-compact .admin-auth-content {
+  justify-content: center;
+  gap: 13px;
+  padding: clamp(32px, 4vw, 52px);
+  background: #ffffff;
+}
+
+.admin-auth-card-compact .admin-kicker {
+  color: #006b3f;
+  font-size: 0.74rem;
+  letter-spacing: 0.10em;
+}
+
+.admin-auth-card-compact .admin-auth-content h1 {
+  max-width: 500px;
+  color: #0b2a4a;
+  font-size: clamp(2.25rem, 4vw, 3.45rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+}
+
+.admin-auth-card-compact .admin-auth-content p {
+  max-width: 540px;
+  color: #526780;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.admin-auth-card-compact .admin-auth-tabs,
+.admin-auth-card-compact .admin-form,
+.admin-auth-card-compact .admin-auth-alert {
+  max-width: 540px;
+}
+
+.admin-auth-card-compact .admin-auth-tabs {
+  padding: 5px;
+  border-radius: 999px;
+  background: #eef3f6;
+}
+
+.admin-auth-card-compact .admin-tab {
+  min-height: 44px;
+  font-size: 0.92rem;
+}
+
+.admin-auth-card-compact .admin-tab.is-active {
+  color: #0b2a4a;
+  box-shadow: 0 10px 24px rgba(11, 42, 74, 0.08);
+}
+
+.admin-auth-card-compact .admin-form {
+  gap: 12px;
+}
+
+.admin-auth-card-compact .admin-form label {
+  gap: 6px;
+}
+
+.admin-auth-card-compact .admin-form label span {
+  color: #082844;
+  font-size: 0.86rem;
+}
+
+.admin-auth-card-compact .admin-form input {
+  min-height: 46px;
+  border-radius: 14px;
+  padding: 0 14px;
+  background: #f8fbfc;
+  border-color: rgba(11, 42, 74, 0.12);
+  font-size: 0.94rem;
+}
+
+.admin-auth-card-compact .admin-form input:focus {
+  border-color: rgba(0, 107, 63, 0.34);
+  box-shadow: 0 0 0 4px rgba(0, 107, 63, 0.10);
+  background: #ffffff;
+}
+
+.admin-auth-card-compact .admin-submit {
+  min-height: 50px;
+  font-size: 0.94rem;
+  background: linear-gradient(135deg, #0b2a4a 0%, #006b3f 100%);
+  box-shadow: 0 16px 32px rgba(0, 66, 37, 0.18);
+}
+
+.admin-auth-card-compact .admin-auth-alert {
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+}
+
+.admin-auth-card-compact .admin-form[data-signup-form] {
+  max-width: 620px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 12px;
+  row-gap: 10px;
+}
+
+.admin-auth-card-compact .admin-form[data-signup-form] button,
+.admin-auth-card-compact .admin-form[data-signup-form] label:last-of-type {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 1181px) and (max-height: 760px) {
+  .admin-auth-shell {
+    padding-block: 14px;
+  }
+
+  .admin-auth-brand-panel {
+    min-height: 500px;
+  }
+
+  .admin-auth-card-compact .admin-auth-content {
+    padding-block: 30px;
+  }
+
+  .admin-auth-card-compact .admin-auth-content h1 {
+    font-size: clamp(2.15rem, 3.4vw, 3.05rem);
+  }
+}
+
+@media (max-width: 960px) {
+  .admin-auth-card.admin-auth-card-compact {
+    width: min(100%, calc(100vw - 24px));
+    grid-template-columns: 1fr;
+  }
+
+  .admin-auth-brand-panel {
+    min-height: auto;
+    padding: 28px;
+  }
+
+  .admin-auth-brand-line {
+    align-items: center;
+  }
+
+  .admin-auth-brand-line img {
+    width: 88px;
+    height: 88px;
+    border-radius: 22px;
+  }
+
+  .admin-auth-brand-line strong {
+    font-size: clamp(1.55rem, 6vw, 2.2rem);
+  }
+
+  .admin-auth-card-compact .admin-auth-content {
+    padding: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-auth-shell {
+    place-items: start center;
+    padding: 10px;
+  }
+
+  .admin-auth-card.admin-auth-card-compact {
+    width: 100%;
+    border-radius: 22px;
+  }
+
+  .admin-auth-brand-panel {
+    gap: 18px;
+    padding: 22px;
+  }
+
+  .admin-auth-brand-line {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 14px;
+  }
+
+  .admin-auth-brand-line img {
+    width: 72px;
+    height: 72px;
+    padding: 8px;
+    border-radius: 18px;
+  }
+
+  .admin-auth-brand-line span {
+    font-size: 0.72rem;
+  }
+
+  .admin-auth-brand-line strong {
+    font-size: 1.55rem;
+  }
+
+  .admin-auth-brand-panel p {
+    font-size: 0.92rem;
+  }
+
+  .admin-auth-card-compact .admin-auth-content {
+    padding: 22px;
+  }
+
+  .admin-auth-card-compact .admin-auth-content h1 {
+    font-size: clamp(2rem, 12vw, 2.65rem);
+  }
+
+  .admin-auth-card-compact .admin-form[data-signup-form] {
+    grid-template-columns: 1fr;
+  }
+}
