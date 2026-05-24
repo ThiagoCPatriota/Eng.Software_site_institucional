@@ -190,7 +190,7 @@
           <form class="admin-publication-form admin-ppc-form" data-ppc-form>
             <div class="admin-form-heading">
               <span>Documento oficial</span>
-              <strong>Substituir PPC do curso</strong>
+              <strong>Publicar versão do PPC</strong>
             </div>
 
             <label>
@@ -206,7 +206,7 @@
             <label>
               <span>PDF do PPC</span>
               <input type="file" name="arquivo" accept="application/pdf,.pdf" data-ppc-file />
-              <small>Envie um PDF de até 20 MB. Ao salvar, ele passa a substituir o documento público anterior.</small>
+              <small>Envie um PDF de até 20 MB. Ao publicar uma nova versão, o PPC atual será arquivado automaticamente e ficará disponível no histórico.</small>
             </label>
 
             <label>
@@ -216,15 +216,26 @@
             </label>
 
             <div class="admin-form-actions">
-              <button class="admin-submit" type="submit">Salvar PPC</button>
+              <button class="admin-submit" type="submit">Publicar PPC</button>
             </div>
           </form>
 
-          <aside class="admin-ppc-current" data-ppc-current aria-live="polite">
-            <span class="admin-kicker">PPC atual</span>
-            <h2>Nenhum PPC publicado</h2>
-            <p>Quando um PDF ou link oficial for salvo, a página pública Grade curricular / PPC exibirá o botão de acesso automaticamente.</p>
-          </aside>
+          <div class="admin-ppc-side">
+            <aside class="admin-ppc-current" data-ppc-current aria-live="polite">
+              <span class="admin-kicker">PPC atual</span>
+              <h2>Nenhum PPC publicado</h2>
+              <p>Quando um PDF ou link oficial for salvo, a página pública Grade curricular / PPC exibirá o botão de acesso automaticamente.</p>
+            </aside>
+
+            <aside class="admin-ppc-history" aria-labelledby="titulo-historico-ppc">
+              <div class="admin-ppc-history-heading">
+                <span class="admin-kicker">Histórico</span>
+                <h2 id="titulo-historico-ppc">Versões arquivadas</h2>
+                <p>Quando um novo PPC for publicado, o anterior sai da página pública e permanece aqui para consulta ou republicação.</p>
+              </div>
+              <div class="admin-ppc-history-list" data-ppc-history aria-live="polite"></div>
+            </aside>
+          </div>
         </div>
       </section>
     </section>

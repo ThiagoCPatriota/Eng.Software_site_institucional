@@ -79,6 +79,37 @@ function formatKeywords(value) {
     .slice(0, 4);
 }
 
+function escapeHtml(value) {
+  return text(value).replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  }[char]));
+}
+
+const PROJECT_IMAGES_BY_AXIS = {
+  pesquisa: "assets/img/estrutura/Sala-de-Pesquisadores.jpg",
+  extensao: "assets/img/estrutura/Moura-Tech.jpg",
+  inovacao: "assets/img/home/estudante-desenvolvendo.avif",
+};
+
+const PROJECT_IMAGES_BY_SLUG = {
+  "sistema-preditivo-de-evasao-escolar": "assets/img/estrutura/Laboratorio-4-Bloco-D-Engenharia.jpg",
+  "predicao-analitica": "assets/img/estrutura/Sala-de-Pesquisadores.jpg",
+  "inclusao-digital": "assets/img/estrutura/Moura-Tech.jpg",
+  "plataforma-saas": "assets/img/home/estudante-desenvolvendo.avif",
+};
+
+function getProjectImage(item) {
+  const candidateSlug = slugify(item.slug || item.titulo || "");
+  const matchedKey = Object.keys(PROJECT_IMAGES_BY_SLUG).find((key) => candidateSlug.includes(key));
+  return (matchedKey && PROJECT_IMAGES_BY_SLUG[matchedKey])
+    || PROJECT_IMAGES_BY_AXIS[item.eixo]
+    || "assets/img/estrutura/Laboratorio-4-Bloco-D-Engenharia.jpg";
+}
+
 function getStatusClass(status) {
   if (status === "aprovada") return "is-approved";
   if (status === "recusada" || status === "arquivada") return "is-rejected";
@@ -97,31 +128,41 @@ function createProjectCard(item) {
 
   const keywords = formatKeywords(item.palavras_chave);
   const keywordHtml = keywords.length
-    ? `<div class="project-keywords">${keywords.map((keyword) => `<span>${keyword}</span>`).join("")}</div>`
+    ? `<div class="project-keywords">${keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}</div>`
     : "";
+  const projectImage = getProjectImage(item);
+  const dateLabel = item.aprovado_em ? `Aprovado em ${formatDateTime(item.aprovado_em).split(",")[0]}` : "Projeto aprovado";
 
   article.innerHTML = `
-    <div class="approved-project-topline">
-      <span>${EIXOS[item.eixo] || item.eixo}</span>
-      <small>${item.aprovado_em ? `Aprovado em ${formatDateTime(item.aprovado_em).split(",")[0]}` : "Projeto aprovado"}</small>
+    <div class="project-card-media">
+      <img src="${projectImage}" alt="" loading="lazy" onerror="this.closest('.project-card-media')?.remove()" />
     </div>
-    <h3>${item.titulo}</h3>
-    <p>${item.resumo || "Sem resumo cadastrado."}</p>
-    <dl>
-      <div>
-        <dt>Orientação</dt>
-        <dd>${item.orientador || "A definir"}</dd>
+    <div class="approved-project-body">
+      <div class="approved-project-topline">
+        <span>${escapeHtml(EIXOS[item.eixo] || item.eixo)}</span>
+        <small>${escapeHtml(dateLabel)}</small>
       </div>
-      <div>
-        <dt>Equipe</dt>
-        <dd>${item.equipe || "Equipe não informada"}</dd>
+      <h3>${escapeHtml(item.titulo)}</h3>
+      <p>${escapeHtml(item.resumo || "Sem resumo cadastrado.")}</p>
+      <dl>
+        <div>
+          <dt>Orientação</dt>
+          <dd>${escapeHtml(item.orientador || "A definir")}</dd>
+        </div>
+        <div>
+          <dt>Equipe</dt>
+          <dd>${escapeHtml(item.equipe || "Equipe não informada")}</dd>
+        </div>
+        <div>
+          <dt>Público-alvo</dt>
+          <dd>${escapeHtml(item.publico_alvo || "Comunidade acadêmica")}</dd>
+        </div>
+      </dl>
+      <div class="project-card-footer">
+        ${keywordHtml}
+        <span class="project-card-action">Ver detalhes →</span>
       </div>
-      <div>
-        <dt>Público-alvo</dt>
-        <dd>${item.publico_alvo || "Comunidade acadêmica"}</dd>
-      </div>
-    </dl>
-    ${keywordHtml}
+    </div>
   `;
 
   return article;

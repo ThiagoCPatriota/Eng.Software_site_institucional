@@ -3216,7 +3216,7 @@
 /* Ajuste 51: PPC do curso administrável */
 .admin-ppc-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.55fr);
   gap: 22px;
   align-items: start;
 }
@@ -4350,5 +4350,101 @@
 
   .admin-public-site-button {
     width: 100%;
+  }
+}
+
+/* Ajuste: versionamento do PPC no admin */
+.admin-ppc-side {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.admin-ppc-actions,
+.admin-ppc-history-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.admin-ppc-note {
+  display: block;
+  color: var(--color-muted);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.admin-ppc-history {
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid rgba(214, 226, 236, 0.96);
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 18px 44px rgba(11, 42, 74, 0.06);
+}
+
+.admin-ppc-history-heading {
+  display: grid;
+  gap: 6px;
+}
+
+.admin-ppc-history-heading h2 {
+  color: var(--color-primary);
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+}
+
+.admin-ppc-history-heading p {
+  color: var(--color-muted);
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.admin-ppc-history-list {
+  display: grid;
+  gap: 12px;
+}
+
+.admin-ppc-history-card {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid rgba(214, 226, 236, 0.96);
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(247, 251, 250, 0.98), rgba(255, 255, 255, 0.98));
+}
+
+.admin-ppc-history-card h3 {
+  color: var(--color-primary);
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.admin-ppc-history-card p {
+  margin-top: 6px;
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+
+.admin-empty-state.compact {
+  margin: 0;
+  padding: 14px;
+  border-radius: 18px;
+  background: var(--color-bg);
+  border: 1px dashed var(--color-border);
+}
+
+.admin-ppc-history-actions .admin-secondary-action,
+.admin-ppc-actions .admin-secondary-action {
+  min-height: 40px;
+  justify-content: center;
+}
+
+@media (max-width: 760px) {
+  .admin-ppc-history,
+  .admin-ppc-current {
+    padding: 18px;
+    border-radius: 22px;
   }
 }
