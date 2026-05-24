@@ -80,71 +80,71 @@
   </header>
 
   <main id="conteudo">
-    <section class="page-hero faq-page-hero" aria-labelledby="titulo-faq">
-      <div class="container page-hero-grid">
-        <div class="page-hero-content reveal">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="index.html">Início</a>
-            <span aria-hidden="true">•</span>
-            <span>FAQ</span>
-          </nav>
-          <span class="eyebrow">Perguntas frequentes</span>
-          <h1 id="titulo-faq">Perguntas frequentes sem caça ao tesouro.</h1>
-          <p>
-            Uma página para reunir dúvidas comuns de candidatos, estudantes e comunidade sobre ingresso, curso, grade, estágio, projetos, documentos e contato institucional.
-          </p>
-          <div class="hero-actions" aria-label="Ações da página de FAQ">
-            <a class="btn btn-primary" href="#perguntas">Abrir perguntas</a>
-            <a class="btn btn-secondary" href="contato.html">Falar com a coordenação</a>
+    <section class="faq-board" aria-labelledby="titulo-faq">
+      <div class="container faq-board-container">
+        <nav class="breadcrumb faq-breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Início</a>
+          <span aria-hidden="true">•</span>
+          <span>FAQ</span>
+        </nav>
+
+        <header class="faq-board-header">
+          <div class="faq-title-block reveal">
+            <span class="faq-kicker">Dúvidas frequentes</span>
+            <h1 id="titulo-faq">Perguntas frequentes</h1>
+            <p>
+              Respostas rápidas para candidatos, estudantes e comunidade sobre ingresso, matrícula, grade, estágio, projetos, documentos e contato institucional.
+            </p>
           </div>
+
+          <div class="faq-search-panel reveal" aria-label="Busca no FAQ">
+            <label class="sr-only" for="busca-faq">Buscar no FAQ</label>
+            <div class="faq-search-box">
+              <span aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                  <circle cx="11" cy="11" r="7"></circle>
+                  <path d="m16.5 16.5 4 4"></path>
+                </svg>
+              </span>
+              <input class="faq-search" id="busca-faq" type="search" placeholder="Buscar por ingresso, matrícula, estágio..." data-faq-search />
+            </div>
+          </div>
+        </header>
+
+        <div class="faq-category-strip reveal" aria-label="Principais temas do FAQ">
+          <span>Ingresso</span>
+          <span>Matrícula</span>
+          <span>Rematrícula</span>
+          <span>Grade</span>
+          <span>Estágio</span>
+          <span>Projetos</span>
+          <span>Contato</span>
         </div>
 
-        <aside class="page-hero-card faq-summary-card reveal" aria-label="Resumo da página de perguntas frequentes">
-          <span class="status-badge">FAQ interativo</span>
-          <h2>Accordion em JavaScript puro, com busca simples por palavra-chave.</h2>
-          <p>As respostas priorizam orientação prática e indicam quando o estudante deve confirmar prazos em edital, comunicado oficial ou canais institucionais.</p>
-          <div class="metric-stack">
-            <article>
-              <strong>01</strong>
-              <span>Dúvidas sobre ingresso e matrícula.</span>
-            </article>
-            <article>
-              <strong>02</strong>
-              <span>Informações sobre curso, estágio e projetos.</span>
-            </article>
-            <article>
-              <strong>03</strong>
-              <span>Busca e accordion acessíveis.</span>
-            </article>
-          </div>
-        </aside>
-      </div>
-    </section>
+        <p class="faq-empty" data-faq-empty hidden>Nenhuma pergunta encontrada com esse termo.</p>
 
-    <section class="section faq-section" id="perguntas" aria-labelledby="titulo-perguntas">
-      <div class="container faq-layout">
-        <aside class="faq-sidebar reveal" aria-label="Resumo das categorias do FAQ">
-          <span class="eyebrow">Categorias</span>
-          <h2 id="titulo-perguntas">Dúvidas organizadas por intenção.</h2>
-          <p>Use a busca ou abra cada pergunta. Os fluxos acadêmicos foram separados para candidatos, estudantes ingressantes e estudantes já vinculados ao curso.</p>
-          <div class="faq-category-list">
-            <span>Ingresso</span>
-            <span>Matrícula</span>
-            <span>Rematrícula</span>
-            <span>Renovação de cadeiras</span>
-            <span>Grade</span>
-            <span>Estágio</span>
-            <span>Projetos</span>
-            <span>Contato</span>
-          </div>
-        </aside>
+        <div class="faq-content-grid">
+          <aside class="faq-side-card reveal" aria-label="Orientações sobre o FAQ">
+            <span class="faq-side-label">Guia rápido</span>
+            <h2>Dúvidas organizadas para consulta direta.</h2>
+            <p>
+              Abra uma pergunta por vez ou use a busca para encontrar termos específicos. Prazos, documentos e regras acadêmicas devem sempre ser confirmados no edital ou comunicado vigente.
+            </p>
+            <div class="faq-side-links" aria-label="Caminhos relacionados">
+              <a href="ingresso.html">Formas de ingresso</a>
+              <a href="grade.html">Grade curricular / PPC</a>
+              <a href="aprovados-remanejados.html">Chamadas e vínculo</a>
+              <a href="contato.html">Coordenação e contato</a>
+            </div>
+          </aside>
 
-        <div class="faq-content reveal">
-          <label class="faq-search-label" for="busca-faq">Buscar no FAQ</label>
-          <input class="faq-search" id="busca-faq" type="search" placeholder="Digite: ingresso, estágio, documentos, ENEM..." data-faq-search />
-          <p class="faq-empty" data-faq-empty hidden>Nenhuma pergunta encontrada com esse termo.</p>
+          <section class="faq-list-card reveal" aria-labelledby="titulo-perguntas">
+            <div class="faq-list-heading">
+              <span class="faq-count-pill">FAQ do curso</span>
+              <h2 id="titulo-perguntas">Encontre a orientação que você precisa.</h2>
+            </div>
 
-          <div class="faq-list" aria-label="Lista de perguntas frequentes">
+            <div class="faq-list" aria-label="Lista de perguntas frequentes">
             <article class="faq-item" data-faq-keywords="ingresso enem sisu entrada seleção">
               <button type="button" aria-expanded="false">
                 <strong>Como posso ingressar no curso?</strong>
@@ -264,24 +264,11 @@
                 <span aria-hidden="true">+</span>
               </button>
               <div class="faq-answer">
-                <p>A página de Contato centraliza coordenação, e-mail, telefone/WhatsApp, localização e formulário demonstrativo. Os dados reais ainda devem ser preenchidos.</p>
+                <p>A página de Coordenação e contato centraliza os canais institucionais do curso, localização do campus, e-mail da coordenação e links para as redes oficiais.</p>
               </div>
             </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section next-step-section">
-      <div class="container next-step reveal">
-        <div>
-          <span class="eyebrow">Ainda ficou dúvida?</span>
-          <h2>Use o contato para simular o envio da sua pergunta.</h2>
-          <p>O formulário ainda não envia para um servidor real, mas valida os campos e mantém o fluxo preparado para uma futura conexão com backend/admin.</p>
-        </div>
-        <div class="next-actions">
-          <a class="btn btn-light" href="contato.html">Ir para contato</a>
-          <a class="btn btn-light-outline" href="ingresso.html">Ver ingresso</a>
+            </div>
+          </section>
         </div>
       </div>
     </section>
