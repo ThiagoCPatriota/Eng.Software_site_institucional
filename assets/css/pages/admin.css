@@ -4917,3 +4917,716 @@ body[data-page="admin-menu"] .admin-card-actions button {
     border-radius: 9px;
   }
 }
+
+
+/* Reparo forte das telas Geral > Home, Páginas e Notícias */
+body[data-page="admin-home"] .admin-main,
+body[data-page="admin-menu"] .admin-main,
+body[data-page="admin-eventos"] .admin-main {
+  width: min(100% - 40px, 1180px) !important;
+  margin: 0 auto !important;
+  padding-top: 26px !important;
+}
+
+body[data-page="admin-home"] .admin-general-switcher,
+body[data-page="admin-menu"] .admin-general-switcher,
+body[data-page="admin-eventos"] .admin-general-switcher {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  margin: 0 0 18px !important;
+}
+
+body[data-page="admin-home"] .admin-general-switcher > a,
+body[data-page="admin-menu"] .admin-general-switcher > a,
+body[data-page="admin-eventos"] .admin-general-switcher > a {
+  display: grid !important;
+  align-content: center !important;
+  gap: 4px !important;
+  min-height: 94px !important;
+  padding: 16px 18px !important;
+  border: 1px solid rgba(0, 63, 42, 0.12) !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  color: #10251d !important;
+  text-decoration: none !important;
+  box-shadow: 0 14px 32px rgba(0, 48, 27, 0.05) !important;
+}
+
+body[data-page="admin-home"] .admin-general-switcher > a.is-active,
+body[data-page="admin-menu"] .admin-general-switcher > a.is-active,
+body[data-page="admin-eventos"] .admin-general-switcher > a.is-active {
+  background: linear-gradient(135deg, #003f2a, #006b45) !important;
+  border-color: rgba(0, 63, 42, 0.28) !important;
+  color: #ffffff !important;
+  box-shadow: 0 18px 38px rgba(0, 63, 42, 0.18) !important;
+}
+
+body[data-page="admin-home"] .admin-general-switcher > a span,
+body[data-page="admin-menu"] .admin-general-switcher > a span,
+body[data-page="admin-eventos"] .admin-general-switcher > a span {
+  display: block !important;
+  font-size: 0.72rem !important;
+  font-weight: 950 !important;
+  opacity: 0.72 !important;
+}
+
+body[data-page="admin-home"] .admin-general-switcher > a strong,
+body[data-page="admin-menu"] .admin-general-switcher > a strong,
+body[data-page="admin-eventos"] .admin-general-switcher > a strong {
+  display: block !important;
+  font-size: 1.08rem !important;
+  color: inherit !important;
+}
+
+body[data-page="admin-home"] .admin-general-switcher > a small,
+body[data-page="admin-menu"] .admin-general-switcher > a small,
+body[data-page="admin-eventos"] .admin-general-switcher > a small {
+  display: block !important;
+  font-size: 0.84rem !important;
+  color: inherit !important;
+  opacity: 0.76 !important;
+  line-height: 1.35 !important;
+}
+
+body[data-page="admin-home"] .admin-home-summary-grid,
+body[data-page="admin-menu"] .admin-pages-guide,
+body[data-page="admin-eventos"] .admin-campus-summary {
+  display: grid !important;
+  gap: 12px !important;
+  margin: 0 0 18px !important;
+}
+
+body[data-page="admin-home"] .admin-home-summary-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+body[data-page="admin-menu"] .admin-pages-guide,
+body[data-page="admin-eventos"] .admin-campus-summary {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+body[data-page="admin-eventos"] .admin-campus-summary {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+body[data-page="admin-home"] .admin-home-summary-grid article,
+body[data-page="admin-menu"] .admin-pages-guide article,
+body[data-page="admin-eventos"] .admin-campus-summary article {
+  display: grid !important;
+  align-content: start !important;
+  gap: 7px !important;
+  min-height: 116px !important;
+  padding: 18px !important;
+  border: 1px solid rgba(0, 63, 42, 0.12) !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  box-shadow: 0 14px 32px rgba(0, 48, 27, 0.05) !important;
+}
+
+body[data-page="admin-home"] .admin-home-summary-grid article span,
+body[data-page="admin-menu"] .admin-pages-guide article span {
+  width: fit-content !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+  background: #e7f4ec !important;
+  color: #003f2a !important;
+  font-size: 0.68rem !important;
+  font-weight: 950 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+body[data-page="admin-home"] .admin-home-summary-grid article strong,
+body[data-page="admin-menu"] .admin-pages-guide article strong {
+  color: #10251d !important;
+  font-size: 1.04rem !important;
+}
+
+body[data-page="admin-home"] .admin-home-summary-grid article p,
+body[data-page="admin-menu"] .admin-pages-guide article p {
+  color: #66736e !important;
+  font-size: 0.88rem !important;
+  line-height: 1.5 !important;
+}
+
+body[data-page="admin-home"] .admin-status-box,
+body[data-page="admin-menu"] .admin-status-box,
+body[data-page="admin-eventos"] .admin-status-box {
+  margin: 0 0 18px !important;
+}
+
+body[data-page="admin-menu"] .admin-pages-visibility-list,
+body[data-page="admin-home"] .admin-publication-form,
+body[data-page="admin-eventos"] .admin-publication-form,
+body[data-page="admin-eventos"] .admin-publications-list {
+  border-radius: 12px !important;
+  border: 1px solid rgba(0, 63, 42, 0.12) !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  box-shadow: 0 16px 36px rgba(0, 48, 27, 0.055) !important;
+}
+
+body[data-page="admin-menu"] .admin-pages-visibility-list,
+body[data-page="admin-home"] .admin-publication-form,
+body[data-page="admin-eventos"] .admin-publication-form,
+body[data-page="admin-eventos"] .admin-publications-list {
+  padding: 22px !important;
+}
+
+body[data-page="admin-eventos"] .admin-campus-tabs {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+  margin: 0 0 18px !important;
+  padding: 6px !important;
+  border: 1px solid rgba(0, 63, 42, 0.12) !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  box-shadow: 0 12px 28px rgba(0, 48, 27, 0.045) !important;
+}
+
+body[data-page="admin-eventos"] .admin-campus-tabs button {
+  min-height: 44px !important;
+  border-radius: 999px !important;
+}
+
+body[data-page="admin-eventos"] .admin-campus-tabs button.is-active {
+  background: linear-gradient(135deg, #003f2a, #006b45) !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 900px) {
+  body[data-page="admin-home"] .admin-general-switcher,
+  body[data-page="admin-menu"] .admin-general-switcher,
+  body[data-page="admin-eventos"] .admin-general-switcher,
+  body[data-page="admin-home"] .admin-home-summary-grid,
+  body[data-page="admin-menu"] .admin-pages-guide,
+  body[data-page="admin-eventos"] .admin-campus-summary {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* Geral admin: navegação rápida removida a pedido do fluxo final */
+body[data-page="admin-home"] .admin-general-switcher,
+body[data-page="admin-menu"] .admin-general-switcher,
+body[data-page="admin-eventos"] .admin-general-switcher {
+  display: none !important;
+}
+
+body[data-page="admin-home"] .admin-status-box,
+body[data-page="admin-menu"] .admin-status-box,
+body[data-page="admin-eventos"] .admin-status-box {
+  margin-top: 0 !important;
+}
+
+
+/* MVP Admin Institucional: Laboratórios, Docentes, Editais, Chamadas e Serviços */
+body[data-page="admin-laboratorios"],
+body[data-page="admin-docentes"],
+body[data-page="admin-editais"],
+body[data-page="admin-chamadas-vinculo"],
+body[data-page="admin-servicos"] {
+  --inst-green: #003f2a;
+  --inst-green-2: #006b45;
+  --inst-ink: #10251d;
+  --inst-muted: #64726c;
+  --inst-line: rgba(0, 63, 42, 0.12);
+  --inst-soft: #e7f4ec;
+  --inst-panel: rgba(255, 255, 255, 0.98);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(0, 107, 69, 0.08), transparent 28%),
+    linear-gradient(180deg, #f8faf8 0%, #f1f4f2 100%) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-main,
+body[data-page="admin-docentes"] .admin-main,
+body[data-page="admin-editais"] .admin-main,
+body[data-page="admin-chamadas-vinculo"] .admin-main,
+body[data-page="admin-servicos"] .admin-main {
+  width: min(100% - 40px, 1220px) !important;
+  margin: 0 auto !important;
+  padding-top: 26px !important;
+  padding-bottom: 72px !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-page-heading,
+body[data-page="admin-docentes"] .admin-page-heading,
+body[data-page="admin-editais"] .admin-page-heading,
+body[data-page="admin-chamadas-vinculo"] .admin-page-heading,
+body[data-page="admin-servicos"] .admin-page-heading {
+  position: relative !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  gap: 22px !important;
+  overflow: hidden !important;
+  margin-bottom: 18px !important;
+  padding: clamp(22px, 3vw, 34px) !important;
+  border: 1px solid var(--inst-line) !important;
+  border-radius: 14px !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 252, 249, 0.94)) !important;
+  box-shadow: 0 16px 36px rgba(0, 48, 27, 0.06) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-page-heading::before,
+body[data-page="admin-docentes"] .admin-page-heading::before,
+body[data-page="admin-editais"] .admin-page-heading::before,
+body[data-page="admin-chamadas-vinculo"] .admin-page-heading::before,
+body[data-page="admin-servicos"] .admin-page-heading::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: linear-gradient(180deg, var(--inst-green), var(--inst-green-2));
+}
+
+body[data-page="admin-laboratorios"] .admin-page-heading > *,
+body[data-page="admin-docentes"] .admin-page-heading > *,
+body[data-page="admin-editais"] .admin-page-heading > *,
+body[data-page="admin-chamadas-vinculo"] .admin-page-heading > *,
+body[data-page="admin-servicos"] .admin-page-heading > * {
+  position: relative;
+  z-index: 1;
+}
+
+body[data-page="admin-laboratorios"] .admin-page-heading h1,
+body[data-page="admin-docentes"] .admin-page-heading h1,
+body[data-page="admin-editais"] .admin-page-heading h1,
+body[data-page="admin-chamadas-vinculo"] .admin-page-heading h1,
+body[data-page="admin-servicos"] .admin-page-heading h1 {
+  max-width: 860px !important;
+  color: var(--inst-ink) !important;
+  font-size: clamp(1.85rem, 3vw, 2.75rem) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.055em !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-page-heading p,
+body[data-page="admin-docentes"] .admin-page-heading p,
+body[data-page="admin-editais"] .admin-page-heading p,
+body[data-page="admin-chamadas-vinculo"] .admin-page-heading p,
+body[data-page="admin-servicos"] .admin-page-heading p {
+  max-width: 780px !important;
+  margin-top: 8px !important;
+  color: var(--inst-muted) !important;
+  font-size: 0.96rem !important;
+  line-height: 1.62 !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-kicker,
+body[data-page="admin-docentes"] .admin-kicker,
+body[data-page="admin-editais"] .admin-kicker,
+body[data-page="admin-chamadas-vinculo"] .admin-kicker,
+body[data-page="admin-servicos"] .admin-kicker {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-height: 26px !important;
+  margin-bottom: 10px !important;
+  padding: 0 10px !important;
+  border: 1px solid rgba(0, 63, 42, 0.12) !important;
+  border-radius: 6px !important;
+  background: var(--inst-soft) !important;
+  color: var(--inst-green) !important;
+  font-size: 0.68rem !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.10em !important;
+  text-transform: uppercase !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-kicker::before,
+body[data-page="admin-docentes"] .admin-kicker::before,
+body[data-page="admin-editais"] .admin-kicker::before,
+body[data-page="admin-chamadas-vinculo"] .admin-kicker::before,
+body[data-page="admin-servicos"] .admin-kicker::before {
+  content: "▤";
+  font-size: 0.74rem;
+  line-height: 1;
+}
+
+body[data-page="admin-laboratorios"] .admin-secondary-action,
+body[data-page="admin-docentes"] .admin-secondary-action,
+body[data-page="admin-editais"] .admin-secondary-action,
+body[data-page="admin-chamadas-vinculo"] .admin-secondary-action,
+body[data-page="admin-servicos"] .admin-secondary-action,
+body[data-page="admin-laboratorios"] .admin-submit,
+body[data-page="admin-docentes"] .admin-submit,
+body[data-page="admin-editais"] .admin-submit,
+body[data-page="admin-chamadas-vinculo"] .admin-submit,
+body[data-page="admin-servicos"] .admin-submit {
+  border-radius: 8px !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-page-heading .admin-secondary-action,
+body[data-page="admin-editais"] .admin-page-heading .admin-secondary-action,
+body[data-page="admin-chamadas-vinculo"] .admin-page-heading .admin-secondary-action,
+body[data-page="admin-servicos"] .admin-page-heading .admin-secondary-action,
+body[data-page="admin-laboratorios"] .admin-submit,
+body[data-page="admin-docentes"] .admin-submit,
+body[data-page="admin-editais"] .admin-submit,
+body[data-page="admin-chamadas-vinculo"] .admin-submit,
+body[data-page="admin-servicos"] .admin-submit {
+  background: linear-gradient(135deg, #003f2a, #006b45) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 12px 24px rgba(0, 63, 42, 0.16) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-status-box,
+body[data-page="admin-docentes"] .admin-status-box,
+body[data-page="admin-editais"] .admin-status-box,
+body[data-page="admin-chamadas-vinculo"] .admin-status-box,
+body[data-page="admin-servicos"] .admin-status-box {
+  margin: 0 0 18px !important;
+  border-radius: 10px !important;
+}
+
+body[data-page="admin-editais"] .admin-editor-layout,
+body[data-page="admin-chamadas-vinculo"] .admin-editor-layout,
+body[data-page="admin-servicos"] .admin-editor-layout,
+body[data-page="admin-editais"] .admin-campus-layout,
+body[data-page="admin-chamadas-vinculo"] .admin-campus-layout,
+body[data-page="admin-servicos"] .admin-campus-layout {
+  display: grid !important;
+  grid-template-columns: minmax(360px, 0.92fr) minmax(0, 1.08fr) !important;
+  gap: 18px !important;
+  align-items: start !important;
+  margin-top: 0 !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-publication-form,
+body[data-page="admin-docentes"] .admin-publication-form,
+body[data-page="admin-editais"] .admin-publication-form,
+body[data-page="admin-chamadas-vinculo"] .admin-publication-form,
+body[data-page="admin-servicos"] .admin-publication-form,
+body[data-page="admin-laboratorios"] .admin-publications-list,
+body[data-page="admin-docentes"] .admin-publications-list,
+body[data-page="admin-editais"] .admin-publications-list,
+body[data-page="admin-chamadas-vinculo"] .admin-publications-list,
+body[data-page="admin-servicos"] .admin-publications-list,
+body[data-page="admin-laboratorios"] .admin-lab-editor-card,
+body[data-page="admin-laboratorios"] .admin-lab-requests-card,
+body[data-page="admin-laboratorios"] .admin-lab-calendar-card {
+  border: 1px solid var(--inst-line) !important;
+  border-radius: 12px !important;
+  background: var(--inst-panel) !important;
+  box-shadow: 0 16px 36px rgba(0, 48, 27, 0.055) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-publication-form,
+body[data-page="admin-docentes"] .admin-publication-form,
+body[data-page="admin-editais"] .admin-publication-form,
+body[data-page="admin-chamadas-vinculo"] .admin-publication-form,
+body[data-page="admin-servicos"] .admin-publication-form,
+body[data-page="admin-laboratorios"] .admin-publications-list,
+body[data-page="admin-docentes"] .admin-publications-list,
+body[data-page="admin-editais"] .admin-publications-list,
+body[data-page="admin-chamadas-vinculo"] .admin-publications-list,
+body[data-page="admin-servicos"] .admin-publications-list,
+body[data-page="admin-laboratorios"] .admin-lab-editor-card,
+body[data-page="admin-laboratorios"] .admin-lab-requests-card,
+body[data-page="admin-laboratorios"] .admin-lab-calendar-card {
+  padding: 22px !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-form-heading,
+body[data-page="admin-docentes"] .admin-form-heading,
+body[data-page="admin-editais"] .admin-form-heading,
+body[data-page="admin-chamadas-vinculo"] .admin-form-heading,
+body[data-page="admin-servicos"] .admin-form-heading,
+body[data-page="admin-laboratorios"] .admin-list-toolbar,
+body[data-page="admin-docentes"] .admin-list-toolbar,
+body[data-page="admin-editais"] .admin-list-toolbar,
+body[data-page="admin-chamadas-vinculo"] .admin-list-toolbar,
+body[data-page="admin-servicos"] .admin-list-toolbar {
+  min-height: 58px !important;
+  margin: -2px 0 12px !important;
+  padding-bottom: 14px !important;
+  border-bottom: 1px solid rgba(0, 63, 42, 0.09) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-form-heading span,
+body[data-page="admin-docentes"] .admin-form-heading span,
+body[data-page="admin-editais"] .admin-form-heading span,
+body[data-page="admin-chamadas-vinculo"] .admin-form-heading span,
+body[data-page="admin-servicos"] .admin-form-heading span {
+  color: var(--inst-green) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-form-heading strong,
+body[data-page="admin-docentes"] .admin-form-heading strong,
+body[data-page="admin-editais"] .admin-form-heading strong,
+body[data-page="admin-chamadas-vinculo"] .admin-form-heading strong,
+body[data-page="admin-servicos"] .admin-form-heading strong,
+body[data-page="admin-laboratorios"] .admin-list-toolbar strong,
+body[data-page="admin-docentes"] .admin-list-toolbar strong,
+body[data-page="admin-editais"] .admin-list-toolbar strong,
+body[data-page="admin-chamadas-vinculo"] .admin-list-toolbar strong,
+body[data-page="admin-servicos"] .admin-list-toolbar strong {
+  color: var(--inst-ink) !important;
+  font-size: 1.18rem !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-publication-form label,
+body[data-page="admin-docentes"] .admin-publication-form label,
+body[data-page="admin-editais"] .admin-publication-form label,
+body[data-page="admin-chamadas-vinculo"] .admin-publication-form label,
+body[data-page="admin-servicos"] .admin-publication-form label {
+  color: var(--inst-ink) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-publication-form input,
+body[data-page="admin-laboratorios"] .admin-publication-form textarea,
+body[data-page="admin-laboratorios"] .admin-publication-form select,
+body[data-page="admin-docentes"] .admin-publication-form input,
+body[data-page="admin-docentes"] .admin-publication-form textarea,
+body[data-page="admin-docentes"] .admin-publication-form select,
+body[data-page="admin-editais"] .admin-publication-form input,
+body[data-page="admin-editais"] .admin-publication-form textarea,
+body[data-page="admin-editais"] .admin-publication-form select,
+body[data-page="admin-chamadas-vinculo"] .admin-publication-form input,
+body[data-page="admin-chamadas-vinculo"] .admin-publication-form textarea,
+body[data-page="admin-chamadas-vinculo"] .admin-publication-form select,
+body[data-page="admin-servicos"] .admin-publication-form input,
+body[data-page="admin-servicos"] .admin-publication-form textarea,
+body[data-page="admin-servicos"] .admin-publication-form select,
+body[data-page="admin-laboratorios"] .admin-list-toolbar select,
+body[data-page="admin-docentes"] .admin-list-toolbar select,
+body[data-page="admin-editais"] .admin-list-toolbar select,
+body[data-page="admin-chamadas-vinculo"] .admin-list-toolbar select,
+body[data-page="admin-servicos"] .admin-list-toolbar select {
+  min-height: 46px !important;
+  border-radius: 8px !important;
+  border-color: rgba(0, 63, 42, 0.13) !important;
+  background: #fbfdfb !important;
+  box-shadow: none !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-publication-form input:focus,
+body[data-page="admin-laboratorios"] .admin-publication-form textarea:focus,
+body[data-page="admin-laboratorios"] .admin-publication-form select:focus,
+body[data-page="admin-docentes"] .admin-publication-form input:focus,
+body[data-page="admin-docentes"] .admin-publication-form textarea:focus,
+body[data-page="admin-docentes"] .admin-publication-form select:focus,
+body[data-page="admin-editais"] .admin-publication-form input:focus,
+body[data-page="admin-editais"] .admin-publication-form textarea:focus,
+body[data-page="admin-editais"] .admin-publication-form select:focus,
+body[data-page="admin-chamadas-vinculo"] .admin-publication-form input:focus,
+body[data-page="admin-chamadas-vinculo"] .admin-publication-form textarea:focus,
+body[data-page="admin-chamadas-vinculo"] .admin-publication-form select:focus,
+body[data-page="admin-servicos"] .admin-publication-form input:focus,
+body[data-page="admin-servicos"] .admin-publication-form textarea:focus,
+body[data-page="admin-servicos"] .admin-publication-form select:focus {
+  border-color: rgba(0, 63, 42, 0.34) !important;
+  box-shadow: 0 0 0 3px rgba(0, 66, 37, 0.08) !important;
+  outline: none !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-form-row.compact-three,
+body[data-page="admin-docentes"] .admin-form-row.compact-three,
+body[data-page="admin-editais"] .admin-form-row.compact-three,
+body[data-page="admin-chamadas-vinculo"] .admin-form-row.compact-three,
+body[data-page="admin-servicos"] .admin-form-row.compact-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-form-actions,
+body[data-page="admin-docentes"] .admin-form-actions,
+body[data-page="admin-editais"] .admin-form-actions,
+body[data-page="admin-chamadas-vinculo"] .admin-form-actions,
+body[data-page="admin-servicos"] .admin-form-actions {
+  margin-top: 6px !important;
+  padding-top: 14px !important;
+  border-top: 1px solid rgba(0, 63, 42, 0.09) !important;
+}
+
+body[data-page="admin-docentes"] .admin-docente-summary {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  margin: 0 0 18px !important;
+}
+
+body[data-page="admin-docentes"] .admin-docente-summary article {
+  padding: 18px !important;
+  border: 1px solid var(--inst-line) !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  box-shadow: 0 14px 32px rgba(0, 48, 27, 0.05) !important;
+}
+
+body[data-page="admin-docentes"] .admin-docente-summary span {
+  color: var(--inst-green) !important;
+  font-size: clamp(1.7rem, 3vw, 2.45rem) !important;
+}
+
+body[data-page="admin-docentes"] .admin-docente-summary strong {
+  color: var(--inst-muted) !important;
+  font-size: 0.86rem !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-schedule-tabbar,
+body[data-page="admin-docentes"] .admin-schedule-tabbar,
+body[data-page="admin-laboratorios"] .admin-editor-switch {
+  display: grid !important;
+  gap: 8px !important;
+  padding: 6px !important;
+  border: 1px solid var(--inst-line) !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  box-shadow: 0 12px 28px rgba(0, 48, 27, 0.045) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-schedule-tabbar,
+body[data-page="admin-docentes"] .admin-schedule-tabbar,
+body[data-page="admin-laboratorios"] .admin-editor-switch {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-schedule-tabbar button,
+body[data-page="admin-docentes"] .admin-schedule-tabbar button,
+body[data-page="admin-laboratorios"] .admin-editor-switch button {
+  min-height: 44px !important;
+  border-radius: 999px !important;
+  color: var(--inst-muted) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-schedule-tabbar button.is-active,
+body[data-page="admin-docentes"] .admin-schedule-tabbar button.is-active,
+body[data-page="admin-laboratorios"] .admin-editor-switch button.is-active {
+  background: linear-gradient(135deg, #003f2a, #006b45) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 22px rgba(0, 63, 42, 0.16) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-lab-workspace,
+body[data-page="admin-docentes"] .admin-docente-workspace {
+  display: grid !important;
+  gap: 18px !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-lab-workspace .admin-lab-form-grid {
+  display: grid !important;
+  grid-template-columns: minmax(360px, 0.92fr) minmax(0, 1.08fr) !important;
+  gap: 18px !important;
+  align-items: start !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-lab-strip {
+  gap: 12px !important;
+  padding-bottom: 4px !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-lab-summary-card {
+  border: 1px solid var(--inst-line) !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  box-shadow: 0 14px 32px rgba(0, 48, 27, 0.05) !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-lab-calendar-filters {
+  border: 1px solid var(--inst-line) !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  padding: 14px !important;
+}
+
+body[data-page="admin-editais"] .admin-form-fieldset,
+body[data-page="admin-chamadas-vinculo"] .admin-form-fieldset,
+body[data-page="admin-laboratorios"] .admin-form-fieldset {
+  border-color: var(--inst-line) !important;
+  border-radius: 12px !important;
+  background: #f8fcf9 !important;
+}
+
+body[data-page="admin-editais"] .admin-check-row label,
+body[data-page="admin-chamadas-vinculo"] .admin-check-row label,
+body[data-page="admin-servicos"] .admin-check-row label,
+body[data-page="admin-laboratorios"] .admin-check-row label {
+  border-color: rgba(0, 63, 42, 0.12) !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+}
+
+body[data-page="admin-docentes"] .admin-docente-photo-preview,
+body[data-page="admin-laboratorios"] .admin-campus-image-preview,
+body[data-page="admin-editais"] .admin-campus-image-preview,
+body[data-page="admin-chamadas-vinculo"] .admin-campus-image-preview {
+  border-radius: 12px !important;
+  border-color: var(--inst-line) !important;
+  background: #f8fcf9 !important;
+}
+
+body[data-page="admin-docentes"] .admin-docente-preview-frame,
+body[data-page="admin-laboratorios"] .admin-campus-preview-frame {
+  border-radius: 10px !important;
+  background: #ffffff !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-publication-card,
+body[data-page="admin-docentes"] .admin-publication-card,
+body[data-page="admin-editais"] .admin-publication-card,
+body[data-page="admin-chamadas-vinculo"] .admin-publication-card,
+body[data-page="admin-servicos"] .admin-publication-card,
+body[data-page="admin-docentes"] .admin-docente-card,
+body[data-page="admin-laboratorios"] .admin-lab-request-card,
+body[data-page="admin-laboratorios"] .admin-lab-calendar-entry {
+  border: 1px solid rgba(0, 63, 42, 0.10) !important;
+  border-left: 5px solid rgba(0, 107, 69, 0.48) !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+body[data-page="admin-laboratorios"] .admin-card-actions button,
+body[data-page="admin-docentes"] .admin-card-actions button,
+body[data-page="admin-editais"] .admin-card-actions button,
+body[data-page="admin-chamadas-vinculo"] .admin-card-actions button,
+body[data-page="admin-servicos"] .admin-card-actions button,
+body[data-page="admin-laboratorios"] .admin-lab-calendar-actions button,
+body[data-page="admin-laboratorios"] .admin-lab-request-actions button,
+body[data-page="admin-laboratorios"] .admin-lab-summary-actions button {
+  border-radius: 8px !important;
+}
+
+@media (max-width: 1180px) {
+  body[data-page="admin-editais"] .admin-editor-layout,
+  body[data-page="admin-chamadas-vinculo"] .admin-editor-layout,
+  body[data-page="admin-servicos"] .admin-editor-layout,
+  body[data-page="admin-laboratorios"] .admin-lab-workspace .admin-lab-form-grid,
+  body[data-page="admin-editais"] .admin-form-row.compact-three,
+  body[data-page="admin-chamadas-vinculo"] .admin-form-row.compact-three,
+  body[data-page="admin-servicos"] .admin-form-row.compact-three,
+  body[data-page="admin-laboratorios"] .admin-form-row.compact-three,
+  body[data-page="admin-docentes"] .admin-form-row.compact-three {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 900px) {
+  body[data-page="admin-laboratorios"] .admin-page-heading,
+  body[data-page="admin-docentes"] .admin-page-heading,
+  body[data-page="admin-editais"] .admin-page-heading,
+  body[data-page="admin-chamadas-vinculo"] .admin-page-heading,
+  body[data-page="admin-servicos"] .admin-page-heading {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  body[data-page="admin-docentes"] .admin-docente-summary,
+  body[data-page="admin-laboratorios"] .admin-schedule-tabbar,
+  body[data-page="admin-docentes"] .admin-schedule-tabbar,
+  body[data-page="admin-laboratorios"] .admin-editor-switch {
+    grid-template-columns: 1fr !important;
+    border-radius: 12px !important;
+  }
+
+  body[data-page="admin-laboratorios"] .admin-schedule-tabbar button,
+  body[data-page="admin-docentes"] .admin-schedule-tabbar button,
+  body[data-page="admin-laboratorios"] .admin-editor-switch button {
+    border-radius: 9px !important;
+  }
+}

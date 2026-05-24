@@ -59,20 +59,22 @@
     </nav>
   </header>
 
-  <main id="conteudo" class="admin-main admin-publications-main">
-    <section class="admin-page-heading" aria-labelledby="titulo-grade-admin">
+  <main id="conteudo" class="admin-main admin-publications-main admin-academic-main">
+    <section class="admin-page-heading admin-academic-heading" aria-labelledby="titulo-grade-admin">
       <div>
-        <span class="admin-kicker">RF 005</span>
+        <span class="admin-kicker">Acadêmico · Grade/PPC</span>
         <h1 id="titulo-grade-admin">PPC e matriz curricular.</h1>
         <p>
-          Cadastre, edite ou remova componentes curriculares do curso. A página pública da grade será atualizada automaticamente por período.
+          Cadastre componentes curriculares, acompanhe carga horária e publique o PPC oficial do curso com histórico de versões arquivadas.
         </p>
       </div>
+      <div class="admin-academic-actions">
+        <a class="admin-secondary-action" href="../grade.html" target="_blank" rel="noopener">Ver página pública</a>
+      </div>
     </section>
-
     <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
 
-    <section class="admin-dashboard-cards admin-grade-summary" aria-label="Resumo da matriz curricular">
+    <section class="admin-dashboard-cards admin-grade-summary admin-academic-summary" aria-label="Resumo da matriz curricular">
       <article>
         <span data-stat-total>0</span>
         <strong>componentes</strong>
@@ -87,7 +89,7 @@
       </article>
     </section>
 
-    <section class="admin-grade-workspace" aria-label="Gestão da matriz curricular">
+    <section class="admin-grade-workspace admin-academic-workspace" aria-label="Gestão da matriz curricular">
       <nav class="admin-schedule-tabbar admin-grade-tabbar" role="tablist" aria-label="Navegação do módulo de PPC e grade">
         <button class="is-active" type="button" data-grade-panel-target="form">Adicionar componente</button>
         <button type="button" data-grade-panel-target="list">Componentes cadastrados</button>

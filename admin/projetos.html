@@ -59,21 +59,23 @@
     </nav>
   </header>
 
-  <main id="conteudo" class="admin-main admin-publications-main">
-    <section class="admin-page-heading" aria-labelledby="titulo-projetos-admin">
+  <main id="conteudo" class="admin-main admin-publications-main admin-academic-main">
+    <section class="admin-page-heading admin-academic-heading" aria-labelledby="titulo-projetos-admin">
       <div>
-        <span class="admin-kicker">Módulo 04</span>
+        <span class="admin-kicker">Acadêmico · Projetos</span>
         <h1 id="titulo-projetos-admin">Projetos e monitorias.</h1>
         <p>
-          Cadastre oportunidades de monitoria, acompanhe candidaturas e analise propostas de pesquisa, extensão e inovação enviadas pelos estudantes.
+          Analise propostas enviadas pelos estudantes, publique projetos de pesquisa, extensão e inovação e acompanhe candidaturas de monitoria em um fluxo único.
         </p>
       </div>
-      <button class="admin-secondary-action" type="button" data-new-project>Nova proposta</button>
+      <div class="admin-academic-actions">
+        <a class="admin-secondary-action" href="../projetos.html" target="_blank" rel="noopener">Ver página pública</a>
+        <button class="admin-submit" type="button" data-new-project>Nova proposta</button>
+      </div>
     </section>
-
     <section class="admin-status-box" data-admin-status role="status" aria-live="polite"></section>
 
-    <section class="admin-dashboard-cards admin-project-summary" aria-label="Resumo das propostas">
+    <section class="admin-dashboard-cards admin-project-summary admin-academic-summary" aria-label="Resumo das propostas">
       <article>
         <span data-stat-pending>0</span>
         <strong>pendentes</strong>
@@ -88,7 +90,7 @@
       </article>
     </section>
 
-    <section class="admin-project-workspace" aria-label="Gestão de propostas e candidaturas">
+    <section class="admin-project-workspace admin-academic-workspace" aria-label="Gestão de propostas e candidaturas">
       <nav class="admin-schedule-tabbar admin-project-tabbar" aria-label="Alternar áreas do módulo de projetos">
         <button type="button" data-admin-project-tab-target="form">Criar proposta/monitoria</button>
         <button class="is-active" type="button" data-admin-project-tab-target="projects">Propostas recebidas</button>
