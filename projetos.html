@@ -63,7 +63,6 @@
             <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
             <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
             <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
-            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
           </div>
         </details>
 
@@ -81,43 +80,31 @@
   </header>
 
   <main id="conteudo">
-    <section class="page-hero projects-page-hero" aria-labelledby="titulo-projetos">
-      <div class="container projects-hero-single">
-        <div class="page-hero-content reveal">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="index.html">Início</a>
-            <span>•</span>
-            <span>Projetos</span>
-          </nav>
-          <span class="eyebrow">Projetos e inovação</span>
-          <h1 id="titulo-projetos">Projetos, monitorias e propostas acadêmicas.</h1>
+    <section class="projects-lab-hero" aria-labelledby="titulo-projetos">
+      <div class="container projects-lab-grid">
+        <div class="projects-lab-copy reveal">
+          <span class="eyebrow">Laboratório de práticas</span>
+          <h1 id="titulo-projetos">Projetos, pesquisa, extensão e inovação</h1>
           <p>
-            Acompanhe projetos aprovados, oportunidades de monitoria e envie propostas vinculadas à sua conta acadêmica.
+            A teoria encontra a prática no ecossistema de inovação do IFPE. Conheça projetos aprovados, oportunidades de monitoria e envie propostas vinculadas à sua conta acadêmica.
           </p>
-          <div class="projects-hero-actions">
-            <a class="btn btn-primary" href="#enviar-proposta">Enviar proposta</a>
-            <a class="btn btn-secondary" href="#mural-projetos">Ver projetos</a>
-            <a class="btn btn-secondary" href="#monitorias">Ver monitorias</a>
+          <div class="projects-lab-actions">
+            <a class="btn btn-primary" href="#mural-projetos">Ver projetos</a>
+            <a class="btn btn-secondary" href="#enviar-proposta">Enviar proposta</a>
           </div>
         </div>
+
+        <figure class="projects-lab-media reveal" aria-label="Ambiente de laboratório de tecnologia">
+          <img src="assets/img/estrutura/Laboratorio-4-Bloco-D-Engenharia.jpg" alt="Laboratório de informática do IFPE Campus Belo Jardim" />
+        </figure>
       </div>
     </section>
 
-    <section class="projects-page-switcher" aria-label="Navegação rápida de projetos e monitorias">
-      <div class="container">
-        <nav class="project-page-tabbar">
-          <a href="#mural-projetos">Projetos</a>
-          <a href="#monitorias">Monitorias</a>
-          <a href="#enviar-proposta">Enviar proposta</a>
-        </nav>
-      </div>
-    </section>
-
-    <section class="section projects-intro" aria-labelledby="titulo-trilhas-projetos">
+    <section class="section project-type-section" aria-labelledby="titulo-trilhas-projetos">
       <div class="container">
         <div class="section-heading centered reveal">
           <span class="eyebrow">Trilhas do curso</span>
-          <h2 id="titulo-trilhas-projetos">Três caminhos para aprender fazendo.</h2>
+          <h2 id="titulo-trilhas-projetos">Três caminhos para aprender fazendo</h2>
           <p>As propostas podem ser enviadas como pesquisa, extensão ou inovação. Depois da análise, projetos aprovados aparecem no mural.</p>
         </div>
 
@@ -158,11 +145,37 @@
       </div>
     </section>
 
+
+    <section class="projects-board-section" id="mural-projetos" aria-labelledby="titulo-mural-projetos">
+      <div class="container">
+        <div class="projects-board-header reveal">
+          <div>
+            <span class="eyebrow">Mural de projetos</span>
+            <h2 id="titulo-mural-projetos">Projetos aprovados pela administração</h2>
+            <p>Visualização pública com informações essenciais, sem expor documentação ou detalhes sensíveis enviados pelos estudantes.</p>
+          </div>
+        </div>
+
+        <div class="project-filter-bar reveal" aria-label="Filtro de projetos aprovados">
+          <button class="is-active" type="button" data-project-filter="todos">Todos</button>
+          <button type="button" data-project-filter="pesquisa">Pesquisa</button>
+          <button type="button" data-project-filter="extensao">Extensão</button>
+          <button type="button" data-project-filter="inovacao">Inovação</button>
+          <a class="project-filter-anchor" href="#monitorias">Monitorias</a>
+        </div>
+
+        <div class="approved-projects-grid" data-projects-public-list></div>
+        <div class="projects-empty-state" data-projects-public-empty>
+          Nenhum projeto aprovado encontrado para este filtro.
+        </div>
+      </div>
+    </section>
+
     <section class="section monitorias-section" id="monitorias" aria-labelledby="titulo-monitorias">
       <div class="container">
         <div class="section-heading reveal">
           <span class="eyebrow">Monitoria</span>
-          <h2 id="titulo-monitorias">Oportunidades de monitoria disponíveis.</h2>
+          <h2 id="titulo-monitorias">Oportunidades de monitoria disponíveis</h2>
           <p>Consulte oportunidades cadastradas pela administração para apoio acadêmico, disciplinas, áreas de estudo e atividades do curso.</p>
         </div>
 
@@ -239,7 +252,7 @@
                 <textarea name="mensagem" rows="3" placeholder="Conte experiências, disciplinas cursadas, projetos ou observações que ajudem na análise."></textarea>
               </label>
 
-              <div class="admin-form-actions monitoria-application-actions">
+              <div class="project-form-actions monitoria-application-actions">
                 <button class="btn btn-primary" type="submit">Enviar candidatura</button>
                 <button class="btn btn-secondary" type="button" data-monitoria-application-cancel>Cancelar</button>
               </div>
@@ -250,33 +263,11 @@
       </div>
     </section>
 
-    <section class="section approved-projects-section" id="mural-projetos" aria-labelledby="titulo-mural-projetos">
-      <div class="container">
-        <div class="section-heading reveal">
-          <span class="eyebrow">Mural de projetos</span>
-          <h2 id="titulo-mural-projetos">Projetos aprovados pela administração.</h2>
-          <p>Visualização pública com informações essenciais, sem expor documentação ou detalhes sensíveis enviados pelos estudantes.</p>
-        </div>
-
-        <div class="project-filter-bar reveal" aria-label="Filtro de projetos aprovados">
-          <button class="is-active" type="button" data-project-filter="todos">Todos</button>
-          <button type="button" data-project-filter="pesquisa">Pesquisa</button>
-          <button type="button" data-project-filter="extensao">Extensão</button>
-          <button type="button" data-project-filter="inovacao">Inovação</button>
-        </div>
-
-        <div class="approved-projects-grid" data-projects-public-list></div>
-        <div class="projects-empty-state" data-projects-public-empty>
-          Nenhum projeto aprovado encontrado para este filtro.
-        </div>
-      </div>
-    </section>
-
     <section class="section project-submit-section" id="enviar-proposta" aria-labelledby="titulo-enviar-proposta">
       <div class="container project-submit-layout">
         <div class="project-submit-copy reveal">
           <span class="eyebrow">Envio de proposta</span>
-          <h2 id="titulo-enviar-proposta">Solicite a análise de um projeto.</h2>
+          <h2 id="titulo-enviar-proposta">Solicite a análise de um projeto</h2>
           <p>
             O estudante envia os dados principais e a documentação do projeto. A administração analisa, pode pedir ajustes, recusar ou aprovar a proposta para publicação no mural.
           </p>
@@ -379,14 +370,13 @@
       <div class="container">
         <div class="section-heading reveal">
           <span class="eyebrow">Acompanhamento</span>
-          <h2 id="titulo-minhas-propostas">Minhas propostas enviadas.</h2>
+          <h2 id="titulo-minhas-propostas">Minhas propostas enviadas</h2>
           <p>Aqui aparecem os retornos da administração para as propostas vinculadas à sua conta.</p>
         </div>
         <div class="my-projects-grid" data-my-projects-list></div>
         <div class="projects-empty-state" data-my-projects-empty>Você ainda não enviou propostas.</div>
       </div>
     </section>
-
   </main>
 
   <footer class="site-footer institutional-footer">
@@ -413,7 +403,6 @@
           <a href="area-aluno.html">Área do aluno</a>
           <a href="horarios.html">Horário de aulas</a>
           <a href="laboratorios.html">Horário dos laboratórios</a>
-          <a href="calendario.html">Calendário acadêmico</a>
           <a href="faq.html">Dúvidas frequentes</a>
         </nav>
 

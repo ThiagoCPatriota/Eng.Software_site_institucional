@@ -368,9 +368,8 @@ values
   ('area-aluno', 'Área do aluno', 'area-aluno.html', 'Aluno', 12, 'Painel básico do aluno logado.'),
   ('horarios', 'Horário de aulas', 'horarios.html', 'Aluno', 13, 'Horários de aula por período.'),
   ('laboratorios', 'Horário dos laboratórios', 'laboratorios.html', 'Aluno', 14, 'Disponibilidade e reservas de laboratórios.'),
-  ('calendario', 'Calendário acadêmico', 'calendario.html', 'Aluno', 15, 'Calendário e datas acadêmicas.'),
-  ('contato', 'Coordenação e contato', 'contato.html', 'Contato', 16, 'Contato institucional do curso.'),
-  ('faq', 'FAQ', 'faq.html', 'Contato', 17, 'Dúvidas frequentes e renovação de cadeiras.')
+  ('contato', 'Coordenação e contato', 'contato.html', 'Contato', 15, 'Contato institucional do curso.'),
+  ('faq', 'FAQ', 'faq.html', 'Contato', 16, 'Dúvidas frequentes e renovação de cadeiras.')
 on conflict (slug) do update
   set titulo = excluded.titulo,
       url = excluded.url,

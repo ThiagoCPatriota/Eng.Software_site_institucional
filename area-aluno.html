@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Área do aluno demonstrativa do curso de Engenharia de Software do IFPE Campus Belo Jardim, com links úteis, orientações acadêmicas e acesso ao calendário." />
+  <meta name="description" content="Área do aluno demonstrativa do curso de Engenharia de Software do IFPE Campus Belo Jardim, com links úteis, orientações acadêmicas, horários e serviços do curso." />
   <meta name="author" content="Projeto final da disciplina de Web" />
   <meta name="theme-color" content="#0b2a4a" />
   <meta name="robots" content="index, follow" />
@@ -63,7 +63,6 @@
             <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
             <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
             <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
-            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
           </div>
         </details>
 
@@ -81,35 +80,72 @@
   </header>
 
   <main id="conteudo">
-    <section class="page-hero student-page-hero" aria-labelledby="titulo-area-aluno">
-      <div class="container page-hero-grid">
-        <div class="page-hero-content reveal">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="index.html">Início</a>
-            <span aria-hidden="true">•</span>
-            <span>Área do aluno</span>
-          </nav>
-          <span class="eyebrow">Painel do aluno</span>
-          <h1 id="titulo-area-aluno">Acompanhe seus projetos, retornos e solicitações em um só lugar.</h1>
-          <p>
-            O painel reúne informações vinculadas à sua conta, como propostas enviadas, feedbacks da administração e reservas de laboratório. Tudo associado ao seu nome, e-mail e matrícula.
-          </p>
-          <div class="hero-actions" aria-label="Ações principais da área do aluno">
-            <a class="btn btn-primary" href="projetos.html#enviar-proposta">Enviar projeto</a>
-            <a class="btn btn-secondary" href="laboratorios.html#solicitar-reserva">Solicitar laboratório</a>
+    <section class="student-board" aria-labelledby="titulo-area-aluno">
+      <div class="container student-board-container">
+        <nav class="breadcrumb student-breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Início</a>
+          <span aria-hidden="true">•</span>
+          <span>Área do aluno</span>
+        </nav>
+
+        <header class="student-board-header">
+          <div class="student-title-block reveal">
+            <span class="student-kicker">Vida acadêmica</span>
+            <h1 id="titulo-area-aluno">Área do aluno</h1>
+            <p>
+              Um espaço para acompanhar retornos individuais, acessar atalhos acadêmicos e encontrar caminhos rápidos para projetos, laboratórios, horários e atendimento do curso.
+            </p>
           </div>
+
+          <aside class="student-access-card reveal" aria-label="Resumo da área do aluno">
+            <span class="student-access-label">Painel acadêmico</span>
+            <h2>Informações vinculadas ao seu perfil.</h2>
+            <p>Ao entrar com sua conta, o estudante visualiza propostas enviadas, feedbacks da administração e solicitações de laboratório.</p>
+            <div class="student-access-actions">
+              <a class="btn btn-primary" href="admin/login.html?redirect=..%2Farea-aluno.html">Entrar no painel</a>
+              <a class="btn btn-secondary" href="#links-uteis">Ver atalhos</a>
+            </div>
+          </aside>
+        </header>
+
+        <div class="student-feature-strip reveal" aria-label="Principais recursos da área do aluno">
+          <a href="projetos.html#enviar-proposta">
+            <span>Projetos</span>
+            <strong>Envio de propostas</strong>
+          </a>
+          <a href="laboratorios.html#solicitar-reserva">
+            <span>Laboratórios</span>
+            <strong>Solicitação de reserva</strong>
+          </a>
+          <a href="horarios.html">
+            <span>Horários</span>
+            <strong>Consulta semanal</strong>
+          </a>
+          <a href="contato.html">
+            <span>Atendimento</span>
+            <strong>Coordenação do curso</strong>
+          </a>
         </div>
       </div>
     </section>
 
     <section class="section student-dashboard-section" aria-labelledby="titulo-painel-aluno-logado">
-      <div class="container">
+      <div class="container student-dashboard-container">
+        <div class="student-login-required reveal" data-student-login-required hidden>
+          <div>
+            <span class="student-panel-label">Acesso do estudante</span>
+            <h2>Entre para visualizar seu painel acadêmico.</h2>
+            <p data-student-login-message>Use sua conta cadastrada para acompanhar propostas, feedbacks e reservas vinculadas ao seu perfil.</p>
+          </div>
+          <a class="btn btn-primary" href="admin/login.html?redirect=..%2Farea-aluno.html">Entrar no painel</a>
+        </div>
+
         <div class="student-dashboard reveal" data-student-dashboard hidden>
           <div class="student-dashboard-header">
             <div>
-              <span class="eyebrow">Central do estudante</span>
-              <h2 id="titulo-painel-aluno-logado">Seu painel acadêmico.</h2>
-              <p>Acompanhe propostas e solicitações vinculadas ao seu perfil.</p>
+              <span class="student-panel-label">Central do estudante</span>
+              <h2 id="titulo-painel-aluno-logado">Seu painel acadêmico</h2>
+              <p>Acompanhe propostas, feedbacks e reservas vinculadas ao seu perfil.</p>
             </div>
             <div class="student-profile-card" aria-label="Dados do perfil logado">
               <span data-student-initials>AL</span>
@@ -162,7 +198,7 @@
           <div class="student-panel is-active" data-student-panel="projetos">
             <div class="student-panel-heading">
               <div>
-                <span class="eyebrow">Projetos</span>
+                <span class="student-panel-label">Projetos</span>
                 <h3>Feedbacks e andamento das suas propostas.</h3>
               </div>
               <a class="btn btn-secondary" href="projetos.html#enviar-proposta">Enviar proposta</a>
@@ -174,7 +210,7 @@
           <div class="student-panel" data-student-panel="reservas" hidden>
             <div class="student-panel-heading">
               <div>
-                <span class="eyebrow">Laboratórios</span>
+                <span class="student-panel-label">Laboratórios</span>
                 <h3>Reservas vinculadas à sua conta.</h3>
               </div>
               <a class="btn btn-secondary" href="laboratorios.html#solicitar-reserva">Solicitar laboratório</a>
@@ -189,12 +225,20 @@
     </section>
 
     <section class="section student-links-section" id="links-uteis" aria-labelledby="titulo-links-uteis">
-      <div class="container">
-        <div class="section-heading centered reveal">
-          <span class="eyebrow">Links úteis</span>
-          <h2 id="titulo-links-uteis">Atalhos acadêmicos continuam por aqui.</h2>
-          <p>Além do painel logado, esta área reúne caminhos rápidos para sistemas, documentos, horários e apoio acadêmico.</p>
-        </div>
+      <div class="container student-links-layout">
+        <aside class="student-links-aside reveal" aria-label="Orientações da área do aluno">
+          <span class="student-panel-label">Caminhos rápidos</span>
+          <h2 id="titulo-links-uteis">Atalhos acadêmicos para o dia a dia.</h2>
+          <p>
+            Use esta área como uma central de acesso aos serviços mais procurados. Alguns links podem ser atualizados quando os canais oficiais forem definidos.
+          </p>
+          <div class="student-aside-links">
+            <a href="horarios.html">Horário de aulas</a>
+            <a href="laboratorios.html">Horário dos laboratórios</a>
+            <a href="outros-servicos.html">Outros serviços</a>
+            <a href="faq.html">Dúvidas frequentes</a>
+          </div>
+        </aside>
 
         <div class="student-links-grid reveal" data-render="links-aluno" aria-live="polite">
           <article class="student-link-card">
@@ -202,20 +246,6 @@
             <h3>Carregando links</h3>
             <p>Os atalhos serão carregados pelo JavaScript e podem receber links oficiais quando forem definidos.</p>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section next-step-section" aria-label="Próximos passos">
-      <div class="container next-step reveal">
-        <div>
-          <span class="eyebrow">Organização acadêmica</span>
-          <h2>Continue acompanhando horários, laboratórios e calendário.</h2>
-          <p>O painel concentra seus retornos individuais, enquanto as páginas públicas mantêm as informações gerais do curso.</p>
-        </div>
-        <div class="next-actions">
-          <a class="btn btn-light" href="horarios.html">Horário de aulas</a>
-          <a class="btn btn-secondary" href="laboratorios.html">Laboratórios</a>
         </div>
       </div>
     </section>
@@ -245,7 +275,6 @@
           <a href="area-aluno.html">Área do aluno</a>
           <a href="horarios.html">Horário de aulas</a>
           <a href="laboratorios.html">Horário dos laboratórios</a>
-          <a href="calendario.html">Calendário acadêmico</a>
           <a href="faq.html">Dúvidas frequentes</a>
         </nav>
 

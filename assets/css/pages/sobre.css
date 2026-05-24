@@ -330,6 +330,154 @@
   padding-left: 18px;
 }
 
+.egresso-documents {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+  padding: 26px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #003f2a 0%, #006344 100%);
+  color: #ffffff;
+  box-shadow: 0 22px 52px rgba(0, 48, 27, 0.16);
+  overflow: hidden;
+}
+
+.egresso-documents::after {
+  content: "";
+  position: absolute;
+  right: -42px;
+  bottom: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.egresso-documents-head,
+.egresso-doc-list {
+  position: relative;
+  z-index: 1;
+}
+
+.egresso-download-label {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.egresso-documents-head h3 {
+  margin-top: 14px;
+  color: #ffffff;
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  line-height: 1.12;
+  letter-spacing: -0.05em;
+}
+
+.egresso-documents-head p {
+  max-width: 58ch;
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.62;
+}
+
+.egresso-doc-list {
+  display: grid;
+  gap: 12px;
+}
+
+.egresso-doc-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+.egresso-doc-item span {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 8px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #dffbea;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.egresso-doc-item h4 {
+  color: #ffffff;
+  font-size: 1.02rem;
+  letter-spacing: -0.03em;
+}
+
+.egresso-doc-item p {
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.egresso-doc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.egresso-doc-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 15px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  font-size: 0.86rem;
+  font-weight: 900;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.egresso-doc-actions a:first-child {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #003f2a;
+}
+
+.egresso-doc-actions a:hover,
+.egresso-doc-actions a:focus-visible {
+  transform: translateY(-2px);
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.egresso-doc-actions a:first-child:hover,
+.egresso-doc-actions a:first-child:focus-visible {
+  background: #dffbea;
+  color: #003f2a;
+}
+
 .success-section {
   border-top: 1px solid rgba(0, 48, 27, 0.1);
 }
@@ -420,4 +568,18 @@
   .process-list article {
     padding: 22px;
   }
+
+  .egresso-documents {
+    padding: 22px;
+  }
+
+  .egresso-doc-item {
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+  }
+
+  .egresso-doc-actions {
+    justify-content: flex-start;
+  }
 }
+

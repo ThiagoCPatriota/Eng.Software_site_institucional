@@ -10,20 +10,29 @@ import {
 
 const statusBox = document.querySelector("[data-admin-status]");
 const logoutButtons = document.querySelectorAll("[data-admin-logout]");
-const form = document.querySelector("[data-edital-form]");
+const form = document.querySelector("[data-chamada-form]");
 const formTitle = document.querySelector("[data-form-title]");
-const list = document.querySelector("[data-edital-list]");
-const empty = document.querySelector("[data-edital-empty]");
-const filter = document.querySelector("[data-edital-filter]");
-const newButton = document.querySelector("[data-new-edital]");
+const list = document.querySelector("[data-chamada-list]");
+const empty = document.querySelector("[data-chamada-empty]");
+const filter = document.querySelector("[data-chamada-filter]");
+const newButton = document.querySelector("[data-new-chamada]");
 const clearButton = document.querySelector("[data-clear-form]");
-const fileInput = document.querySelector("[data-edital-file]");
+const fileInput = document.querySelector("[data-chamada-file]");
 const sourceBlocks = document.querySelectorAll("[data-document-source]");
 const currentDocument = document.querySelector("[data-current-document]");
 
-const DOCS_BUCKET = "editais-documentos";
+const TABLE_NAME = "ingresso_informacoes";
+const DOCS_BUCKET = "ingresso-documentos";
 const MAX_PDF_SIZE = 20 * 1024 * 1024;
-const CATEGORIES = ["moradia", "manutencao", "auxilio", "selecao", "geral"];
+const CHAMADA_TYPES = ["aprovados", "remanejamento", "matricula", "rematricula", "reingresso", "geral"];
+const TYPE_LABELS = {
+  aprovados: "Lista de aprovados",
+  remanejamento: "Remanejamento",
+  matricula: "Matrícula inicial",
+  rematricula: "Rematrícula",
+  reingresso: "Reingresso",
+  geral: "Comunicado geral",
+};
 
 let currentUser = null;
 let items = [];
@@ -46,6 +55,17 @@ function text(value) {
   return value == null ? "" : String(value);
 }
 
+function getDocumentSource() {
+  return form?.elements.documento_origem?.value || "link";
+}
+
+function syncDocumentSource() {
+  const source = getDocumentSource();
+  sourceBlocks.forEach((block) => {
+    block.hidden = block.dataset.documentSource !== source;
+  });
+}
+
 function createPill(label, className = "") {
   const span = document.createElement("span");
   span.className = `admin-pill ${className}`.trim();
@@ -66,31 +86,11 @@ function formatDate(value) {
   return `${day}/${month}/${year}`;
 }
 
-function formatFileNameFromUrl(value) {
-  if (!value) return "";
-  try {
-    const url = new URL(value);
-    const lastPart = decodeURIComponent(url.pathname.split("/").filter(Boolean).pop() || "");
-    return lastPart || value;
-  } catch (_) {
-    return String(value).split("/").filter(Boolean).pop() || String(value);
-  }
-}
-
-function isLikelyPdfUrl(value) {
-  const url = String(value || "").toLowerCase();
-  return url.includes(".pdf") || url.includes(`/${DOCS_BUCKET}/`) || url.includes(`${DOCS_BUCKET}%2f`);
-}
-
-function getDocumentSource() {
-  return form?.elements.documento_origem?.value || "link";
-}
-
-function syncDocumentSource() {
-  const source = getDocumentSource();
-  sourceBlocks.forEach((block) => {
-    block.hidden = block.dataset.documentSource !== source;
-  });
+function formatFileSize(bytes) {
+  const value = Number(bytes);
+  if (!Number.isFinite(value) || value <= 0) return "";
+  if (value < 1024 * 1024) return `${Math.round(value / 1024)} KB`;
+  return `${(value / (1024 * 1024)).toFixed(1).replace(".", ",")} MB`;
 }
 
 function setRadioValue(value) {
@@ -102,45 +102,53 @@ function setRadioValue(value) {
 function resetForm() {
   form.reset();
   form.elements.id.value = "";
-  form.elements.categoria.value = "geral";
-  if (form.elements.status) form.elements.status.value = "rascunho";
-  if (form.elements.visivel) form.elements.visivel.checked = true;
+  form.elements.tipo.value = "aprovados";
+  form.elements.ordem.value = "0";
+  form.elements.destaque.checked = false;
+  form.elements.visivel.checked = true;
+  form.elements.status.value = "rascunho";
+  form.elements.documento_path.value = "";
+  form.elements.documento_nome.value = "";
+  form.elements.documento_tamanho.value = "";
+  form.elements.documento_tipo.value = "";
   if (fileInput) fileInput.value = "";
-  if (form.elements.pdf_label) form.elements.pdf_label.value = "";
   if (currentDocument) currentDocument.textContent = "Nenhum PDF selecionado.";
   setRadioValue("link");
-  formTitle.textContent = "Novo edital";
+  formTitle.textContent = "Nova publicação";
   form.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function fillForm(item) {
   form.elements.id.value = text(item.id);
   form.elements.titulo.value = text(item.titulo);
-  form.elements.categoria.value = CATEGORIES.includes(item.categoria) ? item.categoria : "geral";
+  form.elements.tipo.value = CHAMADA_TYPES.includes(item.tipo) ? item.tipo : "geral";
   form.elements.status.value = text(item.status || "rascunho");
-  form.elements.numero.value = text(item.numero);
+  form.elements.ordem.value = text(item.ordem ?? 0);
   form.elements.resumo.value = text(item.resumo);
-  form.elements.descricao.value = text(item.descricao);
-  form.elements.data_publicacao.value = text(item.data_publicacao);
-  form.elements.data_limite.value = text(item.data_limite);
-  form.elements.orgao.value = text(item.orgao);
-  form.elements.link_documento.value = text(item.link_documento);
+  form.elements.conteudo.value = text(item.conteudo);
+  form.elements.data_inicio.value = text(item.data_inicio);
+  form.elements.data_fim.value = text(item.data_fim);
+  form.elements.link_url.value = text(item.link_url);
+  form.elements.link_label.value = text(item.link_label);
+  form.elements.pdf_label.value = text(item.link_label || "Baixar PDF");
+  form.elements.documento_path.value = text(item.documento_path);
+  form.elements.documento_nome.value = text(item.documento_nome);
+  form.elements.documento_tamanho.value = text(item.documento_tamanho);
+  form.elements.documento_tipo.value = text(item.documento_tipo);
   form.elements.visivel.checked = Boolean(item.visivel);
+  form.elements.destaque.checked = Boolean(item.destaque);
   if (fileInput) fileInput.value = "";
-  if (form.elements.pdf_label) form.elements.pdf_label.value = "";
-
-  if (item.link_documento && isLikelyPdfUrl(item.link_documento)) {
+  if (item.documento_path || item.documento_nome) {
     setRadioValue("pdf");
-    if (currentDocument) currentDocument.textContent = `PDF atual: ${formatFileNameFromUrl(item.link_documento)}`;
-  } else if (item.link_documento) {
+    if (currentDocument) currentDocument.textContent = `PDF atual: ${item.documento_nome || item.documento_path}`;
+  } else if (item.link_url) {
     setRadioValue("link");
     if (currentDocument) currentDocument.textContent = "Nenhum PDF selecionado.";
   } else {
     setRadioValue("nenhum");
     if (currentDocument) currentDocument.textContent = "Nenhum PDF selecionado.";
   }
-
-  formTitle.textContent = "Editar edital";
+  formTitle.textContent = "Editar publicação";
   form.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -151,8 +159,8 @@ function validatePdf(file) {
   if (file.size > MAX_PDF_SIZE) throw new Error("O PDF deve ter no máximo 20 MB.");
 }
 
-function createUniqueSlug(title, category = "geral") {
-  const base = slugify(`${title || "edital"}-${category || "geral"}`) || "edital";
+function createUniqueSlug(title, type = "geral") {
+  const base = slugify(`${title || "chamada"}-${type || "geral"}`) || "chamada-vinculo";
   const stamp = Date.now().toString(36);
   const random = Math.random().toString(36).slice(2, 8);
   return `${base}-${stamp}-${random}`;
@@ -162,56 +170,27 @@ function getBasePayload(current = null) {
   const formData = new FormData(form);
   const titulo = String(formData.get("titulo") || "").trim();
   const status = String(formData.get("status") || "rascunho");
-  const categoria = String(formData.get("categoria") || "geral");
-
+  const tipo = String(formData.get("tipo") || "geral");
   return {
     titulo,
-    slug: current?.slug || createUniqueSlug(titulo, categoria),
+    slug: current?.slug || createUniqueSlug(titulo, tipo),
     status,
-    categoria,
-    numero: String(formData.get("numero") || "").trim() || null,
+    tipo,
+    ordem: Number(formData.get("ordem") || 0),
     resumo: String(formData.get("resumo") || "").trim(),
-    descricao: String(formData.get("descricao") || "").trim() || null,
-    data_publicacao: String(formData.get("data_publicacao") || "").trim() || null,
-    data_limite: String(formData.get("data_limite") || "").trim() || null,
-    orgao: String(formData.get("orgao") || "").trim() || null,
+    conteudo: String(formData.get("conteudo") || "").trim() || null,
+    data_inicio: String(formData.get("data_inicio") || "").trim() || null,
+    data_fim: String(formData.get("data_fim") || "").trim() || null,
+    destaque: Boolean(form.elements.destaque?.checked),
     visivel: Boolean(form.elements.visivel?.checked) && status === "publicado",
     publicado_em: status === "publicado" ? new Date().toISOString() : null,
     atualizado_por: currentUser?.id || null,
   };
 }
 
-function getDocumentPayload(current = null) {
-  const source = getDocumentSource();
-  const file = fileInput?.files?.[0] || null;
-  const linkDocumento = String(form.elements.link_documento?.value || "").trim();
-
-  if (source === "link") {
-    return {
-      source,
-      file: null,
-      payload: { link_documento: linkDocumento || null },
-    };
-  }
-
-  if (source === "pdf") {
-    return {
-      source,
-      file,
-      payload: file ? {} : { link_documento: current?.link_documento || null },
-    };
-  }
-
-  return {
-    source,
-    file: null,
-    payload: { link_documento: null },
-  };
-}
-
 async function uploadDocument(file, title) {
   validatePdf(file);
-  const safeTitle = slugify(title || "edital") || "edital";
+  const safeTitle = slugify(title || "chamadas-vinculo");
   const path = `${currentUser?.id || "admin"}/${Date.now()}-${safeTitle}.pdf`;
 
   const { error } = await supabase.storage
@@ -223,58 +202,95 @@ async function uploadDocument(file, title) {
     });
 
   if (error) {
-    const message = error.message || "";
-    if (/bucket/i.test(message)) {
-      throw new Error("Bucket editais-documentos não encontrado. Rode o SQL supabase/fix-editais-documentos-storage.sql no Supabase.");
-    }
-    if (/row-level|permission|not authorized|violates/i.test(message)) {
-      throw new Error("Upload bloqueado pelas políticas do Storage. Rode o SQL supabase/fix-editais-documentos-storage.sql no Supabase e tente novamente.");
+    if (/bucket/i.test(error.message || "")) {
+      throw new Error("Bucket ingresso-documentos não encontrado. Rode o SQL supabase/fix-chamadas-vinculo-storage.sql no Supabase.");
     }
     throw error;
   }
 
   const { data } = supabase.storage.from(DOCS_BUCKET).getPublicUrl(path);
-  return data?.publicUrl || null;
+  return {
+    link_url: data?.publicUrl || null,
+    link_label: form.elements.pdf_label.value.trim() || form.elements.link_label.value.trim() || "Baixar PDF",
+    documento_path: path,
+    documento_nome: file.name,
+    documento_tamanho: file.size,
+    documento_tipo: "pdf",
+  };
 }
 
-function extractStoragePathFromPublicUrl(value) {
-  if (!value) return null;
-  try {
-    const marker = `/storage/v1/object/public/${DOCS_BUCKET}/`;
-    const url = new URL(value);
-    const index = url.pathname.indexOf(marker);
-    if (index === -1) return null;
-    return decodeURIComponent(url.pathname.slice(index + marker.length));
-  } catch (_) {
-    return null;
-  }
-}
-
-async function removeStoredDocumentFromUrl(value) {
-  const path = extractStoragePathFromPublicUrl(value);
+async function removeStoredDocument(path) {
   if (!path) return;
   try {
     await supabase.storage.from(DOCS_BUCKET).remove([path]);
   } catch (error) {
-    console.warn("Não foi possível remover o PDF antigo:", error);
+    console.warn("Não foi possível remover o documento antigo:", error);
   }
+}
+
+function getDocumentPayload(current) {
+  const source = getDocumentSource();
+  const file = fileInput?.files?.[0] || null;
+  const linkUrl = String(form.elements.link_url.value || "").trim();
+
+  if (source === "link") {
+    return {
+      source,
+      file: null,
+      payload: {
+        link_url: linkUrl || null,
+        link_label: String(form.elements.link_label.value || "").trim() || (linkUrl ? "Acessar documento" : ""),
+        documento_path: null,
+        documento_nome: null,
+        documento_tamanho: null,
+        documento_tipo: null,
+      },
+    };
+  }
+
+  if (source === "pdf") {
+    return {
+      source,
+      file,
+      payload: file
+        ? {}
+        : {
+            link_url: current?.link_url || null,
+            link_label: String(form.elements.pdf_label.value || "").trim() || current?.link_label || "Baixar PDF",
+            documento_path: current?.documento_path || null,
+            documento_nome: current?.documento_nome || null,
+            documento_tamanho: current?.documento_tamanho || null,
+            documento_tipo: current?.documento_tipo || null,
+          },
+    };
+  }
+
+  return {
+    source,
+    file: null,
+    payload: {
+      link_url: null,
+      link_label: "",
+      documento_path: null,
+      documento_nome: null,
+      documento_tamanho: null,
+      documento_tipo: null,
+    },
+  };
 }
 
 function getFilteredItems() {
   const value = filter?.value || "todos";
   if (value === "todos") return items;
-  if (CATEGORIES.includes(value)) return items.filter((item) => item.categoria === value);
+  if (CHAMADA_TYPES.includes(value)) return items.filter((item) => item.tipo === value);
   return items.filter((item) => item.status === value);
 }
-
-function updateStats() {}
 
 function renderItems() {
   if (!list || !empty) return;
   const visibleItems = getFilteredItems();
   list.innerHTML = "";
   empty.classList.toggle("is-visible", visibleItems.length === 0);
-  updateStats();
 
   visibleItems.forEach((item) => {
     const card = document.createElement("article");
@@ -286,14 +302,18 @@ function renderItems() {
     const title = document.createElement("h2");
     title.textContent = item.titulo;
     const meta = document.createElement("small");
-    meta.textContent = `${item.categoria || "geral"}${item.numero ? " · " + item.numero : ""}${item.data_limite ? " · prazo " + formatDate(item.data_limite) : ""}`;
+    const dates = item.data_inicio || item.data_fim ? ` · ${item.data_inicio ? formatDate(item.data_inicio) : "Início a definir"}${item.data_fim ? " até " + formatDate(item.data_fim) : ""}` : "";
+    meta.textContent = `${TYPE_LABELS[item.tipo] || item.tipo || "Publicação"}${dates}`;
     heading.append(title, meta);
 
     const pills = document.createElement("div");
     pills.className = "admin-pills";
     pills.appendChild(createPill(item.status || "rascunho", statusClass(item.status)));
     if (item.visivel) pills.appendChild(createPill("público", "is-visible"));
-    if (item.categoria) pills.appendChild(createPill(item.categoria));
+    if (item.tipo) pills.appendChild(createPill(TYPE_LABELS[item.tipo] || item.tipo));
+    if (item.destaque) pills.appendChild(createPill("destaque", "is-home"));
+    if (item.documento_nome || item.documento_path) pills.appendChild(createPill("PDF", "is-visible"));
+    else if (item.link_url) pills.appendChild(createPill("link", "is-visible"));
     header.append(heading, pills);
 
     const summary = document.createElement("p");
@@ -301,15 +321,15 @@ function renderItems() {
 
     const footnote = document.createElement("small");
     footnote.className = "admin-card-footnote";
-    const documentInfo = item.link_documento ? ` · documento: ${formatFileNameFromUrl(item.link_documento)}` : " · sem link/PDF";
-    footnote.textContent = `Atualizado em ${formatDateTime(item.atualizado_em || item.criado_em)}${documentInfo}`;
+    const fileInfo = item.documento_nome ? ` · ${item.documento_nome}${item.documento_tamanho ? " · " + formatFileSize(item.documento_tamanho) : ""}` : "";
+    footnote.textContent = `Atualizado em ${formatDateTime(item.atualizado_em || item.criado_em)}${fileInfo}`;
 
     const actions = document.createElement("div");
     actions.className = "admin-card-actions";
     actions.innerHTML = `
       <button type="button" data-action="edit">Editar</button>
       <button type="button" data-action="toggle-status">${item.status === "publicado" ? "Ocultar" : "Publicar"}</button>
-      ${item.link_documento ? '<button type="button" data-action="open-link">Abrir link/PDF</button>' : ""}
+      ${item.link_url ? '<button type="button" data-action="open-link">Abrir link/PDF</button>' : ""}
       <button type="button" data-action="remove">Remover</button>
     `;
 
@@ -319,8 +339,8 @@ function renderItems() {
 }
 
 async function loadItems() {
-  let query = supabase.from("editais").select("*");
-  query = query.order("data_publicacao", { ascending: false, nullsFirst: false }).order("criado_em", { ascending: false });
+  let query = supabase.from(TABLE_NAME).select("*").in("tipo", CHAMADA_TYPES);
+  query = query.order("ordem", { ascending: true }).order("data_inicio", { ascending: false, nullsFirst: false }).order("criado_em", { ascending: false });
   const { data, error } = await query;
   if (error) throw error;
   items = data || [];
@@ -329,7 +349,6 @@ async function loadItems() {
 
 async function saveItem(event) {
   event.preventDefault();
-
   const id = form.elements.id.value;
   const current = id ? items.find((item) => item.id === id) : null;
   let payload = getBasePayload(current);
@@ -340,12 +359,12 @@ async function saveItem(event) {
     return;
   }
 
-  if (documentChoice.source === "link" && !documentChoice.payload.link_documento) {
+  if (documentChoice.source === "link" && !documentChoice.payload.link_url) {
     setStatus("Informe o link oficial ou escolha PDF/Sem link.", "error");
     return;
   }
 
-  if (documentChoice.source === "pdf" && !documentChoice.file && !documentChoice.payload.link_documento) {
+  if (documentChoice.source === "pdf" && !documentChoice.file && !documentChoice.payload.documento_path) {
     setStatus("Envie um PDF ou escolha Link externo/Sem link.", "error");
     return;
   }
@@ -358,8 +377,8 @@ async function saveItem(event) {
 
     if (documentChoice.file) {
       setStatus("Enviando PDF...", "info");
-      const publicUrl = await uploadDocument(documentChoice.file, payload.titulo);
-      payload.link_documento = publicUrl;
+      const filePayload = await uploadDocument(documentChoice.file, payload.titulo);
+      payload = { ...payload, ...filePayload };
     }
 
     if (id) {
@@ -367,17 +386,21 @@ async function saveItem(event) {
         ...payload,
         publicado_em: payload.status === "publicado" ? (current?.publicado_em || payload.publicado_em) : null,
       };
-      const { error } = await supabase.from("editais").update(nextPayload).eq("id", id);
+      const { error } = await supabase.from(TABLE_NAME).update(nextPayload).eq("id", id);
       if (error) throw error;
 
-      if (current?.link_documento && current.link_documento !== nextPayload.link_documento) {
-        await removeStoredDocumentFromUrl(current.link_documento);
-      }
-      setStatus("Registro atualizado com sucesso.", "success");
+      const replacedDocument = current?.documento_path && current.documento_path !== nextPayload.documento_path;
+      if (replacedDocument) await removeStoredDocument(current.documento_path);
+      setStatus("Card atualizado com sucesso.", "success");
     } else {
-      const { error } = await supabase.from("editais").insert({ ...payload, criado_por: currentUser?.id || null });
-      if (error) throw error;
-      setStatus("Registro cadastrado com sucesso.", "success");
+      const { error } = await supabase.from(TABLE_NAME).insert({ ...payload, criado_por: currentUser?.id || null });
+      if (error) {
+        if (/slug/i.test(error.message || "") || /duplicate key/i.test(error.message || "")) {
+          throw new Error("Já existia um identificador interno igual. Atualize a página e tente salvar novamente; o sistema agora gera slugs únicos automaticamente.");
+        }
+        throw error;
+      }
+      setStatus("Card cadastrado com sucesso.", "success");
     }
 
     resetForm();
@@ -391,7 +414,7 @@ async function saveItem(event) {
 }
 
 async function updateItem(id, patch, message) {
-  const { error } = await supabase.from("editais").update({ ...patch, atualizado_por: currentUser?.id || null }).eq("id", id);
+  const { error } = await supabase.from(TABLE_NAME).update({ ...patch, atualizado_por: currentUser?.id || null }).eq("id", id);
   if (error) throw error;
   setStatus(message, "success");
   await loadItems();
@@ -404,18 +427,15 @@ list?.addEventListener("click", async (event) => {
   const id = card?.dataset.id;
   const item = items.find((entry) => entry.id === id);
   if (!item) return;
-
   try {
     if (button.dataset.action === "edit") {
       fillForm(item);
       return;
     }
-
     if (button.dataset.action === "open-link") {
-      if (item.link_documento) window.open(item.link_documento, "_blank", "noopener,noreferrer");
+      if (item.link_url) window.open(item.link_url, "_blank", "noopener,noreferrer");
       return;
     }
-
     if (button.dataset.action === "toggle-status") {
       const nextStatus = item.status === "publicado" ? "oculto" : "publicado";
       await updateItem(id, {
@@ -425,13 +445,12 @@ list?.addEventListener("click", async (event) => {
       }, nextStatus === "publicado" ? "Publicado." : "Ocultado.");
       return;
     }
-
     if (button.dataset.action === "remove") {
-      if (!confirm("Remover este registro?")) return;
-      const { error } = await supabase.from("editais").delete().eq("id", id);
+      if (!confirm("Remover este card?")) return;
+      const { error } = await supabase.from(TABLE_NAME).delete().eq("id", id);
       if (error) throw error;
-      await removeStoredDocumentFromUrl(item.link_documento);
-      setStatus("Registro removido.", "success");
+      await removeStoredDocument(item.documento_path);
+      setStatus("Card removido.", "success");
       await loadItems();
     }
   } catch (error) {
@@ -454,7 +473,6 @@ async function boot() {
     setFormLoading(true);
     return;
   }
-
   try {
     const access = await requireAdminAccess();
     if (!access?.isAdmin) throw new Error("Apenas administradores podem acessar este módulo.");

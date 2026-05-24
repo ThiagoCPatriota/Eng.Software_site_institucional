@@ -41,6 +41,7 @@ const ppcForm = document.querySelector("[data-ppc-form]");
 const ppcFileInput = document.querySelector("[data-ppc-file]");
 const ppcUrlInput = document.querySelector("[data-ppc-url]");
 const ppcCurrent = document.querySelector("[data-ppc-current]");
+const ppcHistory = document.querySelector("[data-ppc-history]");
 
 const PPC_BUCKET = "ppc-documentos";
 const MAX_PPC_SIZE = 20 * 1024 * 1024;
@@ -48,6 +49,7 @@ const MAX_PPC_SIZE = 20 * 1024 * 1024;
 let currentUser = null;
 let components = [];
 let ppcDocument = null;
+let ppcDocuments = [];
 
 function setStatus(message, type = "info") {
   if (!statusBox) return;
@@ -369,6 +371,17 @@ function handleListClick(event) {
 }
 
 
+function getPpcMeta(document) {
+  const updated = formatDate(document?.atualizado_em || document?.criado_em);
+  const size = formatFileSize(document?.arquivo_tamanho);
+  return [
+    document?.ativo ? "Publicado" : "Arquivado",
+    updated ? `Atualizado em ${updated}` : "",
+    document?.arquivo_nome ? text(document.arquivo_nome) : "",
+    size,
+  ].filter(Boolean);
+}
+
 function renderPpcDocument() {
   if (!ppcCurrent) return;
 
@@ -394,20 +407,54 @@ function renderPpcDocument() {
     if (ppcFileInput) ppcFileInput.value = "";
   }
 
-  const updated = formatDate(ppcDocument.atualizado_em || ppcDocument.criado_em);
-  const size = formatFileSize(ppcDocument.arquivo_tamanho);
+  const meta = getPpcMeta(ppcDocument)
+    .map((item) => `<span>${text(item)}</span>`)
+    .join("");
 
   ppcCurrent.innerHTML = `
     <span class="admin-kicker">PPC atual</span>
     <h2>${text(ppcDocument.titulo || "Projeto Pedagógico do Curso")}</h2>
     <p>${text(ppcDocument.descricao || "Documento oficial publicado para consulta pública.")}</p>
-    <div class="admin-ppc-meta">
-      ${updated ? `<span>Atualizado em ${updated}</span>` : ""}
-      ${ppcDocument.arquivo_nome ? `<span>${text(ppcDocument.arquivo_nome)}</span>` : ""}
-      ${size ? `<span>${size}</span>` : ""}
+    <div class="admin-ppc-meta">${meta}</div>
+    <div class="admin-ppc-actions">
+      <a class="admin-secondary-action" href="${text(ppcDocument.arquivo_url)}" target="_blank" rel="noopener">Abrir PPC publicado</a>
     </div>
-    <a class="admin-secondary-action" href="${text(ppcDocument.arquivo_url)}" target="_blank" rel="noopener">Abrir PPC publicado</a>
+    <small class="admin-ppc-note">Ao publicar outro PDF ou link, esta versão será arquivada automaticamente.</small>
   `;
+}
+
+function renderPpcHistory() {
+  if (!ppcHistory) return;
+  const archived = ppcDocuments.filter((document) => !document.ativo);
+
+  if (!archived.length) {
+    ppcHistory.innerHTML = `
+      <p class="admin-empty-state compact">Nenhuma versão arquivada ainda.</p>
+    `;
+    return;
+  }
+
+  ppcHistory.innerHTML = archived
+    .map((document) => {
+      const meta = getPpcMeta(document)
+        .map((item) => `<span>${text(item)}</span>`)
+        .join("");
+
+      return `
+        <article class="admin-ppc-history-card" data-ppc-id="${text(document.id)}">
+          <div>
+            <h3>${text(document.titulo || "PPC arquivado")}</h3>
+            <p>${text(document.descricao || "Versão anterior do Projeto Pedagógico do Curso.")}</p>
+            <div class="admin-ppc-meta">${meta}</div>
+          </div>
+          <div class="admin-ppc-history-actions">
+            <a class="admin-secondary-action" href="${text(document.arquivo_url)}" target="_blank" rel="noopener">Abrir</a>
+            <button class="admin-secondary-action" type="button" data-ppc-action="restore">Republicar</button>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
 }
 
 async function loadPpcDocument() {
@@ -415,18 +462,21 @@ async function loadPpcDocument() {
     const { data, error } = await supabase
       .from("ppc_documentos")
       .select("*")
-      .eq("ativo", true)
+      .order("ativo", { ascending: false })
       .order("atualizado_em", { ascending: false })
-      .limit(1)
-      .maybeSingle();
+      .order("criado_em", { ascending: false });
 
     if (error) throw error;
-    ppcDocument = data || null;
+    ppcDocuments = data || [];
+    ppcDocument = ppcDocuments.find((document) => document.ativo) || null;
     renderPpcDocument();
+    renderPpcHistory();
   } catch (error) {
     console.error(error);
+    ppcDocuments = [];
     ppcDocument = null;
     renderPpcDocument();
+    renderPpcHistory();
     setStatus("A área do PPC precisa do SQL atualizado de grade para funcionar.", "error");
   }
 }
@@ -455,13 +505,13 @@ async function uploadPpcFile(file, title) {
   };
 }
 
-async function removeStoredPpc(path) {
-  if (!path) return;
-  try {
-    await supabase.storage.from(PPC_BUCKET).remove([path]);
-  } catch (error) {
-    console.warn("Não foi possível remover o PPC antigo:", error);
-  }
+async function archiveCurrentPpc() {
+  const { error } = await supabase
+    .from("ppc_documentos")
+    .update({ ativo: false, atualizado_por: currentUser?.id || null })
+    .eq("ativo", true);
+
+  if (error) throw error;
 }
 
 async function savePpcDocument(event) {
@@ -473,72 +523,107 @@ async function savePpcDocument(event) {
   const description = String(formData.get("descricao") || "").trim() || null;
   const externalUrl = String(formData.get("arquivo_url") || "").trim();
   const newFile = ppcFileInput?.files?.[0] || null;
+  const currentExternalUrl = ppcDocument && !ppcDocument.arquivo_path ? text(ppcDocument.arquivo_url).trim() : "";
+  const externalUrlChanged = Boolean(externalUrl && externalUrl !== currentExternalUrl);
+  const shouldCreateVersion = Boolean(newFile || externalUrlChanged || (!ppcDocument && externalUrl));
 
   if (!title) {
     setStatus("Informe o título do documento do PPC.", "error");
     return;
   }
 
-  if (!newFile && !externalUrl && !ppcDocument?.arquivo_url) {
+  if (!shouldCreateVersion && !ppcDocument?.arquivo_url) {
     setStatus("Envie um PDF ou informe um link oficial do PPC.", "error");
     return;
   }
 
   setPpcFormLoading(true);
-  setStatus(newFile ? "Enviando PDF do PPC..." : "Salvando informações do PPC...", "info");
-
-  const oldPath = ppcDocument?.arquivo_path || null;
+  setStatus(shouldCreateVersion ? "Publicando nova versão do PPC..." : "Atualizando informações do PPC atual...", "info");
 
   try {
-    let filePayload = {};
+    if (!shouldCreateVersion && ppcDocument?.id) {
+      const { error } = await supabase
+        .from("ppc_documentos")
+        .update({
+          titulo: title,
+          descricao: description,
+          atualizado_por: currentUser?.id || null,
+        })
+        .eq("id", ppcDocument.id);
 
-    if (newFile) {
-      filePayload = await uploadPpcFile(newFile, title);
-    } else if (externalUrl) {
-      filePayload = {
-        arquivo_url: externalUrl,
-        arquivo_path: null,
-        arquivo_nome: null,
-        arquivo_tamanho: null,
-      };
-    } else {
-      filePayload = {
-        arquivo_url: ppcDocument.arquivo_url,
-        arquivo_path: ppcDocument.arquivo_path,
-        arquivo_nome: ppcDocument.arquivo_nome,
-        arquivo_tamanho: ppcDocument.arquivo_tamanho,
-      };
+      if (error) throw error;
+      setStatus("Informações do PPC atual atualizadas com sucesso.", "success");
+      await loadPpcDocument();
+      return;
     }
+
+    const filePayload = newFile
+      ? await uploadPpcFile(newFile, title)
+      : {
+          arquivo_url: externalUrl,
+          arquivo_path: null,
+          arquivo_nome: null,
+          arquivo_tamanho: null,
+        };
+
+    await archiveCurrentPpc();
 
     const payload = {
       titulo: title,
       descricao: description,
       ativo: true,
       atualizado_por: currentUser?.id || null,
+      criado_por: currentUser?.id || null,
       ...filePayload,
     };
 
-    if (ppcDocument?.id) {
-      const { error } = await supabase.from("ppc_documentos").update(payload).eq("id", ppcDocument.id);
-      if (error) throw error;
-    } else {
-      const { error } = await supabase
-        .from("ppc_documentos")
-        .insert({ ...payload, criado_por: currentUser?.id || null });
-      if (error) throw error;
-    }
+    const { error } = await supabase.from("ppc_documentos").insert(payload);
+    if (error) throw error;
 
-    if ((newFile || externalUrl) && oldPath && oldPath !== filePayload.arquivo_path) {
-      await removeStoredPpc(oldPath);
-    }
-
-    setStatus("PPC publicado/atualizado com sucesso.", "success");
+    setStatus("Nova versão do PPC publicada. A versão anterior foi arquivada no histórico.", "success");
     await loadPpcDocument();
   } catch (error) {
     console.error(error);
     setStatus(error.message || "Não foi possível salvar o PPC.", "error");
   } finally {
     setPpcFormLoading(false);
+  }
+}
+
+async function restorePpcDocument(id) {
+  const selected = ppcDocuments.find((document) => document.id === id);
+  if (!selected) return;
+
+  const ok = window.confirm(`Republicar "${selected.titulo || "PPC arquivado"}" como PPC atual? O documento publicado agora será arquivado.`);
+  if (!ok) return;
+
+  try {
+    setStatus("Republicando versão arquivada do PPC...", "info");
+    await archiveCurrentPpc();
+
+    const { error } = await supabase
+      .from("ppc_documentos")
+      .update({ ativo: true, atualizado_por: currentUser?.id || null })
+      .eq("id", id);
+
+    if (error) throw error;
+    setStatus("Versão arquivada republicada com sucesso.", "success");
+    await loadPpcDocument();
+  } catch (error) {
+    console.error(error);
+    setStatus(error.message || "Não foi possível republicar essa versão do PPC.", "error");
+  }
+}
+
+function handlePpcHistoryClick(event) {
+  const button = event.target.closest("button[data-ppc-action]");
+  if (!button) return;
+
+  const card = button.closest("[data-ppc-id]");
+  const id = card?.dataset.ppcId;
+
+  if (button.dataset.ppcAction === "restore") {
+    restorePpcDocument(id);
   }
 }
 
@@ -550,6 +635,7 @@ async function init() {
   clearButton?.addEventListener("click", () => resetForm(true));
   form?.addEventListener("submit", saveComponent);
   ppcForm?.addEventListener("submit", savePpcDocument);
+  ppcHistory?.addEventListener("click", handlePpcHistoryClick);
   list?.addEventListener("click", handleListClick);
   filter?.addEventListener("change", renderComponents);
 

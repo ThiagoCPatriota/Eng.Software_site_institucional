@@ -64,6 +64,7 @@ let labs = [];
 let reservations = [];
 let currentSession = null;
 let currentProfile = null;
+let activeLabIndex = 0;
 
 function setStatus(message, type = "info") {
   if (!statusBox) return;
@@ -240,10 +241,7 @@ async function setupRequestAccess() {
     setRequestFormEnabled(true);
 
     if (currentProfile?.matricula || currentSession.user.user_metadata?.matricula) {
-      setAuthGate(`
-        <strong>Perfil vinculado.</strong>
-        <span>A solicitação será enviada com os dados acadêmicos exibidos no card do responsável.</span>
-      `, "success");
+      setAuthGate("", "info");
       return;
     }
 
@@ -276,16 +274,36 @@ function renderLabStrip() {
   if (!labStrip) return;
   labStrip.innerHTML = "";
 
+  if (!labs.length) {
+    const empty = document.createElement("div");
+    empty.className = "lab-empty-state";
+    empty.textContent = "Nenhum laboratório cadastrado para exibir.";
+    labStrip.appendChild(empty);
+    return;
+  }
+
+  const selectedLab = labFilter?.value || "todos";
+
   labs.forEach((lab) => {
     const count = reservations.filter((item) => item.laboratorio_id === lab.id).length;
-    const card = document.createElement("article");
+    const card = document.createElement("button");
+    card.type = "button";
     card.className = "lab-card-mini";
+    card.classList.toggle("is-active", selectedLab === lab.id);
+    card.setAttribute("aria-label", `Filtrar por ${lab.nome}`);
     card.innerHTML = `
       <span>${lab.codigo || "LAB"}</span>
       <strong>${lab.nome}</strong>
       <small>${lab.localizacao || "Localização a definir"}</small>
       <p>${lab.capacidade ? `${lab.capacidade} lugares · ` : ""}${count} horário${count === 1 ? "" : "s"} ocupado${count === 1 ? "" : "s"}</p>
     `;
+    card.addEventListener("click", () => {
+      if (!labFilter) return;
+      labFilter.value = lab.id;
+      activeLabIndex = 0;
+      renderLabStrip();
+      renderBoard();
+    });
     labStrip.appendChild(card);
   });
 }
@@ -294,16 +312,29 @@ function getFilteredItems() {
   const labValue = labFilter?.value || "todos";
   const dayValue = dayFilter?.value || "todos";
   const dateValue = dateFilter?.value || "";
+  const dayFromDate = getDayFromDate(dateValue);
 
   return reservations.filter((item) => {
     if (labValue !== "todos" && item.laboratorio_id !== labValue) return false;
+
+    if (dateValue) {
+      if (!dayFromDate) return false;
+      const matchesExactDate = item.data_reserva === dateValue;
+      const matchesRecurringDay = !item.data_reserva && Number(item.dia_semana) === Number(dayFromDate);
+      if (!matchesExactDate && !matchesRecurringDay) return false;
+      return true;
+    }
+
     if (dayValue !== "todos" && Number(item.dia_semana) !== Number(dayValue)) return false;
-    if (dateValue && item.data_reserva !== dateValue) return false;
     return true;
   });
 }
 
 function getVisibleDays() {
+  const dateValue = dateFilter?.value || "";
+  const dayFromDate = getDayFromDate(dateValue);
+  if (dateValue) return dayFromDate ? DIAS.filter((dia) => dia.value === dayFromDate) : [];
+
   const value = dayFilter?.value || "todos";
   if (value === "todos") return DIAS;
   return DIAS.filter((dia) => String(dia.value) === String(value));
@@ -311,8 +342,8 @@ function getVisibleDays() {
 
 function getLabIdsForBoard(items) {
   const selectedLab = labFilter?.value || "todos";
-  if (selectedLab !== "todos") return [selectedLab];
-  return [...new Set(items.map((item) => item.laboratorio_id))];
+  if (selectedLab !== "todos") return labs.some((lab) => lab.id === selectedLab) ? [selectedLab] : [];
+  return labs.length ? labs.map((lab) => lab.id) : [...new Set(items.map((item) => item.laboratorio_id))];
 }
 
 function createLabScheduleEntry(item) {
@@ -402,20 +433,86 @@ function renderBoard() {
   const items = getFilteredItems();
   board.innerHTML = "";
 
-  if (!items.length) {
+  if ((dateFilter?.value || "") && !getDayFromDate(dateFilter.value)) {
     const empty = document.createElement("div");
     empty.className = "lab-empty-state";
-    empty.textContent = "Nenhum horário ocupado para os filtros selecionados. Consulte a coordenação antes de considerar o laboratório livre.";
+    empty.textContent = "Escolha uma data entre segunda e sexta-feira para consultar a grade dos laboratórios.";
     board.appendChild(empty);
     return;
   }
 
-  getLabIdsForBoard(items)
-    .sort((a, b) => labName(a).localeCompare(labName(b), "pt-BR", { numeric: true }))
-    .forEach((labId) => {
-      const labItems = items.filter((item) => item.laboratorio_id === labId);
-      if (labItems.length) board.appendChild(renderLabCalendar(labId, labItems));
+  const labIds = getLabIdsForBoard(items)
+    .sort((a, b) => labName(a).localeCompare(labName(b), "pt-BR", { numeric: true }));
+
+  if (!labs.length || !labIds.length) {
+    const empty = document.createElement("div");
+    empty.className = "lab-empty-state";
+    empty.textContent = "Nenhum laboratório disponível para os filtros selecionados.";
+    board.appendChild(empty);
+    return;
+  }
+
+  if (activeLabIndex >= labIds.length) activeLabIndex = labIds.length - 1;
+  if (activeLabIndex < 0) activeLabIndex = 0;
+
+  const activeLabId = labIds[activeLabIndex];
+  const labItems = items.filter((item) => item.laboratorio_id === activeLabId);
+
+  const carousel = document.createElement("section");
+  carousel.className = "lab-calendar-carousel";
+  carousel.setAttribute("aria-label", "Navegação entre laboratórios");
+
+  const previous = document.createElement("button");
+  previous.type = "button";
+  previous.className = "lab-calendar-nav";
+  previous.innerHTML = "‹";
+  previous.setAttribute("aria-label", "Laboratório anterior");
+  previous.disabled = labIds.length <= 1;
+  previous.addEventListener("click", () => {
+    activeLabIndex = (activeLabIndex - 1 + labIds.length) % labIds.length;
+    renderBoard();
+  });
+
+  const next = document.createElement("button");
+  next.type = "button";
+  next.className = "lab-calendar-nav";
+  next.innerHTML = "›";
+  next.setAttribute("aria-label", "Próximo laboratório");
+  next.disabled = labIds.length <= 1;
+  next.addEventListener("click", () => {
+    activeLabIndex = (activeLabIndex + 1) % labIds.length;
+    renderBoard();
+  });
+
+  const viewport = document.createElement("div");
+  viewport.className = "lab-calendar-viewport";
+  viewport.appendChild(renderLabCalendar(activeLabId, labItems));
+
+  carousel.appendChild(previous);
+  carousel.appendChild(viewport);
+  carousel.appendChild(next);
+  board.appendChild(carousel);
+
+  if (labIds.length > 1) {
+    const rail = document.createElement("div");
+    rail.className = "lab-carousel-rail";
+    rail.setAttribute("aria-label", "Selecionar laboratório");
+
+    labIds.forEach((labId, index) => {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "lab-period-chip";
+      chip.classList.toggle("is-active", index === activeLabIndex);
+      chip.textContent = `${labCode(labId)} · ${labName(labId)}`;
+      chip.addEventListener("click", () => {
+        activeLabIndex = index;
+        renderBoard();
+      });
+      rail.appendChild(chip);
     });
+
+    board.appendChild(rail);
+  }
 }
 
 async function loadData() {
@@ -442,10 +539,11 @@ async function loadData() {
   labs = labData || [];
   reservations = reservationData || [];
   fillFilters();
+  activeLabIndex = 0;
   renderLabStrip();
   renderBoard();
   setupDragScroll();
-  setStatus(labs.length ? "Laboratórios carregados. A grade semanal mostra horários indisponíveis ou reservados." : "Nenhum laboratório cadastrado ainda.", labs.length ? "success" : "info");
+  setStatus(labs.length ? "Laboratórios carregados. Use as setas laterais para alternar entre as grades disponíveis." : "Nenhum laboratório cadastrado ainda.", labs.length ? "success" : "info");
 }
 
 function getDayFromDate(dateValue) {
@@ -541,7 +639,13 @@ async function submitRequest(event) {
   }
 }
 
-[labFilter, dayFilter, dateFilter].forEach((field) => field?.addEventListener("change", renderBoard));
+function handleFilterChange() {
+  activeLabIndex = 0;
+  renderLabStrip();
+  renderBoard();
+}
+
+[labFilter, dayFilter, dateFilter].forEach((field) => field?.addEventListener("change", handleFilterChange));
 requestForm?.addEventListener("submit", submitRequest);
 
 setupRequestAccess();

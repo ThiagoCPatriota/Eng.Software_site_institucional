@@ -66,7 +66,6 @@
             <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
             <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
             <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
-            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
           </div>
         </details>
 
@@ -84,36 +83,26 @@
   </header>
 
   <main id="conteudo">
-    <section class="page-hero lab-hero" aria-labelledby="titulo-laboratorios">
-      <div class="container page-hero-grid">
-        <div class="page-hero-content reveal">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="index.html">Início</a>
-            <span aria-hidden="true">•</span>
-            <span>Horário dos laboratórios</span>
-          </nav>
-          <span class="eyebrow">Laboratórios</span>
-          <h1 id="titulo-laboratorios">Disponibilidade dos laboratórios.</h1>
-          <p>
-            Consulte os horários já ocupados e envie uma solicitação de reserva. Depois da aprovação, o horário
-            reservado ficará associado ao seu nome, e-mail e matrícula.
-          </p>
-          <div class="hero-actions" aria-label="Ações principais dos laboratórios">
-            <a class="btn btn-primary" href="#consulta-laboratorios">Ver horários</a>
-            <a class="btn btn-secondary" href="#solicitar-reserva">Solicitar reserva</a>
+    <section class="lab-board-page" id="consulta-laboratorios" aria-labelledby="titulo-laboratorios">
+      <div class="container lab-board-container">
+        <header class="lab-board-header reveal">
+          <div class="lab-title-block">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+              <a href="index.html">Início</a>
+              <span aria-hidden="true">•</span>
+              <span>Horário dos laboratórios</span>
+            </nav>
+            <span class="lab-kicker">Vida acadêmica</span>
+            <h1 id="titulo-laboratorios">Horário dos laboratórios</h1>
+            <p>
+              Consulte a ocupação semanal dos laboratórios, filtre por ambiente, dia ou data específica e navegue pelas grades usando as setas laterais. A reserva continua vinculada ao perfil acadêmico do estudante.
+            </p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section lab-section" id="consulta-laboratorios" aria-labelledby="titulo-consulta-laboratorios">
-      <div class="container">
-        <div class="section-heading centered reveal">
-          <span class="eyebrow">Consulta</span>
-          <h2 id="titulo-consulta-laboratorios">Veja a ocupação semanal dos laboratórios.</h2>
-          <p>Use os filtros para consultar laboratório, dia ou data específica. A grade mostra os horários ocupados de
-            segunda a sexta, das 7h30 às 22h.</p>
-        </div>
+          <div class="lab-header-actions" aria-label="Ações rápidas">
+            <a class="lab-action-primary" href="#solicitar-reserva">Solicitar reserva</a>
+            <a class="lab-action-secondary" href="#grade-laboratorios">Ver grade</a>
+          </div>
+        </header>
 
         <section class="lab-control-panel reveal" aria-label="Filtros dos laboratórios">
           <label>
@@ -139,20 +128,18 @@
 
         <div class="lab-status" data-lab-status role="status" aria-live="polite">Carregando laboratórios...</div>
 
-        <section class="lab-strip reveal" data-lab-strip data-drag-scroll aria-label="Laboratórios cadastrados">
-        </section>
-        <section class="lab-board reveal" data-lab-board aria-label="Horários ocupados dos laboratórios"></section>
+        <section class="lab-strip reveal" data-lab-strip data-drag-scroll aria-label="Laboratórios cadastrados"></section>
+        <section class="lab-board reveal" id="grade-laboratorios" data-lab-board aria-label="Horários ocupados dos laboratórios"></section>
       </div>
     </section>
 
-    <section class="section lab-request-section" id="solicitar-reserva" aria-labelledby="titulo-solicitar-reserva">
+    <section class="lab-request-section" id="solicitar-reserva" aria-labelledby="titulo-solicitar-reserva">
       <div class="container lab-request-layout">
-        <div class="section-heading reveal">
-          <span class="eyebrow">Solicitação</span>
-          <h2 id="titulo-solicitar-reserva">Reserve um laboratório para uma atividade acadêmica.</h2>
+        <div class="lab-request-heading reveal">
+          <span class="lab-kicker">Solicitação</span>
+          <h2 id="titulo-solicitar-reserva">Reserve um laboratório para atividade acadêmica</h2>
           <p>
-            A solicitação fica pendente até aprovação da administração. O horário aprovado ficará associado ao seu nome,
-            e-mail e matrícula.
+            A solicitação fica pendente até aprovação da administração. Depois da aprovação, o horário aparece na grade pública com os dados acadêmicos necessários para conferência.
           </p>
         </div>
 
@@ -189,8 +176,7 @@
 
           <label>
             <span>Atividade</span>
-            <input type="text" name="titulo" placeholder="Ex.: Estudo em grupo, apresentação, projeto integrador"
-              required />
+            <input type="text" name="titulo" placeholder="Ex.: Estudo em grupo, apresentação, projeto integrador" required />
           </label>
 
           <div class="lab-form-row">
@@ -200,8 +186,7 @@
             </label>
             <label>
               <span>Matrícula</span>
-              <input type="text" name="responsavel_matricula" inputmode="numeric" placeholder="Sua matrícula"
-                required />
+              <input type="text" name="responsavel_matricula" inputmode="numeric" placeholder="Sua matrícula" required />
             </label>
           </div>
 
@@ -212,11 +197,10 @@
 
           <label>
             <span>Finalidade</span>
-            <textarea name="finalidade" rows="4" placeholder="Explique rapidamente para que o laboratório será usado."
-              required></textarea>
+            <textarea name="finalidade" rows="4" placeholder="Explique rapidamente para que o laboratório será usado." required></textarea>
           </label>
 
-          <button class="btn btn-primary" type="submit">Enviar solicitação</button>
+          <button class="lab-submit-button" type="submit">Enviar solicitação</button>
           <div class="lab-form-feedback" data-lab-request-status role="status" aria-live="polite"></div>
         </form>
       </div>
@@ -248,7 +232,6 @@
           <a href="area-aluno.html">Área do aluno</a>
           <a href="horarios.html">Horário de aulas</a>
           <a href="laboratorios.html">Horário dos laboratórios</a>
-          <a href="calendario.html">Calendário acadêmico</a>
           <a href="faq.html">Dúvidas frequentes</a>
         </nav>
 

@@ -156,7 +156,15 @@ async function uploadDocument(file, title) {
       upsert: false,
     });
 
-  if (error) throw error;
+  if (error) {
+    const message = String(error.message || "").toLowerCase();
+    if (message.includes("bucket not found")) {
+      throw new Error(
+        "Bucket ingresso-documentos não encontrado. Rode o SQL supabase/fix-ingresso-documentos-bucket.sql no Supabase antes de enviar PDFs."
+      );
+    }
+    throw error;
+  }
 
   const { data } = supabase.storage.from(INGRESSO_DOCS_BUCKET).getPublicUrl(path);
   return {
@@ -247,8 +255,8 @@ async function loadItems() {
 
 async function saveItem(event) {
   event.preventDefault();
-  setFormLoading(true);
-  setStatus("Salvando...", "info");
+  setStatus("Validando informações...", "info");
+
   try {
     const id = form.elements.id.value;
     const current = id ? items.find((item) => item.id === id) : null;
@@ -256,9 +264,12 @@ async function saveItem(event) {
     const file = fileInput?.files?.[0] || null;
 
     if (!payload.titulo || !payload.resumo) {
-      setStatus("Preencha os campos obrigatórios antes de salvar.", "error");
+      setStatus("Preencha título e resumo antes de salvar.", "error");
       return;
     }
+
+    setFormLoading(true);
+    setStatus("Salvando...", "info");
 
     if (file) {
       setStatus("Enviando PDF...", "info");

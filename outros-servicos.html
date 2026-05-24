@@ -63,7 +63,6 @@
             <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
             <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
             <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
-            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
           </div>
         </details>
 
@@ -81,34 +80,76 @@
   </header>
 
   <main id="conteudo">
-    <section class="page-hero servicos-page-hero" aria-labelledby="titulo-servicos">
-      <div class="container projects-hero-single">
-        <div class="page-hero-content reveal">
-          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Início</a><span>•</span><span>Outros serviços</span></nav>
-          <span class="eyebrow">Outros serviços</span>
-          <h1 id="titulo-servicos">Links úteis para a vida acadêmica.</h1>
-          <p>Acesse biblioteca, orientações sobre atividades complementares, TCC e outros serviços que ajudam o estudante a navegar pelo curso.</p>
-          <div class="projects-hero-actions"><a class="btn btn-primary" href="#servicos-academicos">Ver serviços</a><a class="btn btn-secondary" href="area-aluno.html">Área do aluno</a></div>
-        </div>
-      </div>
-    </section>
+    <section class="services-board" id="servicos-academicos" aria-labelledby="titulo-servicos">
+      <div class="container services-board-container">
+        <div class="services-board-header reveal">
+          <div class="services-title-block">
+            <span class="services-kicker">Vida acadêmica</span>
+            <h1 id="titulo-servicos">Outros serviços</h1>
+            <p>
+              Uma área simples para concentrar acessos de apoio ao estudante, começando por biblioteca,
+              atividades complementares e TCC. Os links publicados aparecem como cards objetivos e fáceis de consultar.
+            </p>
+          </div>
 
-    <section class="section servicos-section" id="servicos-academicos" aria-labelledby="titulo-lista-servicos">
-      <div class="container">
-        <div class="section-heading reveal">
-          <span class="eyebrow">Acessos rápidos</span>
-          <h2 id="titulo-lista-servicos">Biblioteca, atividades complementares e TCC.</h2>
-          <p>Os links são cadastrados pela administração e podem apontar para sites, documentos ou páginas oficiais.</p>
         </div>
-        <div class="project-filter-bar reveal" aria-label="Filtro de serviços">
-          <button class="is-active" type="button" data-servico-public-filter="todos">Todos</button>
-          <button type="button" data-servico-public-filter="biblioteca">Biblioteca</button>
-          <button type="button" data-servico-public-filter="atividades_complementares">Atividades complementares</button>
-          <button type="button" data-servico-public-filter="tcc">TCC</button>
-          <button type="button" data-servico-public-filter="outro">Outros</button>
+
+        <div class="services-feature-grid reveal" aria-label="Principais categorias de outros serviços">
+          <article class="service-feature-card is-library">
+            <span class="service-feature-icon" aria-hidden="true">▦</span>
+            <div>
+              <span class="service-feature-label">Biblioteca</span>
+              <h2>Acervo, consulta e suporte ao estudo.</h2>
+              <p>Espaço para links de biblioteca, catálogos, renovação, normalização e materiais de apoio.</p>
+            </div>
+            <button type="button" data-service-feature-filter="biblioteca">Ver biblioteca</button>
+          </article>
+
+          <article class="service-feature-card">
+            <span class="service-feature-icon" aria-hidden="true">✦</span>
+            <div>
+              <span class="service-feature-label">Atividades complementares</span>
+              <h2>Orientações para registrar experiências.</h2>
+              <p>Área pensada para normas, formulários, comprovantes e instruções sobre carga horária complementar.</p>
+            </div>
+            <button type="button" data-service-feature-filter="atividades_complementares">Ver atividades</button>
+          </article>
+
+          <article class="service-feature-card is-tcc">
+            <span class="service-feature-icon" aria-hidden="true">⌁</span>
+            <div>
+              <span class="service-feature-label">TCC</span>
+              <h2>Modelos, etapas e documentos finais.</h2>
+              <p>Central para regulamentos, modelos de escrita, orientações de banca e materiais do trabalho de conclusão.</p>
+            </div>
+            <button type="button" data-service-feature-filter="tcc">Ver TCC</button>
+          </article>
         </div>
-        <div class="servicos-grid" data-servicos-list></div>
-        <div class="projects-empty-state" data-servicos-empty>Nenhum serviço encontrado para este filtro.</div>
+
+        <div class="services-toolbar reveal" id="servicos-links">
+          <form class="services-search" role="search" aria-label="Buscar serviços acadêmicos">
+            <label class="sr-only" for="busca-servicos">Buscar por serviço, documento ou orientação</label>
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="m21 21-4.35-4.35"/><circle cx="11" cy="11" r="7"/></svg>
+            </span>
+            <input id="busca-servicos" type="search" placeholder="Buscar por serviço, documento ou orientação..." data-servicos-search />
+          </form>
+
+          <div class="services-filters" aria-label="Filtros de serviços acadêmicos">
+            <button class="is-active" type="button" data-servico-public-filter="todos">Todos</button>
+            <button type="button" data-servico-public-filter="biblioteca">Biblioteca</button>
+            <button type="button" data-servico-public-filter="atividades_complementares">Atividades complementares</button>
+            <button type="button" data-servico-public-filter="tcc">TCC</button>
+          </div>
+        </div>
+
+        <div class="services-results-heading reveal">
+          <span>Links publicados</span>
+          <strong data-servicos-count>0 serviços encontrados</strong>
+        </div>
+
+        <div class="services-results-grid reveal" data-servicos-list aria-live="polite"></div>
+        <div class="services-empty-state" data-servicos-empty>Nenhum serviço encontrado para este filtro ou busca.</div>
       </div>
     </section>
   </main>
@@ -138,7 +179,6 @@
           <a href="area-aluno.html">Área do aluno</a>
           <a href="horarios.html">Horário de aulas</a>
           <a href="laboratorios.html">Horário dos laboratórios</a>
-          <a href="calendario.html">Calendário acadêmico</a>
           <a href="faq.html">Dúvidas frequentes</a>
         </nav>
 

@@ -139,15 +139,6 @@ window.dadosSite = {
       link: '#'
     },
     {
-      icone: 'CL',
-      categoria: 'Calendário',
-      titulo: 'Calendário acadêmico',
-      resumo: 'Linha do tempo com matrícula, aulas, avaliações, eventos, prazos e datas importantes do semestre.',
-      status: 'Página disponível',
-      tipo: 'Navegação interna',
-      link: 'calendario.html'
-    },
-    {
       icone: 'AP',
       categoria: 'Apoio',
       titulo: 'Coordenação e atendimento',
@@ -156,62 +147,5 @@ window.dadosSite = {
       tipo: 'Atendimento',
       link: 'contato.html'
     }
-  ],
-  calendarioAcademico: [
-    {
-      categoria: 'matricula',
-      etiqueta: 'Matrícula',
-      marcador: 'M',
-      data: 'A confirmar',
-      titulo: 'Período de matrícula dos estudantes',
-      resumo: 'Janela demonstrativa para orientar estudantes sobre matrícula, documentação e confirmação de vínculo conforme calendário oficial.',
-      status: 'Conferir edital ou sistema oficial'
-    },
-    {
-      categoria: 'aulas',
-      etiqueta: 'Aulas',
-      marcador: 'A',
-      data: 'A confirmar',
-      titulo: 'Início das aulas do semestre',
-      resumo: 'Marco para indicar começo das atividades acadêmicas, acolhimento, apresentação de disciplinas e primeiras orientações.',
-      status: 'Data oficial pendente'
-    },
-    {
-      categoria: 'prazos',
-      etiqueta: 'Prazo',
-      marcador: 'P',
-      data: 'Demonstração',
-      titulo: 'Ajuste de matrícula e regularização',
-      resumo: 'Espaço para divulgar prazos de ajuste, solicitação de documentos, regularização acadêmica e demandas administrativas.',
-      status: 'Exemplo de prazo'
-    },
-    {
-      categoria: 'eventos',
-      etiqueta: 'Evento',
-      marcador: 'E',
-      data: 'Demonstração',
-      titulo: 'Semana Acadêmica de Engenharia de Software',
-      resumo: 'Evento demonstrativo com palestras, minicursos, oficinas e apresentações de projetos desenvolvidos por estudantes.',
-      status: 'Programação futura'
-    },
-    {
-      categoria: 'avaliacao',
-      etiqueta: 'Avaliação',
-      marcador: 'AV',
-      data: 'Demonstração',
-      titulo: 'Período de avaliações e entregas',
-      resumo: 'Janela indicativa para provas, apresentações, projetos integradores, atividades práticas e entregas orientadas por disciplina.',
-      status: 'Datas por disciplina'
-    },
-    {
-      categoria: 'prazos',
-      etiqueta: 'Prazo',
-      marcador: 'F',
-      data: 'A confirmar',
-      titulo: 'Fechamento do semestre letivo',
-      resumo: 'Marco final para consolidação de frequência, resultados, pendências e orientações para o período seguinte.',
-      status: 'Conferir calendário oficial'
-    }
   ]
-
 };

@@ -66,7 +66,6 @@
             <a href="area-aluno.html" data-nav="area-aluno">Área do aluno</a>
             <a href="horarios.html" data-nav="horarios">Horário de aulas</a>
             <a href="laboratorios.html" data-nav="laboratorios">Horário dos laboratórios</a>
-            <a href="calendario.html" data-nav="calendario">Calendário acadêmico</a>
           </div>
         </details>
 
@@ -84,37 +83,63 @@
   </header>
 
   <main id="conteudo">
-    <section class="page-hero docentes-page-hero" aria-labelledby="titulo-docentes">
-      <div class="container page-hero-grid">
-        <div class="page-hero-content reveal">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="index.html">Início</a>
-            <span>•</span>
-            <span>Docentes</span>
-          </nav>
-          <span class="eyebrow">Corpo docente</span>
-          <h1 id="titulo-docentes">Conheça a equipe docente do curso de Engenharia de Software.</h1>
-          <p>Esta página reúne docentes, coordenação, áreas de atuação, histórico acadêmico e canais de contato
-            disponibilizados.</p>
-        </div>
-      </div>
-    </section>
+    <section class="docentes-board" id="lista-docentes" aria-labelledby="titulo-docentes">
+      <div class="container docentes-board-container">
+        <div class="docentes-board-header reveal">
+          <div class="docentes-title-block">
+            <nav class="breadcrumb docentes-breadcrumb" aria-label="Breadcrumb">
+              <a href="index.html">Início</a>
+              <span>•</span>
+              <span>Docentes</span>
+            </nav>
+            <span class="docentes-kicker">Corpo docente</span>
+            <h1 id="titulo-docentes">Docentes</h1>
+            <p>
+              Conheça os profissionais vinculados ao curso, suas áreas de atuação, formação acadêmica,
+              componentes ministrados e canais públicos de contato.
+            </p>
+          </div>
 
-    <section class="section" aria-labelledby="titulo-corpo-docente-grid">
-      <div class="container">
-        <div class="section-heading centered reveal">
-          <span class="eyebrow">Docentes</span>
-          <h2 id="titulo-corpo-docente-grid">Equipe docente e coordenação</h2>
-          <p>Visualize os profissionais cadastrados e suas principais áreas de atuação no curso.</p>
+          <form class="docentes-search" role="search" aria-label="Buscar docentes cadastrados">
+            <label class="sr-only" for="busca-docentes">Buscar por docente, área ou componente</label>
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="m21 21-4.35-4.35"/><circle cx="11" cy="11" r="7"/></svg>
+            </span>
+            <input id="busca-docentes" type="search" placeholder="Buscar por docente, área ou componente..." data-docentes-search />
+          </form>
         </div>
 
-        <div class="docent-grid" data-docentes-list aria-live="polite"></div>
+        <div class="docentes-summary-grid reveal" aria-label="Resumo do corpo docente">
+          <article class="docentes-summary-card">
+            <span>Equipe</span>
+            <strong data-docentes-total>--</strong>
+            <small>profissionais ativos</small>
+          </article>
+          <article class="docentes-summary-card">
+            <span>Áreas</span>
+            <strong data-docentes-areas>--</strong>
+            <small>linhas de atuação</small>
+          </article>
+          <article class="docentes-summary-card">
+            <span>Coordenação</span>
+            <strong data-docentes-coordenacao>--</strong>
+            <small>identificação pública</small>
+          </article>
+        </div>
+
+        <div class="docentes-filters reveal" aria-label="Filtros do corpo docente">
+          <button class="is-active" type="button" data-docente-filter="todos">Todos</button>
+          <button type="button" data-docente-filter="docente">Docentes</button>
+          <button type="button" data-docente-filter="coordenacao">Coordenação</button>
+          <button type="button" data-docente-filter="apoio_academico">Apoio acadêmico</button>
+        </div>
+
+        <div class="docent-grid reveal" data-docentes-list aria-live="polite"></div>
 
         <div class="docentes-empty-state" data-docentes-empty>
           <span>Equipe docente em atualização</span>
           <h3>Nenhum docente ativo foi encontrado no momento.</h3>
-          <p>Assim que a administração cadastrar e ativar os docentes, os cards aparecerão automaticamente nesta área.
-          </p>
+          <p>Assim que a administração cadastrar e ativar os docentes, os cards aparecerão automaticamente nesta área.</p>
         </div>
       </div>
     </section>
@@ -145,7 +170,6 @@
           <a href="area-aluno.html">Área do aluno</a>
           <a href="horarios.html">Horário de aulas</a>
           <a href="laboratorios.html">Horário dos laboratórios</a>
-          <a href="calendario.html">Calendário acadêmico</a>
           <a href="faq.html">Dúvidas frequentes</a>
         </nav>
 

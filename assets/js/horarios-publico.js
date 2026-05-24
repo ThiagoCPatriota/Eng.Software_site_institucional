@@ -54,11 +54,13 @@ const periodSelect = document.querySelector("[data-schedule-period]");
 const shiftSelect = document.querySelector("[data-schedule-shift]");
 
 let horarios = [];
+let activeGroupIndex = 0;
 
 function setStatus(message, type = "info") {
   if (!statusBox) return;
   statusBox.textContent = message;
   statusBox.classList.toggle("is-error", type === "error");
+  statusBox.classList.toggle("is-success", type === "success");
 }
 
 function normalize(value) {
@@ -94,22 +96,28 @@ function fillFilters() {
   const periods = uniqueSorted(horarios.map((item) => item.periodo), [1, 2, 3, 4, 5, 6, 7, 8]);
   const shifts = uniqueSorted(horarios.map((item) => item.turno), ["manha", "tarde", "noite"]);
 
-  semesterSelect.innerHTML = "";
-  semesters.forEach((semester) => semesterSelect.appendChild(option(semester, semester)));
+  if (semesterSelect) {
+    semesterSelect.innerHTML = "";
+    semesters.forEach((semester) => semesterSelect.appendChild(option(semester, semester)));
+  }
 
-  periodSelect.innerHTML = "";
-  periodSelect.appendChild(option("todos", "Todos os períodos"));
-  periods.forEach((period) => periodSelect.appendChild(option(period, `${period}º período`)));
+  if (periodSelect) {
+    periodSelect.innerHTML = "";
+    periodSelect.appendChild(option("todos", "Todos os períodos"));
+    periods.forEach((period) => periodSelect.appendChild(option(period, `${period}º período`)));
+  }
 
-  shiftSelect.innerHTML = "";
-  shiftSelect.appendChild(option("todos", "Todos os turnos"));
-  shifts.forEach((shift) => shiftSelect.appendChild(option(shift, TURNOS[shift] || shift)));
+  if (shiftSelect) {
+    shiftSelect.innerHTML = "";
+    shiftSelect.appendChild(option("todos", "Todos os turnos"));
+    shifts.forEach((shift) => shiftSelect.appendChild(option(shift, TURNOS[shift] || shift)));
+  }
 }
 
 function getFilteredItems() {
-  const semester = semesterSelect.value;
-  const period = periodSelect.value;
-  const shift = shiftSelect.value;
+  const semester = semesterSelect?.value || "";
+  const period = periodSelect?.value || "todos";
+  const shift = shiftSelect?.value || "todos";
 
   return horarios.filter((item) => {
     const matchesSemester = !semester || item.semestre_letivo === semester;
@@ -121,6 +129,22 @@ function getFilteredItems() {
 
 function groupKey(item) {
   return `${item.semestre_letivo}__${item.periodo}__${item.turno}__${item.turma || ""}`;
+}
+
+function groupLabel(key) {
+  const [, periodo, turno, turma] = key.split("__");
+  return `${periodo}º período${turma ? ` · Turma ${turma}` : ""} · ${TURNOS[turno] || turno}`;
+}
+
+function getGroups(items) {
+  const groups = new Map();
+  items.forEach((item) => {
+    const key = groupKey(item);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(item);
+  });
+
+  return [...groups.entries()].sort(([a], [b]) => a.localeCompare(b, "pt-BR", { numeric: true }));
 }
 
 function getTimeRows(items, turno) {
@@ -170,7 +194,7 @@ function buildClassCard(item) {
   return card;
 }
 
-function renderGroup(items, key) {
+function renderGroup(items, key, meta = {}) {
   const [semestre, periodo, turno, turma] = key.split("__");
   const card = document.createElement("article");
   card.className = "schedule-table-card";
@@ -179,11 +203,14 @@ function renderGroup(items, key) {
   header.className = "schedule-table-header";
   header.innerHTML = `
     <div>
-      <span class="eyebrow">${TURNOS[turno] || turno}</span>
-      <h3>${periodo}º período${turma ? ` · Turma ${turma}` : ""}</h3>
-      <p>Semestre ${semestre}. Grade semanal com aulas por dia e horário.</p>
+      <span class="schedule-card-kicker">${TURNOS[turno] || turno}</span>
+      <h2>${periodo}º período${turma ? ` · Turma ${turma}` : ""}</h2>
+      <p>Semestre ${semestre}. Grade semanal organizada por dia e horário.</p>
     </div>
-    <span class="status-badge">${items.length} registro${items.length === 1 ? "" : "s"}</span>
+    <div class="schedule-table-meta" aria-label="Informações da grade atual">
+      <span>${meta.total ? `${meta.index + 1} de ${meta.total}` : "Grade"}</span>
+      <strong>${items.length} registro${items.length === 1 ? "" : "s"}</strong>
+    </div>
   `;
   card.appendChild(header);
 
@@ -244,6 +271,68 @@ function renderGroup(items, key) {
   return card;
 }
 
+function moveCarousel(direction) {
+  const groups = getGroups(getFilteredItems());
+  if (!groups.length) return;
+  activeGroupIndex = (activeGroupIndex + direction + groups.length) % groups.length;
+  renderSchedule();
+}
+
+function renderCarousel(groups) {
+  activeGroupIndex = Math.min(Math.max(activeGroupIndex, 0), groups.length - 1);
+  const [activeKey, activeItems] = groups[activeGroupIndex];
+
+  const carousel = document.createElement("div");
+  carousel.className = "schedule-carousel";
+
+  const previous = document.createElement("button");
+  previous.type = "button";
+  previous.className = "schedule-carousel-nav is-prev";
+  previous.setAttribute("aria-label", "Ver período anterior");
+  previous.disabled = groups.length <= 1;
+  previous.textContent = "‹";
+  previous.addEventListener("click", () => moveCarousel(-1));
+
+  const next = document.createElement("button");
+  next.type = "button";
+  next.className = "schedule-carousel-nav is-next";
+  next.setAttribute("aria-label", "Ver próximo período");
+  next.disabled = groups.length <= 1;
+  next.textContent = "›";
+  next.addEventListener("click", () => moveCarousel(1));
+
+  const viewport = document.createElement("div");
+  viewport.className = "schedule-carousel-viewport";
+  viewport.appendChild(renderGroup(activeItems, activeKey, {
+    index: activeGroupIndex,
+    total: groups.length,
+  }));
+
+  carousel.appendChild(previous);
+  carousel.appendChild(viewport);
+  carousel.appendChild(next);
+
+  const rail = document.createElement("div");
+  rail.className = "schedule-carousel-rail";
+  rail.setAttribute("aria-label", "Atalhos de períodos disponíveis");
+
+  groups.forEach(([key], index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `schedule-period-chip ${index === activeGroupIndex ? "is-active" : ""}`.trim();
+    button.textContent = groupLabel(key);
+    button.setAttribute("aria-pressed", index === activeGroupIndex ? "true" : "false");
+    button.addEventListener("click", () => {
+      activeGroupIndex = index;
+      renderSchedule();
+    });
+    rail.appendChild(button);
+  });
+
+  board.appendChild(carousel);
+  board.appendChild(rail);
+}
+
 function renderSchedule() {
   if (!board) return;
   const items = getFilteredItems();
@@ -257,18 +346,13 @@ function renderSchedule() {
     return;
   }
 
-  const groups = new Map();
-  items.forEach((item) => {
-    const key = groupKey(item);
-    if (!groups.has(key)) groups.set(key, []);
-    groups.get(key).push(item);
-  });
+  const groups = getGroups(items);
+  renderCarousel(groups);
+}
 
-  [...groups.entries()]
-    .sort(([a], [b]) => a.localeCompare(b, "pt-BR", { numeric: true }))
-    .forEach(([key, groupItems]) => {
-      board.appendChild(renderGroup(groupItems, key));
-    });
+function resetCarouselAndRender() {
+  activeGroupIndex = 0;
+  renderSchedule();
 }
 
 async function loadSchedule() {
@@ -291,12 +375,12 @@ async function loadSchedule() {
   horarios = data || [];
 
   fillFilters();
-  renderSchedule();
-  setStatus(horarios.length ? "Horários carregados com sucesso." : "Nenhum horário cadastrado ainda. Peça à administração para preencher o módulo.", horarios.length ? "success" : "info");
+  resetCarouselAndRender();
+  setStatus(horarios.length ? "Horários carregados. Use as setas para alternar entre os períodos disponíveis." : "Nenhum horário cadastrado ainda. Peça à administração para preencher o módulo.", horarios.length ? "success" : "info");
 }
 
 [semesterSelect, periodSelect, shiftSelect].forEach((select) => {
-  select?.addEventListener("change", renderSchedule);
+  select?.addEventListener("change", resetCarouselAndRender);
 });
 
 loadSchedule().catch((error) => {

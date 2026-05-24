@@ -156,14 +156,34 @@ function setupForms() {
       }
 
       if (isContactForm && (!assunto || !mensagem)) {
-        feedback.textContent = 'Selecione o assunto e escreva sua mensagem antes de simular o envio.';
+        feedback.textContent = 'Selecione o assunto e escreva sua mensagem antes de abrir o e-mail institucional.';
         feedback.classList.add('error');
         return;
       }
 
-      feedback.textContent = isContactForm
-        ? 'Mensagem validada visualmente. Quando houver backend, este envio poderá ser conectado ao canal oficial do curso.'
-        : 'Cadastro de interesse registrado visualmente. Depois podemos conectar esse formulário ao backend.';
+      if (isContactForm) {
+        const recipient = form.dataset.contactRecipient || 'cces@belojardim.ifpe.edu.br';
+        const subject = encodeURIComponent(`[Contato pelo site] ${assunto}`);
+        const body = encodeURIComponent(
+          `Nome: ${nome}
+` +
+          `E-mail de retorno: ${email}
+` +
+          `Assunto: ${assunto}
+
+` +
+          `Mensagem:
+${mensagem}`
+        );
+
+        feedback.textContent = 'Abrindo seu aplicativo de e-mail com a mensagem direcionada para a coordenação.';
+        feedback.classList.add('success');
+        window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+        form.reset();
+        return;
+      }
+
+      feedback.textContent = 'Cadastro de interesse registrado visualmente. Depois podemos conectar esse formulário ao backend.';
       feedback.classList.add('success');
       form.reset();
     });
@@ -276,53 +296,6 @@ function createStudentLinkCard(item) {
   return article;
 }
 
-function createCalendarItem(item) {
-  const article = document.createElement('article');
-  article.className = 'calendar-item';
-  article.dataset.calendarCategory = item.categoria || 'todos';
-
-  const dot = document.createElement('div');
-  dot.className = 'calendar-dot';
-  dot.textContent = item.marcador || '•';
-  article.appendChild(dot);
-
-  const card = document.createElement('div');
-  card.className = 'calendar-card';
-
-  const header = document.createElement('div');
-  header.className = 'calendar-card-header';
-
-  const tag = document.createElement('small');
-  tag.textContent = item.etiqueta || item.categoria || 'Data';
-  header.appendChild(tag);
-
-  const date = document.createElement('span');
-  date.className = 'status-badge';
-  date.textContent = item.data || 'A confirmar';
-  header.appendChild(date);
-  card.appendChild(header);
-
-  const title = document.createElement('h3');
-  title.textContent = item.titulo;
-  card.appendChild(title);
-
-  const summary = document.createElement('p');
-  summary.textContent = item.resumo;
-  card.appendChild(summary);
-
-  if (item.status) {
-    const tags = document.createElement('div');
-    tags.className = 'calendar-tags';
-    const status = document.createElement('span');
-    status.textContent = item.status;
-    tags.appendChild(status);
-    card.appendChild(tags);
-  }
-
-  article.appendChild(card);
-  return article;
-}
-
 function renderCollection(selector, data, factory) {
   const container = document.querySelector(selector);
   if (!container || !Array.isArray(data)) return;
@@ -336,7 +309,6 @@ renderCollection('[data-render="noticias"]', dadosSite.noticias, createUpdateCar
 renderCollection('[data-render="eventos"]', dadosSite.eventos, createUpdateCard);
 renderCollection('[data-render="depoimentos"]', dadosSite.depoimentos, createTestimonialCard);
 renderCollection('[data-render="links-aluno"]', dadosSite.linksAluno, createStudentLinkCard);
-renderCollection('[data-render="calendario"]', dadosSite.calendarioAcademico, createCalendarItem);
 
 function setupRevealAnimations() {
   const revealItems = document.querySelectorAll('.reveal');
