@@ -75,7 +75,29 @@
         <label><span>Resumo</span><textarea name="resumo" rows="3" placeholder="Resumo curto do edital." required></textarea></label>
         <label><span>Descrição/orientações</span><textarea name="descricao" rows="4" placeholder="Orientações, público-alvo, documentos, prazos e observações."></textarea></label>
         <div class="admin-form-row compact-three"><label><span>Publicação</span><input type="date" name="data_publicacao" /></label><label><span>Prazo final</span><input type="date" name="data_limite" /></label><label><span>Órgão/setor</span><input type="text" name="orgao" placeholder="Setor responsável" /></label></div>
-        <label><span>Link do edital/PDF</span><input type="url" name="link_documento" placeholder="https://..." /></label>
+        <fieldset class="admin-form-fieldset">
+          <legend>Documento ou link do edital</legend>
+          <p>Escolha uma opção: usar link externo, enviar PDF do computador ou publicar somente o texto do comunicado.</p>
+          <div class="admin-check-row is-radio-row">
+            <label><input type="radio" name="documento_origem" value="link" checked /><span>Link externo</span></label>
+            <label><input type="radio" name="documento_origem" value="pdf" /><span>PDF</span></label>
+            <label><input type="radio" name="documento_origem" value="nenhum" /><span>Sem link/PDF</span></label>
+          </div>
+        </fieldset>
+        <div data-document-source="link">
+          <label><span>Link oficial</span><input type="url" name="link_documento" placeholder="https://..." /></label>
+        </div>
+        <div data-document-source="pdf" hidden>
+          <label>
+            <span>PDF oficial</span>
+            <input type="file" name="documento_pdf" accept="application/pdf,.pdf" data-edital-file />
+            <small class="admin-field-hint" data-current-document>Nenhum PDF selecionado.</small>
+          </label>
+          <label>
+            <span>Texto do botão</span>
+            <input type="text" name="pdf_label" placeholder="Abrir edital PDF" />
+          </label>
+        </div>
         <div class="admin-check-row"><label><input type="checkbox" name="visivel" checked /><span>Visível na página pública</span></label></div>
         <div class="admin-form-actions"><button class="admin-submit" type="submit">Salvar edital</button><button class="admin-secondary-action" type="button" data-clear-form>Limpar</button></div>
       </form>
