@@ -156,14 +156,34 @@ function setupForms() {
       }
 
       if (isContactForm && (!assunto || !mensagem)) {
-        feedback.textContent = 'Selecione o assunto e escreva sua mensagem antes de simular o envio.';
+        feedback.textContent = 'Selecione o assunto e escreva sua mensagem antes de abrir o e-mail institucional.';
         feedback.classList.add('error');
         return;
       }
 
-      feedback.textContent = isContactForm
-        ? 'Mensagem validada visualmente. Quando houver backend, este envio poderá ser conectado ao canal oficial do curso.'
-        : 'Cadastro de interesse registrado visualmente. Depois podemos conectar esse formulário ao backend.';
+      if (isContactForm) {
+        const recipient = form.dataset.contactRecipient || 'cces@belojardim.ifpe.edu.br';
+        const subject = encodeURIComponent(`[Contato pelo site] ${assunto}`);
+        const body = encodeURIComponent(
+          `Nome: ${nome}
+` +
+          `E-mail de retorno: ${email}
+` +
+          `Assunto: ${assunto}
+
+` +
+          `Mensagem:
+${mensagem}`
+        );
+
+        feedback.textContent = 'Abrindo seu aplicativo de e-mail com a mensagem direcionada para a coordenação.';
+        feedback.classList.add('success');
+        window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+        form.reset();
+        return;
+      }
+
+      feedback.textContent = 'Cadastro de interesse registrado visualmente. Depois podemos conectar esse formulário ao backend.';
       feedback.classList.add('success');
       form.reset();
     });
