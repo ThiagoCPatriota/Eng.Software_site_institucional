@@ -4448,3 +4448,37 @@
     border-radius: 22px;
   }
 }
+
+/* Ajustes do módulo Chamadas e vínculo */
+.admin-form-fieldset {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(0, 48, 27, 0.12);
+  border-radius: 16px;
+  padding: 16px;
+  background: rgba(249, 252, 250, 0.74);
+}
+
+.admin-form-fieldset legend {
+  padding: 0 8px;
+  color: var(--color-primary, #003f2a);
+  font-weight: 900;
+}
+
+.admin-form-fieldset p {
+  margin: 0;
+  color: var(--color-muted, #60756c);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.admin-check-row.is-radio-row {
+  align-items: stretch;
+}
+
+.admin-check-row.is-radio-row label {
+  border: 1px solid rgba(0, 48, 27, 0.12);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #fff;
+}

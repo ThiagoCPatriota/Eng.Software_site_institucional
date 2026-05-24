@@ -81,140 +81,38 @@
   </header>
 
   <main id="conteudo">
-    <section class="calls-intro" aria-labelledby="titulo-pagina">
-      <div class="container calls-intro-grid">
-        <div class="calls-intro-copy reveal">
-          <span class="calls-kicker">IFPE Campus Belo Jardim</span>
-          <h1 id="titulo-pagina">Chamadas e vínculo</h1>
-          <p>
-            Central de acompanhamento para listas de aprovados, remanejamento, matrícula inicial,
-            rematrícula, reingresso e comunicados vinculados ao curso de Engenharia de Software.
-            Esta página organiza os documentos publicados e direciona para canais oficiais quando necessário.
-          </p>
-
-          <div class="calls-metrics" aria-label="Resumo rápido da página">
-            <article>
-              <strong>Listas</strong>
-              <span>Aprovados</span>
-            </article>
-            <article>
-              <strong>Chamadas</strong>
-              <span>Remanejamento</span>
-            </article>
-            <article>
-              <strong>Vínculo</strong>
-              <span>Matrícula e retorno</span>
-            </article>
+    <section class="calls-board" id="listas" data-aprovados-page aria-labelledby="titulo-pagina">
+      <div class="container calls-board-container">
+        <div class="calls-board-header reveal">
+          <div class="calls-title-block">
+            <span class="calls-kicker">Acompanhamento acadêmico</span>
+            <h1 id="titulo-pagina">Chamadas e Vínculo</h1>
+            <p>
+              Acesse editais, convocações e procedimentos institucionais referentes a matrículas,
+              transferências, remanejamentos, reingresso e processos seletivos.
+            </p>
           </div>
-        </div>
 
-        <aside class="calls-guide-card reveal" aria-label="Orientação sobre chamadas e vínculo">
-          <span class="guide-card-label">Acompanhamento acadêmico</span>
-          <h2>Consulte listas, PDFs e orientações em um só lugar.</h2>
-          <p>
-            Use os cards abaixo para acessar documentos publicados. Prazos, convocações e procedimentos
-            continuam valendo conforme os editais e sistemas oficiais do IFPE.
-          </p>
-          <div class="guide-card-actions">
-            <a class="btn btn-primary" href="#listas">Ver publicações</a>
-            <a class="btn btn-secondary" href="ingresso.html">Formas de ingresso</a>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section calls-status-section" aria-labelledby="titulo-status-chamadas">
-      <div class="container">
-        <div class="section-heading centered reveal">
-          <span class="eyebrow">Organização</span>
-          <h2 id="titulo-status-chamadas">O que você encontra nesta página.</h2>
-          <p>
-            As informações ficam separadas por situação para facilitar a consulta de candidatos,
-            aprovados e estudantes que precisam acompanhar vínculo acadêmico.
-          </p>
-        </div>
-
-        <div class="calls-path-grid">
-          <article class="calls-path-card featured reveal">
-            <span class="path-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M8 6h12"/><path d="M8 12h12"/><path d="M8 18h12"/><path d="m3 6 1 1 2-2"/><path d="m3 12 1 1 2-2"/><path d="m3 18 1 1 2-2"/></svg>
+          <form class="calls-search" role="search" aria-label="Buscar chamadas e documentos">
+            <label class="sr-only" for="busca-chamadas">Buscar por edital ou ano</label>
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="m21 21-4.35-4.35"/><circle cx="11" cy="11" r="7"/></svg>
             </span>
-            <span>Listas</span>
-            <h3>Aprovados</h3>
-            <p>Publicações de resultado, listas de chamada e documentos de acompanhamento para candidatos.</p>
-          </article>
-
-          <article class="calls-path-card reveal">
-            <span class="path-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M7 7h11a2 2 0 0 1 2 2v9"/><path d="M7 3 3 7l4 4"/><path d="M17 21l4-4-4-4"/><path d="M4 16h11a2 2 0 0 0 2-2V5"/></svg>
-            </span>
-            <span>Convocações</span>
-            <h3>Remanejamento</h3>
-            <p>Novas chamadas, orientações complementares e movimentações relacionadas a vagas.</p>
-          </article>
-
-          <article class="calls-path-card reveal">
-            <span class="path-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
-            </span>
-            <span>Vínculo</span>
-            <h3>Matrícula, rematrícula e reingresso</h3>
-            <p>Orientações para entrada, renovação de vínculo ou retorno acadêmico quando houver publicação.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section results-board-section" id="listas" data-aprovados-page aria-labelledby="titulo-listas">
-      <div class="container">
-        <div class="section-heading centered reveal">
-          <span class="eyebrow">Publicações</span>
-          <h2 id="titulo-listas">Documentos e orientações disponíveis.</h2>
-          <p>Consulte PDFs, listas, comunicados e links oficiais cadastrados pela administração do curso.</p>
+            <input id="busca-chamadas" type="search" placeholder="Buscar por edital ou ano..." data-calls-search />
+          </form>
         </div>
 
-        <div class="calls-official-note reveal" aria-label="Aviso sobre canais oficiais">
-          <strong>Atenção aos canais oficiais</strong>
-          <span>Esta página facilita o acesso às informações, mas não substitui editais, sistemas acadêmicos ou comunicações oficiais do IFPE.</span>
+        <div class="calls-filters reveal" aria-label="Filtros de chamadas e vínculo">
+          <button type="button" class="is-active" data-calls-filter="todos">Todos</button>
+          <button type="button" data-calls-filter="aprovados">Listas de aprovados</button>
+          <button type="button" data-calls-filter="remanejamento">Remanejamento</button>
+          <button type="button" data-calls-filter="matricula">Matrícula inicial</button>
+          <button type="button" data-calls-filter="rematricula">Rematrícula</button>
+          <button type="button" data-calls-filter="reingresso">Reingresso</button>
+          <button type="button" data-calls-filter="geral">Comunicados gerais</button>
         </div>
 
-        <div class="results-grid">
-          <article class="results-column reveal">
-            <span>Lista</span>
-            <h3>Aprovados</h3>
-            <div class="results-list" data-aprovados-list="aprovados"></div>
-          </article>
-
-          <article class="results-column reveal">
-            <span>Chamada</span>
-            <h3>Remanejamento</h3>
-            <div class="results-list" data-aprovados-list="remanejamento"></div>
-          </article>
-
-          <article class="results-column reveal">
-            <span>Matrícula</span>
-            <h3>Matrícula inicial</h3>
-            <div class="results-list" data-aprovados-list="matricula"></div>
-          </article>
-
-          <article class="results-column reveal">
-            <span>Aluno atual</span>
-            <h3>Rematrícula</h3>
-            <div class="results-list" data-aprovados-list="rematricula"></div>
-          </article>
-
-          <article class="results-column reveal">
-            <span>Retorno</span>
-            <h3>Reingresso</h3>
-            <div class="results-list" data-aprovados-list="reingresso"></div>
-          </article>
-
-          <article class="results-column reveal">
-            <span>Geral</span>
-            <h3>Comunicados gerais</h3>
-            <div class="results-list" data-aprovados-list="geral"></div>
-          </article>
-        </div>
+        <div class="calls-results-grid reveal" data-aprovados-results aria-live="polite"></div>
 
         <div class="projects-empty-state" data-aprovados-empty>Nenhuma chamada, lista ou orientação publicada no momento.</div>
       </div>

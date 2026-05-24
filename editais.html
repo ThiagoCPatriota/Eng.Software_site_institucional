@@ -81,35 +81,38 @@
   </header>
 
   <main id="conteudo">
-    <section class="page-hero editais-page-hero" aria-labelledby="titulo-editais">
-      <div class="container projects-hero-single">
-        <div class="page-hero-content reveal">
-          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Início</a><span>•</span><span>Editais</span></nav>
-          <span class="eyebrow">Editais</span>
-          <h1 id="titulo-editais">Editais e comunicados para a comunidade acadêmica.</h1>
-          <p>Consulte editais relacionados a moradia, manutenção, auxílios, seleção e outros comunicados publicados pela administração do curso.</p>
-          <div class="projects-hero-actions"><a class="btn btn-primary" href="#lista-editais">Ver editais</a><a class="btn btn-secondary" href="ingresso.html">Ver ingresso</a></div>
-        </div>
-      </div>
-    </section>
+    <section class="edicts-board" id="lista-editais" aria-labelledby="titulo-editais">
+      <div class="container edicts-board-container">
+        <div class="edicts-board-header reveal">
+          <div class="edicts-title-block">
+            <span class="edicts-kicker">Editais e comunicados</span>
+            <h1 id="titulo-editais">Editais</h1>
+            <p>
+              Consulte chamadas, auxílios, seleções, manutenção estudantil e comunicados oficiais
+              publicados para a comunidade acadêmica do curso.
+            </p>
+          </div>
 
-    <section class="section editais-section" id="lista-editais" aria-labelledby="titulo-lista-editais">
-      <div class="container">
-        <div class="section-heading reveal">
-          <span class="eyebrow">Publicações oficiais</span>
-          <h2 id="titulo-lista-editais">Editais disponíveis.</h2>
-          <p>Filtre por categoria e abra o documento ou link oficial quando estiver disponível.</p>
+          <form class="edicts-search" role="search" aria-label="Buscar editais publicados">
+            <label class="sr-only" for="busca-editais">Buscar por edital, número ou ano</label>
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="m21 21-4.35-4.35"/><circle cx="11" cy="11" r="7"/></svg>
+            </span>
+            <input id="busca-editais" type="search" placeholder="Buscar por edital, número ou ano..." data-editais-search />
+          </form>
         </div>
-        <div class="project-filter-bar reveal" aria-label="Filtro de editais">
+
+        <div class="edicts-filters reveal" aria-label="Filtros de editais">
           <button class="is-active" type="button" data-edital-public-filter="todos">Todos</button>
           <button type="button" data-edital-public-filter="moradia">Moradia</button>
           <button type="button" data-edital-public-filter="manutencao">Manutenção</button>
           <button type="button" data-edital-public-filter="auxilio">Auxílios</button>
           <button type="button" data-edital-public-filter="selecao">Seleção</button>
-          <button type="button" data-edital-public-filter="geral">Geral</button>
+          <button type="button" data-edital-public-filter="geral">Comunicados gerais</button>
         </div>
-        <div class="editais-grid" data-editais-list></div>
-        <div class="projects-empty-state" data-editais-empty>Nenhum edital encontrado para este filtro.</div>
+
+        <div class="edicts-results-grid reveal" data-editais-list aria-live="polite"></div>
+        <div class="projects-empty-state" data-editais-empty>Nenhum edital encontrado para este filtro ou busca.</div>
       </div>
     </section>
   </main>
