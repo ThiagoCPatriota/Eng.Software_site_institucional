@@ -583,3 +583,129 @@
   }
 }
 
+
+
+/* Cases de sucesso com imagem e espaço para novos depoimentos */
+.success-grid-cases {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.success-case-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.success-case-card::before {
+  display: none;
+}
+
+.success-case-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e9f4ef, #f6fbf8);
+}
+
+.success-case-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.success-case-media-placeholder {
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.success-case-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  border: 1.5px dashed rgba(0, 116, 83, 0.26);
+  border-radius: 14px;
+  color: #4e675e;
+  background: rgba(255, 255, 255, 0.58);
+  text-align: center;
+}
+
+.success-case-placeholder span {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: #dcefe6;
+  color: #007453;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.success-case-placeholder strong {
+  color: #003f2a;
+  font-size: 0.98rem;
+}
+
+.success-case-content {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+}
+
+.success-case-content h3 {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.2;
+}
+
+.success-case-quote {
+  margin: 0;
+  color: #526860;
+  line-height: 1.65;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.success-case-person {
+  display: grid;
+  gap: 4px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 48, 27, 0.09);
+}
+
+.success-case-person strong {
+  color: #003f2a;
+  font-size: 0.96rem;
+}
+
+.success-case-person span {
+  color: #667c74;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 1024px) {
+  .success-grid-cases {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .success-grid-cases {
+    grid-template-columns: 1fr;
+  }
+
+  .success-case-content {
+    padding: 20px;
+  }
+}
